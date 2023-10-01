@@ -1,5 +1,16 @@
 # :hibiscus: Perfume web store
 
+To debug this project, first git clone to local. Then pull a postgres image and run container: 
+```shell
+docker pull postgres:12
+docker run -d --name postgresVidar -p 5432:5432 -e POSTGRES_PASSWORD=pass123 postgres:12
+```
+And create database and change password of user 'postgres'
+```sql
+CREATE DATABASE perfume;
+ALTER USER postgres WITH PASSWORD 'root';
+```
+
 This E-commerce project built on Spring Boot.<br>
 Deployed on Amazon web services EC2.<br>
 See demo below.
