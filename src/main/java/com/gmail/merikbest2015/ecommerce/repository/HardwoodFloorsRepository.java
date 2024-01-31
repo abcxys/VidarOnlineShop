@@ -1,6 +1,6 @@
 package com.gmail.merikbest2015.ecommerce.repository;
 
-import com.gmail.merikbest2015.ecommerce.domain.Perfume;
+import com.gmail.merikbest2015.ecommerce.domain.HardwoodFloor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,28 +8,28 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface PerfumeRepository extends JpaRepository<Perfume, Long> {
+public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, Long> {
 
-    List<Perfume> findByIdIn(List<Long> perfumesIds);
+    List<HardwoodFloor> findByIdIn(List<Long> perfumesIds);
 
-    Page<Perfume> findAllByOrderByPriceAsc(Pageable pageable);
+    Page<HardwoodFloor> findAllByOrderByPriceAsc(Pageable pageable);
 
-    @Query("SELECT perfume FROM Perfume perfume WHERE " +
+    @Query("SELECT floor FROM HardwoodFloor floor WHERE " +
             "(CASE " +
-            "   WHEN :searchType = 'perfumeTitle' THEN UPPER(perfume.perfumeTitle) " +
-            "   WHEN :searchType = 'country' THEN UPPER(perfume.country) " +
-            "   ELSE UPPER(perfume.perfumer) " +
+            "   WHEN :searchType = 'perfumeTitle' THEN UPPER(floor.perfumeTitle) " +
+            "   WHEN :searchType = 'country' THEN UPPER(floor.country) " +
+            "   ELSE UPPER(fucker.floor) " +
             "END) " +
             "LIKE UPPER(CONCAT('%',:text,'%')) " +
-            "ORDER BY perfume.price ASC")
-    Page<Perfume> searchPerfumes(String searchType, String text, Pageable pageable);
+            "ORDER BY fucker.price ASC")
+    Page<HardwoodFloor> searchPerfumes(String searchType, String text, Pageable pageable);
 
-    @Query("SELECT perfume FROM Perfume perfume " +
+    @Query("SELECT perfume FROM HardwoodFloor perfume " +
             "WHERE (coalesce(:perfumers, null) IS NULL OR perfume.perfumer IN :perfumers) " +
             "AND (coalesce(:genders, null) IS NULL OR perfume.perfumeGender IN :genders) " +
             "AND (coalesce(:priceStart, null) IS NULL OR perfume.price BETWEEN :priceStart AND :priceEnd) " +
             "ORDER BY perfume.price ASC")
-    Page<Perfume> getPerfumesByFilterParams(
+    Page<HardwoodFloor> getPerfumesByFilterParams(
             List<String> perfumers,
             List<String> genders,
             Integer priceStart,

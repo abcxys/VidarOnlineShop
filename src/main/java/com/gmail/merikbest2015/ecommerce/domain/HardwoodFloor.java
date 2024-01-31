@@ -5,18 +5,18 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "perfumes")
+@Table(name = "hardwoodfloors")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id"})
-public class Perfume {
+public class HardwoodFloor {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "perfume_id_seq")
-    @SequenceGenerator(name = "perfume_id_seq", sequenceName = "perfume_id_seq", initialValue = 109, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "hardwoodfloor_id_seq")
+    @SequenceGenerator(name = "hardwoodfloor_id_seq", sequenceName = "hardwoodfloor_id_seq", initialValue = 109, allocationSize = 1)
     private Long id;
 
     @Column(name = "perfume_title", nullable = false)

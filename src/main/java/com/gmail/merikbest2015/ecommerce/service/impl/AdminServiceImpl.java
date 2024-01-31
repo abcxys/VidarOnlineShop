@@ -3,14 +3,14 @@ package com.gmail.merikbest2015.ecommerce.service.impl;
 import com.gmail.merikbest2015.ecommerce.constants.ErrorMessage;
 import com.gmail.merikbest2015.ecommerce.constants.SuccessMessage;
 import com.gmail.merikbest2015.ecommerce.domain.Order;
-import com.gmail.merikbest2015.ecommerce.domain.Perfume;
+import com.gmail.merikbest2015.ecommerce.domain.HardwoodFloor;
 import com.gmail.merikbest2015.ecommerce.domain.User;
 import com.gmail.merikbest2015.ecommerce.dto.request.PerfumeRequest;
 import com.gmail.merikbest2015.ecommerce.dto.request.SearchRequest;
 import com.gmail.merikbest2015.ecommerce.dto.response.MessageResponse;
 import com.gmail.merikbest2015.ecommerce.dto.response.UserInfoResponse;
 import com.gmail.merikbest2015.ecommerce.repository.OrderRepository;
-import com.gmail.merikbest2015.ecommerce.repository.PerfumeRepository;
+import com.gmail.merikbest2015.ecommerce.repository.HardwoodFloorsRepository;
 import com.gmail.merikbest2015.ecommerce.repository.UserRepository;
 import com.gmail.merikbest2015.ecommerce.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -37,17 +37,17 @@ public class AdminServiceImpl implements AdminService {
     private String uploadPath;
 
     private final UserRepository userRepository;
-    private final PerfumeRepository perfumeRepository;
+    private final HardwoodFloorsRepository perfumeRepository;
     private final OrderRepository orderRepository;
     private final ModelMapper modelMapper;
 
     @Override
-    public Page<Perfume> getPerfumes(Pageable pageable) {
+    public Page<HardwoodFloor> getPerfumes(Pageable pageable) {
         return perfumeRepository.findAllByOrderByPriceAsc(pageable);
     }
 
     @Override
-    public Page<Perfume> searchPerfumes(SearchRequest request, Pageable pageable) {
+    public Page<HardwoodFloor> searchPerfumes(SearchRequest request, Pageable pageable) {
         return perfumeRepository.searchPerfumes(request.getSearchType(), request.getText(), pageable);
     }
 
@@ -79,7 +79,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Perfume getPerfumeById(Long perfumeId) {
+    public HardwoodFloor getPerfumeById(Long perfumeId) {
         return perfumeRepository.findById(perfumeId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PERFUME_NOT_FOUND));
     }
@@ -107,7 +107,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     private MessageResponse savePerfume(PerfumeRequest perfumeRequest, MultipartFile file, String message) throws IOException {
-        Perfume perfume = modelMapper.map(perfumeRequest, Perfume.class);
+        HardwoodFloor perfume = modelMapper.map(perfumeRequest, HardwoodFloor.class);
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
 

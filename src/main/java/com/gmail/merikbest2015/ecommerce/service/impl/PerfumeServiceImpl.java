@@ -1,9 +1,9 @@
 package com.gmail.merikbest2015.ecommerce.service.impl;
 
 import com.gmail.merikbest2015.ecommerce.constants.ErrorMessage;
-import com.gmail.merikbest2015.ecommerce.domain.Perfume;
+import com.gmail.merikbest2015.ecommerce.domain.HardwoodFloor;
 import com.gmail.merikbest2015.ecommerce.dto.request.SearchRequest;
-import com.gmail.merikbest2015.ecommerce.repository.PerfumeRepository;
+import com.gmail.merikbest2015.ecommerce.repository.HardwoodFloorsRepository;
 import com.gmail.merikbest2015.ecommerce.service.PerfumeService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,23 +20,23 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PerfumeServiceImpl implements PerfumeService {
 
-    private final PerfumeRepository perfumeRepository;
+    private final HardwoodFloorsRepository perfumeRepository;
     private final ModelMapper modelMapper;
 
     @Override
-    public Perfume getPerfumeById(Long perfumeId) {
+    public HardwoodFloor getPerfumeById(Long perfumeId) {
         return perfumeRepository.findById(perfumeId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PERFUME_NOT_FOUND));
     }
 
     @Override
-    public List<Perfume> getPopularPerfumes() {
+    public List<HardwoodFloor> getPopularPerfumes() {
         List<Long> perfumeIds = Arrays.asList(26L, 43L, 46L, 106L, 34L, 76L, 82L, 85L, 27L, 39L, 79L, 86L);
         return perfumeRepository.findByIdIn(perfumeIds);
     }
 
     @Override
-    public Page<Perfume> getPerfumesByFilterParams(SearchRequest request, Pageable pageable) {
+    public Page<HardwoodFloor> getPerfumesByFilterParams(SearchRequest request, Pageable pageable) {
         Integer startingPrice = request.getPrice();
         Integer endingPrice = startingPrice + (startingPrice == 0 ? 500 : 50);
         return perfumeRepository.getPerfumesByFilterParams(
@@ -48,7 +48,7 @@ public class PerfumeServiceImpl implements PerfumeService {
     }
 
     @Override
-    public Page<Perfume> searchPerfumes(SearchRequest request, Pageable pageable) {
+    public Page<HardwoodFloor> searchPerfumes(SearchRequest request, Pageable pageable) {
         return perfumeRepository.searchPerfumes(request.getSearchType(), request.getText(), pageable);
     }
 }

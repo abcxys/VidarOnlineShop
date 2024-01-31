@@ -1,7 +1,7 @@
 package com.gmail.merikbest2015.ecommerce.service;
 
 import com.gmail.merikbest2015.ecommerce.domain.Order;
-import com.gmail.merikbest2015.ecommerce.domain.Perfume;
+import com.gmail.merikbest2015.ecommerce.domain.HardwoodFloor;
 import com.gmail.merikbest2015.ecommerce.domain.User;
 import com.gmail.merikbest2015.ecommerce.dto.request.PerfumeRequest;
 import com.gmail.merikbest2015.ecommerce.dto.request.SearchRequest;
@@ -13,9 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface AdminService {
 
-    Page<Perfume> getPerfumes(Pageable pageable);
+    Page<HardwoodFloor> getPerfumes(Pageable pageable);
 
-    Page<Perfume> searchPerfumes(SearchRequest request, Pageable pageable);
+    Page<HardwoodFloor> searchPerfumes(SearchRequest request, Pageable pageable);
 
     Page<User> getUsers(Pageable pageable);
 
@@ -27,7 +27,7 @@ public interface AdminService {
 
     Page<Order> searchOrders(SearchRequest request, Pageable pageable);
 
-    Perfume getPerfumeById(Long perfumeId);
+    HardwoodFloor getPerfumeById(Long perfumeId);
 
     MessageResponse editPerfume(PerfumeRequest perfumeRequest, MultipartFile file);
 

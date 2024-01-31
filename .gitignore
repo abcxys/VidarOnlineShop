@@ -1,2 +1,6 @@
 # Project exclude paths
 /target/
+/.classpath
+/.factorypath
+/.gitignore
+/.project

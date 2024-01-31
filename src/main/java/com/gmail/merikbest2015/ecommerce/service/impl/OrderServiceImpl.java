@@ -2,7 +2,7 @@ package com.gmail.merikbest2015.ecommerce.service.impl;
 
 import com.gmail.merikbest2015.ecommerce.constants.ErrorMessage;
 import com.gmail.merikbest2015.ecommerce.domain.Order;
-import com.gmail.merikbest2015.ecommerce.domain.Perfume;
+import com.gmail.merikbest2015.ecommerce.domain.HardwoodFloor;
 import com.gmail.merikbest2015.ecommerce.domain.User;
 import com.gmail.merikbest2015.ecommerce.dto.request.OrderRequest;
 import com.gmail.merikbest2015.ecommerce.repository.OrderRepository;
@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Perfume> getOrdering() {
+    public List<HardwoodFloor> getOrdering() {
         User user = userService.getAuthenticatedUser();
         return user.getPerfumeList();
     }
