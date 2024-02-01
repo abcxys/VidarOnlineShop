@@ -31,7 +31,7 @@ public class PerfumeServiceImpl implements PerfumeService {
 
     @Override
     public List<HardwoodFloor> getPopularPerfumes() {
-        List<Long> perfumeIds = Arrays.asList(26L, 43L, 46L, 106L, 34L, 76L, 82L, 85L, 27L, 39L, 79L, 86L);
+        List<Long> perfumeIds = Arrays.asList(1L, 2L, 3L, 4L, 5L);
         return perfumeRepository.findByIdIn(perfumeIds);
     }
 
