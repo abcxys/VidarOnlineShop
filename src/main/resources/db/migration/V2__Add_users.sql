@@ -13,3 +13,6 @@ values(3, 'ivan123@test.com', 'Ivan', 'Ivanov', 'Moscow', 'Tverskaya street 1', 
 insert into user_role (user_id, roles) values (1, 'ADMIN');
 insert into user_role (user_id, roles) values (2, 'USER');
 insert into user_role (user_id, roles) values (3, 'USER');
+
+insert into plank_sizes	(id, width_in_inch, length, thickness_in_inch, squarefoot_per_carton, description)
+values	(1, '6', 'RL', '3/4', '19.96', '');

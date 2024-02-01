@@ -10,7 +10,7 @@ psql -U postgres
 ```sql
 CREATE DATABASE hardwoodfloor;
 ALTER USER postgres WITH PASSWORD 'root';
-\c perfume;         //Enter the database
+\c hardwoodfloor;         //Enter the database
 \i /home/migration/V1__Init_DB.sql  //You need to move the scripts in docker system directory before running them
 ```
 Run table initialization scripts in docker shell before running springboot

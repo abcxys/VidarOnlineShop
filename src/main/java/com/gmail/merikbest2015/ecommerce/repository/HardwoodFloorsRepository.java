@@ -18,10 +18,10 @@ public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, L
             "(CASE " +
             "   WHEN :searchType = 'perfumeTitle' THEN UPPER(floor.perfumeTitle) " +
             "   WHEN :searchType = 'country' THEN UPPER(floor.country) " +
-            "   ELSE UPPER(fucker.floor) " +
+            "   ELSE UPPER(floor.perfumer) " +
             "END) " +
             "LIKE UPPER(CONCAT('%',:text,'%')) " +
-            "ORDER BY fucker.price ASC")
+            "ORDER BY floor.price ASC")
     Page<HardwoodFloor> searchPerfumes(String searchType, String text, Pageable pageable);
 
     @Query("SELECT perfume FROM HardwoodFloor perfume " +
