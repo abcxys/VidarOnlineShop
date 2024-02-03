@@ -35,10 +35,10 @@ values (1, 'American White Oak', null, null);
 insert into wood_species (id, name, country, description)
 values (2, 'American Black Walnut', null, null);
 
-insert into plank_style (id, name, description)
+insert into installation_patterns (id, name, description)
 values (1, 'regular', null);
-insert into plank_style (id, name, description)
-values (2, 'click', null);
+insert into installation_patterns (id, name, description)
+values (2, 'Herringbone', null);
 
 insert into grades (id, name, alias, description)
 values (1, 'Character', 'ABCD', null);
@@ -50,4 +50,4 @@ values (3, 'Select & Better', 'AB', null);
 insert into joint_types (id, name, description)
 values (1, 'Regular', null);
 insert into joint_types (id, name, description)
-values (2, 'Herringbone', null);
+values (2, 'Click', null);

@@ -57,4 +57,7 @@ public class HardwoodFloor {
 
     @Column(name = "type", nullable = false)
     private String type;
+    
+    @Column(name = "plank_size_id", nullable = false)
+    private Long plank_size_id;
 }

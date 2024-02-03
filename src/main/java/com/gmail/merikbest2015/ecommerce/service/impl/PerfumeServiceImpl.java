@@ -2,8 +2,10 @@ package com.gmail.merikbest2015.ecommerce.service.impl;
 
 import com.gmail.merikbest2015.ecommerce.constants.ErrorMessage;
 import com.gmail.merikbest2015.ecommerce.domain.HardwoodFloor;
+import com.gmail.merikbest2015.ecommerce.domain.PlankSize;
 import com.gmail.merikbest2015.ecommerce.dto.request.SearchRequest;
 import com.gmail.merikbest2015.ecommerce.repository.HardwoodFloorsRepository;
+import com.gmail.merikbest2015.ecommerce.repository.PlankSizeRepository;
 import com.gmail.merikbest2015.ecommerce.service.PerfumeService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,6 +23,7 @@ import java.util.List;
 public class PerfumeServiceImpl implements PerfumeService {
 
     private final HardwoodFloorsRepository perfumeRepository;
+    private final PlankSizeRepository plankSizeRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -32,6 +35,9 @@ public class PerfumeServiceImpl implements PerfumeService {
     @Override
     public List<HardwoodFloor> getPopularPerfumes() {
         List<Long> perfumeIds = Arrays.asList(1L, 2L, 3L, 4L, 5L);
+        List<HardwoodFloor> floors = perfumeRepository.findByIdIn(perfumeIds);
+        List<Long> plank_size_ids = perfumeRepository.getPlankSizeIdsByIds(perfumeIds, null);
+        List<PlankSize> plank_sizes = plankSizeRepository.findByIdIn(plank_size_ids);
         return perfumeRepository.findByIdIn(perfumeIds);
     }
 
