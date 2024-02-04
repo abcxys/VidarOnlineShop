@@ -24,6 +24,7 @@ public class PerfumeController {
     @GetMapping("/{perfumeId}")
     public String getPerfumeById(@PathVariable Long perfumeId, Model model) {
         model.addAttribute("perfume", perfumeService.getPerfumeById(perfumeId));
+        model.addAttribute("plankColor", perfumeService.getHardwoodColorById(perfumeId));
         return Pages.PERFUME;
     }
 

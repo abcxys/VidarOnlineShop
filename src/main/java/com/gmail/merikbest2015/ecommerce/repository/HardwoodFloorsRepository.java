@@ -41,4 +41,10 @@ public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, L
     List<Long> getPlankSizeIdsByIds(
     		List<Long> ids,
     		Pageable pageable);
+    
+    @Query("SELECT plank_color_id FROM HardwoodFloor floor " +
+            "WHERE (coalesce(:ids, null) IS NULL OR floor.id IN :ids) ")
+    List<Long> getPlankColorIdsByIds(
+    		List<Long> ids,
+    		Pageable pageable);
 }

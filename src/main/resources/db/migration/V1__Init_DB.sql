@@ -1,5 +1,6 @@
 create sequence hardwoodfloor_id_seq start 1 increment 1;
 create sequence plank_size_id_seq start 1 increment 1;
+create sequence plank_color_id_seq start 1 increment 1;
 create sequence users_id_seq start 4 increment 1;
 create sequence order_item_seq start 12 increment 1;
 create sequence orders_seq start 6 increment 1;
@@ -105,10 +106,14 @@ create table hardwoodfloors
     volume                 varchar(255) not null,
     year                   int4 not null,
     plank_size_id           int8 not null,
+    plank_color_id          int8 not null,
     PRIMARY KEY(id),
     CONSTRAINT fk_plank_size_id
         FOREIGN KEY(plank_size_id)
-            REFERENCES plank_sizes(id)
+            REFERENCES plank_sizes(id),
+    CONSTRAINT fk_plank_color_id
+        FOREIGN KEY(plank_color_id)
+            REFERENCES plank_colors(id)
 );
 create table user_role
 (

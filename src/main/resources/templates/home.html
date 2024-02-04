@@ -89,10 +89,10 @@
                             <div class="carousel-item active">
                                 <div class="container">
                                     <div class="row" th:fragment="list">
-                                        <th:block th:replace="fragments/perfumes-fragments :: perfume-item(${perfumes[0]})"/>
-                                        <th:block th:replace="fragments/perfumes-fragments :: perfume-item(${perfumes[1]})"/>
-                                        <th:block th:replace="fragments/perfumes-fragments :: perfume-item(${perfumes[2]})"/>
-                                        <th:block th:replace="fragments/perfumes-fragments :: perfume-item(${perfumes[3]})"/>
+                                        <th:block th:replace="fragments/perfumes-fragments :: perfume-item(${perfumes[0]}, ${plankColors[0]})"/>
+                                        <th:block th:replace="fragments/perfumes-fragments :: perfume-item(${perfumes[1]}, ${plankColors[1]})"/>
+                                        <th:block th:replace="fragments/perfumes-fragments :: perfume-item(${perfumes[2]}, ${plankColors[2]})"/>
+                                        <th:block th:replace="fragments/perfumes-fragments :: perfume-item(${perfumes[3]}, ${plankColors[3]})"/>
                                     </div>
                                 </div>
                             </div>

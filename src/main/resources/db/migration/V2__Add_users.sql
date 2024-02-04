@@ -29,6 +29,12 @@ insert into plank_colors (id, name, alias, description)
 values (2, 'Naked Oak', 'NAK', null);
 insert into plank_colors (id, name, alias, description)
 values (3, 'Smoke Grey', 'SMG', null);
+insert into plank_colors (id, name, alias, description)
+values (4, 'Drift Wood', 'DFW', null);
+insert into plank_colors (id, name, alias, description)
+values (5, 'Landmark', 'LMK', null);
+insert into plank_colors (id, name, alias, description)
+values (6, 'Fortino', 'FTN', null);
 
 insert into wood_species (id, name, country, description)
 values (1, 'American White Oak', null, null);

@@ -60,4 +60,7 @@ public class HardwoodFloor {
     
     @Column(name = "plank_size_id", nullable = false)
     private Long plank_size_id;
+    
+    @Column(name = "plank_color_id", nullable = false)
+    private Long plank_color_id;
 }
