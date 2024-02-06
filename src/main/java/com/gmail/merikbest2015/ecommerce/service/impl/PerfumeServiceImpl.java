@@ -1,6 +1,7 @@
 package com.gmail.merikbest2015.ecommerce.service.impl;
 
 import com.gmail.merikbest2015.ecommerce.constants.ErrorMessage;
+import com.gmail.merikbest2015.ecommerce.domain.FloorColorSize;
 import com.gmail.merikbest2015.ecommerce.domain.HardwoodFloor;
 import com.gmail.merikbest2015.ecommerce.domain.PlankColor;
 import com.gmail.merikbest2015.ecommerce.domain.PlankSize;
@@ -44,12 +45,14 @@ public class PerfumeServiceImpl implements PerfumeService {
     }
 
     @Override
-    public List<HardwoodFloor> getPopularPerfumes() {
+    public List<FloorColorSize> getPopularPerfumes() {
         List<Long> perfumeIds = Arrays.asList(1L, 2L, 3L, 4L, 5L);
-        List<HardwoodFloor> floors = perfumeRepository.findByIdIn(perfumeIds);
-        List<Long> plank_size_ids = perfumeRepository.getPlankSizeIdsByIds(perfumeIds, null);
-        List<PlankSize> plank_sizes = plankSizeRepository.findByIdIn(plank_size_ids);
-        return perfumeRepository.findByIdIn(perfumeIds);
+//        List<HardwoodFloor> floors = perfumeRepository.findByIdIn(perfumeIds);
+//        List<Long> plank_size_ids = perfumeRepository.getPlankSizeIdsByIds(perfumeIds, null);
+//        List<PlankSize> plank_sizes = plankSizeRepository.findByIdIn(plank_size_ids);
+//        FloorColorSize object = perfumeRepository.findFloorColorById(1L);
+//        return perfumeRepository.findByIdIn(perfumeIds);
+        return perfumeRepository.findFloorColorByIdIn(perfumeIds);
     }
 
     @Override

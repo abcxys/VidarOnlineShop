@@ -1,5 +1,6 @@
 package com.gmail.merikbest2015.ecommerce.repository;
 
+import com.gmail.merikbest2015.ecommerce.domain.FloorColorSize;
 import com.gmail.merikbest2015.ecommerce.domain.HardwoodFloor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,4 +48,18 @@ public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, L
     List<Long> getPlankColorIdsByIds(
     		List<Long> ids,
     		Pageable pageable);
+    
+    @Query(nativeQuery = true, value = "SELECT floor.id as id, floor.filename as filename, color.name as colorName, size.width_in_inch as width, size.length as length, " + 
+    		"size.thickness_in_inch as thickness, squarefoot_per_carton as sqftPerCarton FROM hardwoodfloors floor " +
+    		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
+    		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
+    		"WHERE floor.id = :id")
+    FloorColorSize findFloorColorById(Long id);
+    
+    @Query(nativeQuery = true, value = "SELECT floor.id as id, floor.filename as filename, color.name as colorName, size.width_in_inch as width, size.length as length, " + 
+    		"size.thickness_in_inch as thickness, squarefoot_per_carton as sqftPerCarton FROM hardwoodfloors floor " +
+    		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
+    		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
+    		"WHERE floor.id IN :ids")
+    List<FloorColorSize> findFloorColorByIdIn(List<Long> ids);
 }

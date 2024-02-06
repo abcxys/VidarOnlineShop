@@ -80,7 +80,7 @@
                         <th:block th:if="${page.getContent().size() == 0}"
                                   th:insert="~{fragments/common-fragments :: empty-result(text='Perfumes not found')}"/>
                         <th:block th:unless="${page.getContent().size() == 0}" th:each="perfume : ${page.getContent()}">
-                            <th:block th:replace="fragments/perfumes-fragments :: perfume-item(${perfume}, ${plankColor})"/>
+                            <th:block th:replace="fragments/perfumes-fragments :: perfume-item(${perfume})"/>
                         </th:block>
                     </div>
                 </div>

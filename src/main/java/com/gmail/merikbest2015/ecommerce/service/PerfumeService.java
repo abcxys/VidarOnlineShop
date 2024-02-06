@@ -1,5 +1,6 @@
 package com.gmail.merikbest2015.ecommerce.service;
 
+import com.gmail.merikbest2015.ecommerce.domain.FloorColorSize;
 import com.gmail.merikbest2015.ecommerce.domain.HardwoodFloor;
 import com.gmail.merikbest2015.ecommerce.domain.PlankColor;
 import com.gmail.merikbest2015.ecommerce.dto.request.SearchRequest;
@@ -14,7 +15,7 @@ public interface PerfumeService {
     
     PlankColor getHardwoodColorById(Long perfumeId);
 
-    List<HardwoodFloor> getPopularPerfumes();
+    List<FloorColorSize> getPopularPerfumes();
     
     List<PlankColor> getPopularHardwoodFloorColors();
 

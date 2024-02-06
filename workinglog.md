@@ -23,3 +23,6 @@ Change ```SELECT perfume FROM Perfume perfume...``` to ```SELECT perfume FROM Ha
 To delete a databased, ```drop database [name]```
 If the database name is changed, change the setting in "application.properties"
 ```spring.datasource.url=jdbc:postgresql://localhost/[database name]```
+
+### Hibernate JPA findById interface returns Optional class
+To get entity object, use Optional object.get() to achieve.
