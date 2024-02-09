@@ -11,5 +11,9 @@ public interface FloorColorSize {
 	String getLength();
 	String getThickness();
 	double getSqftPerCarton();
+	String getWoodSpeciesName();
+	String getInstallationPatternName();
+	String getGradeName();
+	String getGradeAlias();
 	String getFilename();
 }

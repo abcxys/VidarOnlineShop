@@ -16,7 +16,6 @@ public class HomeController {
     @GetMapping
     public String home(Model model) {
         model.addAttribute("perfumes", perfumeService.getPopularPerfumes());
-        model.addAttribute("plankColors", perfumeService.getPopularHardwoodFloorColors());
         return Pages.HOME;
     }
 }

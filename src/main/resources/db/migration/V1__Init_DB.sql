@@ -107,13 +107,25 @@ create table hardwoodfloors
     year                   int4 not null,
     plank_size_id           int8 not null,
     plank_color_id          int8 not null,
+    wood_species_id         int8 not null,
+    installation_pattern_id int8 not null,
+    grade_id int8 not null,
     PRIMARY KEY(id),
     CONSTRAINT fk_plank_size_id
         FOREIGN KEY(plank_size_id)
             REFERENCES plank_sizes(id),
     CONSTRAINT fk_plank_color_id
         FOREIGN KEY(plank_color_id)
-            REFERENCES plank_colors(id)
+            REFERENCES plank_colors(id),
+    CONSTRAINT fk_wood_species_id
+        FOREIGN KEY(wood_species_id)
+            REFERENCES wood_species(id),
+    CONSTRAINT fk_installation_pattern_id
+        FOREIGN KEY(installation_pattern_id)
+            REFERENCES installation_patterns(id),
+    CONSTRAINT fk_grade_id
+        FOREIGN KEY(grade_id)
+            REFERENCES grades(id)
 );
 create table user_role
 (

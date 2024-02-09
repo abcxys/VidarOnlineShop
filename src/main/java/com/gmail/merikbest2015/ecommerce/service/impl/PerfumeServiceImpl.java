@@ -33,9 +33,10 @@ public class PerfumeServiceImpl implements PerfumeService {
     private final ModelMapper modelMapper;
 
     @Override
-    public HardwoodFloor getPerfumeById(Long perfumeId) {
-        return perfumeRepository.findById(perfumeId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PERFUME_NOT_FOUND));
+    public FloorColorSize getPerfumeById(Long perfumeId) {
+    	FloorColorSize result = perfumeRepository.findFloorColorById(perfumeId);
+    	if (result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PERFUME_NOT_FOUND);
+        return result;
     }
     
     @Override
@@ -56,7 +57,7 @@ public class PerfumeServiceImpl implements PerfumeService {
     }
 
     @Override
-    public Page<HardwoodFloor> getPerfumesByFilterParams(SearchRequest request, Pageable pageable) {
+    public Page<FloorColorSize> getPerfumesByFilterParams(SearchRequest request, Pageable pageable) {
         Integer startingPrice = request.getPrice();
         Integer endingPrice = startingPrice + (startingPrice == 0 ? 500 : 50);
         return perfumeRepository.getPerfumesByFilterParams(

@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface PerfumeService {
 
-    HardwoodFloor getPerfumeById(Long perfumeId);
+	FloorColorSize getPerfumeById(Long perfumeId);
     
     PlankColor getHardwoodColorById(Long perfumeId);
 
@@ -19,7 +19,7 @@ public interface PerfumeService {
     
     List<PlankColor> getPopularHardwoodFloorColors();
 
-    Page<HardwoodFloor> getPerfumesByFilterParams(SearchRequest searchRequest, Pageable pageable);
+    Page<FloorColorSize> getPerfumesByFilterParams(SearchRequest searchRequest, Pageable pageable);
 
     Page<HardwoodFloor> searchPerfumes(SearchRequest searchRequest, Pageable pageable);
 }
