@@ -52,7 +52,7 @@
                                 <th>Price</th>
                             </tr>
                             </thead>
-                            <tbody th:each="perfume : ${order.getPerfumes()}">
+                            <tbody th:each="perfume : ${order.getHardwoodfloors()}">
                             <tr>
                                 <th>
                                     <a th:href="@{/perfume/{perfumeId} (perfumeId = ${perfume.getId()})}" th:text="${perfume.getId()}"></a>
