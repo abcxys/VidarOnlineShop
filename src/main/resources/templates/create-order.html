@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common-fragments :: head"></head>
+<body>
+<div th:insert="~{fragments/common-fragments :: scripts}"></div>
+<div th:replace="fragments/common-fragments :: navbar"></div>
+<div id="container" class="bg-light">
+    <h2>Create Order</h2>
+
+<form id="orderForm">
+    <label for="customer">Customer:</label>
+    <select id="customer" name="customer">
+        <option value="customer1">Customer 1</option>
+        <option value="customer2">Customer 2</option>
+        <option value="customer3">Customer 3</option>
+        <!-- Add more customers as needed -->
+    </select>
+
+    <label for="items">Select Items:</label>
+
+    <div id="productContainer">
+        <div class="product-row">
+            <select class="item" name="item1">
+                <option value="item1a">Item 1A</option>
+                <option value="item1b">Item 1B</option>
+                <option value="item1c">Item 1C</option>
+                <!-- Add more items as needed -->
+            </select>
+            <button type="button" onclick="addProductRow()">+</button>
+        </div>
+    </div>
+
+    <button type="button" onclick="submitOrder()">Submit Order</button>
+</form>
+
+<script>
+    let productIdCounter = 2; // Counter for unique product IDs
+
+    function addProductRow() {
+        const productContainer = document.getElementById('productContainer');
+        const newProductRow = document.createElement('div');
+        newProductRow.classList.add('product-row');
+
+        const newSelect = document.createElement('select');
+        newSelect.classList.add('item');
+        newSelect.name = `item${productIdCounter}`;
+        // Add options to the new dropdown list as needed
+        // Example:
+        // newSelect.innerHTML = '<option value="newItem">New Item</option>';
+
+        const newButton = document.createElement('button');
+        newButton.type = 'button';
+        newButton.textContent = '+';
+        newButton.onclick = addProductRow;
+
+        newProductRow.appendChild(newSelect);
+        newProductRow.appendChild(newButton);
+        productContainer.appendChild(newProductRow);
+
+        productIdCounter++;
+    }
+
+    function submitOrder() {
+        // Add your logic to handle the form submission here
+        alert("Order submitted successfully!");
+    }
+</script>
+</div>
+<footer th:insert="~{fragments/common-fragments :: footer}"></footer>
+</body>
+</html>
