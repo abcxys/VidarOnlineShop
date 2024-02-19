@@ -57,3 +57,8 @@ insert into joint_types (id, name, description)
 values (1, 'Regular', null);
 insert into joint_types (id, name, description)
 values (2, 'Click', null);
+
+insert into store (id, name, address, phone_number)
+values(1, 'AA', '111', '111');
+insert into store (id, name, address, phone_number)
+values(2, 'Brampton', '222', '222');
