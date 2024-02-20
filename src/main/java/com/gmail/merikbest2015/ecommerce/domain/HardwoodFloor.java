@@ -4,6 +4,11 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "hardwoodfloors")
 @Getter
@@ -63,4 +68,7 @@ public class HardwoodFloor {
     
     @Column(name = "plank_color_id", nullable = false)
     private Long plank_color_id;
+    
+    @OneToMany(mappedBy = "hardwoodfloor")
+    private Set<FloorOrder> floorOrders = new HashSet<FloorOrder>();
 }

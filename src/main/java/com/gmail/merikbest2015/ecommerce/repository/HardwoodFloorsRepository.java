@@ -1,6 +1,7 @@
 package com.gmail.merikbest2015.ecommerce.repository;
 
 import com.gmail.merikbest2015.ecommerce.domain.FloorColorSize;
+import com.gmail.merikbest2015.ecommerce.domain.FloorOrder;
 import com.gmail.merikbest2015.ecommerce.domain.HardwoodFloor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

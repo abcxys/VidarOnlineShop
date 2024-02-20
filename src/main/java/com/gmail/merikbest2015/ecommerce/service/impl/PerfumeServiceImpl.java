@@ -4,8 +4,9 @@ import com.gmail.merikbest2015.ecommerce.constants.ErrorMessage;
 import com.gmail.merikbest2015.ecommerce.domain.FloorColorSize;
 import com.gmail.merikbest2015.ecommerce.domain.HardwoodFloor;
 import com.gmail.merikbest2015.ecommerce.domain.PlankColor;
-import com.gmail.merikbest2015.ecommerce.domain.PlankSize;
+import com.gmail.merikbest2015.ecommerce.domain.FloorOrder;
 import com.gmail.merikbest2015.ecommerce.dto.request.SearchRequest;
+import com.gmail.merikbest2015.ecommerce.repository.FloorOrderRepository;
 import com.gmail.merikbest2015.ecommerce.repository.HardwoodFloorsRepository;
 import com.gmail.merikbest2015.ecommerce.repository.PlankColorRepository;
 import com.gmail.merikbest2015.ecommerce.repository.PlankSizeRepository;
@@ -20,7 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 public class PerfumeServiceImpl implements PerfumeService {
 
     private final HardwoodFloorsRepository perfumeRepository;
+    private final FloorOrderRepository floorOrderRepository;
     private final PlankSizeRepository plankSizeRepository;
     private final PlankColorRepository plankColorRepository;
     private final ModelMapper modelMapper;
@@ -48,11 +49,6 @@ public class PerfumeServiceImpl implements PerfumeService {
     @Override
     public List<FloorColorSize> getPopularPerfumes() {
         List<Long> perfumeIds = Arrays.asList(1L, 2L, 3L, 4L, 5L);
-//        List<HardwoodFloor> floors = perfumeRepository.findByIdIn(perfumeIds);
-//        List<Long> plank_size_ids = perfumeRepository.getPlankSizeIdsByIds(perfumeIds, null);
-//        List<PlankSize> plank_sizes = plankSizeRepository.findByIdIn(plank_size_ids);
-//        FloorColorSize object = perfumeRepository.findFloorColorById(1L);
-//        return perfumeRepository.findByIdIn(perfumeIds);
         return perfumeRepository.findFloorColorByIdIn(perfumeIds);
     }
 

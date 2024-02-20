@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Column;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -15,7 +16,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "orders_hardwoodfloors")
-public class ItemOrder {
+public class FloorOrder {
 	@Id
 	private Long id;
 	
@@ -25,7 +26,8 @@ public class ItemOrder {
 	
 	@ManyToOne
 	@JoinColumn(name = "hardwoodfloors_id")
-	HardwoodFloor floor;
+	HardwoodFloor hardwoodfloor;
 	
+	@Column(name = "quantity")
 	float quantity;
 }
