@@ -3,7 +3,6 @@ package com.gmail.merikbest2015.ecommerce.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,35 +11,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gmail.merikbest2015.ecommerce.constants.Pages;
 import com.gmail.merikbest2015.ecommerce.constants.PathConstants;
 import com.gmail.merikbest2015.ecommerce.domain.DatatablesView;
-import com.gmail.merikbest2015.ecommerce.service.PackingService;
-import com.gmail.merikbest2015.ecommerce.domain.Order;
+import com.gmail.merikbest2015.ecommerce.domain.InventoryItem;
+import com.gmail.merikbest2015.ecommerce.service.InventoryService;
 
 import lombok.RequiredArgsConstructor;
 import net.sf.json.JSONObject;
 
 /**
  * @author yishi.xing
- * @created Feb 12, 2024 - 8:23:02 PM
+ * @created Feb 20, 2024 - 10:33:26 PM
  */
 @Controller
-@CrossOrigin(origins = "http://localhost:8080/")
 @RequiredArgsConstructor
-@RequestMapping(PathConstants.PACKING)
-public class PackingController {
+@RequestMapping(PathConstants.INVENTORY)
+public class InventoryController {
 	
 	@Autowired
-	private PackingService packingService;
+	private InventoryService inventoryService;
 	
 	@GetMapping
-    public String getPacking(Model model) {
-        return Pages.PACKING;
-    }
+	public String getInventory(Model model) {
+		return Pages.INVENTORY;
+	}
 	
-	@CrossOrigin(origins = {"http://localhost:8080/","http://www.google.com"},maxAge = 3600)
-	@RequestMapping(value = "/showOrders", method = RequestMethod.POST)
+	@RequestMapping(value = "/getAllStocks", method = RequestMethod.POST)
 	@ResponseBody
-	public String getAllOrders() {
-		DatatablesView<Order> datatablesView = packingService.getAllOrders();
+	public String getAllInventoryItems() {
+		DatatablesView<InventoryItem> datatablesView = inventoryService.getAllInventoryItems();
 		
 		return JSONObject.fromObject(datatablesView).toString();
 	}
