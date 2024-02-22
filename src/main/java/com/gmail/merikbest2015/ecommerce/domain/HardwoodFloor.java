@@ -68,7 +68,7 @@ public class HardwoodFloor {
     
     @Column(name = "plank_color_id", nullable = false)
     private Long plank_color_id;
-    
-    @OneToMany(mappedBy = "hardwoodfloor")
-    private Set<FloorOrder> floorOrders = new HashSet<FloorOrder>();
+//    
+//    @OneToMany(mappedBy = "hardwoodfloor")
+//    private Set<FloorOrder> floorOrders = new HashSet<FloorOrder>();
 }

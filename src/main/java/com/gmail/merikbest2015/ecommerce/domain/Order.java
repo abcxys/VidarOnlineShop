@@ -52,9 +52,9 @@ public class Order {
 	@JoinTable(name = "orders_hardwoodfloors", joinColumns = { @JoinColumn(name = "order_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "hardwoodfloors_id") })
 	private Set<HardwoodFloor> hardwoodfloors = new HashSet<>();
-	
-	@OneToMany(mappedBy = "order")
-    private Set<FloorOrder> floorOrders = new HashSet<FloorOrder>();
+//	
+//	@OneToMany(mappedBy = "order")
+//    private Set<FloorOrder> floorOrders = new HashSet<FloorOrder>();
 
     @ManyToOne
     private User user;
