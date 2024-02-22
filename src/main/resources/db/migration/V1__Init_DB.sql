@@ -149,7 +149,7 @@ create table inventory
     last_modified_at timestamp default null,
     current_quantity float(1) not null,
     initial_quantity float(1) not null,
-    description varchar(255),
+    description varchar(255) default null,
     floor_id    int8 not null,
     PRIMARY KEY(id),
     CONSTRAINT fk_floor_id
