@@ -4,6 +4,77 @@
 <body>
 <div th:insert="~{fragments/common-fragments :: scripts}"></div>
 <div th:replace="fragments/common-fragments :: navbar"></div>
+<div class="col-md-12">
+			<div class="box box-primary">
+				<form class="form-horizontal" role="form" style="justify-content: center">
+
+					<div class="box-body">
+						<div class="container-fluid mt-5 ml-1">
+							<div class="form-group row">
+								<div class="col-md-2 ml-2">
+									<div class="input-group">
+										<span class="input-group-addon" style="font-weight: bold; vertical-align: middle; line-height: 30px;"><i class="fa fa-fw fa-th-large"></i>&nbsp;Colour</span> 
+										<select id="colour" name="colour" data-live-search="true" class="form-control">
+												<option value="">Please select</option>
+	                        				<c:forEach items="${colours}" var="colour">
+	                        					<option value = "${colour.id}" >${colour.name}</option>
+	                        				</c:forEach>
+                            
+                    					</select>
+                    					<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueTumor('colour')">
+				           					<i class="fa fa-fw fa-eraser" title="clear"></i>
+				         				</div>
+									</div>
+								</div>
+								<div class="col-md-2 ml-2">
+									<div class="input-group">
+										<span class="input-group-addon" style="font-weight: bold;"><i class="fa fa-fw fa-qrcode"></i>&nbsp;样本编号</span> 
+										<input type="text" id="sampleId" placeholder="模糊匹配" class="form-control">
+										<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValue('sampleId')">
+	                      					<i class="fa fa-fw fa-eraser" title="清空值"></i>
+	                    				</div>
+									</div>
+								</div>
+								<div class="col-md-2 ml-2">
+									<div class="input-group">
+										<span class="input-group-addon" style="font-weight: bold;"><i class="fa fa-fw fa-th-large"></i>&nbsp;检测试剂盒</span> 
+										<select class="form-control" id="pdl1Kit">
+											<option value="">请选择</option>
+											<option value="SP263">Ventana SP263试剂盒</option>
+											<option value="22C3">Dako 22C3试剂盒</option>
+										</select>
+										<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValue('pdl1Kit')">
+	                      					<i class="fa fa-fw fa-eraser" title="清空值"></i>
+	                    				</div>
+									</div>
+								</div>
+								<div class="col-md-2 range-right">
+									<div class="input-group">
+										<span class="input-group-addon" style="font-weight: bold;"><i class="fa fa-calendar"></i>&nbsp;样本上传时间</span> 
+										<input type="text" id="sampleUploadTime" placeholder="yyyy/mm/dd - yyyy/mm/dd" class="form-control reservation" readonly="readonly">
+										<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValue('sampleUploadTime')">
+				           					<i class="fa fa-fw fa-eraser" title="清空值"></i>
+				         				</div>
+									</div>
+								</div>
+								<div class="pull-right">
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary"
+											id="searchSampleBtn">
+											<i class="fa fa-search"></i> 搜索
+										</button>
+										<button type="button" class="btn btn-primary"
+											onclick="javascript:location = location;">
+											<i class="fa fa-refresh"></i> 重置
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 <div class="bg-light">
     <div class="py-5">
         <div class="container py-5 bg-white shadow-sm card-height">
@@ -28,9 +99,6 @@
 <footer th:insert="~{fragments/common-fragments :: footer}"></footer>
 </body>
 </html>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 tables = $('#packingSlipTable').DataTable({
 	"serverSide" : true,//分页，取数据等等的都放到服务端去
