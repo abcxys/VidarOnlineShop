@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.gmail.merikbest2015.ecommerce.domain.ColorDict;
 import com.gmail.merikbest2015.ecommerce.domain.DatatablesView;
 import com.gmail.merikbest2015.ecommerce.domain.InventoryItem;
 import com.gmail.merikbest2015.ecommerce.repository.InventoryRepository;
@@ -30,5 +31,11 @@ public class InventoryServiceImpl implements InventoryService {
 		dataView.setData(stock);
 		dataView.setRecordsTotal(count);
 		return dataView;
+	}
+
+	@Override
+	public List<ColorDict> getColorDict() {
+		List<ColorDict> colorDict = inventoryRepository.findColorDict();
+		return colorDict;
 	}
 }

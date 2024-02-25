@@ -1,5 +1,8 @@
 package com.gmail.merikbest2015.ecommerce.service;
 
+import java.util.List;
+
+import com.gmail.merikbest2015.ecommerce.domain.ColorDict;
 import com.gmail.merikbest2015.ecommerce.domain.DatatablesView;
 import com.gmail.merikbest2015.ecommerce.domain.InventoryItem;
 
@@ -10,4 +13,6 @@ import com.gmail.merikbest2015.ecommerce.domain.InventoryItem;
 public interface InventoryService {
 	
 	DatatablesView<InventoryItem> getAllInventoryItems();
+	
+	List<ColorDict> getColorDict();
 }

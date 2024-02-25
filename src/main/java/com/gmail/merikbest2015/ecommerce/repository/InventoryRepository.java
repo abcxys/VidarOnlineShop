@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.gmail.merikbest2015.ecommerce.domain.ColorDict;
+import com.gmail.merikbest2015.ecommerce.domain.FloorColorSize;
 import com.gmail.merikbest2015.ecommerce.domain.Inventory;
 import com.gmail.merikbest2015.ecommerce.domain.InventoryItem;
 
@@ -20,4 +22,10 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
     		"LEFT JOIN grades grade ON floor.grade_id = grade.id")
     List<InventoryItem> findAllStocks();
+	
+	@Query(nativeQuery = true, value = "SELECT DISTINCT color.id AS id, color.name as colorName, color.alias as colorAlias "
+			+ "FROM hardwoodfloors floor "
+			+ "LEFT JOIN plank_colors color "
+			+ "ON floor.plank_color_id = color.id")
+    List<ColorDict> findColorDict();
 }

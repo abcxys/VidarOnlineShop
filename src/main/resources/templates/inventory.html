@@ -14,12 +14,9 @@
 								<div class="col-md-2 ml-2">
 									<div class="input-group">
 										<span class="input-group-addon" style="font-weight: bold; vertical-align: middle; line-height: 30px;"><i class="fa fa-fw fa-th-large"></i>&nbsp;Colour</span> 
-										<select id="colour" name="colour" data-live-search="true" class="form-control">
+										<select id="colour" name="colour" data-live-search="true" class="form-control" th:field="${colorDict}">
 												<option value="">Please select</option>
-	                        				<c:forEach items="${colours}" var="colour">
-	                        					<option value = "${colour.id}" >${colour.name}</option>
-	                        				</c:forEach>
-                            
+                            				<option th:each="color : ${colorDict}" th:value="${color.getId()}" th:text="${color.getColorName()}"></option>
                     					</select>
                     					<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueTumor('colour')">
 				           					<i class="fa fa-fw fa-eraser" title="clear"></i>

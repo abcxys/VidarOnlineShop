@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.List;
 
 import com.gmail.merikbest2015.ecommerce.constants.Pages;
 import com.gmail.merikbest2015.ecommerce.constants.PathConstants;
 import com.gmail.merikbest2015.ecommerce.domain.DatatablesView;
 import com.gmail.merikbest2015.ecommerce.domain.InventoryItem;
+import com.gmail.merikbest2015.ecommerce.domain.ColorDict;
 import com.gmail.merikbest2015.ecommerce.service.InventoryService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,6 +33,8 @@ public class InventoryController {
 	
 	@GetMapping
 	public String getInventory(Model model) {
+		List<ColorDict> colorDict =  inventoryService.getColorDict();
+		model.addAttribute("colorDict", colorDict);
 		return Pages.INVENTORY;
 	}
 	
