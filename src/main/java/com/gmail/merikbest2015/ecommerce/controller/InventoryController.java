@@ -13,6 +13,7 @@ import com.gmail.merikbest2015.ecommerce.constants.Pages;
 import com.gmail.merikbest2015.ecommerce.constants.PathConstants;
 import com.gmail.merikbest2015.ecommerce.domain.DatatablesView;
 import com.gmail.merikbest2015.ecommerce.domain.InventoryItem;
+import com.gmail.merikbest2015.ecommerce.domain.WidthDict;
 import com.gmail.merikbest2015.ecommerce.domain.ColorDict;
 import com.gmail.merikbest2015.ecommerce.service.InventoryService;
 
@@ -34,7 +35,9 @@ public class InventoryController {
 	@GetMapping
 	public String getInventory(Model model) {
 		List<ColorDict> colorDict =  inventoryService.getColorDict();
+		List<WidthDict> widthDict = inventoryService.getWidthDict();
 		model.addAttribute("colorDict", colorDict);
+		model.addAttribute("widthDict", widthDict);
 		return Pages.INVENTORY;
 	}
 	

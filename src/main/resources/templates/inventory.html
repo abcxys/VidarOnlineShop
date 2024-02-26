@@ -25,10 +25,13 @@
 								</div>
 								<div class="col-md-2 ml-2">
 									<div class="input-group">
-										<span class="input-group-addon" style="font-weight: bold;"><i class="fa fa-fw fa-qrcode"></i>&nbsp;样本编号</span> 
-										<input type="text" id="sampleId" placeholder="模糊匹配" class="form-control">
-										<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValue('sampleId')">
-	                      					<i class="fa fa-fw fa-eraser" title="清空值"></i>
+										<span class="input-group-addon" style="font-weight: bold; vertical-align: middle; line-height: 30px;"><i class="fa fa-fw fa-th-large"></i>&nbsp;Width</span> 
+										<select id="width" name="width" data-live-search="true" class="form-control" th:field="${widthDict}">
+												<option value="">Please select</option>
+                            				<option th:each="width : ${widthDict}" th:value="${width.getId()}" th:text="${width.getWidthInInch()} + '&quot;'"></option>
+                    					</select>
+										<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValue('width')">
+	                      					<i class="fa fa-fw fa-eraser" title="clear"></i>
 	                    				</div>
 									</div>
 								</div>
