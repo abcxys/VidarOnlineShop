@@ -9,6 +9,7 @@ import com.gmail.merikbest2015.ecommerce.domain.ColorDict;
 import com.gmail.merikbest2015.ecommerce.domain.FloorColorSize;
 import com.gmail.merikbest2015.ecommerce.domain.Inventory;
 import com.gmail.merikbest2015.ecommerce.domain.InventoryItem;
+import com.gmail.merikbest2015.ecommerce.domain.SpeciesDict;
 import com.gmail.merikbest2015.ecommerce.domain.WidthDict;
 
 /**
@@ -35,4 +36,10 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 			+ "LEFT JOIN plank_sizes size "
 			+ "ON floor.plank_size_id = size.id")
     List<WidthDict> findWidthDict();
+	
+	@Query(nativeQuery = true, value = "SELECT DISTINCT species.id AS id, species.name AS name "
+			+ "FROM hardwoodfloors floor "
+			+ "LEFT JOIN wood_species species "
+			+ "ON floor.wood_species_id = species.id")
+    List<SpeciesDict> findSpeciesDict();
 }

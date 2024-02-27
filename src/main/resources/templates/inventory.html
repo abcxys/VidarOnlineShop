@@ -13,38 +13,34 @@
 							<div class="form-group row">
 								<div class="col-md-2 ml-2">
 									<div class="input-group">
-										<span class="input-group-addon" style="font-weight: bold; vertical-align: middle; line-height: 30px;"><i class="fa fa-fw fa-th-large"></i>&nbsp;Colour</span> 
-										<select id="colour" name="colour" data-live-search="true" class="form-control" th:field="${colorDict}">
-												<option value="">Please select</option>
+										<select id="colour" name="colour" data-live-search="true" class="selectpicker" th:field="${colorDict}">
+												<option value="">Colour</option>
                             				<option th:each="color : ${colorDict}" th:value="${color.getId()}" th:text="${color.getColorName()}"></option>
                     					</select>
-                    					<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueTumor('colour')">
+                    					<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('colour')">
 				           					<i class="fa fa-fw fa-eraser" title="clear"></i>
 				         				</div>
 									</div>
 								</div>
 								<div class="col-md-2 ml-2">
 									<div class="input-group">
-										<span class="input-group-addon" style="font-weight: bold; vertical-align: middle; line-height: 30px;"><i class="fa fa-fw fa-th-large"></i>&nbsp;Width</span> 
-										<select id="width" name="width" data-live-search="true" class="form-control" th:field="${widthDict}">
-												<option value="">Please select</option>
+										<select id="width" name="width" data-live-search="true" class="selectpicker" th:field="${widthDict}">
+												<option value="">Width</option>
                             				<option th:each="width : ${widthDict}" th:value="${width.getId()}" th:text="${width.getWidthInInch()} + '&quot;'"></option>
                     					</select>
-										<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValue('width')">
+										<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('width')">
 	                      					<i class="fa fa-fw fa-eraser" title="clear"></i>
 	                    				</div>
 									</div>
 								</div>
 								<div class="col-md-2 ml-2">
 									<div class="input-group">
-										<span class="input-group-addon" style="font-weight: bold;"><i class="fa fa-fw fa-th-large"></i>&nbsp;检测试剂盒</span> 
-										<select class="form-control" id="pdl1Kit">
-											<option value="">请选择</option>
-											<option value="SP263">Ventana SP263试剂盒</option>
-											<option value="22C3">Dako 22C3试剂盒</option>
-										</select>
-										<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValue('pdl1Kit')">
-	                      					<i class="fa fa-fw fa-eraser" title="清空值"></i>
+										<select id="species" name="species" data-live-search="true" class="selectpicker" th:field="${speciesDict}">
+												<option value="">Species</option>
+                            				<option th:each="species : ${speciesDict}" th:value="${species.getId()}" th:text="${species.getName()}"></option>
+                    					</select>
+										<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('species')">
+	                      					<i class="fa fa-fw fa-eraser" title="clear"></i>
 	                    				</div>
 									</div>
 								</div>
@@ -60,12 +56,12 @@
 								<div class="pull-right">
 									<div class="btn-group">
 										<button type="button" class="btn btn-primary"
-											id="searchSampleBtn">
-											<i class="fa fa-search"></i> 搜索
+											id="searchInventoryBtn">
+											<i class="fa fa-search"></i> Search
 										</button>
 										<button type="button" class="btn btn-primary"
 											onclick="javascript:location = location;">
-											<i class="fa fa-refresh"></i> 重置
+											<i class="fa fa-refresh"></i> Reset
 										</button>
 									</div>
 								</div>
@@ -113,13 +109,14 @@ tables = $('#packingSlipTable').DataTable({
 	"sPaginationType" : "full_numbers",
 	ajax : {
 		type : "post",
-		url : "http://localhost:8080/inventory/getAllStocks",
+		url : "/inventory/getAllStocks",
 		dataSrc : "data",
 		data : function (d) {
 			var param = {};
 			param.draw = d.draw;
 			param.startPos = d.start;
 			param.pageSize = d.length;
+			param.colour = $('#colour').val();
 			return param;
 		},
 	    "error": function (data) {
@@ -142,5 +139,9 @@ tables = $('#packingSlipTable').DataTable({
 			return '<input type="checkbox" class="call-checkbox" name="checkbox-id" value="' + '">';
 		}
 	}]
+});
+
+$("#searchInventoryBtn").on("click", function () {
+	tables.draw();
 });
 </script>

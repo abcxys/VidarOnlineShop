@@ -26,3 +26,8 @@ If the database name is changed, change the setting in "application.properties"
 
 ### Hibernate JPA findById interface returns Optional class
 To get entity object, use Optional object.get() to achieve.
+
+### How to setup a login page with Spring Security?
+
+### The loading order of Bootstrap, Bootstrap-select, Jquery?
+Bootstrap-select must be loaded after Bootstrap, Jquery should be loaded before Bootstrap and only one verion of Jquery loaded.

@@ -12,7 +12,8 @@ import java.util.List;
 
 @Data
 public class UserPrincipal implements UserDetails {
-    private final Long id;
+	private static final long serialVersionUID = 1L;
+	private final Long id;
     private final String password;
     private final String email;
     private final boolean active;
