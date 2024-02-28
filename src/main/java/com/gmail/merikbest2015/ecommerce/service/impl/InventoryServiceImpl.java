@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.gmail.merikbest2015.ecommerce.domain.ColorDict;
 import com.gmail.merikbest2015.ecommerce.domain.DatatablesView;
+import com.gmail.merikbest2015.ecommerce.domain.GradeDict;
 import com.gmail.merikbest2015.ecommerce.domain.InventoryItem;
 import com.gmail.merikbest2015.ecommerce.domain.SpeciesDict;
 import com.gmail.merikbest2015.ecommerce.domain.WidthDict;
@@ -51,5 +52,11 @@ public class InventoryServiceImpl implements InventoryService {
 	public List<SpeciesDict> getSpeciesDict() {
 		List<SpeciesDict> speciesDict = inventoryRepository.findSpeciesDict();
 		return speciesDict;
+	}
+
+	@Override
+	public List<GradeDict> getGradeDict() {
+		List<GradeDict> gradeDict = inventoryRepository.findGradeDict();
+		return gradeDict;
 	}
 }

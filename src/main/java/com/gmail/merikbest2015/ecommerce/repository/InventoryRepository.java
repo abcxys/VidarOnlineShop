@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.gmail.merikbest2015.ecommerce.domain.ColorDict;
 import com.gmail.merikbest2015.ecommerce.domain.FloorColorSize;
+import com.gmail.merikbest2015.ecommerce.domain.GradeDict;
 import com.gmail.merikbest2015.ecommerce.domain.Inventory;
 import com.gmail.merikbest2015.ecommerce.domain.InventoryItem;
 import com.gmail.merikbest2015.ecommerce.domain.SpeciesDict;
@@ -42,4 +43,10 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 			+ "LEFT JOIN wood_species species "
 			+ "ON floor.wood_species_id = species.id")
     List<SpeciesDict> findSpeciesDict();
+	
+	@Query(nativeQuery = true, value = "SELECT DISTINCT grades.id AS id, grades.name AS gradeName, grades.alias as gradeAlias "
+			+ "FROM hardwoodfloors floor "
+			+ "LEFT JOIN grades grades "
+			+ "ON floor.grade_id = grades.id")
+    List<GradeDict> findGradeDict();
 }

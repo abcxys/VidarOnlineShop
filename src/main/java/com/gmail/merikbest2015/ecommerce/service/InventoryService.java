@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gmail.merikbest2015.ecommerce.domain.ColorDict;
 import com.gmail.merikbest2015.ecommerce.domain.DatatablesView;
+import com.gmail.merikbest2015.ecommerce.domain.GradeDict;
 import com.gmail.merikbest2015.ecommerce.domain.InventoryItem;
 import com.gmail.merikbest2015.ecommerce.domain.SpeciesDict;
 import com.gmail.merikbest2015.ecommerce.domain.WidthDict;
@@ -21,4 +22,6 @@ public interface InventoryService {
 	List<WidthDict> getWidthDict();
 	
 	List<SpeciesDict> getSpeciesDict();
+	
+	List<GradeDict> getGradeDict();
 }
