@@ -119,6 +119,9 @@ tables = $('#packingSlipTable').DataTable({
 			param.startPos = d.start;
 			param.pageSize = d.length;
 			param.colour = $('#colour').val();
+			param.width = $('#width').val();
+			param.species = $('#species').val();
+			param.grade = $('#grade').val();
 			return param;
 		},
 	    "error": function (data) {

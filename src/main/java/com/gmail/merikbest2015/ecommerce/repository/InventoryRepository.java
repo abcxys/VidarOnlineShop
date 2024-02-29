@@ -26,6 +26,21 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     		"LEFT JOIN grades grade ON floor.grade_id = grade.id")
     List<InventoryItem> findAllStocks();
 	
+	@Query(nativeQuery = true, value = 
+			"SELECT size.width_in_inch as width, color.name as colorName, " + 
+			"grade.alias as gradeAlias, inventory.current_quantity as stock FROM " +
+			"inventory inventory " +
+    		"LEFT JOIN hardwoodfloors floor ON floor.id = inventory.floor_id " +
+    		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
+    		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
+    		"LEFT JOIN grades grade ON floor.grade_id = grade.id " +
+    		"WHERE (:colourId = -1 or color.id = :colourId) " + 
+    		"AND (:widthId = -1 or size.id = :widthId) " + 
+    		"AND (:gradeId = -1 or grade.id = :gradeId) ")
+    List<InventoryItem> findFilteredStocks(int colourId,
+			int widthId,
+			int gradeId);
+	
 	@Query(nativeQuery = true, value = "SELECT DISTINCT color.id AS id, color.name as colorName, color.alias as colorAlias "
 			+ "FROM hardwoodfloors floor "
 			+ "LEFT JOIN plank_colors color "

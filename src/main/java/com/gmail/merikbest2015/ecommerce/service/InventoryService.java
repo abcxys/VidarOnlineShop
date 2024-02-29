@@ -17,6 +17,11 @@ public interface InventoryService {
 	
 	DatatablesView<InventoryItem> getAllInventoryItems();
 	
+	DatatablesView<InventoryItem> getFilteredInventoryItems(int colourId,
+			int widthId,
+			int speciesId,
+			int gradeId);
+	
 	List<ColorDict> getColorDict();
 	
 	List<WidthDict> getWidthDict();

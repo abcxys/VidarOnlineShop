@@ -17,4 +17,5 @@ public class InventoryFilterConditionForm {
 	private String colour;
 	private String width;
 	private String species;
+	private String grade;
 }

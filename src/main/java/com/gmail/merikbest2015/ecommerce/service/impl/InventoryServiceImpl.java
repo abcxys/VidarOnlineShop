@@ -35,6 +35,18 @@ public class InventoryServiceImpl implements InventoryService {
 		dataView.setRecordsTotal(count);
 		return dataView;
 	}
+	
+	@Override
+	public DatatablesView<InventoryItem> getFilteredInventoryItems(int colourId, int widthId, int speciesId,
+			int gradeId) {
+		DatatablesView<InventoryItem> dataView = new DatatablesView<InventoryItem>();
+		List<InventoryItem> stock = inventoryRepository.findFilteredStocks(colourId, widthId,
+				gradeId);
+		int count = (int) inventoryRepository.count();
+		dataView.setData(stock);
+		dataView.setRecordsTotal(count);
+		return dataView;
+	}
 
 	@Override
 	public List<ColorDict> getColorDict() {
