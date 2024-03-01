@@ -49,7 +49,7 @@ public class InventoryController {
 		return Pages.INVENTORY;
 	}
 	
-	@RequestMapping(value = "/getAllStocks", method = RequestMethod.POST)
+	@RequestMapping(value = "/getFilteredStocks", method = RequestMethod.POST)
 	@ResponseBody
 	public String getAllInventoryItems(InventoryFilterConditionForm inventoryFilterConditionForm) {
 		//DatatablesView<InventoryItem> datatablesView = inventoryService.getAllInventoryItems();

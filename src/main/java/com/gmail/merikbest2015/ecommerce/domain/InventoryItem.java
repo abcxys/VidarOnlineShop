@@ -9,5 +9,6 @@ public interface InventoryItem {
 	String getWidth();
 	String getColorName();
 	String getGradeAlias();
+	String getSpeciesName();
 	double getStock();
 }

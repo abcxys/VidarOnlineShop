@@ -82,6 +82,7 @@
 						<thead>
 							<tr class="info">
 								<th><input type="checkbox" name="select_all" value="1" id="example-select-all" onclick="checkAll()"></th>
+								<th>Species</th>
 								<th>Width(inch)</th>
 								<th>Colour</th>
 								<th>Grade</th>
@@ -111,7 +112,7 @@ tables = $('#packingSlipTable').DataTable({
 	"sPaginationType" : "full_numbers",
 	ajax : {
 		type : "post",
-		url : "/inventory/getAllStocks",
+		url : "/inventory/getFilteredStocks",
 		dataSrc : "data",
 		data : function (d) {
 			var param = {};
@@ -130,6 +131,7 @@ tables = $('#packingSlipTable').DataTable({
 	},
 	columns : [
 	    {"data" : '', "bSortable" : false},
+	    {"data" : 'speciesName', "bSortable" : true},
 	    {"data" : 'width', "bSortable" : true},
 		{"data" : 'colorName', "bSortable" : true},
 		{"data" : 'gradeAlias', "bSortable" : true},

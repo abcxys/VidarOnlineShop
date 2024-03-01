@@ -125,6 +125,7 @@ create table hardwoodfloors
     installation_pattern_id int8 not null,
     grade_id int8 not null,
     batch_id                varchar(255),
+    cartons_per_skid        int4,
     PRIMARY KEY(id),
     CONSTRAINT fk_plank_size_id
         FOREIGN KEY(plank_size_id)

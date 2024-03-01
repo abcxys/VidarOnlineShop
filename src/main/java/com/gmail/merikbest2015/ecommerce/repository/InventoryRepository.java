@@ -19,21 +19,23 @@ import com.gmail.merikbest2015.ecommerce.domain.WidthDict;
  */
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 	@Query(nativeQuery = true, value = "SELECT size.width_in_inch as width, color.name as colorName, " + 
-			"grade.alias as gradeAlias, inventory.current_quantity as stock FROM inventory inventory " +
+			"grade.alias as gradeAlias, species.name as speciesName, inventory.current_quantity as stock FROM inventory inventory " +
     		"LEFT JOIN hardwoodfloors floor ON floor.id = inventory.floor_id " +
     		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
     		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
-    		"LEFT JOIN grades grade ON floor.grade_id = grade.id")
+    		"LEFT JOIN grades grade ON floor.grade_id = grade.id" + 
+			"LEFT JOIN wood_species species ON floor.wood_species_id = species.id")
     List<InventoryItem> findAllStocks();
 	
 	@Query(nativeQuery = true, value = 
 			"SELECT size.width_in_inch as width, color.name as colorName, " + 
-			"grade.alias as gradeAlias, inventory.current_quantity as stock FROM " +
+			"grade.alias as gradeAlias, species.name as speciesName, inventory.current_quantity as stock FROM " +
 			"inventory inventory " +
     		"LEFT JOIN hardwoodfloors floor ON floor.id = inventory.floor_id " +
     		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
     		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
     		"LEFT JOIN grades grade ON floor.grade_id = grade.id " +
+    		"LEFT JOIN wood_species species ON floor.wood_species_id = species.id " + 
     		"WHERE (:colourId = -1 or color.id = :colourId) " + 
     		"AND (:widthId = -1 or size.id = :widthId) " + 
     		"AND (:gradeId = -1 or grade.id = :gradeId) ")
