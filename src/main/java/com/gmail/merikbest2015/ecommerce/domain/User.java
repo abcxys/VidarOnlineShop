@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -63,4 +65,7 @@ public class User {
 
     @ManyToMany
     private List<HardwoodFloor> perfumeList;
+    
+    @Transient
+    private HashMap<Long, Long> hardwoodQuantity;
 }

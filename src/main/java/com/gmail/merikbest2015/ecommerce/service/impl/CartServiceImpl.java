@@ -39,4 +39,14 @@ public class CartServiceImpl implements CartService {
         HardwoodFloor perfume = perfumeRepository.getOne(perfumeId);
         user.getPerfumeList().remove(perfume);
     }
+
+	@Override
+	public void addHardwoodWithQuantityToCart(Long floorId, Long quantity) {
+		User user = userService.getAuthenticatedUser();
+        HardwoodFloor floor = perfumeRepository.getOne(floorId);
+        if(user.getHardwoodQuantity().containsKey(floorId))
+        	user.getHardwoodQuantity().replace(floorId, user.getHardwoodQuantity().get(floorId) + quantity);
+        else
+        	user.getHardwoodQuantity().put(floorId, quantity);
+	}
 }

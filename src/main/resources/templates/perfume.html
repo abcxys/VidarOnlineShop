@@ -17,10 +17,11 @@
                 <p>Product code: <span th:text="${perfume.getId()}"></span></p>
                 <p class="product-stock" style="color: #54C0A1">In Stock</p>
                 <div class="row ml-1">
-                    <h6 class="mr-5">
-                        $<span th:text="${perfume.getGradeName()}"></span>.00
-                    </h6>
+<!--                     <h6 class="mr-5"> -->
+<!--                         $<span th:text="${perfume.getGradeName()}"></span>.00 -->
+<!--                     </h6> -->
                     <form action="/cart/add" method="post">
+                    	<input id="floor_quantity" name="floor_quantity" type="number" style="width: 75px"/>
                         <button type="submit" name="perfumeId" class="btn btn-success mx-3"
                                 th:value="${perfume.getId()}">
                             <i class="fas fa-cart-plus mr-2 fa-lg"></i>
