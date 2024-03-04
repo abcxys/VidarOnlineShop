@@ -15,28 +15,33 @@
                 <p>Cart is empty</p>
             </div>
             <div th:if="${perfumes.size() > 0}">
-                <div class="card mb-3 mx-auto" style="max-width: 940px;" th:each="perfume : ${perfumes}">
+                <div class="card mb-3 mx-auto" style="max-width: 940px;" th:each="cartItem : ${floors_quantities}">
                     <div class="row no-gutters">
                         <div class="col-2 mx-3 my-3">
-                            <img th:src="@{/img/{path} (path = ${perfume.getFilename()})}" class="img-fluid" alt="">
+                            <img th:src="@{/img/{path} (path = ${cartItem.getFloor().getFilename()})}" class="img-fluid" alt="">
                         </div>
                         <div class="col-7">
                             <div class="card-body">
                                 <h5 class="card-title"
-                                    th:text="${perfume.getPerfumer() + ' ' + perfume.getPerfumeTitle()}"></h5>
-                                <p class="card-text" th:text="${perfume.getType()}"></p>
-                                <p class="card-text"><span th:text="${perfume.getVolume()}"></span> ml.</p>
+                                    th:text="${cartItem.getFloor().getPerfumer() + ' ' + cartItem.getFloor().getPerfumeTitle()}"></h5>
+                                <p class="card-text" th:text="${cartItem.getFloor().getType()}"></p>
+                                <p class="card-text"><span th:text="${cartItem.getFloor().getVolume()}"></span> ml.</p>
+                                <span>Quantity: </span><input th:value="${floors_quantities[0].getQuantity()}" type="number" style="width: 75px"/>
+                                <button class="btn btn-warning mb-2">
+                                        <i></i>
+                                        Update
+                                </button>
                             </div>
                         </div>
                         <div class="col-2">
                             <div class="card-body">
-                                <h5 class="card-title">$<span th:text="${perfume.getPrice()}"></span></h5>
+                                <h5 class="card-title">$<span th:text="${cartItem.getFloor().getPrice()}"></span></h5>
                                 <form class="d-inline" action="/cart/remove" method="post">
                                     <button class="btn btn-warning mb-2">
                                         <i class="far fa-minus-square mr-2"></i>
                                         Remove
                                     </button>
-                                    <input type="hidden" name="perfumeId" th:value="${perfume.getId()}">
+                                    <input type="hidden" name="perfumeId" th:value="${cartItem.getFloor().getId()}">
                                 </form>
                             </div>
                         </div>

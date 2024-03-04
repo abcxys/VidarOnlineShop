@@ -1,5 +1,6 @@
 package com.gmail.merikbest2015.ecommerce.service.impl;
 
+import com.gmail.merikbest2015.ecommerce.domain.CartItem;
 import com.gmail.merikbest2015.ecommerce.domain.HardwoodFloor;
 import com.gmail.merikbest2015.ecommerce.domain.User;
 import com.gmail.merikbest2015.ecommerce.repository.HardwoodFloorsRepository;
@@ -9,7 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -41,12 +46,23 @@ public class CartServiceImpl implements CartService {
     }
 
 	@Override
+	@Transactional
 	public void addHardwoodWithQuantityToCart(Long floorId, Long quantity) {
 		User user = userService.getAuthenticatedUser();
         HardwoodFloor floor = perfumeRepository.getOne(floorId);
-        if(user.getHardwoodQuantity().containsKey(floorId))
-        	user.getHardwoodQuantity().replace(floorId, user.getHardwoodQuantity().get(floorId) + quantity);
-        else
-        	user.getHardwoodQuantity().put(floorId, quantity);
+        for(int i = 0;i < quantity;i++) {
+        	user.getPerfumeList().add(floor);
+        }
+	}
+
+	@Override
+	public List<CartItem> getFloorQuantitesInCart() {
+		User user = userService.getAuthenticatedUser();
+		List<HardwoodFloor> floors = user.getPerfumeList();
+		Map<HardwoodFloor, Long> counts = floors.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
+		List<CartItem> cart = new ArrayList<>();
+		for(HardwoodFloor floor : counts.keySet())
+			cart.add(new CartItem(floor, counts.get(floor)));
+        return cart;
 	}
 }

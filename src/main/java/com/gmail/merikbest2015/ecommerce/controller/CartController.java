@@ -21,12 +21,13 @@ public class CartController {
     @GetMapping
     public String getCart(Model model) {
         model.addAttribute("perfumes", cartService.getPerfumesInCart());
+        model.addAttribute("floors_quantities", cartService.getFloorQuantitesInCart());
         return Pages.CART;
     }
 
     @PostMapping("/add")
     public String addPerfumeToCart(@RequestParam("perfumeId") Long perfumeId, @RequestParam("floor_quantity") Long quantity) {
-        cartService.addPerfumeToCart(perfumeId);
+        //cartService.addPerfumeToCart(perfumeId);
         cartService.addHardwoodWithQuantityToCart(perfumeId, quantity);
         return "redirect:" + PathConstants.CART;
     }

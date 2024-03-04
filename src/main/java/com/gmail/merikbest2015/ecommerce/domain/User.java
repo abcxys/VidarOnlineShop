@@ -65,7 +65,4 @@ public class User {
 
     @ManyToMany
     private List<HardwoodFloor> perfumeList;
-    
-    @Transient
-    private HashMap<Long, Long> hardwoodQuantity;
 }
