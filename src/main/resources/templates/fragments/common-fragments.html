@@ -33,7 +33,7 @@
 <!--Navbar-->
 <div th:fragment="navbar" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <div class="container-fluid bg-black header-top d-none d-md-block pb-5 pt-5">
-        <img id="logo-main" src="static/logo.png" class="rounded mx-auto d-block"/>
+        <img id="logo-main" th:src="@{../../logo.png}" class="rounded mx-auto d-block"/>
     </div>
     <div class="container-fluid bg-black">
         <nav id="navbar-main" class="container navbar navbar-expand-lg bg-black text-white navbar-main">
