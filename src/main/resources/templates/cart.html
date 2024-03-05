@@ -26,12 +26,19 @@
                                     th:text="${cartItem.getFloor().getPerfumer() + ' ' + cartItem.getFloor().getPerfumeTitle()}"></h5>
                                 <p class="card-text" th:text="${cartItem.getFloor().getType()}"></p>
                                 <p class="card-text"><span th:text="${cartItem.getFloor().getVolume()}"></span> ml.</p>
-                                <span>Quantity: </span><input th:value="${floors_quantities[0].getQuantity()}" type="number" style="width: 75px"/>
-                                <button class="btn btn-warning mb-2">
-                                        <i></i>
-                                        Update
-                                </button>
-                            </div>
+								<div class="qtydiv">
+									<label for="Quantity" class="quantity-selector">Quantity</label>
+									<div class="qtybox">
+										<span class="btnqty qtyminus icon icon-minus">-</span> <input
+											type="text" id="quantity" name="quantity" th:value="${cartItem.getQuantity()}" min="1"
+											class="quantity-selector quantity-input" readonly="">
+										<span class="btnqty qtyplus icon icon-plus">+</span>
+									</div>
+								</div>
+								<button class="btn btn-warning mb-2">
+									<i></i> Update
+								</button>
+								</div>
                         </div>
                         <div class="col-2">
                             <div class="card-body">
@@ -68,5 +75,20 @@
     </div>
 </div>
 <footer th:insert="~{fragments/common-fragments :: footer}"></footer>
+
+<script type="text/javascript">
+$('.qtybox .btnqty').on('click', function(){
+	  var qty = parseInt($(this).parent('.qtybox').find('.quantity-input').val());
+	  if($(this).hasClass('qtyplus')) {
+	    qty++;
+	  }else {
+	    if(qty > 1) {
+	      qty--;
+	    }
+	  }
+	  qty = (isNaN(qty))?1:qty;
+	  $(this).parent('.qtybox').find('.quantity-input').val(qty);
+	}); 
+</script>
 </body>
 </html>

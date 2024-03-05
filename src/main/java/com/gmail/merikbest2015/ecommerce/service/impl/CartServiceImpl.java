@@ -42,7 +42,8 @@ public class CartServiceImpl implements CartService {
     public void removePerfumeFromCart(Long perfumeId) {
         User user = userService.getAuthenticatedUser();
         HardwoodFloor perfume = perfumeRepository.getOne(perfumeId);
-        user.getPerfumeList().remove(perfume);
+        while(user.getPerfumeList().contains(perfume))
+        	user.getPerfumeList().remove(perfume);
     }
 
 	@Override

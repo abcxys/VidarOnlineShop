@@ -263,3 +263,12 @@ input[type=number]::-webkit-inner-spin-button {
   width: 30px;
   height: 30px;
 }
+
+/* .qtydiv label{display: block;margin-bottom: 12px;letter-spacing: 2.8px;color: #747a7b;} */
+.qtydiv .btnqty{display: inline-block;cursor: pointer;user-select: none;font-size: 25px;padding: 5px;line-height: 5px;}
+.qtydiv .btnqty.qtyminus{margin-right: 8px;}
+.qtydiv .btnqty.qtyplus{margin-left: 8px;}
+.qtydiv .quantity-input{border: none;border: none;padding: 2px;text-align: center;width: 50px;outline: none;display: inline-block;}
+.qtydiv {display: inline-block;padding-right: 15px;padding-top: 10px;}
+.qtybox{border: 2px solid #d1d1d1 !important;padding: 5px !important;}
+.product-single__meta .qtydiv .quantity-input {background: transparent !important;}
