@@ -26,19 +26,21 @@
                                     th:text="${cartItem.getFloor().getPerfumer() + ' ' + cartItem.getFloor().getPerfumeTitle()}"></h5>
                                 <p class="card-text" th:text="${cartItem.getFloor().getType()}"></p>
                                 <p class="card-text"><span th:text="${cartItem.getFloor().getVolume()}"></span> ml.</p>
-								<div class="qtydiv">
-									<label for="Quantity" class="quantity-selector">Quantity</label>
-									<div class="qtybox">
-										<span class="btnqty qtyminus icon icon-minus">-</span> <input
-											type="text" id="quantity" name="quantity" th:value="${cartItem.getQuantity()}" min="1"
-											class="quantity-selector quantity-input" readonly="">
-										<span class="btnqty qtyplus icon icon-plus">+</span>
+								<form class="d-inline" action="/cart/update" method="post">
+									<div class="qtydiv">
+										<label for="Quantity" class="quantity-selector">Quantity</label>
+										<div class="qtybox">
+											<span class="btnqty qtyminus icon icon-minus">-</span> <input
+												type="text" id="quantity" name="quantity" th:value="${cartItem.getQuantity()}" min="1"
+												class="quantity-selector quantity-input" readonly="">
+											<span class="btnqty qtyplus icon icon-plus">+</span>
+										</div>
 									</div>
-								</div>
-								<button class="btn btn-warning mb-2">
-									<i></i> Update
-								</button>
-								</div>
+									<button class="btn btn-warning mb-2" name="perfumeId" th:value="${cartItem.getFloor().getId()}">
+										<i></i> Update
+									</button>
+								</form>
+							</div>
                         </div>
                         <div class="col-2">
                             <div class="card-body">

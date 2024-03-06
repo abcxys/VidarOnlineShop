@@ -66,4 +66,15 @@ public class CartServiceImpl implements CartService {
 			cart.add(new CartItem(floor, counts.get(floor)));
         return cart;
 	}
+
+	@Override
+	@Transactional
+	public void updateHardwoodWithQuantityToCart(Long floorId, Long quantity) {
+		User user = userService.getAuthenticatedUser();
+        HardwoodFloor perfume = perfumeRepository.getOne(floorId);
+        while(user.getPerfumeList().contains(perfume))
+        	user.getPerfumeList().remove(perfume);
+        while(quantity-- > 0)
+        	user.getPerfumeList().add(perfume);
+	}
 }

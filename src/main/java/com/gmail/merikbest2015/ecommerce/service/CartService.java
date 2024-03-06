@@ -15,6 +15,8 @@ public interface CartService {
     void addPerfumeToCart(Long perfumeId);
     
     void addHardwoodWithQuantityToCart(Long floorId, Long quantity);
+    
+    void updateHardwoodWithQuantityToCart(Long floorId, Long quantity);
 
     void removePerfumeFromCart(Long perfumeId);
 }

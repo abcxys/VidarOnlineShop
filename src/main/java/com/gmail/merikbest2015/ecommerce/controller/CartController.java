@@ -37,4 +37,11 @@ public class CartController {
         cartService.removePerfumeFromCart(perfumeId);
         return "redirect:" + PathConstants.CART;
     }
+    
+    @PostMapping("/update")
+    public String updatePerfumeToCart(@RequestParam("perfumeId") Long perfumeId, @RequestParam("quantity") Long quantity) {
+        //cartService.addPerfumeToCart(perfumeId);
+        cartService.updateHardwoodWithQuantityToCart(perfumeId, quantity);
+        return "redirect:" + PathConstants.CART;
+    }
 }
