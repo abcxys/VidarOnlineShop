@@ -18,6 +18,23 @@
     </div>
 </th:block>
 
+<th:block th:fragment="inventory-sidebar" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <div class="col-md-2">
+        <h4>
+            <i class="fas fa-warehouse mr-1"></i>
+            Inventory
+        </h4>
+        <th:block sec:authorize="hasAuthority('ADMIN')">
+            <a class="account-sidebar-link nav-link" href="/admin/add/perfume">Add new item</a>
+            <a class="account-sidebar-link nav-link" href="/admin/perfumes">Report broken boxes</a>
+            <a class="account-sidebar-link nav-link" href="/admin/orders">Update item</a>
+        </th:block>
+        <th:block sec:authorize="hasAuthority('USER')">
+            <a class="account-sidebar-link nav-link" href="/order/user/orders">List of orders</a>
+        </th:block>
+    </div>
+</th:block>
+
 <th:block th:fragment="edit-perfume-input">
     <div class="form-group row">
         <label class="col-sm-4 font-weight-bold col-form-label" th:text="${title} + ':'"></label>

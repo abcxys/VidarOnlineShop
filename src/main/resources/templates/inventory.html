@@ -87,6 +87,7 @@
 								<th>Colour</th>
 								<th>Grade</th>
 								<th>Stock</th>
+								<th>Order</th>
 							</tr>
 						</thead>
 					</table>
@@ -135,7 +136,8 @@ tables = $('#packingSlipTable').DataTable({
 	    {"data" : 'width', "bSortable" : true},
 		{"data" : 'colorName', "bSortable" : true},
 		{"data" : 'gradeAlias', "bSortable" : true},
-		{"data" : 'stock', "bSortable" : false}
+		{"data" : 'stock', "bSortable" : false},
+		{"data" : '', "bSortable" : false}
 	],
 	'columnDefs': [{
 		'targets': 0,
@@ -145,10 +147,17 @@ tables = $('#packingSlipTable').DataTable({
 		'render': function (data, type, full, meta){
 			return '<input type="checkbox" class="call-checkbox" name="checkbox-id" value="' + '">';
 		}
+	},{
+		data: null,
+		defaultContent: '<i class="fa fa-light fa-circle-plus add2order" style="cursor: pointer;"></i>',
+		targets: -1
 	}]
 });
 
 $("#searchInventoryBtn").on("click", function () {
 	tables.draw();
+});
+tables.on('click', '.add2order', function (e) {
+    console.log('test');
 });
 </script>
