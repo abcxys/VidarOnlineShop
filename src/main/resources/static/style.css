@@ -272,3 +272,57 @@ input[type=number]::-webkit-inner-spin-button {
 .qtydiv {display: inline-block;padding-right: 15px;padding-top: 10px;}
 .qtybox{border: 2px solid #d1d1d1 !important;padding: 5px !important;}
 .product-single__meta .qtydiv .quantity-input {background: transparent !important;}
+
+
+.modal .authornote {
+	display: none
+}
+
+@media ( max-width : 765px) {
+	.modal .modal-header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		min-height: 50px;
+		margin: 0;
+		padding: 0;
+		background: rgba(0, 0, 0, 0.7);
+		color: white
+	}
+}
+
+.modal .modal-header .close {
+	width: auto;
+	border: 0 none;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	overflow: visible;
+	outline: none;
+	cursor: pointer;
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	float: right;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	z-index: 2;
+	text-decoration: none;
+}
+
+.modal .modal-header .close::-moz-focus-inner {
+	border: 0;
+	padding: 0
+}
+
+.footer-button {
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.9rem;
+  margin: 2px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
