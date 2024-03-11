@@ -71,4 +71,10 @@ public class InventoryServiceImpl implements InventoryService {
 		List<GradeDict> gradeDict = inventoryRepository.findGradeDict();
 		return gradeDict;
 	}
+
+	@Override
+	public Long getStockByFloorId(long floorId) {
+		Long quantity = inventoryRepository.findStockByFloorId(floorId);
+		return quantity;
+	}
 }

@@ -22,6 +22,8 @@ public interface InventoryService {
 			int speciesId,
 			int gradeId);
 	
+	Long getStockByFloorId(long floorId);
+	
 	List<ColorDict> getColorDict();
 	
 	List<WidthDict> getWidthDict();

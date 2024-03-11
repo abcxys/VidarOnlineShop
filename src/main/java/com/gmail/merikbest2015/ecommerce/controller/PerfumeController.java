@@ -3,6 +3,7 @@ package com.gmail.merikbest2015.ecommerce.controller;
 import com.gmail.merikbest2015.ecommerce.constants.Pages;
 import com.gmail.merikbest2015.ecommerce.constants.PathConstants;
 import com.gmail.merikbest2015.ecommerce.dto.request.SearchRequest;
+import com.gmail.merikbest2015.ecommerce.service.InventoryService;
 import com.gmail.merikbest2015.ecommerce.service.PerfumeService;
 import com.gmail.merikbest2015.ecommerce.utils.ControllerUtils;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PerfumeController {
 
     private final PerfumeService perfumeService;
+    private final InventoryService inventoryService;
     private final ControllerUtils controllerUtils;
 
     @GetMapping("/{perfumeId}")
     public String getPerfumeById(@PathVariable Long perfumeId, Model model) {
         model.addAttribute("perfume", perfumeService.getPerfumeById(perfumeId));
+        model.addAttribute("quantity", inventoryService.getStockByFloorId(perfumeId));
         return Pages.PERFUME;
     }
 
