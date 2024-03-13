@@ -63,4 +63,24 @@ public class InventoryController {
 				gradeId);
 		return JSONObject.fromObject(datatablesView).toString();
 	}
+	
+	@GetMapping("/warehouse")
+	public String getWarehouse(Model model) {
+		return "warehouse";
+	}
+	
+	@GetMapping("/csvUrls.html")
+	public String getCsvUrls(Model model) {
+		return "csvUrls";
+	}
+	
+	@GetMapping("/fileUpload.html")
+	public String getFileUpload(Model model) {
+		return "fileUpload";
+	}
+	
+	@GetMapping("/demoInstructions.html")
+	public String getDemoInstructions(Model model) {
+		return "demoInstructions";
+	}
 }
