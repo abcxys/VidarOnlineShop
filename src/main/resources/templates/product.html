@@ -13,7 +13,7 @@
             <div class="col-md-7">
                 <h2 th:text="${perfume.getColorName()}"></h2>
                 <h2 th:text="${perfume.getWoodSpeciesName()}"></h2>
-                <h3 th:text="${perfume.getWidth()} + ' inch'"></h3>
+                <h3 th:text="${perfume.getWidth()} + ' inch, ' + ${perfume.getSqftPerCarton()} + ' SF/CTN'"></h3>
                 <p>Product code: <span th:text="${perfume.getId()}"></span></p>
                 <p class="product-stock" style="color: #54C0A1">In Stock<span th:text="': ' + ${quantity}"></span></p>
                 <div class="row ml-1">
