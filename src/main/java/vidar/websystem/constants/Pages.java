@@ -10,8 +10,8 @@ public class Pages {
     public static final String ORDERS = "orders";
     public static final String ORDERING = "ordering";
     public static final String ORDER_FINALIZE = "order-finalize";
-    public static final String PERFUME = "perfume";
-    public static final String PERFUMES = "perfumes";
+    public static final String PRODUCT = "product";
+    public static final String PRODUCTS = "products";
     public static final String USER_ACCOUNT = "user-account";
     public static final String USER_INFO = "user-info";
     public static final String USER_INFO_EDIT = "user-info-edit";

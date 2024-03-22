@@ -11,7 +11,7 @@ import vidar.websystem.repository.FloorOrderRepository;
 import vidar.websystem.repository.HardwoodFloorsRepository;
 import vidar.websystem.repository.PlankColorRepository;
 import vidar.websystem.repository.PlankSizeRepository;
-import vidar.websystem.service.PerfumeService;
+import vidar.websystem.service.ProductService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class PerfumeServiceImpl implements PerfumeService {
+public class ProductServiceImpl implements ProductService {
 
     private final HardwoodFloorsRepository perfumeRepository;
     private final FloorOrderRepository floorOrderRepository;
@@ -35,7 +35,7 @@ public class PerfumeServiceImpl implements PerfumeService {
     private final ModelMapper modelMapper;
 
     @Override
-    public FloorColorSize getPerfumeById(Long perfumeId) {
+    public FloorColorSize getProductById(Long perfumeId) {
     	FloorColorSize result = perfumeRepository.findFloorColorById(perfumeId);
     	if (result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PERFUME_NOT_FOUND);
         return result;
@@ -48,13 +48,13 @@ public class PerfumeServiceImpl implements PerfumeService {
     }
 
     @Override
-    public List<FloorColorSize> getPopularPerfumes() {
+    public List<FloorColorSize> getPopularProducts() {
         List<Long> perfumeIds = Arrays.asList(1L, 2L, 3L, 4L, 5L);
         return perfumeRepository.findFloorColorByIdIn(perfumeIds);
     }
 
     @Override
-    public Page<FloorColorSize> getPerfumesByFilterParams(SearchRequest request, Pageable pageable) {
+    public Page<FloorColorSize> getProductsByFilterParams(SearchRequest request, Pageable pageable) {
         Integer startingPrice = request.getPrice();
         Integer endingPrice = startingPrice + (startingPrice == 0 ? 500 : 50);
         return perfumeRepository.getPerfumesByFilterParams(
@@ -66,7 +66,7 @@ public class PerfumeServiceImpl implements PerfumeService {
     }
 
     @Override
-    public Page<HardwoodFloor> searchPerfumes(SearchRequest request, Pageable pageable) {
+    public Page<FloorColorSize> searchProducts(SearchRequest request, Pageable pageable) {
         return perfumeRepository.searchPerfumes(request.getSearchType(), request.getText(), pageable);
     }
 

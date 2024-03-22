@@ -5,7 +5,7 @@ import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.dto.request.SearchRequest;
 import vidar.websystem.service.InventoryService;
-import vidar.websystem.service.PerfumeService;
+import vidar.websystem.service.ProductService;
 import vidar.websystem.utils.ControllerUtils;
 
 import org.springframework.data.domain.Pageable;
@@ -17,29 +17,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(PathConstants.PERFUME)
-public class PerfumeController {
+@RequestMapping(PathConstants.PRODUCT)
+public class ProductController {
 
-    private final PerfumeService perfumeService;
+    private final ProductService perfumeService;
     private final InventoryService inventoryService;
     private final ControllerUtils controllerUtils;
 
-    @GetMapping("/{perfumeId}")
-    public String getPerfumeById(@PathVariable Long perfumeId, Model model) {
-        model.addAttribute("perfume", perfumeService.getPerfumeById(perfumeId));
-        model.addAttribute("quantity", inventoryService.getStockByFloorId(perfumeId));
-        return Pages.PERFUME;
+    @GetMapping("/{productId}")
+    public String getPerfumeById(@PathVariable Long productId, Model model) {
+        model.addAttribute("perfume", perfumeService.getProductById(productId));
+        model.addAttribute("quantity", inventoryService.getStockByFloorId(productId));
+        return Pages.PRODUCT;
     }
 
     @GetMapping
     public String getPerfumesByFilterParams(SearchRequest request, Model model, Pageable pageable) {
-        controllerUtils.addPagination(request, model, perfumeService.getPerfumesByFilterParams(request, pageable));
-        return Pages.PERFUMES;
+        controllerUtils.addPagination(request, model, perfumeService.getProductsByFilterParams(request, pageable));
+        return Pages.PRODUCTS;
     }
 
     @GetMapping("/search")
     public String searchPerfumes(SearchRequest request, Model model, Pageable pageable) {
-        controllerUtils.addPagination(request, model, perfumeService.searchPerfumes(request, pageable));
-        return Pages.PERFUMES;
+        controllerUtils.addPagination(request, model, perfumeService.searchProducts(request, pageable));
+        return Pages.PRODUCTS;
     }
 }

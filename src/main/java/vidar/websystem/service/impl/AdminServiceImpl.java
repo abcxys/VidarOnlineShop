@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.constants.SuccessMessage;
+import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.HardwoodFloor;
 import vidar.websystem.domain.Order;
 import vidar.websystem.domain.User;
@@ -48,7 +49,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Page<HardwoodFloor> searchPerfumes(SearchRequest request, Pageable pageable) {
+    public Page<FloorColorSize> searchPerfumes(SearchRequest request, Pageable pageable) {
         return perfumeRepository.searchPerfumes(request.getSearchType(), request.getText(), pageable);
     }
 

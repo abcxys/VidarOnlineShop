@@ -10,17 +10,17 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface PerfumeService {
+public interface ProductService {
 
-	FloorColorSize getPerfumeById(Long perfumeId);
+	FloorColorSize getProductById(Long productId);
     
-    PlankColor getHardwoodColorById(Long perfumeId);
+    PlankColor getHardwoodColorById(Long productId);
 
-    List<FloorColorSize> getPopularPerfumes();
+    List<FloorColorSize> getPopularProducts();
     
     List<PlankColor> getPopularHardwoodFloorColors();
 
-    Page<FloorColorSize> getPerfumesByFilterParams(SearchRequest searchRequest, Pageable pageable);
+    Page<FloorColorSize> getProductsByFilterParams(SearchRequest searchRequest, Pageable pageable);
 
-    Page<HardwoodFloor> searchPerfumes(SearchRequest searchRequest, Pageable pageable);
+    Page<FloorColorSize> searchProducts(SearchRequest searchRequest, Pageable pageable);
 }

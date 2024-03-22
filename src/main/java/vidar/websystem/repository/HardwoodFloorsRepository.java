@@ -17,6 +17,7 @@ public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, L
 
     Page<HardwoodFloor> findAllByOrderByPriceAsc(Pageable pageable);
 
+    /*
     @Query("SELECT floor FROM HardwoodFloor floor WHERE " +
             "(CASE " +
             "   WHEN :searchType = 'perfumeTitle' THEN UPPER(floor.perfumeTitle) " +
@@ -25,7 +26,22 @@ public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, L
             "END) " +
             "LIKE UPPER(CONCAT('%',:text,'%')) " +
             "ORDER BY floor.price ASC")
-    Page<HardwoodFloor> searchPerfumes(String searchType, String text, Pageable pageable);
+    */
+    @Query(nativeQuery = true, value = "SELECT * FROM (" +
+    		"SELECT floor.id as id, floor.filename as filename, color.name as colorName, size.width_in_inch as width, size.length as length, " + 
+    		"size.thickness_in_inch as thickness, size.squarefoot_per_carton as sqftPerCarton, species.name as woodSpeciesName FROM hardwoodfloors floor " +
+    		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
+    		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
+    		"LEFT JOIN wood_species species ON floor.wood_species_id = species.id " +
+    		") t WHERE " + 
+    		"(CASE " +
+            "   WHEN :searchType = 'colour' THEN UPPER(colorName) " +
+            "   WHEN :searchType = 'width' THEN UPPER(width) " +
+            "   ELSE UPPER(woodSpeciesName) " +
+            "END) " +
+            "LIKE UPPER(CONCAT('%',:text,'%')) " +
+            "ORDER BY colorName ASC")
+    Page<FloorColorSize> searchPerfumes(String searchType, String text, Pageable pageable);
     
     /*
     @Query("SELECT perfume FROM HardwoodFloor perfume " +

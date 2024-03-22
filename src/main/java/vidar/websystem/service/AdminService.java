@@ -1,5 +1,6 @@
 package vidar.websystem.service;
 
+import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.HardwoodFloor;
 import vidar.websystem.domain.Order;
 import vidar.websystem.domain.User;
@@ -16,7 +17,7 @@ public interface AdminService {
 
     Page<HardwoodFloor> getPerfumes(Pageable pageable);
 
-    Page<HardwoodFloor> searchPerfumes(SearchRequest request, Pageable pageable);
+    Page<FloorColorSize> searchPerfumes(SearchRequest request, Pageable pageable);
 
     Page<User> getUsers(Pageable pageable);
 

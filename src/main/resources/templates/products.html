@@ -54,12 +54,12 @@
         </nav>
         <div class="container mb-5">
             <div class="container-fluid mt-5 ml-1">
-                <form action="/perfume/search" method="get" style="justify-content: center">
+                <form action="/product/search" method="get" style="justify-content: center">
                     <th:block th:replace="~{fragments/common-fragments :: search(
                         options=(${ {
-                            { value: 'perfumer', text: 'Colour' },
-                            { value: 'perfumeTitle', text: 'Width' },
-                            { value: 'country', text: 'Wood species' }
+                            { value: 'colour', text: 'Colour' },
+                            { value: 'width', text: 'Width' },
+                            { value: 'species', text: 'Wood species' }
                         } })
                     )}"/>
                 </form>
