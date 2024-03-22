@@ -40,6 +40,26 @@
                             ADD TO CART
                         </button>
                     	</div>
+                    	<div>
+						    <form>
+						        <table>
+						            <tr>
+						                <td style="padding: 5px 5px 5px 0;">
+						                     <button id="check_product_stock" type="button" class="btn btn-primary">
+						                     <i class="fas fa-warehouse mr-2 fa-lg"></i>
+						                     CHECK STOCK
+						                     </button>
+						                     <!--  <input id="product_sku" type="hidden" value="SDP2338" /> -->
+						                </td>
+						            </tr>
+						            <tr>
+						                <td style="padding: 5px 5px 5px 0;">
+						                    <div class="send-request" id="check-result" style="margin-top:5px"></div>
+						                </td>
+						            </tr>
+						        </table>
+						    </form>
+						</div>
                     </form>
 		        </div>
              </div>
@@ -113,4 +133,67 @@ function getNum(val) {
     }
     return val;
 }
+
+$("#check_product_stock").on("click",function(){
+
+	/*
+    var itemQuantity=$("#itemquantity"+productId);
+    var itemQuanityAlternate=$("#altitemquantity"+productId).val(); 
+    var quantity=0;
+    //if there is alternate UOM
+    if ($("#altitemquantity" + productId).length>0) {
+        quantity=$("#txtEstimatedBase").val();
+    }else{
+       //check standart quantity
+       if ($("#itemquantity" + productId).length > 0) {
+           quantity = $("#itemquantity" + productId).val();
+       }
+    }
+    //check button simple qunatity
+    if ($("#addtocart_" + productId + "_EnteredQuantity").length>0) {
+        quantity = $("#addtocart_" + productId + "_EnteredQuantity").val();
+    }
+    
+    if(quantity==0){
+        $("#check-result").text("Enter quantity for stock check");
+        $("#check-result").addClass('failure');
+        return;
+    }
+     $(this).attr('disabled','disabled');
+     var checkDate=new Date();
+     $("#check-result").removeClass('success');
+     $("#check-result").removeClass('failure');
+     $("#check-result").removeClass('unknown');
+     $("#check-result").text("");
+     */
+
+     $.ajax({
+     url:"/product/checkProductStock",
+     type:"POST",
+     data: {
+       productId: 4,
+       quantity: 100,
+     },
+     success:function(response){
+         var className='success';
+         if(response.Status==0){//unkown
+              className = 'unknown';
+         }
+         else if(response.Status==2){
+             className = 'failure';
+         }
+         else if(response.Status==1){
+             className='success';
+         }
+         $("#check_product_stock").removeAttr('disabled');
+         $("#check-result").text(response.Message);
+         $("#check-result").addClass(className);
+    },
+    error: function (hata) {
+       $("#check_product_stock").removeAttr('disabled');
+       $("#check-result").text(hata);
+       $("#check-result").addClass("failure");
+    }
+   });
+})
 </script>
