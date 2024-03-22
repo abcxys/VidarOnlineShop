@@ -27,7 +27,7 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public String addPerfumeToCart(@RequestParam("perfumeId") Long perfumeId, @RequestParam("floor_quantity") Long quantity) {
+    public String addPerfumeToCart(@RequestParam("productId") Long perfumeId, @RequestParam("txtEstimatedCarton") Long quantity) {
         //cartService.addPerfumeToCart(perfumeId);
         cartService.addHardwoodWithQuantityToCart(perfumeId, quantity);
         return "redirect:" + PathConstants.CART;

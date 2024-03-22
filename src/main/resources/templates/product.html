@@ -8,45 +8,59 @@
     <div class="container pt-5 pb-5 bg-white shadow-sm">
         <div class="row">
             <div class="col-md-5">
-                <img th:src="@{/img/{path} (path = ${perfume.getFilename()})}" class="rounded mx-auto w-100">
+                <img th:src="@{/img/{path} (path = ${product.getFilename()})}" class="rounded mx-auto w-100">
             </div>
             <div class="col-md-7">
-                <h2 th:text="${perfume.getColorName()}"></h2>
-                <h2 th:text="${perfume.getWoodSpeciesName()}"></h2>
-                <h3 th:text="${perfume.getWidth()} + ' inch, ' + ${perfume.getSqftPerCarton()} + ' SF/CTN'"></h3>
-                <p>Product code: <span th:text="${perfume.getId()}"></span></p>
+                <h2 th:text="${product.getColorName()}"></h2>
+                <h2 th:text="${product.getWoodSpeciesName()}"></h2>
+                <h3 th:text="${product.getWidth()} + ' inch, ' + ${product.getSqftPerCarton()} + ' SF/CTN'"></h3>
+                <input type="hidden" id="sqftPerCartonVal" th:value="${product.getSqftPerCarton()}"/>
+                <p>Product code: <span th:text="${product.getId()}"></span></p>
                 <p class="product-stock" style="color: #54C0A1">In Stock<span th:text="': ' + ${quantity}"></span></p>
-                <div class="row ml-1">
+                <div class="ml-1">
 <!--                     <h6 class="mr-5"> -->
-<!--                         $<span th:text="${perfume.getGradeName()}"></span>.00 -->
+<!--                         $<span th:text="${product.getGradeName()}"></span>.00 -->
 <!--                     </h6> -->
-                    <form action="/cart/add" method="post">
-                    	<input id="floor_quantity" name="floor_quantity" type="number" value="1" style="width: 75px"/>
-                        <button type="submit" name="perfumeId" class="btn btn-success mx-3"
-                                th:value="${perfume.getId()}">
+		        	<form action="/cart/add" method="post">
+		        		<div style="margin: 15px 0 15px 0;">
+				            <span id="estimatedBase"></span>
+				            <input type="hidden" id="txtEstimatedCarton" name="txtEstimatedCarton">
+				        </div>
+				        <div>
+                    	<div>
+                    		<input id="sqft_quantity" name="sqft_quantity" type="number" value="0" style="width: 75px;"/> <label><span> SQFT</span></label>
+                    	</div>
+                    	<div>
+                    		<input id="carton_quantity" name="carton_quantity" type="number" value="0" style="width: 75px;"/> <label><span> CARTONS</span></label>
+                    	</div>
+                    	<div>
+                    		<button type="submit" name="productId" class="btn btn-success"
+                                th:value="${product.getId()}">
                             <i class="fas fa-cart-plus mr-2 fa-lg"></i>
                             ADD TO CART
                         </button>
+                    	</div>
                     </form>
-                </div>
+		        </div>
+             </div>
                 <br>
                 <table class="table">
                     <tbody>
                     <tr>
                         <td>Wood species:</td>
-                        <td th:text="${perfume.getWoodSpeciesName()}"></td>
+                        <td th:text="${product.getWoodSpeciesName()}"></td>
                     </tr>
                     <tr>
                         <td>Color name:</td>
-                        <td th:text="${perfume.getColorName()}"></td>
+                        <td th:text="${product.getColorName()}"></td>
                     </tr>
                     <tr>
                         <td>Width:</td>
-                        <td th:text="${perfume.getWidth()} + ' inch'"></td>
+                        <td th:text="${product.getWidth()} + ' inch'"></td>
                     </tr>
                     <tr>
                         <td>Grade:</td>
-                        <td th:text="${perfume.getGradeName()}"></td>
+                        <td th:text="${product.getGradeName()}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -57,3 +71,46 @@
 <footer th:insert="~{fragments/common-fragments :: footer}"></footer>
 </body>
 </html>
+<script type="text/javascript">
+$(document).ready(function () {
+	AdjustBaseQuantity();
+});
+
+$('#sqft_quantity').on("propertychange change keyup paste input",function(){
+	AdjustBaseQuantity();
+});
+$('#carton_quantity').on("propertychange change keyup paste input", function(){
+	AdjustBaseQuantity();
+})
+</script>
+
+<script type="text/javascript">
+function AdjustBaseQuantity() {
+	var sqftPerCarton = $('#sqftPerCartonVal').val();
+    var qtyLevel1 = eval($("#sqft_quantity").val() * 1.0000);
+
+            qtyLevel1 = Math.ceil(qtyLevel1 / sqftPerCarton) * sqftPerCarton;
+        
+    var qtyLevel2 = eval($("#carton_quantity").val() * sqftPerCarton);
+    var qtyLevel3 = eval($("#alt3itemquantity382").val() * 1.0000);
+    if (qtyLevel1 === undefined || isNaN(qtyLevel1)) {
+        qtyLevel1 = 0;
+    }
+    if (qtyLevel2 === undefined || isNaN(qtyLevel2)) {
+        qtyLevel2 = 0;
+    }
+    if (qtyLevel3 === undefined || isNaN(qtyLevel3)) {
+        qtyLevel3 = 0;
+    }
+  
+    var tot = eval(qtyLevel1) + eval(qtyLevel2) + eval(qtyLevel3);
+    $('#estimatedBase').html('Estimated actual ' + getNum(tot).toFixed(3) + ' SQFT');
+    $('#txtEstimatedCarton').val(Math.ceil(getNum(tot)/sqftPerCarton));
+}
+function getNum(val) {
+    if (isNaN(val)) {
+        return 0;
+    }
+    return val;
+}
+</script>
