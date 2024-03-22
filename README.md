@@ -1,4 +1,4 @@
-# :hibiscus: Perfume web store
+# :hibiscus: Vidar Design Flooring Web Inventory Management System
 
 To debug this project, first git clone to local. Then pull a postgres image and run container: 
 ```shell
