@@ -1,7 +1,7 @@
 package vidar.websystem.constants;
 
 public class PathConstants {
-    public static final String PERFUME = "/perfume";
+    public static final String PERFUME = "/product";
     public static final String CART = "/cart";
     public static final String ORDER = "/order";
     public static final String USER = "/user";
