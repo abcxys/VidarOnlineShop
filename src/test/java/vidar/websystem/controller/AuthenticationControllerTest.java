@@ -1,4 +1,4 @@
-package com.gmail.merikbest2015.ecommerce.controller;
+package vidar.websystem.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,11 +14,11 @@ import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.constants.SuccessMessage;
 
-import static com.gmail.merikbest2015.ecommerce.util.TestConstants.USER_EMAIL;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static vidar.websystem.util.TestConstants.USER_EMAIL;
 
 @SpringBootTest
 @AutoConfigureMockMvc

@@ -1,4 +1,4 @@
-package com.gmail.merikbest2015.ecommerce.util;
+package vidar.websystem.util;
 
 public class TestConstants {
     public static final String FILE_NAME = "Chanel N5.jpg";

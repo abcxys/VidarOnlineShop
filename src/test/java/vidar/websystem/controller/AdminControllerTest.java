@@ -1,4 +1,4 @@
-package com.gmail.merikbest2015.ecommerce.controller;
+package vidar.websystem.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,11 +21,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import static com.gmail.merikbest2015.ecommerce.util.TestConstants.*;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static vidar.websystem.util.TestConstants.*;
 
 @SpringBootTest
 @WithUserDetails(ADMIN_EMAIL)
