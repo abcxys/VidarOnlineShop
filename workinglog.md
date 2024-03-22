@@ -41,4 +41,5 @@ Bootstrap-select must be loaded after Bootstrap, Jquery should be loaded before 
 2. Unify "created_at", "last_modified_at" key names to "create_time", "update_time"
 #### Java/Spring side changes:
 1. Change title of the second tab on home page to "PRODUCTS".
-2. Change all the package name prefix from "com.gmail.merikbest2015/ecommerce" to "vidar.websystem"
+2. Update all the package name prefix from "com.gmail.merikbest2015.ecommerce" to "vidar.websystem"
+3. Update test part package name prefix from "com.gmail.merikbest2015.ecommerce" to "vidar.websystem"
