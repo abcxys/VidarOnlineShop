@@ -31,3 +31,12 @@ To get entity object, use Optional object.get() to achieve.
 
 ### The loading order of Bootstrap, Bootstrap-select, Jquery?
 Bootstrap-select must be loaded after Bootstrap, Jquery should be loaded before Bootstrap and only one verion of Jquery loaded.
+
+### How am I suppose to show simultaneously "physical inventory" and "back order inventory" on web page at the same time?
+
+
+### March 22nd changes:
+#### Database visio file changes:
+1. Add "users", "user_role", "role", "permission", "role_permission" tables
+2. Unify "created_at", "last_modified_at" key names to "create_time", "update_time"
+#### 

@@ -1,9 +1,5 @@
 package com.gmail.merikbest2015.ecommerce.controller;
 
-import com.gmail.merikbest2015.ecommerce.constants.ErrorMessage;
-import com.gmail.merikbest2015.ecommerce.constants.Pages;
-import com.gmail.merikbest2015.ecommerce.constants.PathConstants;
-import com.gmail.merikbest2015.ecommerce.constants.SuccessMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +9,11 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+
+import vidar.websystem.constants.ErrorMessage;
+import vidar.websystem.constants.Pages;
+import vidar.websystem.constants.PathConstants;
+import vidar.websystem.constants.SuccessMessage;
 
 import static com.gmail.merikbest2015.ecommerce.util.TestConstants.*;
 import static org.hamcrest.Matchers.*;
