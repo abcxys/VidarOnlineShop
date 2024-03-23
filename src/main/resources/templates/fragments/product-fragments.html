@@ -47,19 +47,31 @@
     </label>
 </div>
 
-<th:block th:fragment="inventory-sidebar" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<th:block th:fragment="update-sidebar" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <div class="col-md-2">
         <h4>
             <i class="fas fa-warehouse mr-1"></i>
             Inventory
         </h4>
         <th:block sec:authorize="hasAuthority('ADMIN')">
-            <a class="account-sidebar-link nav-link" href="/admin/add/perfume">Add new item</a>
+            <a class="account-sidebar-link nav-link" href="/update/add-new-product">Add new item</a>
             <a class="account-sidebar-link nav-link" href="/admin/perfumes">Report broken boxes</a>
             <a class="account-sidebar-link nav-link" href="/admin/orders">Update item</a>
         </th:block>
         <th:block sec:authorize="hasAuthority('USER')">
             <a class="account-sidebar-link nav-link" href="/order/user/orders">List of orders</a>
         </th:block>
+    </div>
+</th:block>
+
+<th:block th:fragment="add-product-select">
+    <div class="col">
+        <label th:text="${title} + ':'"></label>
+        <select th:id="${name}" th:name="${name}" data-live-search="true" class="selectpicker form-control" th:classappend="${error} ? ' is-invalid'">
+		    <option value="" th:text="'Enter the ' + ${name}"></option>
+		    <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
+		    <option data-content="<i class='fas fa-plus-square mr-1'></i> New"></option>
+		</select>
+        <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
     </div>
 </th:block>
