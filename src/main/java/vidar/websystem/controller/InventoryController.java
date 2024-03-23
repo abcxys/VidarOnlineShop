@@ -20,7 +20,7 @@ import vidar.websystem.domain.DatatablesView;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.InventoryItem;
 import vidar.websystem.domain.SpeciesDict;
-import vidar.websystem.domain.WidthDict;
+import vidar.websystem.domain.SizeDict;
 import vidar.websystem.service.InventoryService;
 
 /**
@@ -38,7 +38,7 @@ public class InventoryController {
 	@GetMapping
 	public String getInventory(Model model) {
 		List<ColorDict> colorDict =  inventoryService.getColorDict();
-		List<WidthDict> widthDict = inventoryService.getWidthDict();
+		List<SizeDict> widthDict = inventoryService.getSizeDict();
 		List<SpeciesDict> speciesDict = inventoryService.getSpeciesDict();
 		List<GradeDict> gradeDict = inventoryService.getGradeDict();
 		model.addAttribute("colorDict", colorDict);

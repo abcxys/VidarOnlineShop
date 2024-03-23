@@ -11,7 +11,7 @@ import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.Inventory;
 import vidar.websystem.domain.InventoryItem;
 import vidar.websystem.domain.SpeciesDict;
-import vidar.websystem.domain.WidthDict;
+import vidar.websystem.domain.SizeDict;
 
 /**
  * @author yishi.xing
@@ -51,26 +51,14 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 	Long findStockByFloorId(long floorId);
 	
 	@Query(nativeQuery = true, value = "SELECT DISTINCT color.id AS id, color.name as colorName, color.alias as colorAlias "
-			+ "FROM hardwoodfloors floor "
-			+ "LEFT JOIN plank_colors color "
-			+ "ON floor.plank_color_id = color.id")
+			+ "FROM plank_colors color ORDER BY colorName ASC")
     List<ColorDict> findColorDict();
 	
-	@Query(nativeQuery = true, value = "SELECT DISTINCT size.id AS id, size.width_in_inch AS widthInInch "
-			+ "FROM hardwoodfloors floor "
-			+ "LEFT JOIN plank_sizes size "
-			+ "ON floor.plank_size_id = size.id")
-    List<WidthDict> findWidthDict();
-	
 	@Query(nativeQuery = true, value = "SELECT DISTINCT species.id AS id, species.name AS name "
-			+ "FROM hardwoodfloors floor "
-			+ "LEFT JOIN wood_species species "
-			+ "ON floor.wood_species_id = species.id")
+			+ "FROM wood_species species ORDER BY name ASC")
     List<SpeciesDict> findSpeciesDict();
 	
 	@Query(nativeQuery = true, value = "SELECT DISTINCT grades.id AS id, grades.name AS gradeName, grades.alias as gradeAlias "
-			+ "FROM hardwoodfloors floor "
-			+ "LEFT JOIN grades grades "
-			+ "ON floor.grade_id = grades.id")
+			+ "FROM grades ORDER BY gradeName ASC")
     List<GradeDict> findGradeDict();
 }

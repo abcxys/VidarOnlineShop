@@ -10,8 +10,9 @@ import vidar.websystem.domain.DatatablesView;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.InventoryItem;
 import vidar.websystem.domain.SpeciesDict;
-import vidar.websystem.domain.WidthDict;
+import vidar.websystem.domain.SizeDict;
 import vidar.websystem.repository.InventoryRepository;
+import vidar.websystem.repository.PlankSizeRepository;
 import vidar.websystem.service.InventoryService;
 
 /**
@@ -23,6 +24,8 @@ import vidar.websystem.service.InventoryService;
 public class InventoryServiceImpl implements InventoryService {
 	
 	private final InventoryRepository inventoryRepository;
+	
+	private final PlankSizeRepository plankSizeRepository;
 
 	@Override
 	public DatatablesView<InventoryItem> getAllInventoryItems() {
@@ -54,9 +57,9 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	@Override
-	public List<WidthDict> getWidthDict() {
-		List<WidthDict> widthDict = inventoryRepository.findWidthDict();
-		return widthDict;
+	public List<SizeDict> getSizeDict() {
+		List<SizeDict> sizeDict = plankSizeRepository.findSizeDict();
+		return sizeDict;
 	}
 
 	@Override

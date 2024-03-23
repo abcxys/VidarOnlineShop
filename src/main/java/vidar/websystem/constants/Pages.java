@@ -26,6 +26,7 @@ public class Pages {
     public static final String INVENTORY = "inventory";
     public static final String CREATE_ORDER = "create-order";
     public static final String UPDATE_INVENTORY = "update-inventory";
+    public static final String ADD_NEW_PRODUCT = "add-new-product";
     public static final String REGISTRATION = "registration";
     public static final String ERROR_404 = "error-404";
     public static final String ERROR_500 = "error-500";

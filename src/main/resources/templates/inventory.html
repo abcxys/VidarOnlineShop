@@ -24,9 +24,9 @@
 								</div>
 								<div class="col-md-2 ml-2">
 									<div class="input-group">
-										<select id="width" name="width" data-live-search="true" class="selectpicker" th:field="${widthDict}">
+										<select id="width" name="width" data-live-search="true" class="selectpicker" th:field="${sizeDict}">
 												<option value="">Width</option>
-                            				<option th:each="width : ${widthDict}" th:value="${width.getId()}" th:text="${width.getWidthInInch()} + '&quot;'"></option>
+                            				<option th:each="size : ${sizeDict}" th:value="${size.getId()}" th:text="${size.getWidthInInch()} + '&quot;'"></option>
                     					</select>
 										<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('width')">
 	                      					<i class="fa fa-fw fa-eraser" title="clear"></i>
@@ -46,7 +46,7 @@
 								</div>
 								<div class="col-md-2 ml-2">
 									<div class="input-group">
-										<select id="grade" name="grade" data-live-search="true" class="selectpicker" th:field="${speciesDict}">
+										<select id="grade" name="grade" data-live-search="true" class="selectpicker" th:field="${gradeDict}">
 												<option value="">Grade</option>
                             				<option th:each="grade : ${gradeDict}" th:value="${grade.getId()}" th:text="${grade.getGradeName()}"></option>
                     					</select>

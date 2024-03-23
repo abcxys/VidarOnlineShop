@@ -7,7 +7,7 @@ import vidar.websystem.domain.DatatablesView;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.InventoryItem;
 import vidar.websystem.domain.SpeciesDict;
-import vidar.websystem.domain.WidthDict;
+import vidar.websystem.domain.SizeDict;
 
 /**
  * @author yishi.xing
@@ -26,7 +26,7 @@ public interface InventoryService {
 	
 	List<ColorDict> getColorDict();
 	
-	List<WidthDict> getWidthDict();
+	List<SizeDict> getSizeDict();
 	
 	List<SpeciesDict> getSpeciesDict();
 	

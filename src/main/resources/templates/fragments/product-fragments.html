@@ -55,8 +55,8 @@
         </h4>
         <th:block sec:authorize="hasAuthority('ADMIN')">
             <a class="account-sidebar-link nav-link" href="/update/add-new-product">Add new item</a>
-            <a class="account-sidebar-link nav-link" href="/admin/perfumes">Report broken boxes</a>
-            <a class="account-sidebar-link nav-link" href="/admin/orders">Update item</a>
+            <a class="account-sidebar-link nav-link" href="/admin/perfumes">Update item</a>
+            <a class="account-sidebar-link nav-link" href="/admin/orders">Report broken boxes</a>
         </th:block>
         <th:block sec:authorize="hasAuthority('USER')">
             <a class="account-sidebar-link nav-link" href="/order/user/orders">List of orders</a>
