@@ -15,12 +15,11 @@ import vidar.websystem.constants.PathConstants;
  * @created Mar 6, 2024 - 11:47:06 PM
  */
 @Controller
-@CrossOrigin(origins = "http://localhost:8080/")
 @RequiredArgsConstructor
-@RequestMapping(PathConstants.UPDATEINVENTORY)
+@RequestMapping(PathConstants.UPDATE)
 public class UpdateInventoryController {
 	@GetMapping
-    public String getPacking(Model model) {
+    public String getUpdate(Model model) {
         return Pages.UPDATE_INVENTORY;
     }
 }
