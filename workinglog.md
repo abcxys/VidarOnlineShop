@@ -33,6 +33,9 @@ To get entity object, use Optional object.get() to achieve.
 Bootstrap-select must be loaded after Bootstrap, Jquery should be loaded before Bootstrap and only one verion of Jquery loaded.
 
 ### How am I suppose to show simultaneously "physical inventory" and "back order inventory" on web page at the same time?
+For dealers and general public, just show the available date according to their requested quantity of the product.(Regardless of the batch number.)
+
+### The sequence order of creating product/product-attributes/container/inventory?
 
 
 ### March 22nd changes:
@@ -43,3 +46,10 @@ Bootstrap-select must be loaded after Bootstrap, Jquery should be loaded before 
 1. Change title of the second tab on home page to "PRODUCTS".
 2. Update all the package name prefix from "com.gmail.merikbest2015.ecommerce" to "vidar.websystem"
 3. Update test part package name prefix from "com.gmail.merikbest2015.ecommerce" to "vidar.websystem"
+4. Update text messages in home.html and contact.html accordingly
+5. Update phrase "perfume" in controller/service/serviceImpl to "product"
+6. Add SF/CTN information on product page
+7. Add an estimated total sqftage line to single product page, also add a sqftage input control to single product page. Add the associated js functions.
+6. TODO: Add a "find a dealer" page to allow customers to search in website embeded map
+
+### What database table should I create to manage the "back order" inventory?
