@@ -14,8 +14,9 @@
                 <h2 th:text="${product.getColorName()}"></h2>
                 <h2 th:text="${product.getWoodSpeciesName()}"></h2>
                 <h3 th:text="${product.getWidth()} + ' inch, ' + ${product.getSqftPerCarton()} + ' SF/CTN'"></h3>
+                <input type="hidden" id="productIdVal" th:value="${product.getId()}"/>
                 <input type="hidden" id="sqftPerCartonVal" th:value="${product.getSqftPerCarton()}"/>
-                <p>Product code: <span th:text="${product.getId()}"></span></p>
+                <p style="font-size: 24px;font-weight: bold;">$ <span th:text="${product.getPrice()}"></span></p>
                 <p class="product-stock" style="color: #54C0A1">In Stock<span th:text="': ' + ${quantity}"></span></p>
                 <div class="ml-1">
 <!--                     <h6 class="mr-5"> -->
@@ -90,7 +91,7 @@
 </div>
 <footer th:insert="~{fragments/common-fragments :: footer}"></footer>
 </body>
-</html>
+
 <script type="text/javascript">
 $(document).ready(function () {
 	AdjustBaseQuantity();
@@ -171,10 +172,11 @@ $("#check_product_stock").on("click",function(){
      url:"/product/checkProductStock",
      type:"POST",
      data: {
-       productId: 4,
-       quantity: 100,
+       productId: $('#productIdVal').val(),
+       quantity: $('#txtEstimatedCarton').val(),
      },
      success:function(response){
+    	 console.log(response.Status);
          var className='success';
          if(response.Status==0){//unkown
               className = 'unknown';
@@ -186,14 +188,37 @@ $("#check_product_stock").on("click",function(){
              className='success';
          }
          $("#check_product_stock").removeAttr('disabled');
-         $("#check-result").text(response.Message);
+         $("#check-result").text(response);
          $("#check-result").addClass(className);
+         console.log('success');
     },
-    error: function (hata) {
+    error: function (xhr) {
+       var errorMessage = xhr.responseText ? xhr.responseText : 'Unknown error';
        $("#check_product_stock").removeAttr('disabled');
-       $("#check-result").text(hata);
+       $("#check-result").text(errorMessage);
        $("#check-result").addClass("failure");
     }
    });
 })
 </script>
+
+<style>
+.send-request {
+  font-weight: bold;
+  padding: 6px;
+  text-align: center;
+}
+
+  .send-request.failure {
+    background-color: #FF000080;
+  }
+
+  .send-request.unknown {
+    background-color: #FFA600E2;
+  }
+
+  .send-request.success {
+    background-color: #aae5c4;
+  }
+</style>
+</html>
