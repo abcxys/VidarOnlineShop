@@ -5,16 +5,21 @@
 <div th:insert="~{fragments/common-fragments :: scripts}"></div>
 <div th:replace="fragments/common-fragments :: navbar"></div>
 <div id="container">
-    <div id="carouselExampleControls" class="carousel slide carousel-fade" data-ride="carousel">
-        <div class="carousel-inner">
+    <div id="carouselExampleControls" class="carousel slide carousel-fade" data-ride="carousel" data-interval="2000">
+        <div class="carousel-inner" style="max-height: 600px;">
             <div class="carousel-item active">
-                <a th:href="@{/perfume/85}">
+                <a th:href="@{/product/1}">
                     <img class="d-block w-100" src="https://vidarflooring.com/images/2022/02/08/slider-floor3.jpeg" alt="First slide">
                 </a>
             </div>
             <div class="carousel-item">
-                <a th:href="@{/perfume/46}">
-                    <img class="d-block w-100" src="https://vidarflooring.com/images/2022/02/08/slider-floor1.jpeg" alt="Second slide">
+            	<a th:href="@{/product/2}">
+                    <img class="d-block w-100" src="https://vidarflooring.com/images/2022/02/08/slider-floor2.jpeg" alt="Second slide">
+                </a>
+            </div>
+            <div class="carousel-item">
+                <a th:href="@{/product/3}">
+                    <img class="d-block w-100" src="https://vidarflooring.com/images/2022/02/08/slider-floor1.jpeg" alt="Third slide">
                 </a>
             </div>
         </div>
@@ -26,6 +31,7 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
+        <th:block th:replace="fragments/common-fragments :: carousel-indicators('carouselExampleControls')"/-->
     </div>
 <!--     <div class="container text-center my-3 mt-5"> -->
 <!--         <h3>BRANDS</h3> -->
@@ -80,7 +86,7 @@
     </div>
     -->
     <div class="container text-center my-3">
-        <h4>MONTHLY SPECIALS</h4>
+        <h1 style="display:block;font-family:Neue Helvetica, helvetica, sans-serif;font-size: 28px;font-weight: 200;letter-spacing:6px;">MONTHLY SPECIALS</h1>
     </div>
     <div class="container mt-5">
         <form method="get" action="/perfume/popular">
