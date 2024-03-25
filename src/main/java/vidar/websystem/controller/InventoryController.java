@@ -38,11 +38,11 @@ public class InventoryController {
 	@GetMapping
 	public String getInventory(Model model) {
 		List<ColorDict> colorDict =  inventoryService.getColorDict();
-		List<SizeDict> widthDict = inventoryService.getSizeDict();
+		List<SizeDict> sizeDict = inventoryService.getSizeDict();
 		List<SpeciesDict> speciesDict = inventoryService.getSpeciesDict();
 		List<GradeDict> gradeDict = inventoryService.getGradeDict();
 		model.addAttribute("colorDict", colorDict);
-		model.addAttribute("widthDict", widthDict);
+		model.addAttribute("sizeDict", sizeDict);
 		model.addAttribute("speciesDict", speciesDict);
 		model.addAttribute("gradeDict", gradeDict);
 		return Pages.INVENTORY;
