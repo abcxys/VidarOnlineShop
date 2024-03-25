@@ -37,9 +37,10 @@ For dealers and general public, just show the available date according to their 
 
 ### The sequence order of creating product/product-attributes/container/inventory?
 
+### What database table should I create to manage the "back order" inventory?
 
 ### March 22nd changes:
-#### Database visio file changes:
+#### Database design visio file changes:
 1. Add "users", "user_role", "role", "permission", "role_permission" tables
 2. Unify "created_at", "last_modified_at" key names to "create_time", "update_time"
 #### Java/Spring side changes:
@@ -52,4 +53,23 @@ For dealers and general public, just show the available date according to their 
 7. Add an estimated total sqftage line to single product page, also add a sqftage input control to single product page. Add the associated js functions.
 6. TODO: Add a "find a dealer" page to allow customers to search in website embeded map
 
-### What database table should I create to manage the "back order" inventory?
+### March 23rd changes:
+#### Bug fixes:
+1. Click on "MY ACCOUNT", then click on "UPDATE" will redirect to url "user/update-inventory" which does not exist. Resolved by changing /href content in "common-fragments" from "update-inventory" to "/update". And also change the associated texts in the project from "update-inventory" to "update".
+
+#### Database design visio file changes:
+
+#### Java/Spring side changes:
+1. Update "perfumes-fragments" string in the project to "product-fragments", and move the "inventory-sidebar" fragment to "product-fragments"
+1. TODO: Add a page for adding new product
+    Based on admin-add-perfume.html, change the components name to hardwood related product attributes.
+2. TODO: If any of the attributes of new product does not exist, provide an option to add new attribute
+3. TODO: Add a page for adding new inventory for a specific product
+4. TODO: Restrict product table entry to be not duplicated for specific combination of several keys
+
+#### There're two proven ways to concatenate dynamic text with static text in thymeleaf text
+1. "'Enter the ' + ${name}"
+2. "${'Enter the ' + name}"
+
+#### March 24th visions:
+1. Develop IOS app with macbook air, with springboot backend(RESTAPI)
