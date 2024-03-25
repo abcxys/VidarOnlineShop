@@ -110,9 +110,9 @@
 <!--carousel-indicators-->
 <div th:fragment="carousel-indicators (id)" class="container pt-3">
     <ol class="carousel-indicators">
-        <li th:data-target="${id}" data-slide-to="0" class="active" style="background-color: black"></li>
-        <li th:data-target="${id}" data-slide-to="1" style="background-color: black"></li>
-        <li th:data-target="${id}" data-slide-to="2" style="background-color: black"></li>
+        <li th:data-target="'#' + ${id}" data-slide-to="0" class="active" style="background-color: black"></li>
+        <li th:data-target="'#' + ${id}" data-slide-to="1" style="background-color: black"></li>
+        <li th:data-target="'#' + ${id}" data-slide-to="2" style="background-color: black"></li>
     </ol>
 </div>
 
