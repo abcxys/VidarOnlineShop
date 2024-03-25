@@ -224,7 +224,7 @@
 
 <!-- icon-button -->
 <th:block th:fragment="icon-button">
-    <button type="submit" class="btn btn-dark " th:classappend="${buttonClassName}">
+    <button th:id="${id}" type="submit" class="btn " th:classappend="${buttonClassName}">
         <i th:class="${icon}"></i>
         <th:block th:text="${text}"></th:block>
     </button>
