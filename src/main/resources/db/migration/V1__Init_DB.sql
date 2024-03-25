@@ -115,7 +115,7 @@ create table hardwoodfloors
     perfume_gender         varchar(255) not null,
     perfume_title          varchar(255) not null,
     perfumer               varchar(255) not null,
-    price                  int4 not null,
+    price                  float4 not null,
     type                   varchar(255) not null,
     volume                 varchar(255) not null,
     year                   int4 not null,

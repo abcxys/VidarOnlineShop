@@ -24,28 +24,28 @@ public class HardwoodFloor {
     @SequenceGenerator(name = "hardwoodfloor_id_seq", sequenceName = "hardwoodfloor_id_seq", initialValue = 109, allocationSize = 1)
     private Long id;
 
-    @Column(name = "perfume_title", nullable = false)
+    @Column(name = "perfume_title", nullable = true)
     private String perfumeTitle;
 
-    @Column(name = "perfumer", nullable = false)
+    @Column(name = "perfumer", nullable = true)
     private String perfumer;
 
-    @Column(name = "year", nullable = false)
+    @Column(name = "year", nullable = true)
     private Integer year;
 
-    @Column(name = "country", nullable = false)
+    @Column(name = "country", nullable = true)
     private String country;
 
-    @Column(name = "perfume_gender", nullable = false)
+    @Column(name = "perfume_gender", nullable = true)
     private String perfumeGender;
 
-    @Column(name = "fragrance_top_notes", nullable = false)
+    @Column(name = "fragrance_top_notes", nullable = true)
     private String fragranceTopNotes;
 
-    @Column(name = "fragrance_middle_notes", nullable = false)
+    @Column(name = "fragrance_middle_notes", nullable = true)
     private String fragranceMiddleNotes;
 
-    @Column(name = "fragrance_base_notes", nullable = false)
+    @Column(name = "fragrance_base_notes", nullable = true)
     private String fragranceBaseNotes;
 
     @Column(name = "description")
@@ -54,13 +54,13 @@ public class HardwoodFloor {
     @Column(name = "filename")
     private String filename;
 
-    @Column(name = "price", nullable = false)
-    private Integer price;
+    @Column(name = "price", nullable = true)
+    private float price;
 
-    @Column(name = "volume", nullable = false)
+    @Column(name = "volume", nullable = true)
     private String volume;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", nullable = true)
     private String type;
     
     @Column(name = "plank_size_id", nullable = false)

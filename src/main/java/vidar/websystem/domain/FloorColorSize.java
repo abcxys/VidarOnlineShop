@@ -16,4 +16,5 @@ public interface FloorColorSize {
 	String getGradeName();
 	String getGradeAlias();
 	String getFilename();
+	String getPrice();
 }
