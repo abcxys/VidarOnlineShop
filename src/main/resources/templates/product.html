@@ -136,38 +136,8 @@ function getNum(val) {
 }
 
 $("#check_product_stock").on("click",function(){
-
-	/*
-    var itemQuantity=$("#itemquantity"+productId);
-    var itemQuanityAlternate=$("#altitemquantity"+productId).val(); 
-    var quantity=0;
-    //if there is alternate UOM
-    if ($("#altitemquantity" + productId).length>0) {
-        quantity=$("#txtEstimatedBase").val();
-    }else{
-       //check standart quantity
-       if ($("#itemquantity" + productId).length > 0) {
-           quantity = $("#itemquantity" + productId).val();
-       }
-    }
-    //check button simple qunatity
-    if ($("#addtocart_" + productId + "_EnteredQuantity").length>0) {
-        quantity = $("#addtocart_" + productId + "_EnteredQuantity").val();
-    }
-    
-    if(quantity==0){
-        $("#check-result").text("Enter quantity for stock check");
-        $("#check-result").addClass('failure');
-        return;
-    }
-     $(this).attr('disabled','disabled');
-     var checkDate=new Date();
-     $("#check-result").removeClass('success');
-     $("#check-result").removeClass('failure');
-     $("#check-result").removeClass('unknown');
-     $("#check-result").text("");
-     */
-
+	var currentClassName = $("#check-result").attr('class');
+	
      $.ajax({
      url:"/product/checkProductStock",
      type:"POST",
@@ -189,14 +159,17 @@ $("#check_product_stock").on("click",function(){
          }
          $("#check_product_stock").removeAttr('disabled');
          $("#check-result").text(response);
-         $("#check-result").addClass(className);
+         
+         $("#check-result").removeClass(currentClassName);
+         $("#check-result").addClass('send-request ' + className);
          console.log('success');
     },
     error: function (xhr) {
        var errorMessage = xhr.responseText ? xhr.responseText : 'Unknown error';
        $("#check_product_stock").removeAttr('disabled');
        $("#check-result").text(errorMessage);
-       $("#check-result").addClass("failure");
+       $("#check-result").removeClass(currentClassName);
+       $("#check-result").addClass("send-request failure");
     }
    });
 })
