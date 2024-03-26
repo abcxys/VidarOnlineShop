@@ -35,15 +35,19 @@ insert into plank_colors (id, name, alias, description)
 values (5, 'Landmark', 'LMK', null);
 insert into plank_colors (id, name, alias, description)
 values (6, 'Fortino', 'FTN', null);
+insert into plank_colors (id, name, alias, description)
+values (7, 'Seashell', 'SSH', null);
 
 insert into wood_species (id, name, country, description)
 values (1, 'American White Oak', null, null);
 insert into wood_species (id, name, country, description)
 values (2, 'American Black Walnut', null, null);
+insert into wood_species (id, name, country, description)
+values (3, 'American Hickory', null, null);
 
-insert into installation_patterns (id, name, description)
+insert into plank_types (id, name, description)
 values (1, 'regular', null);
-insert into installation_patterns (id, name, description)
+insert into plank_types (id, name, description)
 values (2, 'Herringbone', null);
 
 insert into grades (id, name, alias, description)

@@ -24,29 +24,11 @@ public class HardwoodFloor {
     @SequenceGenerator(name = "hardwoodfloor_id_seq", sequenceName = "hardwoodfloor_id_seq", initialValue = 109, allocationSize = 1)
     private Long id;
 
-    @Column(name = "perfume_title", nullable = true)
-    private String perfumeTitle;
-
-    @Column(name = "perfumer", nullable = true)
-    private String perfumer;
-
     @Column(name = "year", nullable = true)
     private Integer year;
 
     @Column(name = "country", nullable = true)
     private String country;
-
-    @Column(name = "perfume_gender", nullable = true)
-    private String perfumeGender;
-
-    @Column(name = "fragrance_top_notes", nullable = true)
-    private String fragranceTopNotes;
-
-    @Column(name = "fragrance_middle_notes", nullable = true)
-    private String fragranceMiddleNotes;
-
-    @Column(name = "fragrance_base_notes", nullable = true)
-    private String fragranceBaseNotes;
 
     @Column(name = "description")
     private String description;
@@ -56,18 +38,27 @@ public class HardwoodFloor {
 
     @Column(name = "price", nullable = true)
     private float price;
-
-    @Column(name = "volume", nullable = true)
-    private String volume;
-
-    @Column(name = "type", nullable = true)
-    private String type;
     
     @Column(name = "plank_size_id", nullable = false)
     private Long plank_size_id;
     
     @Column(name = "plank_color_id", nullable = false)
     private Long plank_color_id;
+    
+    @Column(name = "wood_species_id", nullable = false)
+    private Long wood_species_id;
+    
+    @Column(name = "plank_type_id", nullable = false)
+    private Long plank_type_id;
+    
+    @Column(name = "grade_id", nullable = false)
+    private Long grade_id;
+    
+    @Column(name = "batch_id", nullable = false)
+    private String batch_id;
+    
+    @Column(name = "cartons_per_skid", nullable = false)
+    private Integer cartons_per_skid;
 //    
 //    @OneToMany(mappedBy = "hardwoodfloor")
 //    private Set<FloorOrder> floorOrders = new HashSet<FloorOrder>();
