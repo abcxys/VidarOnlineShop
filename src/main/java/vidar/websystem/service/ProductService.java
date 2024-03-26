@@ -3,6 +3,7 @@ package vidar.websystem.service;
 import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.HardwoodFloor;
 import vidar.websystem.domain.PlankColor;
+import vidar.websystem.domain.User;
 import vidar.websystem.dto.request.SearchRequest;
 
 import org.springframework.data.domain.Page;
@@ -23,4 +24,6 @@ public interface ProductService {
     Page<FloorColorSize> getProductsByFilterParams(SearchRequest searchRequest, Pageable pageable);
 
     Page<FloorColorSize> searchProducts(SearchRequest searchRequest, Pageable pageable);
+    
+    Long postPlankColor(User user, PlankColor plankColor);
 }

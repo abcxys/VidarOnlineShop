@@ -1,6 +1,6 @@
 package vidar.websystem.domain;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,11 +24,11 @@ public class Inventory {
     @Column(name = "floor_id", nullable = true)
     private Long floorId;
 
-    @Column(name = "created_at", columnDefinition = "timestamp default current_timestamp")
-    private LocalDateTime createdAt = LocalDateTime.now();
+    @Column(name = "create_time", updatable = false, columnDefinition = "timestamp default current_timestamp")
+    private Date create_time;
 
-    @Column(name = "last_modified_at", columnDefinition = "timestamp default current_timestamp")
-    private LocalDateTime lastModifiedAt = LocalDateTime.now();
+    @Column(name = "update_time", columnDefinition = "timestamp default current_timestamp")
+    private Date update_time;
     
     @Column(name = "current_quantity", nullable = false)
     private double currentQuantity;

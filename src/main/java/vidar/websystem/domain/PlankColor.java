@@ -1,5 +1,7 @@
 package vidar.websystem.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -38,6 +42,20 @@ public class PlankColor {
 	@Column(name = "alias", nullable = false)
     private String alias;
 	
-	@Column(name = "description", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "create_time" ,updatable = false)
+	private Date create_time;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "update_time")
+	private Date update_time;
+	
+	@Column(name = "create_user_id" ,updatable = false)
+	private Long create_user_id;
+	
+	@Column(name = "update_user_id")
+	private Long update_user_id;
+	
+	@Column(name = "description", nullable = true)
     private String description;
 }

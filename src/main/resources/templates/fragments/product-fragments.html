@@ -73,8 +73,34 @@
         <select th:id="${name}" th:name="${name}" data-live-search="true" class="selectpicker form-control" th:classappend="${error} ? ' is-invalid'">
 		    <option value="" th:text="'Enter the ' + ${name}"></option>
 		    <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
-		    <option data-content="<i class='fas fa-plus-square mr-1'></i> New"></option>
+		    <option data-content="<i class='fas fa-plus-square mr-1'></i> New" ></option>
 		</select>
+        <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
+    </div>
+</th:block>
+<th:block th:fragment="add-string-attribute-input">
+    <div class="col">
+        <label th:text="${title} + ':'"></label>
+        <input
+                type="text"
+                th:name="${name}"
+                th:placeholder="${placeholder}"
+                th:value="${value}"
+                class="form-control" th:classappend="${error} ? ' is-invalid'"
+        />
+        <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
+    </div>
+</th:block>
+<th:block th:fragment="add-string-required-attribute-input">
+    <div class="col">
+        <label th:text="${title} + ':'"></label>
+        <input
+                type="text"
+                th:name="${name}"
+                th:placeholder="${placeholder}"
+                th:value="${value}"
+                class="form-control" required th:classappend="${error} ? ' is-invalid'"
+        />
         <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
     </div>
 </th:block>

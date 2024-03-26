@@ -1,11 +1,13 @@
 package vidar.websystem.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.FloorOrder;
 import vidar.websystem.domain.HardwoodFloor;
 import vidar.websystem.domain.PlankColor;
+import vidar.websystem.domain.User;
 import vidar.websystem.dto.request.SearchRequest;
 import vidar.websystem.repository.FloorOrderRepository;
 import vidar.websystem.repository.HardwoodFloorsRepository;
@@ -21,9 +23,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -76,5 +82,24 @@ public class ProductServiceImpl implements ProductService {
         List<Long> plank_color_ids = perfumeRepository.getPlankColorIdsByIds(perfumeIds, null);
         return plank_color_ids.stream().map(plank_color_id->
     		plankColorRepository.findById(plank_color_id).get()).collect(Collectors.toList());
+	}
+
+	@Override
+	@Transactional
+	public Long postPlankColor(User user, PlankColor plankColor) {
+		PlankColor queryByName = plankColorRepository.findOneByName(plankColor.getName());
+		if (queryByName!=null) {
+			log.info("Color name duplicated, update entry...");
+			queryByName.setName(plankColor.getName());
+			queryByName.setAlias(plankColor.getAlias());
+			queryByName.setDescription(plankColor.getDescription());
+			queryByName.setUpdate_time(new Date());
+			queryByName.setUpdate_user_id(user.getId());
+			return new Long(2);
+		}
+		plankColor.setCreate_user_id(user.getId());
+		plankColor.setCreate_time(new Date());
+		plankColorRepository.save(plankColor);
+		return new Long(1);
 	}
 }
