@@ -4,15 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.domain.FloorColorSize;
-import vidar.websystem.domain.FloorOrder;
-import vidar.websystem.domain.HardwoodFloor;
 import vidar.websystem.domain.PlankColor;
+import vidar.websystem.domain.PlankSize;
 import vidar.websystem.domain.User;
+import vidar.websystem.domain.WoodSpecies;
 import vidar.websystem.dto.request.SearchRequest;
 import vidar.websystem.repository.FloorOrderRepository;
 import vidar.websystem.repository.HardwoodFloorsRepository;
 import vidar.websystem.repository.PlankColorRepository;
 import vidar.websystem.repository.PlankSizeRepository;
+import vidar.websystem.repository.WoodSpeciesRepository;
 import vidar.websystem.service.ProductService;
 
 import org.modelmapper.ModelMapper;
@@ -38,6 +39,7 @@ public class ProductServiceImpl implements ProductService {
     private final FloorOrderRepository floorOrderRepository;
     private final PlankSizeRepository plankSizeRepository;
     private final PlankColorRepository plankColorRepository;
+    private final WoodSpeciesRepository woodSpeciesRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -82,6 +84,23 @@ public class ProductServiceImpl implements ProductService {
         List<Long> plank_color_ids = perfumeRepository.getPlankColorIdsByIds(perfumeIds, null);
         return plank_color_ids.stream().map(plank_color_id->
     		plankColorRepository.findById(plank_color_id).get()).collect(Collectors.toList());
+	}
+	
+	@Override
+	public List<PlankColor> getColorDict() {
+		List<PlankColor> colorDict = plankColorRepository.findAll();
+		return colorDict;
+	}
+
+	@Override
+	public List<PlankSize> getSizeDict() {
+		return plankSizeRepository.findAll();
+	}
+
+	@Override
+	public List<WoodSpecies> getSpeciesDict() {
+		List<WoodSpecies> speciesDict = woodSpeciesRepository.findAll();
+		return speciesDict;
 	}
 
 	@Override

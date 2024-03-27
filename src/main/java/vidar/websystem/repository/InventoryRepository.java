@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.Inventory;
 import vidar.websystem.domain.InventoryItem;
-import vidar.websystem.domain.SpeciesDict;
 
 /**
  * @author yishi.xing
@@ -46,10 +45,6 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     		"LEFT JOIN hardwoodfloors floor ON floor.id = inventory.floor_id " +
     		"WHERE (:floorId = -1 or floor.id = :floorId) ")
 	Long findStockByFloorId(long floorId);
-	
-	@Query(nativeQuery = true, value = "SELECT DISTINCT species.id AS id, species.name AS name "
-			+ "FROM wood_species species ORDER BY name ASC")
-    List<SpeciesDict> findSpeciesDict();
 	
 	@Query(nativeQuery = true, value = "SELECT DISTINCT grades.id AS id, grades.name AS gradeName, grades.alias as gradeAlias "
 			+ "FROM grades ORDER BY gradeName ASC")

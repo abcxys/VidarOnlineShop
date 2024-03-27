@@ -5,9 +5,6 @@ import java.util.List;
 import vidar.websystem.domain.DatatablesView;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.InventoryItem;
-import vidar.websystem.domain.PlankColor;
-import vidar.websystem.domain.PlankSize;
-import vidar.websystem.domain.SpeciesDict;
 
 /**
  * @author yishi.xing
@@ -23,12 +20,6 @@ public interface InventoryService {
 			int gradeId);
 	
 	Long getStockByFloorId(long floorId);
-	
-	List<PlankColor> getColorDict();
-	
-	List<PlankSize> getSizeDict();
-	
-	List<SpeciesDict> getSpeciesDict();
 	
 	List<GradeDict> getGradeDict();
 }

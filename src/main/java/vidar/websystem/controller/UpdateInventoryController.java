@@ -15,8 +15,9 @@ import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.PlankSize;
-import vidar.websystem.domain.SpeciesDict;
+import vidar.websystem.domain.WoodSpecies;
 import vidar.websystem.service.InventoryService;
+import vidar.websystem.service.ProductService;
 
 /**
  * @author yishi.xing
@@ -30,6 +31,9 @@ public class UpdateInventoryController {
 	@Autowired
 	private InventoryService inventoryService;
 	
+	@Autowired
+	private ProductService productService;
+	
 	@GetMapping
     public String getUpdate(Model model) {
         return Pages.UPDATE_INVENTORY;
@@ -38,9 +42,9 @@ public class UpdateInventoryController {
 	@RequestMapping("/add-new-product")
 	public String addNewProduct(Model model) {
 		List<GradeDict> gradeDict = inventoryService.getGradeDict();
-		List<PlankColor> colorDict = inventoryService.getColorDict();
-		List<PlankSize> sizeDict = inventoryService.getSizeDict();
-		List<SpeciesDict> speciesDict = inventoryService.getSpeciesDict();
+		List<PlankColor> colorDict = productService.getColorDict();
+		List<PlankSize> sizeDict = productService.getSizeDict();
+		List<WoodSpecies> speciesDict = productService.getSpeciesDict();
 		model.addAttribute("gradeDict", gradeDict.stream().map(grade->grade.getGradeName()).collect(Collectors.toList()));
 		model.addAttribute("colourDict", colorDict.stream().map(color->color.getName()).collect(Collectors.toList()));
 		model.addAttribute("sizeDict", sizeDict.stream().map(size->size.getWidth_in_inch() + " inch x 3/4inch x " + size.getLength()

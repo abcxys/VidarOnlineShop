@@ -19,8 +19,9 @@ import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.InventoryItem;
 import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.PlankSize;
-import vidar.websystem.domain.SpeciesDict;
+import vidar.websystem.domain.WoodSpecies;
 import vidar.websystem.service.InventoryService;
+import vidar.websystem.service.ProductService;
 
 /**
  * @author yishi.xing
@@ -34,11 +35,14 @@ public class InventoryController {
 	@Autowired
 	private InventoryService inventoryService;
 	
+	@Autowired
+	private ProductService productService;
+	
 	@GetMapping
 	public String getInventory(Model model) {
-		List<PlankColor> colorDict =  inventoryService.getColorDict();
-		List<PlankSize> sizeDict = inventoryService.getSizeDict();
-		List<SpeciesDict> speciesDict = inventoryService.getSpeciesDict();
+		List<PlankColor> colorDict =  productService.getColorDict();
+		List<PlankSize> sizeDict = productService.getSizeDict();
+		List<WoodSpecies> speciesDict = productService.getSpeciesDict();
 		List<GradeDict> gradeDict = inventoryService.getGradeDict();
 		model.addAttribute("colorDict", colorDict);
 		model.addAttribute("sizeDict", sizeDict);
