@@ -121,4 +121,24 @@ public class ProductServiceImpl implements ProductService {
 		plankColorRepository.save(plankColor);
 		return new Long(1);
 	}
+
+	@Override
+	public String postWoodSpecies(User user, WoodSpecies species) {
+		WoodSpecies queryByName = woodSpeciesRepository.findOneByName(species.getName());
+		// if the species name does not exist already
+		if (queryByName!=null) {
+			log.info("Species name duplicated, update entry...");
+			queryByName.setName(species.getName());
+			queryByName.setCountry(species.getCountry());
+			queryByName.setDescription(species.getDescription());
+			queryByName.setUpdate_time(new Date());
+			queryByName.setUpdate_user_id(user.getId());
+			woodSpeciesRepository.save(queryByName);
+			return "Species updated successfully";
+		}
+		species.setCreate_user_id(user.getId());
+		species.setCreate_time(new Date());
+		woodSpeciesRepository.save(species);
+		return "New species added successfully";
+	}
 }

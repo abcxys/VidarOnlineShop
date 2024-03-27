@@ -13,5 +13,7 @@ import vidar.websystem.domain.WoodSpecies;
 public interface WoodSpeciesRepository extends JpaRepository<WoodSpecies, Long> {
 	List<WoodSpecies> findByIdIn(List<Long> wood_species_ids);
 	
+	WoodSpecies findOneByName(String name);
+	
 	List<WoodSpecies> findAll();
 }

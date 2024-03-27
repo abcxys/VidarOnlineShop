@@ -34,4 +34,6 @@ public interface ProductService {
 	List<WoodSpecies> getSpeciesDict();
     
     Long postPlankColor(User user, PlankColor plankColor);
+    
+    String postWoodSpecies(User user, WoodSpecies species);
 }
