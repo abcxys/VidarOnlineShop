@@ -10,6 +10,28 @@ function emptyValueSelector(inputId){
 	$("#" + inputId).selectpicker('refresh');
 }
 
+/**
+ * Alert info boot box
+ */
+function bootboxAlertPrompt(message) {
+	var dialog = bootbox.dialog({
+	    title: '<i class="fa fa-fw fa-info-circle" style="color: #00c0ef;"></i>&nbsp;'+ 'Alert' +'',
+	    message: "<p>" + message + "</p>",
+	    buttons: {
+	        ok: {
+	            label: 'Close',
+	            className: 'btn-info',
+	            callback: function() {
+					location.reload();
+				}
+	        }
+	    }
+	});
+}
+
+/**
+ * Error info boot box
+ */
 function bootboxAlertError(message) {
 	var dialog = bootbox.dialog({
 		title: '<i class="fa fa-fw fa-times-circle" style="color: #dd4b39;"></i>&nbsp;' + 'Error' +'',

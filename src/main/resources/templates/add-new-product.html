@@ -302,10 +302,12 @@ function addNewColourFun() {
 			description: colourDescription
 		},
 		success:function(response){
-			console.log(response);
+			bootboxAlertPrompt(response);
+			setTimeout(function(){location.reload();},2000);
 		},
 		error:function (xhr){
-			console.log(xhr.responseText);
+			bootboxAlertError(xhr.responseText);
+			setTimeout(function(){location.reload();}, 3000);
 		}
 	});
 }
