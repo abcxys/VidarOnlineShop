@@ -36,7 +36,7 @@ public class HardwoodFloor {
     @Column(name = "filename")
     private String filename;
 
-    @Column(name = "price", nullable = true)
+    @Column(name = "price", nullable = false)
     private float price;
     
     @Column(name = "plank_size_id", nullable = false)
@@ -59,6 +59,12 @@ public class HardwoodFloor {
     
     @Column(name = "cartons_per_skid", nullable = false)
     private Integer cartons_per_skid;
+    
+    @Column(name = "carton_weight", nullable = true)
+    private float carton_weight = 60f;
+    
+    @Column(name = "wear_layer_thickness", nullable = false)
+    private float wear_layer_thickness = 2f;
 //    
 //    @OneToMany(mappedBy = "hardwoodfloor")
 //    private Set<FloorOrder> floorOrders = new HashSet<FloorOrder>();

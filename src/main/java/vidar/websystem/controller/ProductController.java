@@ -11,6 +11,7 @@ import vidar.websystem.service.ProductService;
 import vidar.websystem.service.UserService;
 import vidar.websystem.utils.ControllerUtils;
 import vidar.websystem.domain.PlankColor;
+import vidar.websystem.domain.WoodSpecies;
 import vidar.websystem.domain.User;
 
 import java.text.SimpleDateFormat;
@@ -84,5 +85,18 @@ public class ProductController {
     	plankColor.setDescription(description);
     	productService.postPlankColor(user, plankColor);
     	return ResponseEntity.ok().body("New colour added successfully");
+    }
+    
+    @RequestMapping(value="/addNewSpecies", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> addNewSpecies(@RequestParam("speciesName") String speciesName,
+    		@RequestParam("speciesCountry") String speciesCountry,
+    		@RequestParam("speciesDescription") String speciesDescription){
+    	User user = userService.getAuthenticatedUser();
+    	WoodSpecies species = new WoodSpecies();
+    	species.setName(speciesName);
+    	species.setCountry(speciesCountry);
+    	species.setDescription(speciesDescription);
+    	return ResponseEntity.ok().body(productService.postWoodSpecies(user, species));
     }
 }
