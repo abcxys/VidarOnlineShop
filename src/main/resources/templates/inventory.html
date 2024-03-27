@@ -15,7 +15,7 @@
 									<div class="input-group">
 										<select id="colour" name="colour" data-live-search="true" class="selectpicker" th:field="${colorDict}">
 												<option value="">Colour</option>
-                            				<option th:each="color : ${colorDict}" th:value="${color.getId()}" th:text="${color.getColorName()}"></option>
+                            				<option th:each="color : ${colorDict}" th:value="${color.getId()}" th:text="${color.getName()}"></option>
                     					</select>
                     					<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('colour')">
 				           					<i class="fa fa-fw fa-eraser" title="clear"></i>
