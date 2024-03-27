@@ -15,10 +15,10 @@ import lombok.RequiredArgsConstructor;
 import net.sf.json.JSONObject;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
-import vidar.websystem.domain.ColorDict;
 import vidar.websystem.domain.DatatablesView;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.InventoryItem;
+import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.SpeciesDict;
 import vidar.websystem.domain.SizeDict;
 import vidar.websystem.service.InventoryService;
@@ -37,7 +37,7 @@ public class InventoryController {
 	
 	@GetMapping
 	public String getInventory(Model model) {
-		List<ColorDict> colorDict =  inventoryService.getColorDict();
+		List<PlankColor> colorDict =  inventoryService.getColorDict();
 		List<SizeDict> sizeDict = inventoryService.getSizeDict();
 		List<SpeciesDict> speciesDict = inventoryService.getSpeciesDict();
 		List<GradeDict> gradeDict = inventoryService.getGradeDict();

@@ -5,13 +5,14 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import vidar.websystem.domain.ColorDict;
 import vidar.websystem.domain.DatatablesView;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.InventoryItem;
+import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.SpeciesDict;
 import vidar.websystem.domain.SizeDict;
 import vidar.websystem.repository.InventoryRepository;
+import vidar.websystem.repository.PlankColorRepository;
 import vidar.websystem.repository.PlankSizeRepository;
 import vidar.websystem.service.InventoryService;
 
@@ -26,6 +27,8 @@ public class InventoryServiceImpl implements InventoryService {
 	private final InventoryRepository inventoryRepository;
 	
 	private final PlankSizeRepository plankSizeRepository;
+	
+	private final PlankColorRepository plankColorRepository;
 
 	@Override
 	public DatatablesView<InventoryItem> getAllInventoryItems() {
@@ -51,8 +54,8 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	@Override
-	public List<ColorDict> getColorDict() {
-		List<ColorDict> colorDict = inventoryRepository.findColorDict();
+	public List<PlankColor> getColorDict() {
+		List<PlankColor> colorDict = plankColorRepository.findAll();
 		return colorDict;
 	}
 

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import vidar.websystem.domain.ColorDict;
 import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.Inventory;
@@ -49,10 +48,6 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     		"LEFT JOIN hardwoodfloors floor ON floor.id = inventory.floor_id " +
     		"WHERE (:floorId = -1 or floor.id = :floorId) ")
 	Long findStockByFloorId(long floorId);
-	
-	@Query(nativeQuery = true, value = "SELECT DISTINCT color.id AS id, color.name as colorName, color.alias as colorAlias "
-			+ "FROM plank_colors color ORDER BY colorName ASC")
-    List<ColorDict> findColorDict();
 	
 	@Query(nativeQuery = true, value = "SELECT DISTINCT species.id AS id, species.name AS name "
 			+ "FROM wood_species species ORDER BY name ASC")

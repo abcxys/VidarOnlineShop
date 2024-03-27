@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import lombok.RequiredArgsConstructor;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
-import vidar.websystem.domain.ColorDict;
 import vidar.websystem.domain.GradeDict;
+import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.SpeciesDict;
 import vidar.websystem.domain.SizeDict;
 import vidar.websystem.service.InventoryService;
@@ -39,11 +39,11 @@ public class UpdateInventoryController {
 	@RequestMapping("/add-new-product")
 	public String addNewProduct(Model model) {
 		List<GradeDict> gradeDict = inventoryService.getGradeDict();
-		List<ColorDict> colorDict = inventoryService.getColorDict();
+		List<PlankColor> colorDict = inventoryService.getColorDict();
 		List<SizeDict> sizeDict = inventoryService.getSizeDict();
 		List<SpeciesDict> speciesDict = inventoryService.getSpeciesDict();
 		model.addAttribute("gradeDict", gradeDict.stream().map(grade->grade.getGradeName()).collect(Collectors.toList()));
-		model.addAttribute("colourDict", colorDict.stream().map(color->color.getColorName()).collect(Collectors.toList()));
+		model.addAttribute("colourDict", colorDict.stream().map(color->color.getName()).collect(Collectors.toList()));
 		model.addAttribute("sizeDict", sizeDict.stream().map(size->size.getWidthInInch() + " inch x 3/4inch x " + size.getLength()
 					+ " " + size.getsqftPerCarton()).collect(Collectors.toList()));
 		model.addAttribute("speciesDict", speciesDict.stream().map(species->species.getName()).collect(Collectors.toList()));

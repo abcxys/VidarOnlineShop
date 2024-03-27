@@ -2,10 +2,10 @@ package vidar.websystem.service;
 
 import java.util.List;
 
-import vidar.websystem.domain.ColorDict;
 import vidar.websystem.domain.DatatablesView;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.InventoryItem;
+import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.SpeciesDict;
 import vidar.websystem.domain.SizeDict;
 
@@ -24,7 +24,7 @@ public interface InventoryService {
 	
 	Long getStockByFloorId(long floorId);
 	
-	List<ColorDict> getColorDict();
+	List<PlankColor> getColorDict();
 	
 	List<SizeDict> getSizeDict();
 	

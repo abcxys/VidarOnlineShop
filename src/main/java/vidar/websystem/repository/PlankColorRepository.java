@@ -16,4 +16,6 @@ public interface PlankColorRepository extends JpaRepository<PlankColor, Long> {
 	List<PlankColor> findByIdIn(List<Long> plank_color_ids);
 	
 	PlankColor findOneByName(String name);
+	
+	List<PlankColor> findAll();
 }
