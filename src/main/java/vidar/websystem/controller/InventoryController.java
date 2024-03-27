@@ -1,6 +1,5 @@
 package vidar.websystem.controller;
 
-import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +18,8 @@ import vidar.websystem.domain.DatatablesView;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.InventoryItem;
 import vidar.websystem.domain.PlankColor;
+import vidar.websystem.domain.PlankSize;
 import vidar.websystem.domain.SpeciesDict;
-import vidar.websystem.domain.SizeDict;
 import vidar.websystem.service.InventoryService;
 
 /**
@@ -38,7 +37,7 @@ public class InventoryController {
 	@GetMapping
 	public String getInventory(Model model) {
 		List<PlankColor> colorDict =  inventoryService.getColorDict();
-		List<SizeDict> sizeDict = inventoryService.getSizeDict();
+		List<PlankSize> sizeDict = inventoryService.getSizeDict();
 		List<SpeciesDict> speciesDict = inventoryService.getSpeciesDict();
 		List<GradeDict> gradeDict = inventoryService.getGradeDict();
 		model.addAttribute("colorDict", colorDict);

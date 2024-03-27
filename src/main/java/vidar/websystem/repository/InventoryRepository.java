@@ -5,12 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.Inventory;
 import vidar.websystem.domain.InventoryItem;
 import vidar.websystem.domain.SpeciesDict;
-import vidar.websystem.domain.SizeDict;
 
 /**
  * @author yishi.xing

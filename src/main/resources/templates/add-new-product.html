@@ -38,10 +38,10 @@
                                 error=(${speciesError})
                             )"/>
                             <th:block th:replace="fragments/product-fragments :: add-product-select(
-                                title='Wood species',
-                                name='species',
-                                options=${speciesDict},
-                                error=(${speciesError})
+                                title='Plank type',
+                                name='plankTypes',
+                                options=${plankTypeDict},
+                                error=(${plankTypeError})
                             )"/>
                         </div>
                         <div class="form row mt-3">
@@ -116,7 +116,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="addNewColour" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="addNewColour" tabindex="-1" role="dialog" aria-labelledby="addNewColourModal"
 		aria-hidden="true" data-backdrop="static">
 	<div class="modal-dialog">
 		<div class="modal-content" style="border-radius: 5px;">
@@ -171,7 +171,7 @@
 	</div>
 </div>
 
-<div class="modal fade" id="addNewPlankSize" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="addNewPlankSize" tabindex="-1" role="dialog" aria-labelledby="addNewPlankSizeModal"
 		aria-hidden="true" data-backdrop="static">
 	<div class="modal-dialog">
 		<div class="modal-content" style="border-radius: 5px;">
@@ -238,6 +238,61 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="addNewSpecies" tabindex="-1" role="dialog" aria-labelledby="addNewSpeciesModal"
+		aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content" style="border-radius: 5px;">
+			<div class="modal-header">
+				<button type="button" class="close" aria-hidden="true" onclick="closeAddNewSpeciesModal()">
+					&times;
+				</button>
+				<h4 class="modal-title" id="addNewSpeciesTitle"><i class='fa fa-pencil'></i>&nbsp;Add new species</h4>
+			</div>
+			<form class="form-horizontal" id="addNewSpeciesForm">
+				<input type="hidden" name="userId" id="userId" value=1>
+				<div class="modal-body">
+					<div class="form row">
+                        <th:block th:replace="fragments/product-fragments :: add-string-required-attribute-input(
+                            title='Species name',
+                            name='speciesName',
+                            id='speciesName',
+                            placeholder='Enter the species name',
+                            value=(${species} ? ${species.name} : ''),
+                            error=(${speciesNameError})
+                        )"/>
+                        <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                            title='Species country',
+                            name='speciesCountry',
+                            id='speciesCountry',
+                            placeholder='Enter the species country',
+                            value=(${species} ? ${species.country} : ''),
+                            error=(${speciesCountryError})
+                        )"/>
+                    </div>
+                    <div class="form row mt-3">
+                        <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                            title='Species Description',
+                            name='speciesDescription',
+                            id='speciesDescription',
+                            placeholder='Enter the species description',
+                            value=(${species} ? ${species.description} : ''),
+                            error=(${speciesDescriptionError})
+                        )"/>
+                    </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="addNewSpeciesFun()">
+						Add
+						</button>
+						<button type="button" class="btn btn-primary" onclick="closeAddNewSpeciesModal()">
+						Cancel
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 <footer th:insert="~{fragments/common-fragments :: footer}"></footer>
 </body>
 
@@ -272,12 +327,23 @@ $("#size").on("change", function(){
 		}
 	}
 })
+$("#species").on("change", function(){
+	if ($(this).val() == '') {
+		if (!$(this).find('option:selected').text().includes('Enter')){
+			$("#addNewSpecies").modal('show');
+		}
+	}
+})
 function closeAddNewColourModal() {
 	$("#addNewColour").modal('hide');
 	location.reload();
 }
 function closeAddPlankSizeModal() {
 	$("#addNewPlankSize").modal('hide');
+	location.reload();
+}
+function closeAddNewSpeciesModal() {
+	$("#addNewSpecies").modal('hide');
 	location.reload();
 }
 
@@ -300,6 +366,33 @@ function addNewColourFun() {
 			colourName: colourName,
 			colourAlias: colourAlias,
 			description: colourDescription
+		},
+		success:function(response){
+			bootboxAlertPrompt(response);
+			setTimeout(function(){location.reload();},2000);
+		},
+		error:function (xhr){
+			bootboxAlertError(xhr.responseText);
+			setTimeout(function(){location.reload();}, 3000);
+		}
+	});
+}
+
+function addNewSpeciesFun() {
+	var speciesName = $("input[name=speciesName]").val();
+	var speciesCountry = $("input[name=speciesCountry]").val();
+	var speciesDescription = $("input[name=speciesDescription]").val();
+	if (speciesName == '') {
+		bootboxAlertError("Species name can not be empty");
+		return false;
+	}
+	$.ajax({
+		type:"POST",
+		url:'/product/addNewSpecies',
+		data:{
+			speciesName: speciesName,
+			speciesCountry: speciesCountry,
+			speciesDescription: speciesDescription
 		},
 		success:function(response){
 			bootboxAlertPrompt(response);

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lombok.RequiredArgsConstructor;
@@ -15,8 +14,8 @@ import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.PlankColor;
+import vidar.websystem.domain.PlankSize;
 import vidar.websystem.domain.SpeciesDict;
-import vidar.websystem.domain.SizeDict;
 import vidar.websystem.service.InventoryService;
 
 /**
@@ -40,12 +39,12 @@ public class UpdateInventoryController {
 	public String addNewProduct(Model model) {
 		List<GradeDict> gradeDict = inventoryService.getGradeDict();
 		List<PlankColor> colorDict = inventoryService.getColorDict();
-		List<SizeDict> sizeDict = inventoryService.getSizeDict();
+		List<PlankSize> sizeDict = inventoryService.getSizeDict();
 		List<SpeciesDict> speciesDict = inventoryService.getSpeciesDict();
 		model.addAttribute("gradeDict", gradeDict.stream().map(grade->grade.getGradeName()).collect(Collectors.toList()));
 		model.addAttribute("colourDict", colorDict.stream().map(color->color.getName()).collect(Collectors.toList()));
-		model.addAttribute("sizeDict", sizeDict.stream().map(size->size.getWidthInInch() + " inch x 3/4inch x " + size.getLength()
-					+ " " + size.getsqftPerCarton()).collect(Collectors.toList()));
+		model.addAttribute("sizeDict", sizeDict.stream().map(size->size.getWidth_in_inch() + " inch x 3/4inch x " + size.getLength()
+					+ " " + size.getSquarefoot_per_carton()).collect(Collectors.toList()));
 		model.addAttribute("speciesDict", speciesDict.stream().map(species->species.getName()).collect(Collectors.toList()));
 		return Pages.ADD_NEW_PRODUCT;
 	}

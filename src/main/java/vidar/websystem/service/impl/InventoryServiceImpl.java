@@ -9,8 +9,8 @@ import vidar.websystem.domain.DatatablesView;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.InventoryItem;
 import vidar.websystem.domain.PlankColor;
+import vidar.websystem.domain.PlankSize;
 import vidar.websystem.domain.SpeciesDict;
-import vidar.websystem.domain.SizeDict;
 import vidar.websystem.repository.InventoryRepository;
 import vidar.websystem.repository.PlankColorRepository;
 import vidar.websystem.repository.PlankSizeRepository;
@@ -60,9 +60,8 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	@Override
-	public List<SizeDict> getSizeDict() {
-		List<SizeDict> sizeDict = plankSizeRepository.findSizeDict();
-		return sizeDict;
+	public List<PlankSize> getSizeDict() {
+		return plankSizeRepository.findAll();
 	}
 
 	@Override
