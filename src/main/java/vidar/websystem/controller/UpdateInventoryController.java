@@ -17,7 +17,6 @@ import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.PlankSize;
 import vidar.websystem.domain.PlankType;
 import vidar.websystem.domain.WoodSpecies;
-import vidar.websystem.service.InventoryService;
 import vidar.websystem.service.ProductService;
 
 /**
@@ -28,10 +27,6 @@ import vidar.websystem.service.ProductService;
 @RequiredArgsConstructor
 @RequestMapping(PathConstants.UPDATE)
 public class UpdateInventoryController {
-	
-	@Autowired
-	private InventoryService inventoryService;
-	
 	@Autowired
 	private ProductService productService;
 	

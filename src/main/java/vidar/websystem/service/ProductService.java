@@ -44,4 +44,6 @@ public interface ProductService {
     String postWoodSpecies(User user, WoodSpecies species);
     
     String postPlankType(User user, PlankType plankType);
+    
+    String postGrade(User user, Grade grade);
 }

@@ -13,6 +13,7 @@ import vidar.websystem.utils.ControllerUtils;
 import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.WoodSpecies;
 import vidar.websystem.domain.PlankType;
+import vidar.websystem.domain.Grade;
 import vidar.websystem.domain.User;
 
 import java.text.SimpleDateFormat;
@@ -112,5 +113,18 @@ public class ProductController {
     	type.setAlias(plankTypeAlias);
     	type.setDescription(plankTypeDescription);
     	return ResponseEntity.ok().body(productService.postPlankType(user, type));
+    }
+    
+    @RequestMapping(value="/addNewGrade", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> addNewGrade(@RequestParam("gradeName") String gradeName,
+    		@RequestParam("gradeAlias") String gradeAlias,
+    		@RequestParam("description") String description) {
+    	User user = userService.getAuthenticatedUser();
+    	Grade grade = new Grade();
+    	grade.setName(gradeName);
+    	grade.setAlias(gradeAlias);
+    	grade.setDescription(description);
+    	return ResponseEntity.ok().body(productService.postGrade(user, grade));
     }
 }

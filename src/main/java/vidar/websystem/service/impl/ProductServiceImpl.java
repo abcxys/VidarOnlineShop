@@ -177,4 +177,24 @@ public class ProductServiceImpl implements ProductService {
 		plankTypeRepository.save(plankType);
 		return "New plank type added successfully";
 	}
+	
+	@Override
+	@Transactional
+	public String postGrade(User user, Grade grade) {
+		Grade queryByName = gradeRepository.findOneByName(grade.getName());
+		if (queryByName != null) {
+			log.info("Plank type duplicated, update entry...");
+			queryByName.setName(grade.getName());
+			queryByName.setAlias(grade.getAlias());
+			queryByName.setDescription(grade.getDescription());
+			queryByName.setUpdate_time(new Date());
+			queryByName.setUpdate_user_id(user.getId());
+			gradeRepository.save(queryByName);
+			return "Grade updated successfully";
+		}
+		grade.setCreate_time(new Date());
+		grade.setCreate_user_id(user.getId());
+		gradeRepository.save(grade);
+		return "New grade added successfully";
+	}
 }
