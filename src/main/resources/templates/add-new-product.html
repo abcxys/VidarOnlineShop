@@ -77,18 +77,18 @@
                         </div>
                         <div class="form row mt-3">
                             <th:block th:replace="fragments/account-fragments :: add-perfume-input(
+                                title='Top layer thickness',
+                                name='top_layer_thickness',
+                                placeholder='Enter the top layer thickness',
+                                value=(${product} ? ${perfume.top_layer_thickness} : ''),
+                                error=(${fragranceBaseNotesError})
+                            )"/>
+                            <th:block th:replace="fragments/account-fragments :: add-perfume-input(
                                 title='Country',
                                 name='country',
                                 placeholder='Enter the country',
-                                value=(${perfume} ? ${perfume.country} : ''),
+                                value=(${product} ? ${product.country} : ''),
                                 error=(${countryError})
-                            )"/>
-                            <th:block th:replace="fragments/account-fragments :: add-perfume-input(
-                                title='Unknown attribute',
-                                name='unknownAttr',
-                                placeholder='Enter the ',
-                                value=(${perfume} ? ${perfume.fragranceBaseNotes} : ''),
-                                error=(${fragranceBaseNotesError})
                             )"/>
                         </div>
                         <div class="form row mt-3">
@@ -96,7 +96,7 @@
                                 title='Price',
                                 name='price',
                                 placeholder='Enter the price',
-                                value=(${perfume} ? ${perfume.price} : ''),
+                                value=(${product} ? ${product.price} : ''),
                                 error=(${priceError})
                             )"/>
                             <div class="col" style="margin-top: 35px">
