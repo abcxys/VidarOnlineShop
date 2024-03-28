@@ -20,27 +20,27 @@ import lombok.Setter;
 
 /**
  * @author yishi.xing
- * @created Mar 27, 2024 - 3:07:46 PM
+ * @created Mar 28, 2024 - 10:39:14 AM
  */
 @Entity
-@Table(name = "wood_species")
+@Table(name = "plank_types")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id"})
-public class WoodSpecies {
+public class PlankType {
 	@Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wood_species_id_seq")
-    @SequenceGenerator(name = "wood_species_id_seq", sequenceName = "wood_species_id_seq", initialValue = 4, allocationSize = 1)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plank_type_id_seq")
+    @SequenceGenerator(name = "plank_type_id_seq", sequenceName = "plank_type_id_seq", initialValue = 1, allocationSize = 1)
+	private Long id;
 	
 	@Column(name = "name", nullable = false)
-    private String name;
+	private String name;
 	
-	@Column(name = "country", nullable = true)
-    private String country = "American";
+	@Column(name = "alias", nullable = true)
+	private String alias;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_time", updatable = false)
@@ -55,7 +55,4 @@ public class WoodSpecies {
 	
 	@Column(name = "update_user_id")
 	private Long update_user_id;
-	
-	@Column(name = "description", nullable = true)
-    private String description;
 }
