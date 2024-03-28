@@ -3,7 +3,6 @@ package vidar.websystem.service;
 import java.util.List;
 
 import vidar.websystem.domain.DatatablesView;
-import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.InventoryItem;
 
 /**

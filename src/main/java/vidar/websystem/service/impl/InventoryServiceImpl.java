@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import vidar.websystem.domain.DatatablesView;
-import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.InventoryItem;
 import vidar.websystem.repository.InventoryRepository;
 import vidar.websystem.service.InventoryService;
