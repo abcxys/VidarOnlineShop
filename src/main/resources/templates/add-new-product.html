@@ -17,13 +17,13 @@
                     <br/>
                     <form method="post" action="/admin/add/perfume" enctype="multipart/form-data">
                         <div class="form row">
-                        	<th:block th:replace="fragments/product-fragments :: add-product-select(
+                        	<th:block th:replace="fragments/product-fragments :: add-product-attribute-select(
                                 title='Colour',
                                 name='colour',
                                 options=${colourDict},
                                 error=(${colourError})
                             )"/>
-                            <th:block th:replace="fragments/product-fragments :: add-product-select(
+                            <th:block th:replace="fragments/product-fragments :: add-product-attribute-select(
                                 title='Size',
                                 name='size',
                                 options=${sizeDict},
@@ -31,13 +31,13 @@
                             )"/>
                         </div>
                         <div class="form row mt-3">
-                            <th:block th:replace="fragments/product-fragments :: add-product-select(
+                            <th:block th:replace="fragments/product-fragments :: add-product-attribute-select(
                                 title='Wood species',
                                 name='species',
                                 options=${speciesDict},
                                 error=(${speciesError})
                             )"/>
-                            <th:block th:replace="fragments/product-fragments :: add-product-select(
+                            <th:block th:replace="fragments/product-fragments :: add-product-attribute-select(
                                 title='Plank type',
                                 name='plank_type',
                                 options=${plankTypeDict},
@@ -45,13 +45,13 @@
                             )"/>
                         </div>
                         <div class="form row mt-3">
-                            <th:block th:replace="fragments/product-fragments :: add-product-select(
+                            <th:block th:replace="fragments/product-fragments :: add-product-attribute-select(
                                 title='Grade',
                                 name='grade',
                                 options=${gradeDict},
                                 error=(${gradeError})
                             )"/>
-                            <th:block th:replace="fragments/account-fragments :: add-perfume-input(
+                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
                                 title='Batch number',
                                 name='batch',
                                 placeholder='Enter the batch number',
@@ -60,30 +60,30 @@
                             )"/>
                         </div>
                         <div class="form row mt-3">
-                            <th:block th:replace="fragments/account-fragments :: add-perfume-input(
-                                title='Manufacture year',
-                                name='year',
-                                placeholder='Enter the manufacture year',
-                                value=(${perfume} ? ${perfume.volume} : ''),
-                                error=(${yearError})
-                            )"/>
-                            <th:block th:replace="fragments/account-fragments :: add-perfume-input(
-                                title='Finish',
-                                name='finish',
-                                placeholder='Enter the finish',
-                                value=(${perfume} ? ${perfume.volume} : ''),
-                                error=(${finishError})
-                            )"/>
-                        </div>
-                        <div class="form row mt-3">
-                            <th:block th:replace="fragments/account-fragments :: add-perfume-input(
+                        	<th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
                                 title='Top layer thickness',
                                 name='top_layer_thickness',
                                 placeholder='Enter the top layer thickness',
                                 value=(${product} ? ${perfume.top_layer_thickness} : ''),
                                 error=(${fragranceBaseNotesError})
                             )"/>
-                            <th:block th:replace="fragments/account-fragments :: add-perfume-input(
+                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                                title='Manufacture year',
+                                name='year',
+                                placeholder='Enter the manufacture year',
+                                value=(${perfume} ? ${perfume.volume} : ''),
+                                error=(${yearError})
+                            )"/>
+                        </div>
+                        <div class="form row mt-3">
+                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                                title='Finish',
+                                name='finish',
+                                placeholder='Enter the finish',
+                                value=(${perfume} ? ${perfume.volume} : ''),
+                                error=(${finishError})
+                            )"/>
+                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
                                 title='Country',
                                 name='country',
                                 placeholder='Enter the country',
@@ -92,7 +92,7 @@
                             )"/>
                         </div>
                         <div class="form row mt-3">
-                            <th:block th:replace="fragments/account-fragments :: add-perfume-input(
+                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
                                 title='Price',
                                 name='price',
                                 placeholder='Enter the price',
@@ -226,7 +226,7 @@
                         )"/>
                     </div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" onclick="closeAddPlankSizeModal()">
+						<button type="button" class="btn btn-primary" onclick="addNewPlankSizeFun()">
 						Add
 						</button>
 						<button type="button" class="btn btn-primary" onclick="closeAddPlankSizeModal()">
@@ -494,6 +494,47 @@ function addNewColourFun() {
 	$.ajax({
 		type:"POST",
 		url:'/product/addNewColour',
+		data:{
+			colourName: colourName,
+			colourAlias: colourAlias,
+			description: colourDescription
+		},
+		success:function(response){
+			bootboxAlertPrompt(response);
+			setTimeout(function(){location.reload();},2000);
+		},
+		error:function (xhr){
+			bootboxAlertError(xhr.responseText);
+			setTimeout(function(){location.reload();}, 3000);
+		}
+	});
+}
+
+function addNewPlankSizeFun(){
+	console.log("add new plank size");
+	var width = $("input[name=width]").val();
+	var length = $("input[name=length]").val();
+	var thickness = $("input[name=thickness]").val();
+	var sqftage = $("input[name=sqftage]").val();
+	if (width == '') {
+		bootboxAlertError("Plank width can not be empty");
+		return false;
+	}
+	if (length == '') {
+		bootboxAlertError("Plank length can not be empty");
+		return false;
+	}
+	if (thickness == '') {
+		bootboxAlertError("Plank thickness can not be empty");
+		return false;
+	}
+	if (sqftage == '') {
+		bootboxAlertError("Carton squarefootage can not be empty");
+		return false;
+	}
+	$.ajax({
+		type:"POST",
+		url:'/product/addNewSize',
 		data:{
 			colourName: colourName,
 			colourAlias: colourAlias,

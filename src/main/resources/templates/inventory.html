@@ -15,7 +15,7 @@
 									<div class="input-group">
 										<select id="colour" name="colour" data-live-search="true" class="selectpicker" th:field="${colorDict}">
 												<option value="">Colour</option>
-                            				<option th:each="color : ${colorDict}" th:value="${color.getId()}" th:text="${color.getName()}"></option>
+                            				<option th:each="color : ${colorDict}" th:value="${color.getId()}" th:text="${color.toString()}"></option>
                     					</select>
                     					<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('colour')">
 				           					<i class="fa fa-fw fa-eraser" title="clear"></i>
@@ -37,7 +37,7 @@
 									<div class="input-group">
 										<select id="species" name="species" data-live-search="true" class="selectpicker" th:field="${speciesDict}">
 												<option value="">Species</option>
-                            				<option th:each="species : ${speciesDict}" th:value="${species.getId()}" th:text="${species.getName()}"></option>
+                            				<option th:each="species : ${speciesDict}" th:value="${species.getId()}" th:text="${species.toString()}"></option>
                     					</select>
 										<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('species')">
 	                      					<i class="fa fa-fw fa-eraser" title="clear"></i>
@@ -48,7 +48,7 @@
 									<div class="input-group">
 										<select id="grade" name="grade" data-live-search="true" class="selectpicker" th:field="${gradeDict}">
 												<option value="">Grade</option>
-                            				<option th:each="grade : ${gradeDict}" th:value="${grade.getId()}" th:text="${grade.getGradeName()}"></option>
+                            				<option th:each="grade : ${gradeDict}" th:value="${grade.getId()}" th:text="${grade.toString()}"></option>
                     					</select>
 										<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('grade')">
 	                      					<i class="fa fa-fw fa-eraser" title="clear"></i>

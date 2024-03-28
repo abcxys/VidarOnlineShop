@@ -36,4 +36,10 @@ public class PlankSize {
 	
 	@Column(name = "description", nullable = false)
     private String description;
+	
+	@Override
+	public String toString() {
+		return width_in_inch + " inch x " + thickness_in_inch + " inch x "
+	+ length + " " + String.valueOf(squarefoot_per_carton);
+	}
 }
