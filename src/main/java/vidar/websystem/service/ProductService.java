@@ -4,6 +4,7 @@ import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.HardwoodFloor;
 import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.PlankSize;
+import vidar.websystem.domain.PlankType;
 import vidar.websystem.domain.User;
 import vidar.websystem.domain.WoodSpecies;
 import vidar.websystem.dto.request.SearchRequest;
@@ -32,8 +33,12 @@ public interface ProductService {
 	List<PlankSize> getSizeDict();
 	
 	List<WoodSpecies> getSpeciesDict();
+	
+	List<PlankType> getPlankTypeDict();
     
-    Long postPlankColor(User user, PlankColor plankColor);
+    String postPlankColor(User user, PlankColor plankColor);
     
     String postWoodSpecies(User user, WoodSpecies species);
+    
+    String postPlankType(User user, PlankType plankType);
 }

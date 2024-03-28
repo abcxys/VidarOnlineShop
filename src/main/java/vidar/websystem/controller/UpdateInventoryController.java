@@ -15,6 +15,7 @@ import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.GradeDict;
 import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.PlankSize;
+import vidar.websystem.domain.PlankType;
 import vidar.websystem.domain.WoodSpecies;
 import vidar.websystem.service.InventoryService;
 import vidar.websystem.service.ProductService;
@@ -45,11 +46,13 @@ public class UpdateInventoryController {
 		List<PlankColor> colorDict = productService.getColorDict();
 		List<PlankSize> sizeDict = productService.getSizeDict();
 		List<WoodSpecies> speciesDict = productService.getSpeciesDict();
+		List<PlankType> plankTypeDict = productService.getPlankTypeDict();
 		model.addAttribute("gradeDict", gradeDict.stream().map(grade->grade.getGradeName()).collect(Collectors.toList()));
 		model.addAttribute("colourDict", colorDict.stream().map(color->color.getName()).collect(Collectors.toList()));
 		model.addAttribute("sizeDict", sizeDict.stream().map(size->size.getWidth_in_inch() + " inch x " + size.getThickness_in_inch() + " inch x " + size.getLength()
 					+ " " + size.getSquarefoot_per_carton()).collect(Collectors.toList()));
 		model.addAttribute("speciesDict", speciesDict.stream().map(species->species.getName()).collect(Collectors.toList()));
+		model.addAttribute("plankTypeDict", plankTypeDict.stream().map(plankType->plankType.getName()).collect(Collectors.toList()));
 		return Pages.ADD_NEW_PRODUCT;
 	}
 }

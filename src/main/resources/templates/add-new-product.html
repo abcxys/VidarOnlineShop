@@ -416,7 +416,7 @@ $("#addNewProductBtn").on("click", function(){
 			plank_color_id: 1
 		},
 		success: function(response){
-			console.log('sucess');
+			console.log('success');
 		},
 		error: function(hata){
 			console.log('failure');
@@ -556,6 +556,37 @@ function addNewGradeFun() {
 			gradeName: gradeName,
 			gradeAlias: gradeAlias,
 			description: gradeDescription
+		},
+		success:function(response){
+			bootboxAlertPrompt(response);
+			setTimeout(function(){location.reload();},2000);
+		},
+		error:function (xhr){
+			bootboxAlertError(xhr.responseText);
+			setTimeout(function(){location.reload();}, 3000);
+		}
+	});
+}
+
+function addNewTypeFun() {
+	var plankTypeName = $("input[name=typeName]").val();
+	var plankTypeAlias = $("input[name=typeAlias]").val();
+	var plankTypeDescription = $("input[name=typeDescription]").val();
+	if (plankTypeName == '') {
+		bootboxAlertError("Plank type name can not be empty");
+		return false;
+	}
+	if (plankTypeAlias == '') {
+		bootboxAlertError("Plank type alias can not be empty");
+		return false;
+	}
+	$.ajax({
+		type:"POST",
+		url:'/product/addNewType',
+		data:{
+			plankTypeName: plankTypeName,
+			plankTypeAlias: plankTypeAlias,
+			plankTypeDescription: plankTypeDescription
 		},
 		success:function(response){
 			bootboxAlertPrompt(response);

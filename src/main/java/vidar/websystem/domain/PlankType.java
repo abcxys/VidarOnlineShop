@@ -33,7 +33,7 @@ public class PlankType {
 	@Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plank_type_id_seq")
-    @SequenceGenerator(name = "plank_type_id_seq", sequenceName = "plank_type_id_seq", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "plank_type_id_seq", sequenceName = "plank_type_id_seq", initialValue = 3, allocationSize = 1)
 	private Long id;
 	
 	@Column(name = "name", nullable = false)
@@ -55,4 +55,7 @@ public class PlankType {
 	
 	@Column(name = "update_user_id")
 	private Long update_user_id;
+	
+	@Column(name = "description", nullable = true)
+	private String description;
 }

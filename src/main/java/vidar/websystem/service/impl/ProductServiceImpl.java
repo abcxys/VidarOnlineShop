@@ -6,6 +6,7 @@ import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.PlankSize;
+import vidar.websystem.domain.PlankType;
 import vidar.websystem.domain.User;
 import vidar.websystem.domain.WoodSpecies;
 import vidar.websystem.dto.request.SearchRequest;
@@ -13,6 +14,7 @@ import vidar.websystem.repository.FloorOrderRepository;
 import vidar.websystem.repository.HardwoodFloorsRepository;
 import vidar.websystem.repository.PlankColorRepository;
 import vidar.websystem.repository.PlankSizeRepository;
+import vidar.websystem.repository.PlankTypeRepository;
 import vidar.websystem.repository.WoodSpeciesRepository;
 import vidar.websystem.service.ProductService;
 
@@ -40,6 +42,7 @@ public class ProductServiceImpl implements ProductService {
     private final PlankSizeRepository plankSizeRepository;
     private final PlankColorRepository plankColorRepository;
     private final WoodSpeciesRepository woodSpeciesRepository;
+    private final PlankTypeRepository plankTypeRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -88,8 +91,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<PlankColor> getColorDict() {
-		List<PlankColor> colorDict = plankColorRepository.findAll();
-		return colorDict;
+		return plankColorRepository.findAll();
 	}
 
 	@Override
@@ -99,13 +101,17 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<WoodSpecies> getSpeciesDict() {
-		List<WoodSpecies> speciesDict = woodSpeciesRepository.findAll();
-		return speciesDict;
+		return woodSpeciesRepository.findAll();
+	}
+
+	@Override
+	public List<PlankType> getPlankTypeDict() {
+		return plankTypeRepository.findAll();
 	}
 
 	@Override
 	@Transactional
-	public Long postPlankColor(User user, PlankColor plankColor) {
+	public String postPlankColor(User user, PlankColor plankColor) {
 		PlankColor queryByName = plankColorRepository.findOneByName(plankColor.getName());
 		if (queryByName!=null) {
 			log.info("Color name duplicated, update entry...");
@@ -114,15 +120,16 @@ public class ProductServiceImpl implements ProductService {
 			queryByName.setDescription(plankColor.getDescription());
 			queryByName.setUpdate_time(new Date());
 			queryByName.setUpdate_user_id(user.getId());
-			return new Long(2);
+			return "Colour updated successfully";
 		}
 		plankColor.setCreate_user_id(user.getId());
 		plankColor.setCreate_time(new Date());
 		plankColorRepository.save(plankColor);
-		return new Long(1);
+		return "New colour added successfully";
 	}
 
 	@Override
+	@Transactional
 	public String postWoodSpecies(User user, WoodSpecies species) {
 		WoodSpecies queryByName = woodSpeciesRepository.findOneByName(species.getName());
 		// if the species name does not exist already
@@ -140,5 +147,26 @@ public class ProductServiceImpl implements ProductService {
 		species.setCreate_time(new Date());
 		woodSpeciesRepository.save(species);
 		return "New species added successfully";
+	}
+	
+	@Override
+	@Transactional
+	public String postPlankType(User user, PlankType plankType) {
+		PlankType queryByName = plankTypeRepository.findOneByName(plankType.getName());
+		// if the plankType name does not exist
+		if (queryByName != null) {
+			log.info("Plank type duplicated, update entry...");
+			queryByName.setName(plankType.getName());
+			queryByName.setAlias(plankType.getAlias());
+			queryByName.setDescription(plankType.getDescription());
+			queryByName.setUpdate_time(new Date());
+			queryByName.setUpdate_user_id(user.getId());
+			plankTypeRepository.save(queryByName);
+			return "Plank type updated successfully";
+		}
+		plankType.setCreate_user_id(user.getId());
+		plankType.setCreate_time(new Date());
+		plankTypeRepository.save(plankType);
+		return "New plank type added successfully";
 	}
 }
