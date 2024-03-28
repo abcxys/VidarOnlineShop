@@ -19,7 +19,7 @@ public class PlankSize {
 	@Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "plank_size_id_seq")
-    @SequenceGenerator(name = "plank_size_id_seq", sequenceName = "plank_size_id_seq", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "plank_size_id_seq", sequenceName = "plank_size_id_seq", initialValue = 5, allocationSize = 1)
     private Long id;
 	
 	@Column(name = "width_in_inch", nullable = false)

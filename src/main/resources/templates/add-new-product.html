@@ -293,6 +293,61 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="addNewGrade" tabindex="-1" role="dialog" aria-labelledby="addNewGradeModal"
+		aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content" style="border-radius: 5px;">
+			<div class="modal-header">
+				<button type="button" class="close" aria-hidden="true" onclick="closeAddNewGradeModal()">
+					&times;
+				</button>
+				<h4 class="modal-title" id="addNewGradeTitle"><i class='fa fa-pencil'></i>&nbsp;Add new grade</h4>
+			</div>
+			<form class="form-horizontal" id="addNewGradeForm">
+				<input type="hidden" name="userId" id="userId" value=1>
+				<div class="modal-body">
+					<div class="form row">
+                        <th:block th:replace="fragments/product-fragments :: add-string-required-attribute-input(
+                            title='Grade name',
+                            name='gradeName',
+                            id='gradeName',
+                            placeholder='Enter the grade name',
+                            value=(${grade} ? ${grade.name} : ''),
+                            error=(${gradeNameError})
+                        )"/>
+                        <th:block th:replace="fragments/product-fragments :: add-string-required-attribute-input(
+                            title='Grade alias',
+                            name='gradeAlias',
+                            id='gradeAlias',
+                            placeholder='Enter the grade alias',
+                            value=(${grade} ? ${grade.alias} : ''),
+                            error=(${gradeError})
+                        )"/>
+                    </div>
+                    <div class="form row mt-3">
+                        <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                            title='Grade Description',
+                            name='gradeDescription',
+                            id='gradeDescription',
+                            placeholder='Enter the grade description',
+                            value=(${grade} ? ${grade.description} : ''),
+                            error=(${descriptionError})
+                        )"/>
+                    </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="addNewGradeFun()">
+						Add
+						</button>
+						<button type="button" class="btn btn-primary" onclick="closeAddNewGradeModal()">
+						Cancel
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 <footer th:insert="~{fragments/common-fragments :: footer}"></footer>
 </body>
 
@@ -334,6 +389,13 @@ $("#species").on("change", function(){
 		}
 	}
 })
+$("#grade").on("change", function(){
+	if ($(this).val() == ''){
+		if (!$(this).find('option:selected').text().includes('Enter')){
+			$("#addNewGrade").modal('show');
+		}
+	}
+})
 function closeAddNewColourModal() {
 	$("#addNewColour").modal('hide');
 	location.reload();
@@ -344,6 +406,10 @@ function closeAddPlankSizeModal() {
 }
 function closeAddNewSpeciesModal() {
 	$("#addNewSpecies").modal('hide');
+	location.reload();
+}
+function closeAddNewGradeModal(){
+	$("#addNewGrade").modal('hide');
 	location.reload();
 }
 
@@ -393,6 +459,37 @@ function addNewSpeciesFun() {
 			speciesName: speciesName,
 			speciesCountry: speciesCountry,
 			speciesDescription: speciesDescription
+		},
+		success:function(response){
+			bootboxAlertPrompt(response);
+			setTimeout(function(){location.reload();},2000);
+		},
+		error:function (xhr){
+			bootboxAlertError(xhr.responseText);
+			setTimeout(function(){location.reload();}, 3000);
+		}
+	});
+}
+
+function addNewGradeFun() {
+	var gradeName = $("input[name=gradeName]").val();
+	var gradeAlias = $("input[name=gradeAlias]").val();
+	var gradeDescription = $("input[name=gradeDescription]").val();
+	if (gradeName == '') {
+		bootboxAlertError("Grade name can not be empty");
+		return false;
+	}
+	if (gradeAlias == '') {
+		bootboxAlertError("Grade alias can not be empty");
+		return false;
+	}
+	$.ajax({
+		type:"POST",
+		url:'/product/addNewGrade',
+		data:{
+			gradeName: gradeName,
+			gradeAlias: gradeAlias,
+			description: gradeDescription
 		},
 		success:function(response){
 			bootboxAlertPrompt(response);
