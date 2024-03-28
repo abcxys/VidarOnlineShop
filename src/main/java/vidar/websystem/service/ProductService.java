@@ -1,6 +1,7 @@
 package vidar.websystem.service;
 
 import vidar.websystem.domain.FloorColorSize;
+import vidar.websystem.domain.Grade;
 import vidar.websystem.domain.HardwoodFloor;
 import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.PlankSize;
@@ -35,6 +36,8 @@ public interface ProductService {
 	List<WoodSpecies> getSpeciesDict();
 	
 	List<PlankType> getPlankTypeDict();
+	
+	List<Grade> getGradeDict();
     
     String postPlankColor(User user, PlankColor plankColor);
     

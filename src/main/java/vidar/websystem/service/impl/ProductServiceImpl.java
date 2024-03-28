@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.domain.FloorColorSize;
+import vidar.websystem.domain.Grade;
 import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.PlankSize;
 import vidar.websystem.domain.PlankType;
@@ -11,6 +12,7 @@ import vidar.websystem.domain.User;
 import vidar.websystem.domain.WoodSpecies;
 import vidar.websystem.dto.request.SearchRequest;
 import vidar.websystem.repository.FloorOrderRepository;
+import vidar.websystem.repository.GradeRepository;
 import vidar.websystem.repository.HardwoodFloorsRepository;
 import vidar.websystem.repository.PlankColorRepository;
 import vidar.websystem.repository.PlankSizeRepository;
@@ -43,6 +45,7 @@ public class ProductServiceImpl implements ProductService {
     private final PlankColorRepository plankColorRepository;
     private final WoodSpeciesRepository woodSpeciesRepository;
     private final PlankTypeRepository plankTypeRepository;
+    private final GradeRepository gradeRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -108,7 +111,12 @@ public class ProductServiceImpl implements ProductService {
 	public List<PlankType> getPlankTypeDict() {
 		return plankTypeRepository.findAll();
 	}
-
+	
+	@Override
+	public List<Grade> getGradeDict(){
+		return gradeRepository.findAll();
+	}
+	
 	@Override
 	@Transactional
 	public String postPlankColor(User user, PlankColor plankColor) {

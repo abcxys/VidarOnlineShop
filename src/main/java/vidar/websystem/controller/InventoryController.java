@@ -15,7 +15,7 @@ import net.sf.json.JSONObject;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.DatatablesView;
-import vidar.websystem.domain.GradeDict;
+import vidar.websystem.domain.Grade;
 import vidar.websystem.domain.InventoryItem;
 import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.PlankSize;
@@ -43,7 +43,7 @@ public class InventoryController {
 		List<PlankColor> colorDict =  productService.getColorDict();
 		List<PlankSize> sizeDict = productService.getSizeDict();
 		List<WoodSpecies> speciesDict = productService.getSpeciesDict();
-		List<GradeDict> gradeDict = inventoryService.getGradeDict();
+		List<Grade> gradeDict = productService.getGradeDict();
 		model.addAttribute("colorDict", colorDict);
 		model.addAttribute("sizeDict", sizeDict);
 		model.addAttribute("speciesDict", speciesDict);

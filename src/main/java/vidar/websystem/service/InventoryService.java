@@ -20,6 +20,4 @@ public interface InventoryService {
 			int gradeId);
 	
 	Long getStockByFloorId(long floorId);
-	
-	List<GradeDict> getGradeDict();
 }

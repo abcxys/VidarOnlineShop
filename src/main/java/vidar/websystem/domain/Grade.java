@@ -58,4 +58,9 @@ public class Grade {
 	
 	@Column(name = "description", nullable = true)
     private String description;
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }
