@@ -348,6 +348,61 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal fade" id="addNewType" tabindex="-1" role="dialog" aria-labelledby="addNewTypeModal"
+		aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content" style="border-radius: 5px;">
+			<div class="modal-header">
+				<button type="button" class="close" aria-hidden="true" onclick="closeAddNewTypeModal()">
+					&times;
+				</button>
+				<h4 class="modal-title" id="addNewTypeTitle"><i class='fa fa-pencil'></i>&nbsp;Add new plank type</h4>
+			</div>
+			<form class="form-horizontal" id="addNewTypeForm">
+				<input type="hidden" name="userId" id="userId" value=1>
+				<div class="modal-body">
+					<div class="form row">
+                        <th:block th:replace="fragments/product-fragments :: add-string-required-attribute-input(
+                            title='Type name',
+                            name='typeName',
+                            id='typeName',
+                            placeholder='Enter the type name',
+                            value=(${type} ? ${type.name} : ''),
+                            error=(${typeNameError})
+                        )"/>
+                        <th:block th:replace="fragments/product-fragments :: add-string-required-attribute-input(
+                            title='Type alias',
+                            name='typeAlias',
+                            id='typeAlias',
+                            placeholder='Enter the type alias',
+                            value=(${type} ? ${type.alias} : ''),
+                            error=(${typeError})
+                        )"/>
+                    </div>
+                    <div class="form row mt-3">
+                        <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                            title='Type Description',
+                            name='typeDescription',
+                            id='typeDescription',
+                            placeholder='Enter the type description',
+                            value=(${type} ? ${type.description} : ''),
+                            error=(${descriptionError})
+                        )"/>
+                    </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="addNewTypeFun()">
+						Add
+						</button>
+						<button type="button" class="btn btn-primary" onclick="closeAddNewGradeModal()">
+						Cancel
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
 <footer th:insert="~{fragments/common-fragments :: footer}"></footer>
 </body>
 
@@ -396,6 +451,13 @@ $("#grade").on("change", function(){
 		}
 	}
 })
+$("#plank_type").on("change", function(){
+	if ($(this).val() == ''){
+		if (!$(this).find('option:selected').text().includes('Enter')){
+			$("#addNewType").modal('show');
+		}
+	}
+})
 function closeAddNewColourModal() {
 	$("#addNewColour").modal('hide');
 	location.reload();
@@ -410,6 +472,10 @@ function closeAddNewSpeciesModal() {
 }
 function closeAddNewGradeModal(){
 	$("#addNewGrade").modal('hide');
+	location.reload();
+}
+function closeAddNewTypeModal(){
+	$("#addNewType").modal('hide');
 	location.reload();
 }
 
