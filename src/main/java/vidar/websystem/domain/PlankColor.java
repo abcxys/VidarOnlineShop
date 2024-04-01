@@ -43,14 +43,14 @@ public class PlankColor {
     private String alias;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "create_time" ,updatable = false)
+	@Column(name = "create_time", updatable = false)
 	private Date create_time;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_time")
 	private Date update_time;
 	
-	@Column(name = "create_user_id" ,updatable = false)
+	@Column(name = "create_user_id", updatable = false)
 	private Long create_user_id;
 	
 	@Column(name = "update_user_id")
