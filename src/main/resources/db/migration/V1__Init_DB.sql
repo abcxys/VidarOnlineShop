@@ -159,7 +159,7 @@ create table hardwoodfloors
     country                varchar(255) not null,
     description            varchar(255),
     filename               varchar(255),
-    price                  float4 not null,
+    price                  decimal(10,2) not null,
     year                   int4 not null,
     plank_size_id           int8 not null,
     plank_color_id          int8 not null,

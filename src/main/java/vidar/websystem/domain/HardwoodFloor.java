@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,8 +37,8 @@ public class HardwoodFloor {
     @Column(name = "filename")
     private String filename;
 
-    @Column(name = "price", nullable = false)
-    private float price;
+    @Column(name = "price", precision = 10, scale = 2, nullable = false)
+    private BigDecimal price;
     
     @Column(name = "plank_size_id", nullable = false)
     private Long plank_size_id;
