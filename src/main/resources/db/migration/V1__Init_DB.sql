@@ -73,7 +73,7 @@ create table plank_sizes
     width_in_inch   varchar(255) not null,
     length      varchar(255) not null,
     thickness_in_inch   varchar(255) not null,
-    squarefoot_per_carton   float not null,
+    squarefoot_per_carton   decimal(10,2) not null,
     create_time  timestamp default null,
     update_time timestamp default null,
     create_user_id int8,
