@@ -74,6 +74,10 @@ create table plank_sizes
     length      varchar(255) not null,
     thickness_in_inch   varchar(255) not null,
     squarefoot_per_carton   float not null,
+    create_time  timestamp default null,
+    update_time timestamp default null,
+    create_user_id int8,
+    update_user_id int8,
     description varchar(255),
     PRIMARY KEY(id),
     UNIQUE(width_in_inch, length, thickness_in_inch, squarefoot_per_carton)
