@@ -35,7 +35,7 @@ public class UpdateInventoryController {
         return Pages.UPDATE_INVENTORY;
     }
 	
-	@RequestMapping("/add-new-product")
+	@GetMapping("/add-new-product")
 	public String addNewProduct(Model model) {
 		List<Grade> gradeDict = productService.getGradeDict();
 		List<PlankColor> colorDict = productService.getColorDict();
