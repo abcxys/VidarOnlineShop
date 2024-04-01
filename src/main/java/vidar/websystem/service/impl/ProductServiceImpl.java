@@ -27,6 +27,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -134,6 +135,37 @@ public class ProductServiceImpl implements ProductService {
 		plankColor.setCreate_time(new Date());
 		plankColorRepository.save(plankColor);
 		return "New colour added successfully";
+	}
+	
+	@Override
+	@Transactional
+	public String postPlankSize(User user, PlankSize size) {
+		String width = size.getWidthInInch();
+		String length = size.getLength();
+		String thickness = size.getThicknessInInch();
+		BigDecimal sqft = size.getSquarefootPerCarton();
+		String description = size.getDescription();
+		PlankSize queryByMultiple = plankSizeRepository.findByWidthInInchAndLengthAndThicknessInInchAndSquarefootPerCarton(width,
+				length, 
+				thickness, 
+				sqft);
+		// if the plank size does not exist already
+		if (queryByMultiple!=null) {
+			log.info("Plank size duplicated, update entry...");
+			queryByMultiple.setWidthInInch(width);
+			queryByMultiple.setLength(length);
+			queryByMultiple.setThicknessInInch(thickness);
+			queryByMultiple.setSquarefootPerCarton(sqft);
+			queryByMultiple.setDescription(description);
+			queryByMultiple.setUpdate_time(new Date());
+			queryByMultiple.setUpdate_user_id(user.getId());
+			plankSizeRepository.save(queryByMultiple);
+			return "Plank size updated successfully";
+		}
+		size.setCreate_time(new Date());
+		size.setCreate_user_id(user.getId());
+		plankSizeRepository.save(size);
+		return "New plank size added successfully";
 	}
 
 	@Override

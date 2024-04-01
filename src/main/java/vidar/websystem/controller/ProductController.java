@@ -13,17 +13,15 @@ import vidar.websystem.utils.ControllerUtils;
 import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.WoodSpecies;
 import vidar.websystem.domain.PlankType;
+import vidar.websystem.domain.PlankSize;
 import vidar.websystem.domain.Grade;
 import vidar.websystem.domain.User;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.validation.Valid;
-
-import org.joda.time.LocalDateTime;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -126,5 +124,23 @@ public class ProductController {
     	grade.setAlias(gradeAlias);
     	grade.setDescription(description);
     	return ResponseEntity.ok().body(productService.postGrade(user, grade));
+    }
+    
+    
+    @RequestMapping(value="/addNewSize", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<?> addNewSize(@RequestParam("width") String width,
+    		@RequestParam("length") String length,
+    		@RequestParam("thickness") String thickness,
+    		@RequestParam("sqftage") BigDecimal sqftage,
+    		@RequestParam("description") String description) {
+    	User user = userService.getAuthenticatedUser();
+    	PlankSize size = new PlankSize();
+    	size.setWidthInInch(width);
+    	size.setLength(length);
+    	size.setThicknessInInch(thickness);
+    	size.setSquarefootPerCarton(sqftage);
+    	size.setDescription(description);
+    	return ResponseEntity.ok().body(productService.postPlankSize(user, size));
     }
 }
