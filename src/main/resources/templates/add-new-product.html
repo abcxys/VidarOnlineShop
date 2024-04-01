@@ -208,7 +208,7 @@
                             value=(${perfume} ? ${perfume.year} : ''),
                             error=(${thicknessError})
                         )"/>
-                        <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                        <th:block th:replace="fragments/product-fragments :: add-number-required-attribute-input(
                             title='Sqftage',
                             name='sqftage',
                             placeholder='Enter the squarefootage per carton',
@@ -516,6 +516,7 @@ function addNewPlankSizeFun(){
 	var length = $("input[name=length]").val();
 	var thickness = $("input[name=thickness]").val();
 	var sqftage = $("input[name=sqftage]").val();
+	var description = $("input[name=sizeDescription]").val();
 	if (width == '') {
 		bootboxAlertError("Plank width can not be empty");
 		return false;
@@ -536,8 +537,10 @@ function addNewPlankSizeFun(){
 		type:"POST",
 		url:'/product/addNewSize',
 		data:{
-			colourName: colourName,
-			colourAlias: colourAlias,
+			width: width,
+			length: length,
+			thickness: thickness,
+			sqftage: sqftage,
 			description: colourDescription
 		},
 		success:function(response){
