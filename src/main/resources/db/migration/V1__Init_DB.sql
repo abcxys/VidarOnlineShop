@@ -75,7 +75,8 @@ create table plank_sizes
     thickness_in_inch   varchar(255) not null,
     squarefoot_per_carton   float not null,
     description varchar(255),
-    PRIMARY KEY(id)
+    PRIMARY KEY(id),
+    UNIQUE(width_in_inch, length, thickness_in_inch, squarefoot_per_carton)
 );
 create table wood_species
 (
