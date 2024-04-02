@@ -117,7 +117,22 @@
         <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
     </div>
 </th:block>
-<th:block th:fragment="add-number-required-attribute-input">
+<th:block th:fragment="add-decimal-required-attribute-input">
+    <div class="col">
+        <label th:text="${title} + ':'"></label>
+        <input
+                type="number"
+                th:id="${name}"
+                th:name="${name}"
+                th:placeholder="${placeholder}"
+                th:value="${value}"
+                step="0.01"
+                class="form-control" required th:classappend="${error} ? ' is-invalid'"
+        />
+        <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
+    </div>
+</th:block>
+<th:block th:fragment="add-integer-required-attribute-input">
     <div class="col">
         <label th:text="${title} + ':'"></label>
         <input
