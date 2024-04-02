@@ -14,41 +14,45 @@
                         text='Add new product',
                         icon='fas fa-plus-square mr-2'
                     )"/>
-                    <br/>
                     <form method="post" action="/update/add-new-product" enctype="multipart/form-data">
                         <div class="form row">
                         	<th:block th:replace="fragments/product-fragments :: add-product-attribute-select(
                                 title='Colour',
-                                name='colour',
+                                name='colorId',
                                 options=${colourDict},
+                                value=(${product} ? ${product.colorId} : ''),
                                 error=(${colorIdError})
                             )"/>
                             <th:block th:replace="fragments/product-fragments :: add-product-attribute-select(
                                 title='Size',
-                                name='size',
+                                name='sizeId',
                                 options=${sizeDict},
+                                value=(${product} ? ${product.sizeId} : ''),
                                 error=(${sizeIdError})
                             )"/>
                         </div>
                         <div class="form row mt-3">
                             <th:block th:replace="fragments/product-fragments :: add-product-attribute-select(
                                 title='Wood species',
-                                name='species',
+                                name='speciesId',
                                 options=${speciesDict},
+                                value=(${product} ? ${product.speciesId} : ''),
                                 error=(${speciesIdError})
                             )"/>
                             <th:block th:replace="fragments/product-fragments :: add-product-attribute-select(
                                 title='Plank type',
-                                name='plank_type',
+                                name='typeId',
                                 options=${plankTypeDict},
+                                value=(${product} ? ${product.typeId} : ''),
                                 error=(${typeIdError})
                             )"/>
                         </div>
                         <div class="form row mt-3">
                             <th:block th:replace="fragments/product-fragments :: add-product-attribute-select(
                                 title='Grade',
-                                name='grade',
+                                name='gradeId',
                                 options=${gradeDict},
+                                value=(${product} ? ${product.gradeId} : ''),
                                 error=(${gradeIdError})
                             )"/>
                             <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
@@ -62,7 +66,7 @@
                         <div class="form row mt-3">
                         	<th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
                                 title='Top layer thickness',
-                                name='top_layer_thickness',
+                                name='wearThickness',
                                 placeholder='Enter the top layer thickness',
                                 value=(${product} ? ${product.wearThickness} : ''),
                                 error=(${wearThicknessError})
@@ -83,16 +87,16 @@
                                 value=(${product} ? ${product.finish} : ''),
                                 error=(${finishError})
                             )"/>
-                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
-                                title='Country',
-                                name='country',
-                                placeholder='Enter the country',
-                                value=(${product} ? ${product.country} : ''),
-                                error=(${countryError})
+                            <th:block th:replace="fragments/product-fragments :: add-integer-required-attribute-input(
+                                title='Cartons/skid',
+                                name='cartonsPerSkid',
+                                placeholder='Enter number of cartons/skid',
+                                value=(${product} ? ${product.cartonsPerSkid} : ''),
+                                error=(${cartonsPerSkidError})
                             )"/>
                         </div>
                         <div class="form row mt-3">
-                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                            <th:block th:replace="fragments/product-fragments :: add-decimal-required-attribute-input(
                                 title='Price',
                                 name='price',
                                 placeholder='Enter the price',
@@ -208,7 +212,7 @@
                             value=(${perfume} ? ${perfume.year} : ''),
                             error=(${thicknessError})
                         )"/>
-                        <th:block th:replace="fragments/product-fragments :: add-number-required-attribute-input(
+                        <th:block th:replace="fragments/product-fragments :: add-decimal-required-attribute-input(
                             title='Sqftage',
                             name='sqftage',
                             placeholder='Enter the squarefootage per carton',
@@ -407,22 +411,26 @@
 </body>
 
 <script type="text/javascript">
-$("#addNewProductBtn").on("click", function(){
-	$.ajax({
-		url:"/api/newProduct",
-		type:"POST",
-		data: {
-			plank_size_id: 1,
-			plank_color_id: 1
-		},
-		success: function(response){
-			console.log('success');
-		},
-		error: function(hata){
-			console.log('failure');
-		}
-	});
-})
+/*
+ * 
+ $("#addNewProductBtn").on("click", function(){
+		$.ajax({
+			url:"/api/newProduct",
+			type:"POST",
+			data: {
+				plank_size_id: 1,
+				plank_color_id: 1
+			},
+			success: function(response){
+				console.log('success');
+			},
+			error: function(hata){
+				console.log('failure');
+			}
+		});
+	})
+ */
+
 $("#colour").on("change", function(){
 	if ($(this).val() == '') {
 		if (!$(this).find('option:selected').text().includes('Enter')){

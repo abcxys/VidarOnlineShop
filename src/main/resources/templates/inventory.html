@@ -26,7 +26,7 @@
 									<div class="input-group">
 										<select id="width" name="width" data-live-search="true" class="selectpicker" th:field="${sizeDict}">
 												<option value="">Width</option>
-                            				<option th:each="size : ${sizeDict}" th:value="${size.getId()}" th:text="${size.getWidth_in_inch()} + '&quot;'"></option>
+                            				<option th:each="size : ${sizeDict}" th:value="${size.getId()}" th:text="${size.getWidthInInch()} + '&quot;'"></option>
                     					</select>
 										<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('width')">
 	                      					<i class="fa fa-fw fa-eraser" title="clear"></i>
