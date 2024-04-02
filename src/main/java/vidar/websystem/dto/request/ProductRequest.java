@@ -22,19 +22,19 @@ public class ProductRequest {
 	private Long id;
 	
 	@NotNull(message = ErrorMessage.FILL_IN_THE_INPUT_FIELD)
-	private Integer colorId;
+	private Long colorId;
 	
 	@NotNull(message = ErrorMessage.FILL_IN_THE_INPUT_FIELD)
-	private Integer sizeId;
+	private Long sizeId;
 	
 	@NotNull(message = ErrorMessage.FILL_IN_THE_INPUT_FIELD)
-	private Integer speciesId;
+	private Long speciesId;
 	
 	@NotNull(message = ErrorMessage.FILL_IN_THE_INPUT_FIELD)
-	private Integer typeId;
+	private Long typeId;
 	
 	@NotNull(message = ErrorMessage.FILL_IN_THE_INPUT_FIELD)
-	private Integer gradeId;
+	private Long gradeId;
 	
 	@NotBlank(message = ErrorMessage.FILL_IN_THE_INPUT_FIELD)
 	@Length(max = 255)
@@ -50,8 +50,8 @@ public class ProductRequest {
     @Length(max = 255)
     private String finish;
     
-    @Length(max = 255)
-    private String country;
+    @NotNull(message = ErrorMessage.FILL_IN_THE_INPUT_FIELD)
+    private Integer cartonsPerSkid;
     
     @NotNull(message = ErrorMessage.FILL_IN_THE_INPUT_FIELD)
     private BigDecimal price;
