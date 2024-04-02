@@ -64,6 +64,7 @@
 	                                ORDERS
 	                            </a>
 	                        </li>
+	                        <th:block sec:authorize="hasAuthority('ADMIN')">
 	                        <li class="nav-item">
 	                            <a class="nav-link" href="/update">
 	                                UPDATE
@@ -74,6 +75,7 @@
 	                                INVENTORY
 	                            </a>
 	                        </li>
+	                        </th:block>
 	                        <form id="logout" action="/logout" method="post">
 	                            <li class="nav-item">
 	                                <a class="nav-link" href=# onclick="document.getElementById('logout').submit()">
