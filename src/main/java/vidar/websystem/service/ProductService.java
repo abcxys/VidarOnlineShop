@@ -7,10 +7,13 @@ import vidar.websystem.domain.PlankSize;
 import vidar.websystem.domain.PlankType;
 import vidar.websystem.domain.User;
 import vidar.websystem.domain.WoodSpecies;
+import vidar.websystem.dto.request.ProductRequest;
 import vidar.websystem.dto.request.SearchRequest;
+import vidar.websystem.dto.response.MessageResponse;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -47,4 +50,6 @@ public interface ProductService {
     String postPlankType(User user, PlankType plankType);
     
     String postGrade(User user, Grade grade);
+    
+    MessageResponse addProduct(ProductRequest productRequest, MultipartFile file);
 }

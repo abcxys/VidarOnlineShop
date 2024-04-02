@@ -58,7 +58,7 @@ public class UpdateInventoryController {
 			injectAttributesToModel(model);
 			return Pages.ADD_NEW_PRODUCT;
 		}
-		return "test";
+		return controllerUtils.setAlertFlashMessage(attributes, "/update", productService.addProduct(product, file));
 	}
 	
 	private void injectAttributesToModel(Model model) {

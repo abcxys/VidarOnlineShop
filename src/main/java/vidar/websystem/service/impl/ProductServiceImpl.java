@@ -1,16 +1,21 @@
 package vidar.websystem.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import vidar.websystem.constants.ErrorMessage;
+import vidar.websystem.constants.SuccessMessage;
 import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.Grade;
+import vidar.websystem.domain.HardwoodFloor;
 import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.PlankSize;
 import vidar.websystem.domain.PlankType;
 import vidar.websystem.domain.User;
 import vidar.websystem.domain.WoodSpecies;
+import vidar.websystem.dto.request.ProductRequest;
 import vidar.websystem.dto.request.SearchRequest;
+import vidar.websystem.dto.response.MessageResponse;
 import vidar.websystem.repository.FloorOrderRepository;
 import vidar.websystem.repository.GradeRepository;
 import vidar.websystem.repository.HardwoodFloorsRepository;
@@ -21,10 +26,12 @@ import vidar.websystem.repository.WoodSpeciesRepository;
 import vidar.websystem.service.ProductService;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
@@ -35,12 +42,19 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
+	
+	@Value("${upload.path}")
+	private String uploadPath;
 
-    private final HardwoodFloorsRepository perfumeRepository;
+    private final HardwoodFloorsRepository hardwoodRepository;
     private final FloorOrderRepository floorOrderRepository;
     private final PlankSizeRepository plankSizeRepository;
     private final PlankColorRepository plankColorRepository;
@@ -51,28 +65,28 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public FloorColorSize getProductById(Long perfumeId) {
-    	FloorColorSize result = perfumeRepository.findFloorColorById(perfumeId);
+    	FloorColorSize result = hardwoodRepository.findFloorColorById(perfumeId);
     	if (result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PERFUME_NOT_FOUND);
         return result;
     }
     
     @Override
     public PlankColor getHardwoodColorById(Long hardwoodId) {
-    	return plankColorRepository.findById(perfumeRepository.getPlankColorIdsByIds(Arrays.asList(hardwoodId), null).get(0))
+    	return plankColorRepository.findById(hardwoodRepository.getPlankColorIdsByIds(Arrays.asList(hardwoodId), null).get(0))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PERFUME_NOT_FOUND));
     }
 
     @Override
     public List<FloorColorSize> getPopularProducts() {
         List<Long> perfumeIds = Arrays.asList(1L, 2L, 3L, 4L, 5L);
-        return perfumeRepository.findFloorColorByIdIn(perfumeIds);
+        return hardwoodRepository.findFloorColorByIdIn(perfumeIds);
     }
 
     @Override
     public Page<FloorColorSize> getProductsByFilterParams(SearchRequest request, Pageable pageable) {
         Integer startingPrice = request.getPrice();
         Integer endingPrice = startingPrice + (startingPrice == 0 ? 500 : 50);
-        return perfumeRepository.getPerfumesByFilterParams(
+        return hardwoodRepository.getPerfumesByFilterParams(
                 request.getPerfumers(),
                 request.getGenders(),
                 startingPrice,
@@ -82,13 +96,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<FloorColorSize> searchProducts(SearchRequest request, Pageable pageable) {
-        return perfumeRepository.searchPerfumes(request.getSearchType(), request.getText(), pageable);
+        return hardwoodRepository.searchPerfumes(request.getSearchType(), request.getText(), pageable);
     }
 
 	@Override
 	public List<PlankColor> getPopularHardwoodFloorColors() {
 		List<Long> perfumeIds = Arrays.asList(1L, 2L, 3L, 4L, 5L);
-        List<Long> plank_color_ids = perfumeRepository.getPlankColorIdsByIds(perfumeIds, null);
+        List<Long> plank_color_ids = hardwoodRepository.getPlankColorIdsByIds(perfumeIds, null);
         return plank_color_ids.stream().map(plank_color_id->
     		plankColorRepository.findById(plank_color_id).get()).collect(Collectors.toList());
 	}
@@ -228,5 +242,29 @@ public class ProductServiceImpl implements ProductService {
 		grade.setCreate_user_id(user.getId());
 		gradeRepository.save(grade);
 		return "New grade added successfully";
+	}
+
+	@Override
+	@SneakyThrows
+	@Transactional
+	public MessageResponse addProduct(ProductRequest productRequest, MultipartFile file) {
+		return saveProduct(productRequest, file, SuccessMessage.PRODUCT_ADDED);
+	}
+	
+	private MessageResponse saveProduct(ProductRequest productRequest, MultipartFile file, String message) throws IOException {
+		HardwoodFloor floor = modelMapper.map(productRequest, HardwoodFloor.class);
+		if (file != null && !file.getOriginalFilename().isEmpty()) {
+			File uploadDir = new File(uploadPath);
+			
+			if (!uploadDir.exists()) {
+				uploadDir.mkdir();
+			}
+			String uuidFile = UUID.randomUUID().toString();
+			String resultFilename = uuidFile + "." + file.getOriginalFilename();
+			file.transferTo(new File(uploadPath + "/" + resultFilename));
+			floor.setFilename(resultFilename);
+		}
+		hardwoodRepository.save(floor);
+		return new MessageResponse("alert-success", message);
 	}
 }
