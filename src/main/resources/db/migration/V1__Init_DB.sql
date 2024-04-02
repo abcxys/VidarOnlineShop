@@ -1,4 +1,4 @@
-create sequence hardwoodfloor_id_seq start 1 increment 1;
+create sequence hardwoodfloor_id_seq start 10 increment 1;
 create sequence plank_size_id_seq start 5 increment 1;
 create sequence plank_color_id_seq start 8 increment 1;
 create sequence plank_type_id_seq start 3 increment 1;
@@ -156,11 +156,11 @@ create table finishes
 create table hardwoodfloors
 (
     id                     int8 not null,
-    country                varchar(255) not null,
+    country                varchar(255),
     description            varchar(255),
     filename               varchar(255),
     price                  decimal(10,2) not null,
-    year                   int4 not null,
+    year                   int4,
     plank_size_id           int8 not null,
     plank_color_id          int8 not null,
     wood_species_id         int8 not null,
