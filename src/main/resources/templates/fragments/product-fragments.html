@@ -82,8 +82,8 @@
     <div class="col">
         <label th:text="${title} + ':'"></label>
         <select th:id="${name}" th:name="${name}" data-live-search="true" class="selectpicker form-control" th:classappend="${error} ? ' is-invalid'">
-		    <option value="" th:text="'Enter the ' + ${name}"></option>
-		    <option th:each="option : ${options}" th:value="${option.getId()}" th:text="${option.toString()}"></option>
+		    <option value="" th:text="'Enter the ' + ${title}"></option>
+		    <option th:each="option : ${options}" th:value="${option.getId()}" th:text="${option.toString()}" th:selected="${value != '' and value == option.getId()}"></option>
 		    <option data-content="<i class='fas fa-plus-square mr-1'></i> New" ></option>
 		</select>
         <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
@@ -94,6 +94,7 @@
         <label th:text="${title} + ':'"></label>
         <input
                 type="text"
+                th:id="${name}"
                 th:name="${name}"
                 th:placeholder="${placeholder}"
                 th:value="${value}"
@@ -107,6 +108,7 @@
         <label th:text="${title} + ':'"></label>
         <input
                 type="text"
+                th:id="${name}"
                 th:name="${name}"
                 th:placeholder="${placeholder}"
                 th:value="${value}"
@@ -120,6 +122,7 @@
         <label th:text="${title} + ':'"></label>
         <input
                 type="number"
+                th:id="${name}"
                 th:name="${name}"
                 th:placeholder="${placeholder}"
                 th:value="${value}"
