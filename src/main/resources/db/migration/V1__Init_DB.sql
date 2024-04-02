@@ -174,6 +174,8 @@ create table hardwoodfloors
     update_time timestamp default null,
     create_user_id int8,
     update_user_id int8,
+    finish                  varchar(255) default null,
+    active                  boolean not null default true,
     PRIMARY KEY(id),
     CONSTRAINT fk_plank_size_id
         FOREIGN KEY(plank_size_id)

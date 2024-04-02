@@ -41,31 +41,37 @@ public class HardwoodFloor {
     private BigDecimal price;
     
     @Column(name = "plank_size_id", nullable = false)
-    private Long plank_size_id;
+    private Long sizeId;
     
     @Column(name = "plank_color_id", nullable = false)
-    private Long plank_color_id;
+    private Long colorId;
     
     @Column(name = "wood_species_id", nullable = false)
-    private Long wood_species_id;
+    private Long speciesId;
     
     @Column(name = "plank_type_id", nullable = false)
-    private Long plank_type_id;
+    private Long typeId;
     
     @Column(name = "grade_id", nullable = false)
-    private Long grade_id;
+    private Long gradeId;
     
     @Column(name = "batch_id", nullable = false)
-    private String batch_id;
+    private String batchNumber;
     
     @Column(name = "cartons_per_skid", nullable = false)
-    private Integer cartons_per_skid;
+    private Integer cartonsPerSkid;
     
     @Column(name = "carton_weight", nullable = true)
-    private float carton_weight = 60f;
+    private float cartonWeight = 60f;
     
     @Column(name = "wear_layer_thickness", nullable = false)
-    private float wear_layer_thickness = 2f;
+    private float wearThickness = 2f;
+    
+    @Column(name = "finish", nullable = true)
+    private String finish;
+    
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
 //    
 //    @OneToMany(mappedBy = "hardwoodfloor")
 //    private Set<FloorOrder> floorOrders = new HashSet<FloorOrder>();
