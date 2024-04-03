@@ -55,4 +55,7 @@ public class ProductRequest {
     
     @NotNull(message = ErrorMessage.FILL_IN_THE_INPUT_FIELD)
     private BigDecimal price;
+    
+    @NotNull(message = ErrorMessage.FILL_IN_THE_INPUT_FIELD)
+    private boolean active;
 }
