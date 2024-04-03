@@ -28,6 +28,8 @@ public interface ProductService {
     List<PlankColor> getPopularHardwoodFloorColors();
 
     Page<FloorColorSize> getProductsByFilterParams(SearchRequest searchRequest, Pageable pageable);
+    
+    Page<FloorColorSize> getProducts(Pageable pageable);
 
     Page<FloorColorSize> searchProducts(SearchRequest searchRequest, Pageable pageable);
     

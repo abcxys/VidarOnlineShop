@@ -93,6 +93,11 @@ public class ProductServiceImpl implements ProductService {
                 endingPrice,
                 pageable);
     }
+    
+    @Override
+    public Page<FloorColorSize> getProducts(Pageable pageable){
+    	return hardwoodRepository.findAllFloorColor(pageable);
+    }
 
     @Override
     public Page<FloorColorSize> searchProducts(SearchRequest request, Pageable pageable) {
