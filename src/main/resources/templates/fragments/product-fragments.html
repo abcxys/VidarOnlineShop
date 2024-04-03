@@ -67,6 +67,77 @@
     </div>
 </th:block>
 
+<th:block th:fragment="update-product-attribute-select">
+	<div class="form group row mb-2">
+		<label class="col-sm-4 font-weight-bold col-form-label" th:text="${title} + ':'"></label>
+		<div class="col-sm-8">
+			<select th:id="${name}" th:name="${name}" data-live-search="true" class="selectpicker form-control" th:classappend="${error} ? ' is-invalid'">
+				<option value="" th:text="'Enter the ' + ${name}"></option>
+				<option th:each="option : ${options}" th:value="${option.getId()}" th:text="${option.toString()}" th:selected="${value != '' and value == option.getId()}"></option>
+			</select>
+		</div>
+	</div>
+</th:block>
+<th:block th:fragment="update-boolean-product-attribute-select">
+	<div class="form group row mb-2">
+		<label class="col-sm-4 font-weight-bold col-form-label" th:text="${title} + ':'"></label>
+		<div class="col-sm-8">
+			<select th:id="${name}" th:name="${name}" data-live-search="true" class="selectpicker form-control" th:classappend="${error} ? ' is-invalid'">
+				<option value="" th:text="'Enter the ' + ${name}"></option>
+				<option th:each="option : ${options}" th:value="${option.key}" th:text="${option.value}" th:selected="${value != null and option.key == (value ? 1: 0)}"></option>
+			</select>
+		</div>
+	</div>
+</th:block>
+<th:block th:fragment="update-string-required-attribute-input">
+    <div class="form-group row mb-2">
+        <label class="col-sm-4 font-weight-bold col-form-label" th:text="${title} + ':'"></label>
+        <div class="col-sm-8">
+        	<input
+	                type="text"
+	                th:id="${name}"
+	                th:name="${name}"
+	                th:placeholder="${placeholder}"
+	                th:value="${value}"
+	                class="form-control" required th:classappend="${error} ? ' is-invalid'"
+	        />
+        </div>
+        <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
+    </div>
+</th:block>
+<th:block th:fragment="update-decimal-required-attribute-input">
+    <div class="form-group row mb-2">
+        <label class="col-sm-4 font-weight-bold col-form-label" th:text="${title} + ':'"></label>
+        <div class="col-sm-8">
+        	<input
+	                type="number"
+	                th:id="${name}"
+	                th:name="${name}"
+	                th:placeholder="${placeholder}"
+	                th:value="${value}"
+	                step="0.01"
+	                class="form-control" required th:classappend="${error} ? ' is-invalid'"
+	        />
+        </div>
+        <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
+    </div>
+</th:block>
+<th:block th:fragment="update-integer-required-attribute-input">
+    <div class="form-group row mb-2">
+        <label class="col-sm-4 font-weight-bold col-form-label" th:text="${title} + ':'"></label>
+        <div class="col-sm-8">
+        	<input
+	                type="number"
+	                th:id="${name}"
+	                th:name="${name}"
+	                th:placeholder="${placeholder}"
+	                th:value="${value}"
+	                class="form-control" required th:classappend="${error} ? ' is-invalid'"
+	        />
+        </div>
+        <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
+    </div>
+</th:block>
 <th:block th:fragment="add-product-select">
     <div class="col">
         <label th:text="${title} + ':'"></label>
