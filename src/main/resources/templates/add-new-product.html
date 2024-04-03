@@ -193,14 +193,14 @@
                             title='Width',
                             name='width',
                             placeholder='Enter the width in inches',
-                            value=(${perfume} ? ${perfume.perfumeTitle} : ''),
+                            value=(${size} ? ${size.widthInInch} : ''),
                             error=(${widthError})
                         )"/>
                         <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
                             title='Length',
                             name='length',
                             placeholder='Enter the length',
-                            value=(${perfume} ? ${perfume.perfumer} : ''),
+                            value=(${size} ? ${size.length} : ''),
                             error=(${lengthError})
                         )"/>
                     </div>
@@ -209,14 +209,14 @@
                             title='Thickness',
                             name='thickness',
                             placeholder='Enter the thickness in inches',
-                            value=(${perfume} ? ${perfume.year} : ''),
+                            value=(${size} ? ${size.thicknessInInch} : ''),
                             error=(${thicknessError})
                         )"/>
                         <th:block th:replace="fragments/product-fragments :: add-decimal-required-attribute-input(
                             title='Sqftage',
                             name='sqftage',
                             placeholder='Enter the squarefootage per carton',
-                            value=(${perfume} ? ${perfume.year} : ''),
+                            value=(${size} ? ${size.squarefootPerCarton} : ''),
                             error=(${sqftageError})
                         )"/>
                     </div>
@@ -225,7 +225,7 @@
                             title='Size Description',
                             name='sizeDescription',
                             placeholder='Enter the size description',
-                            value=(${perfume} ? ${perfume.year} : ''),
+                            value=(${size} ? ${size.Description} : ''),
                             error=(${descriptionError})
                         )"/>
                     </div>
