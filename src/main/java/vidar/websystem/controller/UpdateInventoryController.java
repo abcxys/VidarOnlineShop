@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,6 +36,7 @@ import vidar.websystem.utils.ControllerUtils;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(PathConstants.UPDATE)
+@PreAuthorize("hasAuthority('ADMIN')")
 public class UpdateInventoryController {
 	private final ControllerUtils controllerUtils;
 	
@@ -49,6 +52,12 @@ public class UpdateInventoryController {
 	public String addNewProduct(Model model) {
 		injectAttributesToModel(model);
 		return Pages.ADD_NEW_PRODUCT;
+	}
+	
+	@GetMapping("/products")
+	public String getProducts(Pageable pageable, Model model) {
+		controllerUtils.addPagination(model, productService.getProducts(pageable));
+		return Pages.UPDATE_ALL_PRODUCTS;
 	}
 	
 	@PostMapping("add-new-product")
