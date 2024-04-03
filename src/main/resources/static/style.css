@@ -341,3 +341,7 @@ nav ul li {
         font-size: 11px !important; /* Adjust font size based on viewport width */
     }
 }
+
+.dropdown-toggle::after{
+	right: 5%!important;
+}
