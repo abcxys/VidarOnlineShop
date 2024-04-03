@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,7 +61,23 @@ public class UpdateInventoryController {
 		return Pages.UPDATE_ALL_PRODUCTS;
 	}
 	
-	@PostMapping("add-new-product")
+	@GetMapping("/product/{productId}")
+	public String getProduct(@PathVariable Long productId, Model model) {
+		model.addAttribute("product", productService.getProductById(productId));
+		injectAttributesToModel(model);
+		return Pages.UPDATE_PRODUCT;
+	}
+	
+	@PostMapping("/product")
+	public String updateProduct(@Valid ProductRequest product, BindingResult bindingResult, Model model,
+			@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
+		if (controllerUtils.validateInputFields(bindingResult, model, "product", product)) {
+			return Pages.UPDATE_PRODUCT;
+		}
+		return controllerUtils.setAlertFlashMessage(attributes, "/update", productService.updateProduct(product, file));
+	}
+	
+	@PostMapping("/add-new-product")
 	public String addNewItem(@Valid ProductRequest product, BindingResult bindingResult, Model model,
 			@RequestParam("file") MultipartFile file, RedirectAttributes attributes) {
 		if (controllerUtils.validateInputFields(bindingResult, model, "product", product)) {

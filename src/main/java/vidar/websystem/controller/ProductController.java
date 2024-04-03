@@ -45,7 +45,7 @@ public class ProductController {
 
     @GetMapping("/{productId}")
     public String getPerfumeById(@PathVariable Long productId, Model model) {
-        model.addAttribute("product", productService.getProductById(productId));
+        model.addAttribute("product", productService.getProductInfoById(productId));
         model.addAttribute("quantity", inventoryService.getStockByFloorId(productId));
         return Pages.PRODUCT;
     }

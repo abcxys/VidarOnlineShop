@@ -2,6 +2,7 @@ package vidar.websystem.service;
 
 import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.Grade;
+import vidar.websystem.domain.HardwoodFloor;
 import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.PlankSize;
 import vidar.websystem.domain.PlankType;
@@ -19,7 +20,9 @@ import java.util.List;
 
 public interface ProductService {
 
-	FloorColorSize getProductById(Long productId);
+	FloorColorSize getProductInfoById(Long productId);
+	
+	HardwoodFloor getProductById(Long productId);
     
     PlankColor getHardwoodColorById(Long productId);
 
@@ -54,4 +57,6 @@ public interface ProductService {
     String postGrade(User user, Grade grade);
     
     MessageResponse addProduct(ProductRequest productRequest, MultipartFile file);
+    
+    MessageResponse updateProduct(ProductRequest productRequest, MultipartFile file);
 }

@@ -64,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
     private final ModelMapper modelMapper;
 
     @Override
-    public FloorColorSize getProductById(Long perfumeId) {
+    public FloorColorSize getProductInfoById(Long perfumeId) {
     	FloorColorSize result = hardwoodRepository.findFloorColorById(perfumeId);
     	if (result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PERFUME_NOT_FOUND);
         return result;
@@ -255,6 +255,13 @@ public class ProductServiceImpl implements ProductService {
 	public MessageResponse addProduct(ProductRequest productRequest, MultipartFile file) {
 		return saveProduct(productRequest, file, SuccessMessage.PRODUCT_ADDED);
 	}
+
+	@Override
+	@SneakyThrows
+	@Transactional
+	public MessageResponse updateProduct(ProductRequest productRequest, MultipartFile file) {
+		return saveProduct(productRequest, file, SuccessMessage.PRODUCT_UPDATED);
+	}
 	
 	private MessageResponse saveProduct(ProductRequest productRequest, MultipartFile file, String message) throws IOException {
 		HardwoodFloor floor = modelMapper.map(productRequest, HardwoodFloor.class);
@@ -269,7 +276,18 @@ public class ProductServiceImpl implements ProductService {
 			file.transferTo(new File(uploadPath + "/" + resultFilename));
 			floor.setFilename(resultFilename);
 		}
+		// if the floor exists, we will update it and keep the existing file
+		HardwoodFloor queryById = hardwoodRepository.findById(floor.getId()).get();
+		if (queryById != null) {
+			log.info("The queried entry already exists");
+			floor.setFilename(queryById.getFilename());
+		}
 		hardwoodRepository.save(floor);
 		return new MessageResponse("alert-success", message);
+	}
+
+	@Override
+	public HardwoodFloor getProductById(Long productId) {
+		return hardwoodRepository.findById(productId).get();
 	}
 }
