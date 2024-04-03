@@ -37,7 +37,7 @@
 	    <div class="row">
 	    	<div class="col-xs-6 col-sm-3 logo">
 	    		<div class="logo-image">
-	    			<img style="max-height:50px;" id="logo-main" th:src="@{../static/logo.png}"/>
+	    			<img style="max-height:50px;" id="logo-main" th:src="@{../../static/logo.png}"/>
 	    		</div>
 	    	</div>
 	    	<nav id="navbar-main" class="container navbar navbar-expand-lg bg-black text-white navbar-main topnav-right">
@@ -230,6 +230,14 @@
 <!-- icon-button -->
 <th:block th:fragment="icon-button">
     <button th:id="${id}" type="submit" class="btn " th:classappend="${buttonClassName}">
+        <i th:class="${icon}"></i>
+        <th:block th:text="${text}"></th:block>
+    </button>
+</th:block>
+
+<!-- edit-button -->
+<th:block th:fragment="edit-button">
+	<button th:id="${id}" type="submit" class="btn btn-success" th:classappend="${buttonClassName}">
         <i th:class="${icon}"></i>
         <th:block th:text="${text}"></th:block>
     </button>
