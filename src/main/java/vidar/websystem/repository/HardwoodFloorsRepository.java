@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import vidar.websystem.domain.FloorColorSize;
-import vidar.websystem.domain.FloorOrder;
 import vidar.websystem.domain.HardwoodFloor;
 
 import java.util.List;
@@ -76,7 +75,15 @@ public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, L
     		List<Long> ids,
     		Pageable pageable);
     
-    @Query(nativeQuery = true, value = "SELECT floor.id as id, floor.filename as filename, floor.price as price, color.name as colorName, size.width_in_inch as width, size.length as length, " + 
+    @Query(nativeQuery = true, value = "SELECT floor.id as id, floor.filename as filename, floor.batch_id as batchName, floor.price as price, color.name as colorName, size.width_in_inch as width, size.length as length, " + 
+    		"size.thickness_in_inch as thickness, size.squarefoot_per_carton as sqftPerCarton, species.name as woodSpeciesName, grades.name as gradeName, grades.alias as gradeAlias FROM hardwoodfloors floor " +
+    		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
+    		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
+    		"LEFT JOIN wood_species species ON floor.wood_species_id = species.id " +
+    		"LEFT JOIN grades grades ON floor.grade_id = grades.id ")
+    Page<FloorColorSize> findAllFloorColor(Pageable pageable);
+    
+    @Query(nativeQuery = true, value = "SELECT floor.id as id, floor.filename as filename, floor.batch_id as batchName, floor.price as price, color.name as colorName, size.width_in_inch as width, size.length as length, " + 
     		"size.thickness_in_inch as thickness, size.squarefoot_per_carton as sqftPerCarton, species.name as woodSpeciesName, grades.name as gradeName, grades.alias as gradeAlias FROM hardwoodfloors floor " +
     		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
     		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
@@ -85,7 +92,7 @@ public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, L
     		"WHERE floor.id = :id")
     FloorColorSize findFloorColorById(Long id);
     
-    @Query(nativeQuery = true, value = "SELECT floor.id as id, floor.filename as filename, color.name as colorName, size.width_in_inch as width, size.length as length, " + 
+    @Query(nativeQuery = true, value = "SELECT floor.id as id, floor.filename as filename, floor.batch_id as batchName, color.name as colorName, size.width_in_inch as width, size.length as length, " + 
     		"size.thickness_in_inch as thickness, size.squarefoot_per_carton as sqftPerCarton, species.name as woodSpeciesName, grades.name as gradeName, grades.alias as gradeAlias FROM hardwoodfloors floor " +
     		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
     		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
