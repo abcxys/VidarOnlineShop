@@ -3,6 +3,7 @@
 <head th:replace="fragments/common-fragments :: head"></head>
 <body>
 <div th:insert="~{fragments/common-fragments :: scripts}"></div>
+<script src="/static/js/update-inventory.js"></script>
 <div th:replace="fragments/common-fragments :: navbar"></div>
 <div id="container" class="bg-light">
     <div class="py-5">
@@ -10,14 +11,134 @@
             <div class="row mx-3">
                 <th:block th:replace="fragments/product-fragments :: update-sidebar"/>
                 <div class="col-md-10">
-                    <h4 class="text-center">
-                        Update Inventory
-                    </h4>
-                    <th:block th:replace="fragments/common-fragments :: alert-message"/>
+                	<div class="box box-primary">
+						<form class="form-horizontal" role="form" style="justify-content: center">
+		
+							<div class="box-body">
+								<div class="container-fluid mt-5 ml-1">
+									<div class="form-group row">
+										<div class="col-md-2 ml-2">
+											<div class="d-flex">
+												<select id="colour" name="colour" data-live-search="true" class="selectpicker" th:field="${colorDict}">
+														<option value="">Colour</option>
+		                            				<option th:each="color : ${colorDict}" th:value="${color.getId()}" th:text="${color.toString()}"></option>
+		                    					</select>
+		                    					<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('colour')">
+						           					<i class="fa fa-fw fa-eraser mt-2" title="clear"></i>
+						         				</div>
+											</div>
+										</div>
+										<div class="col-md-2 ml-1">
+											<div class="d-flex">
+												<select id="width" name="width" data-live-search="true" class="selectpicker" th:field="${sizeDict}">
+														<option value="">Width</option>
+		                            				<option th:each="size : ${sizeDict}" th:value="${size.getId()}" th:text="${size.getWidthInInch()} + '&quot;'"></option>
+		                    					</select>
+												<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('width')">
+			                      					<i class="fa fa-fw fa-eraser mt-2" title="clear"></i>
+			                    				</div>
+											</div>
+										</div>
+										<div class="col-md-2 ml-1">
+											<div class="d-flex">
+												<select id="species" name="species" data-live-search="true" class="selectpicker" th:field="${speciesDict}">
+														<option value="">Species</option>
+		                            				<option th:each="species : ${speciesDict}" th:value="${species.getId()}" th:text="${species.toString()}"></option>
+		                    					</select>
+												<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('species')">
+			                      					<i class="fa fa-fw fa-eraser mt-2" title="clear"></i>
+			                    				</div>
+											</div>
+										</div>
+										<div class="col-md-2 ml-1">
+											<div class="d-flex">
+												<select id="grade" name="grade" data-live-search="true" class="selectpicker" th:field="${gradeDict}">
+														<option value="">Grade</option>
+		                            				<option th:each="grade : ${gradeDict}" th:value="${grade.getId()}" th:text="${grade.toString()}"></option>
+		                    					</select>
+												<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('grade')">
+			                      					<i class="fa fa-fw fa-eraser mt-2" title="clear"></i>
+			                    				</div>
+											</div>
+										</div>
+										<div class="pull-right">
+											<div class="btn-group float-right">
+												<button type="button" class="btn btn-primary"
+													id="searchProductInventoryBtn">
+													<i class="fa fa-search"></i> Search
+												</button>
+												<button type="button" class="btn btn-primary"
+													onclick="javascript:location = location;">
+													<i class="fa fa-refresh"></i> Reset
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					
+					<div class="bg-light">
+					    <div class="py-5">
+					        <div class="container py-5 bg-white shadow-sm card-height">
+					            <div class="container-fluid" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+					                <div class="box-body">
+										<table class="table table-striped table-bordered table-hover dataTable" role="grid" id="updateInventoryTable">
+											<thead>
+												<tr class="info">
+													<th>Species</th>
+													<th>Width(inch)</th>
+													<th>Colour</th>
+													<th>Grade</th>
+													<th>Bay</th>
+													<th>Stock</th>
+													<th>Update</th>
+												</tr>
+											</thead>
+										</table>
+									</div>
+					            </div>
+					        </div>
+					    </div>
+					</div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="editInventoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content" style="border-radius: 5px;">
+			<div class="modal-header">
+				<button type="button" class="close" aria-hidden="true" onclick="closeEditInventoryModal()">
+					&times;
+				</button>
+				<h4 class="modal-title" id="addFloorToOrderModalTitle"><i class='fa fa-pencil'></i>&nbsp;Add to order</h4>
+			</div>
+			<form class="form-horizontal" method="post">
+				<input type="hidden" name="userId" id="userId" value=1>
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="col-md-3 control-label xrequired">Quantity: </label>
+						<div class="col-md-6">
+							<input type="number" value="1">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="closeEditInventoryModal()">
+						Add
+						</button>
+						<button type="button" class="btn btn-primary" onclick="closeEditInventoryModal()">
+							Cancel
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
 <footer th:insert="~{fragments/common-fragments :: footer}"></footer>
 </body>
