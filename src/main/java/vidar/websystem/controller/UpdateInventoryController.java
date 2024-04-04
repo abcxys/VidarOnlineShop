@@ -46,7 +46,7 @@ public class UpdateInventoryController {
 	
 	@GetMapping
     public String getUpdate(Model model) {
-        return Pages.UPDATE_INVENTORY;
+        return Pages.UPDATE;
     }
 	
 	@GetMapping("/add-new-product")
@@ -66,6 +66,19 @@ public class UpdateInventoryController {
 		model.addAttribute("product", productService.getProductById(productId));
 		injectAttributesToModel(model);
 		return Pages.UPDATE_PRODUCT;
+	}
+	
+	@GetMapping("/inventory")
+	public String getProductInventory(Model model) {
+		List<PlankColor> colorDict = productService.getColorDict();
+		List<PlankSize> sizeDict = productService.getSizeDict();
+		List<WoodSpecies> speciesDict = productService.getSpeciesDict();
+		List<Grade> gradeDict = productService.getGradeDict();
+		model.addAttribute("colorDict", colorDict);
+		model.addAttribute("sizeDict", sizeDict);
+		model.addAttribute("speciesDict", speciesDict);
+		model.addAttribute("gradeDict", gradeDict);
+		return Pages.UPDATE_INVENTORY;
 	}
 	
 	@PostMapping("/product")
