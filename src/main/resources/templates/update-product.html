@@ -1,0 +1,190 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common-fragments :: head"></head>
+<body>
+<div th:insert="~{fragments/common-fragments :: scripts}"></div>
+<div th:replace="fragments/common-fragments :: navbar"></div>
+<div id="container" class="bg-light">
+    <div class="py-5">
+        <div class="container py-5 bg-white shadow-sm card-height">
+            <div class="row mx-3">
+                <th:block th:replace="fragments/product-fragments :: update-sidebar"/>
+                <div class="col-md-10 mb-5">
+                    <th:block th:replace="fragments/common-fragments :: info-title(
+                        text='Edit product',
+                        icon='fas fa-plus-square mr-2'
+                    )"/>
+                    <form method="post" action="/update/product" enctype="multipart/form-data">
+                        <div class="row mt-5">
+                            <div class="col-md-6">
+                                <th:block th:replace="fragments/product-fragments :: update-product-attribute-select(
+                                    title='Colour',
+                                    name='colorId',
+                                    options=(${colourDict}),
+                                    value=(${product.getColorId()}),
+                                    error=(${colorIdError})
+                                )"/>
+                                <th:block th:replace="fragments/product-fragments :: update-product-attribute-select(
+                                    title='Size',
+                                    name='sizeId',
+                                    options=(${sizeDict}),
+                                    value=(${product.getSizeId()}),
+                                    error=(${sizeIdError})
+                                )"/>
+                                <th:block th:replace="fragments/product-fragments :: update-product-attribute-select(
+                                    title='Wood species',
+                                    name='speciesId',
+                                    options=(${speciesDict}),
+                                    value=(${product.getSpeciesId()}),
+                                    error=(${speciesIdError})
+                                )"/>
+                                <th:block th:replace="fragments/product-fragments :: update-product-attribute-select(
+                                    title='Plank type',
+                                    name='typeId',
+                                    options=(${plankTypeDict}),
+                                    value=(${product.getTypeId()}),
+                                    error=(${typeIdError})
+                                )"/>
+                                <th:block th:replace="fragments/product-fragments :: update-product-attribute-select(
+                                    title='Grade',
+                                    name='gradeId',
+                                    options=(${gradeDict}),
+                                    value=(${product.getGradeId()}),
+                                    error=(${typeIdError})
+                                )"/>
+                                <th:block th:replace="fragments/product-fragments :: update-string-required-attribute-input(
+	                                title='Batch number',
+	                                name='batchNumber',
+	                                placeholder='Enter the batch number',
+	                                value=(${product.getBatchNumber()}),
+	                                error=(${batchNumberError})
+	                            )"/>
+	                            <th:block th:replace="fragments/product-fragments :: update-string-required-attribute-input(
+	                                title='Top layer thickness',
+	                                name='wearThickness',
+	                                placeholder='Enter the top layer thickness',
+	                                value=(${product.getWearThickness()}),
+	                                error=(${wearThicknessError})
+	                            )"/>
+	                            <th:block th:replace="fragments/product-fragments :: update-string-required-attribute-input(
+	                                title='Manufacture year',
+	                                name='year',
+	                                placeholder='Enter the manufacture year',
+	                                value=(${product.getYear()}),
+	                                error=(${yearError})
+	                            )"/>
+	                            <th:block th:replace="fragments/product-fragments :: update-string-required-attribute-input(
+	                                title='Finish',
+	                                name='finish',
+	                                placeholder='Enter the finish',
+	                                value=(${product.getFinish()}),
+	                                error=(${finishError})
+	                            )"/>
+	                            <th:block th:replace="fragments/product-fragments :: update-integer-required-attribute-input(
+	                                title='Cartons/skid',
+	                                name='cartonsPerSkid',
+	                                placeholder='Enter number of cartons/skid',
+	                                value=(${product.getCartonsPerSkid()}),
+	                                error=(${cartonsPerSkidError})
+	                            )"/>
+	                            <th:block th:replace="fragments/product-fragments :: update-decimal-required-attribute-input(
+	                                title='Price',
+	                                name='price',
+	                                placeholder='Enter the price',
+	                                value=(${product.getPrice()}),
+	                                error=(${priceError})
+	                            )"/>
+	                            <th:block th:replace="fragments/product-fragments :: update-boolean-product-attribute-select(
+                                    title='active',
+                                    name='active',
+                                    options=(${ {{key: 1, value: 'True'}, {key: 0, value: 'False'}} }),
+                                    value=(${product.isActive()}),
+                                    error=(${activeError})
+                                )"/>
+                            </div>
+                            <div class="col-md-6">
+                                <div th:if="${product.getFilename()}">
+                                    <img th:src="@{/img/{path} (path = ${product.getFilename()})}"
+                                         class="rounded mx-auto w-100 mb-2"/>
+                                </div>
+                                <input type="file" name="file"/>
+                            </div>
+                        </div>
+                        <input type="hidden" name="id" th:value="${product.getId()}"/>
+                        <input type="hidden" name="filename" th:value="${product.getFilename()}"/>
+                        <th:block th:replace="fragments/common-fragments :: edit-button(text='Edit', icon='fas fa-edit mr-2')"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="~{fragments/common-fragments :: footer}"></footer>
+</body>
+
+<script type="text/javascript">
+/*
+ * 
+ $("#addNewProductBtn").on("click", function(){
+		$.ajax({
+			url:"/api/newProduct",
+			type:"POST",
+			data: {
+				plank_size_id: 1,
+				plank_color_id: 1
+			},
+			success: function(response){
+				console.log('success');
+			},
+			error: function(hata){
+				console.log('failure');
+			}
+		});
+	})
+ */
+
+$("#colour").on("change", function(){
+	if ($(this).val() == '') {
+		if (!$(this).find('option:selected').text().includes('Enter')){
+			$("#addNewColour").modal('show');
+		}
+	}
+})
+$("#size").on("change", function(){
+	if ($(this).val() == '') {
+		if (!$(this).find('option:selected').text().includes('Enter')){
+			$("#addNewPlankSize").modal('show');
+		}
+	}
+})
+$("#species").on("change", function(){
+	if ($(this).val() == '') {
+		if (!$(this).find('option:selected').text().includes('Enter')){
+			$("#addNewSpecies").modal('show');
+		}
+	}
+})
+$("#grade").on("change", function(){
+	if ($(this).val() == ''){
+		if (!$(this).find('option:selected').text().includes('Enter')){
+			$("#addNewGrade").modal('show');
+		}
+	}
+})
+$("#plank_type").on("change", function(){
+	if ($(this).val() == ''){
+		if (!$(this).find('option:selected').text().includes('Enter')){
+			$("#addNewType").modal('show');
+		}
+	}
+})
+</script>
+
+<style>
+.validation
+{
+  color: red;
+  margin-bottom: 20px;
+}
+</style>
+</html>
