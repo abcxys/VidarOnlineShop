@@ -24,6 +24,7 @@ $(function() {
 			param.width = $('#width').val();
 			param.species = $('#species').val();
 			param.grade = $('#grade').val();
+			param.batch = $('#batch').val();
 			return param;
 		},
 	    "error": function (data) {
@@ -35,6 +36,7 @@ $(function() {
 	    {"data" : 'width', "bSortable" : true},
 		{"data" : 'colorName', "bSortable" : true},
 		{"data" : 'gradeAlias', "bSortable" : true},
+		{"data" : 'batch', "bSortable" : true},
 		{"data" : 'bay', "bSortable" : false},
 		{"data" : 'stock', "bSortable" : false},
 		{"data" : '', "bSortable" : false}
