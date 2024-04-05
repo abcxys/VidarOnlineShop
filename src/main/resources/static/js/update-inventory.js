@@ -53,10 +53,10 @@ $(function() {
 tables.on('click', '.editInventory', function (e) {
     $("#editInventoryModal").modal('show');
 });
-});
 
 $("#searchProductInventoryBtn").on("click", function () {
 	tables.draw();
+});
 });
 
 function closeEditInventoryModal() {
