@@ -32,6 +32,7 @@ $(function() {
 	    }
 	},
 	columns : [
+		{"data" : 'id', "bSortable" : false},
 	    {"data" : 'speciesName', "bSortable" : true},
 	    {"data" : 'width', "bSortable" : true},
 		{"data" : 'colorName', "bSortable" : true},
@@ -43,6 +44,9 @@ $(function() {
 	],
 	'columnDefs': [{
 		'targets': 0,
+		'visible': false
+	},{
+		'targets': 1,
 		'render': function (data, type, full, meta){
 			return data.split(' ')[data.split(' ').length - 1];
 		}
@@ -53,6 +57,8 @@ $(function() {
 	}]
 });
 tables.on('click', '.editInventory', function (e) {
+	var rowData = tables.row($(this).closest('tr')).data();
+	console.log(rowData.id);
     $("#editInventoryModal").modal('show');
 });
 
