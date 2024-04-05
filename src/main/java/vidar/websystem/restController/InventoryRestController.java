@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import net.sf.json.JSONObject;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.DatatablesView;
-import vidar.websystem.domain.InventoryItem;
+import vidar.websystem.domain.ProductInventoryItem;
 import vidar.websystem.service.InventoryService;
 
 /**
@@ -28,14 +28,16 @@ public class InventoryRestController {
 	@RequestMapping(value = "/getFilteredProductStocks", method = RequestMethod.POST)
 	@ResponseBody
 	public String getAllInventoryItems(InventoryFilterConditionForm inventoryFilterConditionForm) {
-		//DatatablesView<InventoryItem> datatablesView = inventoryService.getAllInventoryItems();
+		//DatatablesView<ProductInventoryItem> datatablesView = inventoryService.getAllInventoryItems();
 		int colourId = inventoryFilterConditionForm.getColour().equals("") ? -1 : Integer.valueOf(inventoryFilterConditionForm.getColour());
 		int widthId = inventoryFilterConditionForm.getWidth().equals("") ? -1 : Integer.valueOf(inventoryFilterConditionForm.getWidth());
 		int speciesId = inventoryFilterConditionForm.getSpecies().equals("") ? -1 : Integer.valueOf(inventoryFilterConditionForm.getSpecies());
 		int gradeId = inventoryFilterConditionForm.getGrade().equals("") ? -1 : Integer.valueOf(inventoryFilterConditionForm.getGrade());
-		DatatablesView<InventoryItem> datatablesView = inventoryService.getFilteredProductInventoryItems(colourId,
+		DatatablesView<ProductInventoryItem> datatablesView = inventoryService.getFilteredProductInventoryItems(colourId,
 				widthId,
-				gradeId);
+				speciesId,
+				gradeId,
+				inventoryFilterConditionForm.getBatch());
 		return JSONObject.fromObject(datatablesView).toString();
 	}
 }

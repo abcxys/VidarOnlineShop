@@ -1,9 +1,7 @@
 package vidar.websystem.service;
 
-import java.util.List;
-
 import vidar.websystem.domain.DatatablesView;
-import vidar.websystem.domain.InventoryItem;
+import vidar.websystem.domain.ProductInventoryItem;
 
 /**
  * @author yishi.xing
@@ -11,12 +9,18 @@ import vidar.websystem.domain.InventoryItem;
  */
 public interface InventoryService {
 	
-	DatatablesView<InventoryItem> getAllInventoryItems();
+	DatatablesView<ProductInventoryItem> getAllInventoryItems();
 	
-	DatatablesView<InventoryItem> getFilteredInventoryItems(int colourId,
-			int widthId,
-			int speciesId,
-			int gradeId);
+	DatatablesView<ProductInventoryItem> getFilteredInventoryItems(int colourId,
+																   int widthId,
+																   int speciesId,
+																   int gradeId);
+	
+	DatatablesView<ProductInventoryItem> getFilteredProductInventoryItems(int colourId,
+																		  int widthId,
+																		  int speciesId,
+																		  int gradeId,
+																		  String batch);
 	
 	Long getStockByFloorId(long floorId);
 }

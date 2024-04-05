@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import vidar.websystem.domain.DatatablesView;
-import vidar.websystem.domain.InventoryItem;
+import vidar.websystem.domain.ProductInventoryItem;
 import vidar.websystem.repository.InventoryRepository;
 import vidar.websystem.service.InventoryService;
 
@@ -21,9 +21,9 @@ public class InventoryServiceImpl implements InventoryService {
 	private final InventoryRepository inventoryRepository;
 
 	@Override
-	public DatatablesView<InventoryItem> getAllInventoryItems() {
-		DatatablesView<InventoryItem> dataView = new DatatablesView<InventoryItem>();
-		List<InventoryItem> stock = inventoryRepository.findAllStocks();
+	public DatatablesView<ProductInventoryItem> getAllInventoryItems() {
+		DatatablesView<ProductInventoryItem> dataView = new DatatablesView<ProductInventoryItem>();
+		List<ProductInventoryItem> stock = inventoryRepository.findAllStocks();
 		
 		int count = (int) inventoryRepository.count();
 		dataView.setData(stock);
@@ -32,10 +32,10 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 	
 	@Override
-	public DatatablesView<InventoryItem> getFilteredInventoryItems(int colourId, int widthId, int speciesId,
-			int gradeId) {
-		DatatablesView<InventoryItem> dataView = new DatatablesView<InventoryItem>();
-		List<InventoryItem> stock = inventoryRepository.findFilteredStocks(colourId, widthId,
+	public DatatablesView<ProductInventoryItem> getFilteredInventoryItems(int colourId, int widthId, int speciesId,
+																		  int gradeId) {
+		DatatablesView<ProductInventoryItem> dataView = new DatatablesView<ProductInventoryItem>();
+		List<ProductInventoryItem> stock = inventoryRepository.findFilteredStocks(colourId, widthId,
 				gradeId);
 		int count = (int) inventoryRepository.count();
 		dataView.setData(stock);
@@ -47,5 +47,17 @@ public class InventoryServiceImpl implements InventoryService {
 	public Long getStockByFloorId(long floorId) {
 		Long quantity = inventoryRepository.findStockByFloorId(floorId);
 		return quantity;
+	}
+
+	@Override
+	public DatatablesView<ProductInventoryItem> getFilteredProductInventoryItems(int colourId, int widthId, int speciesId,
+																				 int gradeId, String batch) {
+		DatatablesView<ProductInventoryItem> dataView = new DatatablesView<ProductInventoryItem>();
+		List<ProductInventoryItem> stock = inventoryRepository.findFilteredProductStocks(colourId, widthId, speciesId,
+				gradeId, batch);
+		int count = (int) inventoryRepository.count();
+		dataView.setData(stock);
+		dataView.setRecordsTotal(count);
+		return dataView;
 	}
 }

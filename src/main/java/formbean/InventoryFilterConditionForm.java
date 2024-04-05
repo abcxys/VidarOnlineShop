@@ -18,4 +18,5 @@ public class InventoryFilterConditionForm {
 	private String width;
 	private String species;
 	private String grade;
+	private String batch;
 }

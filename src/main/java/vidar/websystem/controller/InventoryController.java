@@ -16,7 +16,7 @@ import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.DatatablesView;
 import vidar.websystem.domain.Grade;
-import vidar.websystem.domain.InventoryItem;
+import vidar.websystem.domain.ProductInventoryItem;
 import vidar.websystem.domain.PlankColor;
 import vidar.websystem.domain.PlankSize;
 import vidar.websystem.domain.WoodSpecies;
@@ -54,12 +54,12 @@ public class InventoryController {
 	@RequestMapping(value = "/getFilteredStocks", method = RequestMethod.POST)
 	@ResponseBody
 	public String getAllInventoryItems(InventoryFilterConditionForm inventoryFilterConditionForm) {
-		//DatatablesView<InventoryItem> datatablesView = inventoryService.getAllInventoryItems();
+		//DatatablesView<ProductInventoryItem> datatablesView = inventoryService.getAllInventoryItems();
 		int colourId = inventoryFilterConditionForm.getColour().equals("") ? -1 : Integer.valueOf(inventoryFilterConditionForm.getColour());
 		int widthId = inventoryFilterConditionForm.getWidth().equals("") ? -1 : Integer.valueOf(inventoryFilterConditionForm.getWidth());
 		int speciesId = inventoryFilterConditionForm.getSpecies().equals("") ? -1 : Integer.valueOf(inventoryFilterConditionForm.getSpecies());
 		int gradeId = inventoryFilterConditionForm.getGrade().equals("") ? -1 : Integer.valueOf(inventoryFilterConditionForm.getGrade());
-		DatatablesView<InventoryItem> datatablesView = inventoryService.getFilteredInventoryItems(colourId,
+		DatatablesView<ProductInventoryItem> datatablesView = inventoryService.getFilteredInventoryItems(colourId,
 				widthId,
 				speciesId,
 				gradeId);
