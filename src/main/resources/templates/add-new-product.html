@@ -431,35 +431,35 @@
 	})
  */
 
-$("#colour").on("change", function(){
+$("#colorId").on("change", function(){
 	if ($(this).val() == '') {
 		if (!$(this).find('option:selected').text().includes('Enter')){
 			$("#addNewColour").modal('show');
 		}
 	}
 })
-$("#size").on("change", function(){
+$("#sizeId").on("change", function(){
 	if ($(this).val() == '') {
 		if (!$(this).find('option:selected').text().includes('Enter')){
 			$("#addNewPlankSize").modal('show');
 		}
 	}
 })
-$("#species").on("change", function(){
+$("#speciesId").on("change", function(){
 	if ($(this).val() == '') {
 		if (!$(this).find('option:selected').text().includes('Enter')){
 			$("#addNewSpecies").modal('show');
 		}
 	}
 })
-$("#grade").on("change", function(){
+$("#gradeId").on("change", function(){
 	if ($(this).val() == ''){
 		if (!$(this).find('option:selected').text().includes('Enter')){
 			$("#addNewGrade").modal('show');
 		}
 	}
 })
-$("#plank_type").on("change", function(){
+$("#typeId").on("change", function(){
 	if ($(this).val() == ''){
 		if (!$(this).find('option:selected').text().includes('Enter')){
 			$("#addNewType").modal('show');
