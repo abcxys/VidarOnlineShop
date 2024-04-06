@@ -345,3 +345,12 @@ nav ul li {
 .dropdown-toggle::after{
 	right: 5%!important;
 }
+
+.addNewInventoryBtn {
+    width: 100%;
+    border: 2px solid #e7e7e7;
+}
+
+.addNewInventoryBtn:hover {
+    background-color: #e7e7e7;
+}
