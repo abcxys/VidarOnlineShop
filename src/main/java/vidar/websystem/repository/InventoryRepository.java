@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import vidar.websystem.domain.Inventory;
+import vidar.websystem.domain.InventoryItem;
 import vidar.websystem.domain.ProductInventoryItem;
 
 /**
@@ -18,7 +19,7 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     		"LEFT JOIN hardwoodfloors floor ON floor.id = inventory.floor_id " +
     		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
     		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
-    		"LEFT JOIN grades grade ON floor.grade_id = grade.id" + 
+    		"LEFT JOIN grades grade ON floor.grade_id = grade.id " +
 			"LEFT JOIN wood_species species ON floor.wood_species_id = species.id")
     List<ProductInventoryItem> findAllStocks();
 	
@@ -68,4 +69,14 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     		"LEFT JOIN hardwoodfloors floor ON floor.id = inventory.floor_id " +
     		"WHERE (:floorId = -1 or floor.id = :floorId) ")
 	Long findStockByFloorId(long floorId);
+
+	@Query(nativeQuery = true, value =
+			"SELECT inty.id as id, inty.floor_id as productId, " +
+	        "locs.bay as location, inty.current_quantity as quantity FROM " +
+	        "inventory inty "+
+			"LEFT JOIN locations locs "+
+			"ON inty.location_id = locs.id " +
+			"WHERE (:floorId = -1 or inty.floor_id = :floorId) " +
+			"ORDER BY location")
+	List<InventoryItem> findInventoryItemsByProductId(int floorId);
 }
