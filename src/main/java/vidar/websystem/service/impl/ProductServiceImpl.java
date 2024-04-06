@@ -265,9 +265,20 @@ public class ProductServiceImpl implements ProductService {
 	
 	private MessageResponse saveProduct(ProductRequest productRequest, MultipartFile file, String message) throws IOException {
 		HardwoodFloor floor = modelMapper.map(productRequest, HardwoodFloor.class);
+		// if the floor exists, we will update it and keep the existing file
+		List<HardwoodFloor> queriedList = hardwoodRepository.findByColorIdAndSizeIdAndTypeIdAndGradeIdAndSpeciesIdAndBatchNumber(floor.getColorId(),
+				floor.getSizeId(),
+				floor.getTypeId(),
+				floor.getGradeId(),
+				floor.getSpeciesId(),
+				floor.getBatchNumber());
+		if (queriedList.size() > 0) {
+			log.info("The queried entry already exists");
+			return new MessageResponse("alert-danger", "The product already exists!");
+		}
 		if (file != null && !file.getOriginalFilename().isEmpty()) {
 			File uploadDir = new File(uploadPath);
-			
+
 			if (!uploadDir.exists()) {
 				uploadDir.mkdir();
 			}
@@ -275,12 +286,6 @@ public class ProductServiceImpl implements ProductService {
 			String resultFilename = uuidFile + "." + file.getOriginalFilename();
 			file.transferTo(new File(uploadPath + "/" + resultFilename));
 			floor.setFilename(resultFilename);
-		}
-		// if the floor exists, we will update it and keep the existing file
-		HardwoodFloor queryById = hardwoodRepository.findById(floor.getId()).get();
-		if (queryById != null) {
-			log.info("The queried entry already exists");
-			floor.setFilename(queryById.getFilename());
 		}
 		hardwoodRepository.save(floor);
 		return new MessageResponse("alert-success", message);

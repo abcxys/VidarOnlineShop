@@ -169,7 +169,7 @@ create table hardwoodfloors
     batch_id                varchar(255),
     cartons_per_skid        int4,
     wear_layer_thickness        float4 default 2.0,
-    carton_weight           float4,
+    carton_weight           float4 default 60.0,
     create_time  timestamp default null,
     update_time timestamp default null,
     create_user_id int8,

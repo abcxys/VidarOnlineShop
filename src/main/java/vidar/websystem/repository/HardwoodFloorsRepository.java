@@ -14,6 +14,8 @@ public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, L
 
     List<HardwoodFloor> findByIdIn(List<Long> perfumesIds);
 
+	List<HardwoodFloor> findByColorIdAndSizeIdAndTypeIdAndGradeIdAndSpeciesIdAndBatchNumber(Long colorId, Long sizeId, Long typeId, Long gradeId, Long speciesId, String batchNumber);
+
     Page<HardwoodFloor> findAllByOrderByPriceAsc(Pageable pageable);
 
     /*
