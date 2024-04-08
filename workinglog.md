@@ -175,3 +175,20 @@ Note: this will still happen when shrink the page width, maybe the text is too w
 #### Java/Spring side changes:
 1. Update my IDE from Eclipse to IDEA ultimate, use the crack-patch for activation.
 Note: the necessary crack file stored in D:/jetbra, don't delete this folder.
+2. Fix the functionality of button 'searchProductInventoryBtn'
+3. Update web page for product inventory display.
+4. Update the frontend filtering controls.
+5. Update the dev-testing sql queries.
+6. Add a hidden column of floorId, and pass the floorId data to process of rendering 'editInventoryModal'.
+7. Add backend support for requesting ProductInventory table. Rename InventoryItem class name to ProductInventoryItem.
+8. Fix the bug that add new product-attribute modal not showing.
+
+### April 6th changes:
+Observed a bug in ProductServiceImpl:
+When add a new product, HardwoodFloor floor mapped from ProductRequest does not have a 'id' field.
+1. Add database connection to IntelliJ IDE.
+2. Add new Java class template to IntelliJ.
+3. Add findInventoryItemByProductId query to InventoryRepository class.
+4. Fix the bug that when you try to add new product, error reports.
+
+The reason is that the modelMapper mapped HardwoodFloor does not have any 'id' field. And the business logic here is incorrect. We already have a tab for updating product, so don't process any product update in 'add-new-product' tab. Check duplicity by querying combination of (color, size, type, grade, species, batchNumber).
