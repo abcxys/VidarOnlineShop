@@ -109,7 +109,7 @@ public class ProductServiceImpl implements ProductService {
 		List<Long> perfumeIds = Arrays.asList(1L, 2L, 3L, 4L, 5L);
         List<Long> plank_color_ids = hardwoodRepository.getPlankColorIdsByIds(perfumeIds, null);
         return plank_color_ids.stream().map(plank_color_id->
-    		plankColorRepository.findById(plank_color_id).get()).collect(Collectors.toList());
+    		plankColorRepository.findById(plank_color_id).orElse(null)).collect(Collectors.toList());
 	}
 	
 	@Override
@@ -252,31 +252,42 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@SneakyThrows
 	@Transactional
-	public MessageResponse addProduct(ProductRequest productRequest, MultipartFile file) {
-		return saveProduct(productRequest, file, SuccessMessage.PRODUCT_ADDED);
+	public MessageResponse addProduct(User user, ProductRequest productRequest, MultipartFile file) {
+		return saveProduct(user, productRequest, file, SuccessMessage.PRODUCT_ADDED);
 	}
 
 	@Override
 	@SneakyThrows
 	@Transactional
-	public MessageResponse updateProduct(ProductRequest productRequest, MultipartFile file) {
-		return saveProduct(productRequest, file, SuccessMessage.PRODUCT_UPDATED);
+	public MessageResponse updateProduct(User user, ProductRequest productRequest, MultipartFile file) {
+		return saveProduct(user, productRequest, file, SuccessMessage.PRODUCT_UPDATED);
 	}
 	
-	private MessageResponse saveProduct(ProductRequest productRequest, MultipartFile file, String message) throws IOException {
+	private MessageResponse saveProduct(User user, ProductRequest productRequest, MultipartFile file, String message) throws IOException {
 		HardwoodFloor floor = modelMapper.map(productRequest, HardwoodFloor.class);
-		// if the floor exists, we will update it and keep the existing file
-		List<HardwoodFloor> queriedList = hardwoodRepository.findByColorIdAndSizeIdAndTypeIdAndGradeIdAndSpeciesIdAndBatchNumber(floor.getColorId(),
-				floor.getSizeId(),
-				floor.getTypeId(),
-				floor.getGradeId(),
-				floor.getSpeciesId(),
-				floor.getBatchNumber());
-		if (queriedList.size() > 0) {
-			log.info("The queried entry already exists");
-			return new MessageResponse("alert-danger", "The product already exists!");
+		if (floor.getId() == null){
+			// adding new product
+			// if the floor exists, we will update it and keep the existing file
+			List<HardwoodFloor> queriedList = hardwoodRepository.findByColorIdAndSizeIdAndTypeIdAndGradeIdAndSpeciesIdAndBatchNumber(floor.getColorId(),
+					floor.getSizeId(),
+					floor.getTypeId(),
+					floor.getGradeId(),
+					floor.getSpeciesId(),
+					floor.getBatchNumber());
+			if (queriedList.size() > 0) {
+				log.info("The queried entry already exists");
+				return new MessageResponse("alert-danger", "The product already exists!");
+			}
+			floor.setCreateTime(new Date());
+			floor.setCreateUserId(user.getId());
+		} else {
+			HardwoodFloor queryById = hardwoodRepository.findById(floor.getId()).orElse(null);
+            floor.setFilename(queryById == null ? null : queryById.getFilename());
+			floor.setUpdateTime(new Date());
+			floor.setUpdateUserId(user.getId());
 		}
-		if (file != null && !file.getOriginalFilename().isEmpty()) {
+
+		if (file != null && file.getOriginalFilename() != null && !file.getOriginalFilename().isEmpty()) {
 			File uploadDir = new File(uploadPath);
 
 			if (!uploadDir.exists()) {
@@ -293,6 +304,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public HardwoodFloor getProductById(Long productId) {
-		return hardwoodRepository.findById(productId).get();
+		return hardwoodRepository.findById(productId).orElse(null);
 	}
 }

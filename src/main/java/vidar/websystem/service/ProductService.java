@@ -56,7 +56,7 @@ public interface ProductService {
     
     String postGrade(User user, Grade grade);
     
-    MessageResponse addProduct(ProductRequest productRequest, MultipartFile file);
+    MessageResponse addProduct(User user, ProductRequest productRequest, MultipartFile file);
     
-    MessageResponse updateProduct(ProductRequest productRequest, MultipartFile file);
+    MessageResponse updateProduct(User user, ProductRequest productRequest, MultipartFile file);
 }
