@@ -97,7 +97,7 @@ subtable = $('#updateInventoryItemTable').DataTable({
 		data: null,
 		defaultContent: '<i class="fas fa-light fa-edit editInventory" style="cursor: pointer;"></i>'
 	},{
-		targets: '_all',
+		targets: [2, 3],
 		createdCell: createdCell
 	}]
 });
@@ -119,18 +119,17 @@ $("#addNewInventoryBtn").on("click", function() {
 		location: "",
 		quantity: ""
 	}
-	var fragmentHtml = '<th:block th:replace="fragments/inventory-fragments :: dumb-inventory-item()" />';
-	var testDiv = '<form class="form-horizontal" method="post">' +
+	var newInventoryItemDiv = '<form class="form-horizontal" method="post" action="/update/add-new-inventory">' +
 		'<div class="modal-body">'+
 		'<div class="form-group row">' +
 		'<div style="display: none;"><span>' + mockInventory.id + '</span></div>' +
 		'<div class="col-md-2">' +
 		'<label class="control-label xrequired">Location: </label>' +
-		'<input type="text" value="' + mockInventory.location + '" style="height: 50%;">' +
+		'<input type="text" name="location" value="' + mockInventory.location + '" style="height: 50%;">' +
 		'</div>' +
 		'<div class="col-md-2 ml-auto">' +
 		'<label class="control-label xrequired">Quantity: </label>' +
-		'<input type="number" value="' + mockInventory.quantity + '" style="height: 50%;">' +
+		'<input type="number" name="quantity" value="' + mockInventory.quantity + '" style="height: 50%;">' +
 		'</div>' +
 		'<div class="col-md-2 ml-auto">' +
 		'<button type="submit" class="btn btn-primary" style="position: absolute;bottom: 0;">' +
@@ -140,7 +139,7 @@ $("#addNewInventoryBtn").on("click", function() {
 		'</div>' +
 		'</div>' +
 		'</form>';
-	$('<div>').html(testDiv).insertBefore('.modal-footer');
+	$('<div>').html(newInventoryItemDiv).insertBefore('.modal-footer');
 });
 });
 
@@ -162,37 +161,4 @@ const createdCell = function(cell) {
 			console.log('Row changed: ', row.data())
 		}
 	})
-}
-
-function editInventoryFun() {
-	var inventoryId = $("input[name=inventoryId]").val();
-	var location = $("input[name=location]").val();
-	var quantity = $("input[name=quantity]").val();
-	if (location == '') {
-		bootboxAlertError("Location can not be empty");
-		return false;
-	}
-	if (quantity == '') {
-		bootboxAlertError("Quantity can not be empty");
-		return false;
-	}
-	/*
-	$.ajax({
-		type:"POST",
-		url:'/product/addNewColour',
-		data:{
-			colourName: colourName,
-			colourAlias: colourAlias,
-			description: colourDescription
-		},
-		success:function(response){
-			bootboxAlertPrompt(response);
-			setTimeout(function(){location.reload();},2000);
-		},
-		error:function (xhr){
-			bootboxAlertError(xhr.responseText);
-			setTimeout(function(){location.reload();}, 3000);
-		}
-	});
-	*/
 }
