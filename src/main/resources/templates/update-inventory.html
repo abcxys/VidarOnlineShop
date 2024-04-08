@@ -19,9 +19,9 @@
 									<div class="form-group row">
 										<div class="col-md-2 ml-1">
 											<div class="d-flex">
-												<select id="colour" name="colour" data-live-search="true" class="selectpicker" th:field="${colorDict}">
+												<select id="colour" name="colour" data-live-search="true" class="selectpicker" th:field="${colourDict}">
 														<option value="">Colour</option>
-		                            				<option th:each="color : ${colorDict}" th:value="${color.getId()}" th:text="${color.toString()}"></option>
+		                            				<option th:each="color : ${colourDict}" th:value="${color.getId()}" th:text="${color.toString()}"></option>
 		                    					</select>
 		                    					<div class="input-group-addon" style="cursor: pointer;" onclick="emptyValueSelector('colour')">
 						           					<i class="fa fa-fw fa-eraser mt-2" title="clear"></i>
@@ -143,7 +143,7 @@
 				</table>
 			</div>
 			</div>
-			<div class="modal-footer">
+			<div class="modal-footer" id="modalfooter">
 				<button id="addNewInventoryBtn" type="button" class="addNewInventoryBtn">
 					Add
 				</button>

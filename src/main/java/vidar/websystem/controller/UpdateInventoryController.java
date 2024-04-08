@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +23,9 @@ import lombok.RequiredArgsConstructor;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.*;
+import vidar.websystem.dto.request.InventoryItemRequest;
 import vidar.websystem.dto.request.ProductRequest;
+import vidar.websystem.dto.response.MessageResponse;
 import vidar.websystem.service.ProductService;
 import vidar.websystem.service.UserService;
 import vidar.websystem.utils.ControllerUtils;
@@ -31,6 +34,7 @@ import vidar.websystem.utils.ControllerUtils;
  * @author yishi.xing
  * @created Mar 6, 2024 - 11:47:06 PM
  */
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(PathConstants.UPDATE)
@@ -70,14 +74,7 @@ public class UpdateInventoryController {
 	
 	@GetMapping("/inventory")
 	public String getProductInventory(Model model) {
-		List<PlankColor> colorDict = productService.getColorDict();
-		List<PlankSize> sizeDict = productService.getSizeDict();
-		List<WoodSpecies> speciesDict = productService.getSpeciesDict();
-		List<Grade> gradeDict = productService.getGradeDict();
-		model.addAttribute("colorDict", colorDict);
-		model.addAttribute("sizeDict", sizeDict);
-		model.addAttribute("speciesDict", speciesDict);
-		model.addAttribute("gradeDict", gradeDict);
+		injectAttributesToModel(model);
 		return Pages.UPDATE_INVENTORY;
 	}
 	
@@ -101,7 +98,13 @@ public class UpdateInventoryController {
 		User user = userService.getAuthenticatedUser();
 		return controllerUtils.setAlertFlashMessage(attributes, "/update", productService.addProduct(user, product, file));
 	}
-	
+
+	@PostMapping("/add-new-inventory")
+	public String addNewInventory(@Valid InventoryItemRequest inventoryItemRequest, BindingResult bindingResult, Model model,
+								  RedirectAttributes attributes){
+		return controllerUtils.setAlertFlashMessage(attributes, "/update", new MessageResponse("alert-success", "New inventory added successfully"));
+	}
+
 	private void injectAttributesToModel(Model model) {
 		List<Grade> gradeDict = productService.getGradeDict();
 		List<PlankColor> colorDict = productService.getColorDict();
