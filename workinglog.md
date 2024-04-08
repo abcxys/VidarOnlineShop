@@ -192,3 +192,25 @@ When add a new product, HardwoodFloor floor mapped from ProductRequest does not 
 4. Fix the bug that when you try to add new product, error reports.
 
 The reason is that the modelMapper mapped HardwoodFloor does not have any 'id' field. And the business logic here is incorrect. We already have a tab for updating product, so don't process any product update in 'add-new-product' tab. Check duplicity by querying combination of (color, size, type, grade, species, batchNumber).
+
+### April 8th changes:
+1. Update preventative measures for AWS account abcxys92@gmail.com.
+Note that: GuardDuty service stated "30-day free trial" upon activation. Keep track of AWS cost in the future.
+2. Update the postgres database logging settings:
+Use commands to check status: 
+```postgresql
+show logging_collector;
+show log_directory;
+show log_filename;
+```
+Use commands to change status:
+```postgresql
+alter system set logging_collector='on';
+alter system set log_directory='pg_log';
+```
+Note that log_directory is relative directory under postgresql/Data, we will create a directory and give access to postgres
+```shell
+mddir -p /var/log/pg_log
+chown postgres:postgres /var/log/pg_log/
+chmod 700 /var/log/pg_log/
+```
