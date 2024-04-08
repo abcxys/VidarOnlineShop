@@ -21,13 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.RequiredArgsConstructor;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
-import vidar.websystem.domain.Grade;
-import vidar.websystem.domain.PlankColor;
-import vidar.websystem.domain.PlankSize;
-import vidar.websystem.domain.PlankType;
-import vidar.websystem.domain.WoodSpecies;
+import vidar.websystem.domain.*;
 import vidar.websystem.dto.request.ProductRequest;
 import vidar.websystem.service.ProductService;
+import vidar.websystem.service.UserService;
 import vidar.websystem.utils.ControllerUtils;
 
 /**
@@ -42,7 +39,10 @@ public class UpdateInventoryController {
 	private final ControllerUtils controllerUtils;
 	
 	@Autowired
-	private ProductService productService;
+	private final ProductService productService;
+
+	@Autowired
+	private final UserService userService;
 	
 	@GetMapping
     public String getUpdate(Model model) {
@@ -87,7 +87,8 @@ public class UpdateInventoryController {
 		if (controllerUtils.validateInputFields(bindingResult, model, "product", product)) {
 			return Pages.UPDATE_PRODUCT;
 		}
-		return controllerUtils.setAlertFlashMessage(attributes, "/update", productService.updateProduct(product, file));
+		User user = userService.getAuthenticatedUser();
+		return controllerUtils.setAlertFlashMessage(attributes, "/update", productService.updateProduct(user, product, file));
 	}
 	
 	@PostMapping("/add-new-product")
@@ -97,7 +98,8 @@ public class UpdateInventoryController {
 			injectAttributesToModel(model);
 			return Pages.ADD_NEW_PRODUCT;
 		}
-		return controllerUtils.setAlertFlashMessage(attributes, "/update", productService.addProduct(product, file));
+		User user = userService.getAuthenticatedUser();
+		return controllerUtils.setAlertFlashMessage(attributes, "/update", productService.addProduct(user, product, file));
 	}
 	
 	private void injectAttributesToModel(Model model) {
