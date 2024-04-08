@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
-import vidar.websystem.dto.request.ColourRequest;
 import vidar.websystem.dto.request.SearchRequest;
 import vidar.websystem.service.InventoryService;
 import vidar.websystem.service.ProductService;
@@ -83,8 +82,7 @@ public class ProductController {
     	plankColor.setName(colourName);
     	plankColor.setAlias(colourAlias);
     	plankColor.setDescription(description);
-    	productService.postPlankColor(user, plankColor);
-    	return ResponseEntity.ok().body("New colour added successfully");
+    	return ResponseEntity.ok().body(productService.postPlankColor(user, plankColor));
     }
     
     @RequestMapping(value="/addNewSpecies", method = RequestMethod.POST)
