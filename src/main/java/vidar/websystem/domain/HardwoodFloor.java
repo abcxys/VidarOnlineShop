@@ -4,11 +4,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 
 @Entity
 @Table(name = "hardwoodfloors")
@@ -25,10 +22,10 @@ public class HardwoodFloor {
     @SequenceGenerator(name = "hardwoodfloor_id_seq", sequenceName = "hardwoodfloor_id_seq", initialValue = 109, allocationSize = 1)
     private Long id;
 
-    @Column(name = "year", nullable = true)
+    @Column(name = "year")
     private Integer year;
 
-    @Column(name = "country", nullable = true)
+    @Column(name = "country")
     private String country;
 
     @Column(name = "description")
@@ -61,17 +58,32 @@ public class HardwoodFloor {
     @Column(name = "cartons_per_skid", nullable = false)
     private Integer cartonsPerSkid;
     
-    @Column(name = "carton_weight", nullable = true)
+    @Column(name = "carton_weight")
     private float cartonWeight = 60f;
     
     @Column(name = "wear_layer_thickness", nullable = false)
     private float wearThickness = 2f;
     
-    @Column(name = "finish", nullable = true)
+    @Column(name = "finish")
     private String finish;
     
     @Column(name = "active", nullable = false)
     private boolean active = true;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time", updatable = false)
+    private Date createTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_time")
+    private Date updateTime;
+
+    @Column(name = "create_user_id", updatable = false)
+    private Long createUserId;
+
+    @Column(name = "update_user_id")
+    private Long updateUserId;
+
 //    
 //    @OneToMany(mappedBy = "hardwoodfloor")
 //    private Set<FloorOrder> floorOrders = new HashSet<FloorOrder>();
