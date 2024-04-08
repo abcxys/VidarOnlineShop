@@ -14,7 +14,7 @@ import vidar.websystem.constants.ErrorMessage;
 
 /**
  * @author yishi.xing
- * @created Mar 25, 2024 - 10:08:00 AM
+ * @create Mar 25, 2024 - 10:08:00 AM
  */
 @Data
 @ToString
@@ -57,5 +57,5 @@ public class ProductRequest {
     private BigDecimal price;
     
     @NotNull(message = ErrorMessage.FILL_IN_THE_INPUT_FIELD)
-    private boolean active;
+    private boolean active = true;
 }
