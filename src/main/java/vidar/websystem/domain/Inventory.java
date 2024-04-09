@@ -2,10 +2,7 @@ package vidar.websystem.domain;
 
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 
@@ -21,14 +18,22 @@ public class Inventory {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "floor_id", nullable = true)
+    @Column(name = "floor_id", nullable = false)
     private Long floorId;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", updatable = false, columnDefinition = "timestamp default current_timestamp")
-    private Date create_time;
+    private Date createTime;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "update_time", columnDefinition = "timestamp default current_timestamp")
-    private Date update_time;
+    private Date updateTime;
+
+    @Column(name = "create_user_id", updatable = false)
+    private Long createUserId;
+
+    @Column(name = "update_user_id")
+    private Long updateUserId;
     
     @Column(name = "current_quantity", nullable = false)
     private double currentQuantity;
