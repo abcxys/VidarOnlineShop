@@ -3,6 +3,8 @@ package vidar.websystem.dto.request;
 import lombok.Data;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+
 /**
  * @author yishi.xing
  * create datetime 4/8/2024 4:33 PM
@@ -17,5 +19,5 @@ public class InventoryItemRequest {
 
     private String location;
 
-    private Integer quantity;
+    private BigDecimal quantity;
 }
