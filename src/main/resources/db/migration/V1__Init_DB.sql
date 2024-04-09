@@ -7,6 +7,7 @@ create sequence grade_id_seq start 4 increment 1;
 create sequence users_id_seq start 4 increment 1;
 create sequence order_item_seq start 12 increment 1;
 create sequence orders_seq start 6 increment 1;
+create sequence location_id_seq start 7 increment 1;
 
 create table users
 (
@@ -226,8 +227,8 @@ create table inventory
     update_time timestamp default null,
     create_user_id  int8,
     update_user_id  int8,
-    current_quantity float(1) not null,
-    initial_quantity float(1) not null,
+    current_quantity decimal(5, 1) not null,
+    initial_quantity decimal(5, 1) not null,
     description varchar(255) default null,
     floor_id    int8 not null,
     location_id int8 not null,
