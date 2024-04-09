@@ -114,15 +114,18 @@ $("#searchProductInventoryBtn").on("click", function () {
 
 $("#addNewInventoryBtn").on("click", function() {
 	console.log("Add!");
-	var mockInventory = {
+	const mockInventory = {
 		id: "",
+		productId: $('#editInventoryProductId').val(),
 		location: "",
 		quantity: ""
 	}
-	var newInventoryItemDiv = '<form class="form-horizontal" method="post" action="/update/add-new-inventory">' +
+	console.log("The product id for adding new inventory is " + mockInventory.productId);
+	let newInventoryItemDiv = '<form class="form-horizontal" method="post" action="/update/add-new-inventory">' +
 		'<div class="modal-body">'+
 		'<div class="form-group row">' +
-		'<div style="display: none;"><span>' + mockInventory.id + '</span></div>' +
+		'<div style="display: none;"><input type="number" name="id" value="' + mockInventory.id + '"></div>' +
+		'<div style="display: none;"><input type="number" name="productId" value="' + mockInventory.productId + '"></div>' +
 		'<div class="col-md-2">' +
 		'<label class="control-label xrequired">Location: </label>' +
 		'<input type="text" name="location" value="' + mockInventory.location + '" style="height: 50%;">' +
@@ -139,11 +142,12 @@ $("#addNewInventoryBtn").on("click", function() {
 		'</div>' +
 		'</div>' +
 		'</form>';
-	$('<div>').html(newInventoryItemDiv).insertBefore('.modal-footer');
+	$('<div class="addInventoryItemDiv">').html(newInventoryItemDiv).insertBefore('.modal-footer');
 });
 });
 
 function closeEditInventoryModal() {
+	$(".addInventoryItemDiv").remove();
 	$("#editInventoryModal").modal('hide');
 }
 

@@ -1,8 +1,7 @@
 package vidar.websystem.service;
 
-import vidar.websystem.domain.DatatablesView;
-import vidar.websystem.domain.InventoryItem;
-import vidar.websystem.domain.ProductInventoryItem;
+import vidar.websystem.domain.*;
+import vidar.websystem.dto.response.MessageResponse;
 
 /**
  * @author yishi.xing
@@ -26,4 +25,10 @@ public interface InventoryService {
 	DatatablesView<InventoryItem> getInventoryItemsByProductId(int productId);
 	
 	Long getStockByFloorId(long floorId);
+
+	boolean existsLocationTorontoWarehouse(String location);
+
+	Long getLocationIdByBayAndWarehouseId(String bay, Long warehouseId);
+
+	MessageResponse addInventory(User user, Inventory inventory);
 }

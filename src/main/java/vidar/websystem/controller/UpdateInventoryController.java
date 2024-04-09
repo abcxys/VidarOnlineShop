@@ -1,5 +1,6 @@
 package vidar.websystem.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -26,6 +27,7 @@ import vidar.websystem.domain.*;
 import vidar.websystem.dto.request.InventoryItemRequest;
 import vidar.websystem.dto.request.ProductRequest;
 import vidar.websystem.dto.response.MessageResponse;
+import vidar.websystem.service.InventoryService;
 import vidar.websystem.service.ProductService;
 import vidar.websystem.service.UserService;
 import vidar.websystem.utils.ControllerUtils;
@@ -42,12 +44,10 @@ import vidar.websystem.utils.ControllerUtils;
 public class UpdateInventoryController {
 	private final ControllerUtils controllerUtils;
 	
-	@Autowired
 	private final ProductService productService;
-
-	@Autowired
+	private final InventoryService inventoryService;
 	private final UserService userService;
-	
+
 	@GetMapping
     public String getUpdate(Model model) {
         return Pages.UPDATE;
@@ -102,7 +102,31 @@ public class UpdateInventoryController {
 	@PostMapping("/add-new-inventory")
 	public String addNewInventory(@Valid InventoryItemRequest inventoryItemRequest, BindingResult bindingResult, Model model,
 								  RedirectAttributes attributes){
-		return controllerUtils.setAlertFlashMessage(attributes, "/update", new MessageResponse("alert-success", "New inventory added successfully"));
+		/**
+		 * The inventory item related html fragment is added dynamically by Jquery function,
+		 * thus not processed by Thymeleaf engine. Binding result cannot be reflected back to front end.
+		 * Validate InventoryItemRequest manually.
+		 */
+
+		//Validate the entered location exists
+		String location = inventoryItemRequest.getLocation();
+		if (!inventoryService.existsLocationTorontoWarehouse(location))
+			return controllerUtils.setAlertFlashMessage(attributes, "/update", new MessageResponse("alert-danger", "Please fill in correct location!"));
+
+		BigDecimal quantity = inventoryItemRequest.getQuantity();
+		//Validate the entered quantity
+		if (quantity.compareTo(BigDecimal.ZERO) < 0)
+			return controllerUtils.setAlertFlashMessage(attributes, "/update", new MessageResponse("alert-danger", "Please fill in correct quantity!"));
+		Inventory newInventory = new Inventory();
+		newInventory.setFloorId(inventoryItemRequest.getProductId());
+		newInventory.setInitialQuantity(quantity);
+		newInventory.setCurrentQuantity(quantity);
+		newInventory.setLocationId(inventoryService.getLocationIdByBayAndWarehouseId(location, 1L));
+
+		User user = userService.getAuthenticatedUser();
+		return controllerUtils.setAlertFlashMessage(attributes,
+				"/update",
+				inventoryService.addInventory(user, newInventory));
 	}
 
 	private void injectAttributesToModel(Model model) {

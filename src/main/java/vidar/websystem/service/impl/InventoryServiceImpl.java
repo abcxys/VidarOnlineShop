@@ -1,15 +1,19 @@
 package vidar.websystem.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import vidar.websystem.domain.DatatablesView;
-import vidar.websystem.domain.InventoryItem;
-import vidar.websystem.domain.ProductInventoryItem;
+import vidar.websystem.domain.*;
+import vidar.websystem.dto.response.MessageResponse;
 import vidar.websystem.repository.InventoryRepository;
+import vidar.websystem.repository.LocationRepository;
 import vidar.websystem.service.InventoryService;
+
+import javax.transaction.Transactional;
 
 /**
  * @author yishi.xing
@@ -20,6 +24,7 @@ import vidar.websystem.service.InventoryService;
 public class InventoryServiceImpl implements InventoryService {
 	
 	private final InventoryRepository inventoryRepository;
+	private final LocationRepository locationRepository;
 
 	@Override
 	public DatatablesView<ProductInventoryItem> getAllInventoryItems() {
@@ -47,6 +52,32 @@ public class InventoryServiceImpl implements InventoryService {
 	@Override
 	public Long getStockByFloorId(long floorId) {
 		return inventoryRepository.findStockByFloorId(floorId);
+	}
+
+	@Override
+	public boolean existsLocationTorontoWarehouse(String location) {
+		// The warehouse_id for Toronto warehouse is set to Long value of 1.
+		return locationRepository.existsByBayAndWarehouseId(location, 1L);
+	}
+
+	@Override
+	public Long getLocationIdByBayAndWarehouseId(String bay, Long warehouseId) {
+		return locationRepository.findIdByBayAndWarehouseId(bay, warehouseId);
+	}
+
+	/**
+	 * @param user
+	 * @param inventory
+	 * @return
+	 */
+	@Override
+	@SneakyThrows
+	@Transactional
+	public MessageResponse addInventory(User user, Inventory inventory) {
+		inventory.setCreateTime(new Date());
+		inventory.setCreateUserId(user.getId());
+		inventoryRepository.save(inventory);
+		return new MessageResponse("alert-success", "New inventory added successfully");
 	}
 
 	@Override
