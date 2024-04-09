@@ -1,5 +1,6 @@
 package vidar.websystem.domain;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -16,10 +17,15 @@ import lombok.Data;
 public class Inventory {
 	@Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "location_id_seq")
+    @SequenceGenerator(name = "location_id_seq", sequenceName = "location_id_seq", initialValue = 7, allocationSize = 1)
     private Long id;
 
     @Column(name = "floor_id", nullable = false)
     private Long floorId;
+
+    @Column(name = "location_id", nullable = false)
+    private Long locationId;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", updatable = false, columnDefinition = "timestamp default current_timestamp")
@@ -35,9 +41,9 @@ public class Inventory {
     @Column(name = "update_user_id")
     private Long updateUserId;
     
-    @Column(name = "current_quantity", nullable = false)
-    private double currentQuantity;
+    @Column(name = "current_quantity", precision = 5, scale = 1, nullable = false)
+    private BigDecimal currentQuantity;
 
-    @Column(name = "initial_quantity", nullable = false)
-    private double initialQuantity;
+    @Column(name = "initial_quantity", precision = 5, scale = 1, nullable = false)
+    private BigDecimal initialQuantity;
 }
