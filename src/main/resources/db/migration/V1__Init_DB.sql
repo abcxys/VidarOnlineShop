@@ -216,7 +216,8 @@ create table locations
     PRIMARY KEY(id),
     CONSTRAINT fk_warehouse_id
         FOREIGN KEY(warehouse_id)
-            REFERENCES warehouses(id)
+            REFERENCES warehouses(id),
+    UNIQUE(warehouse_id, bay)
 );
 create table inventory
 (
