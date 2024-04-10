@@ -26,6 +26,9 @@ public class InventoryEvent {
     @Column(name = "inventory_event_type_id", nullable = false)
     private Long inventoryEventTypeId;
 
+    @Column(name = "location_id", nullable = false)
+    private Long locationId;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", updatable = false)
     private Date createTime;
@@ -35,4 +38,7 @@ public class InventoryEvent {
 
     @Column(name = "quantity", precision = 5, scale = 1, nullable = false)
     private BigDecimal quantity;
+
+    @Column(name = "description")
+    private String description;
 }
