@@ -68,7 +68,7 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 			"inventory inventory " +
     		"LEFT JOIN hardwoodfloors floor ON floor.id = inventory.floor_id " +
     		"WHERE (:floorId = -1 or floor.id = :floorId) ")
-	Long findStockByFloorId(long floorId);
+	Long findStockByFloorId(Long floorId);
 
 	@Query(nativeQuery = true, value =
 			"SELECT inty.id as id, inty.floor_id as productId, " +
