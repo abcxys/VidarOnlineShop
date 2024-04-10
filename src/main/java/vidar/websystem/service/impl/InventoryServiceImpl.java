@@ -50,8 +50,17 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	@Override
-	public Long getStockByFloorId(long floorId) {
+	public Long getStockByFloorId(Long floorId) {
 		return inventoryRepository.findStockByFloorId(floorId);
+	}
+
+	/**
+	 * @param id inventory_id
+	 * @return the queried inventory entity
+	 */
+	@Override
+	public Inventory getInventoryById(Long id) {
+		return inventoryRepository.findById(id).orElse(null);
 	}
 
 	@Override
@@ -78,6 +87,20 @@ public class InventoryServiceImpl implements InventoryService {
 		inventory.setCreateUserId(user.getId());
 		inventoryRepository.save(inventory);
 		return new MessageResponse("alert-success", "New inventory added successfully");
+	}
+
+	/**
+	 * @param user authenticated user information
+	 * @param inventory the inventory entity that needs to be updated
+	 * @return success/fail message
+	 */
+	@Override
+	public String updateInventory(User user, Inventory inventory) {
+		//TODO: add into inventory_event table.
+		inventory.setUpdateTime(new Date());
+		inventory.setUpdateUserId(user.getId());
+		inventoryRepository.save(inventory);
+		return "Inventory item updated successfully!";
 	}
 
 	@Override

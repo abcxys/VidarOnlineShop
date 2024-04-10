@@ -24,11 +24,15 @@ public interface InventoryService {
 
 	DatatablesView<InventoryItem> getInventoryItemsByProductId(int productId);
 	
-	Long getStockByFloorId(long floorId);
+	Long getStockByFloorId(Long floorId);
+
+	Inventory getInventoryById(Long id);
 
 	boolean existsLocationTorontoWarehouse(String location);
 
 	Long getLocationIdByBayAndWarehouseId(String bay, Long warehouseId);
 
 	MessageResponse addInventory(User user, Inventory inventory);
+
+	String updateInventory(User user, Inventory inventory);
 }
