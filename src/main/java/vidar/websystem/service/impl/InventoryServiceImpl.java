@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import vidar.websystem.domain.*;
 import vidar.websystem.dto.response.MessageResponse;
+import vidar.websystem.repository.InventoryEventRepository;
 import vidar.websystem.repository.InventoryRepository;
 import vidar.websystem.repository.LocationRepository;
 import vidar.websystem.service.InventoryService;
@@ -25,6 +26,7 @@ public class InventoryServiceImpl implements InventoryService {
 	
 	private final InventoryRepository inventoryRepository;
 	private final LocationRepository locationRepository;
+	private final InventoryEventRepository inventoryEventRepository;
 
 	@Override
 	public DatatablesView<ProductInventoryItem> getAllInventoryItems() {
@@ -75,9 +77,9 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	/**
-	 * @param user
-	 * @param inventory
-	 * @return
+	 * @param user Authenticated user
+	 * @param inventory Added inventory entity instance
+	 * @return Resulting Message Response
 	 */
 	@Override
 	@SneakyThrows
@@ -86,6 +88,7 @@ public class InventoryServiceImpl implements InventoryService {
 		inventory.setCreateTime(new Date());
 		inventory.setCreateUserId(user.getId());
 		inventoryRepository.save(inventory);
+		addManualSetInventoryEvent(user, inventory);
 		return new MessageResponse("alert-success", "New inventory added successfully");
 	}
 
@@ -96,9 +99,10 @@ public class InventoryServiceImpl implements InventoryService {
 	 */
 	@Override
 	public String updateInventory(User user, Inventory inventory) {
-		//TODO: add into inventory_event table.
 		inventory.setUpdateTime(new Date());
 		inventory.setUpdateUserId(user.getId());
+		// add into inventory_event table.
+		addManualSetInventoryEvent(user, inventory);
 		inventoryRepository.save(inventory);
 		return "Inventory item updated successfully!";
 	}
@@ -123,5 +127,16 @@ public class InventoryServiceImpl implements InventoryService {
 		dataView.setData(items);
 		dataView.setRecordsTotal(count);
 		return dataView;
+	}
+
+	private void addManualSetInventoryEvent(User user, Inventory inventory){
+		InventoryEvent event = new InventoryEvent();
+		event.setInventoryId(inventory.getId());
+		event.setInventoryEventTypeId(3L);
+		event.setLocationId(inventory.getLocationId());
+		event.setQuantity(inventory.getCurrentQuantity());
+		event.setCreateTime(new Date());
+		event.setCreateUserId(user.getId());
+		inventoryEventRepository.save(event);
 	}
 }
