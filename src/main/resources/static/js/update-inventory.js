@@ -95,17 +95,48 @@ subtable = $('#updateInventoryItemTable').DataTable({
 	},{
 		targets: -1,
 		data: null,
-		defaultContent: '<i class="fas fa-light fa-edit editInventory" style="cursor: pointer;"></i>'
+		defaultContent: '<i class="fas fa-light fa-edit editInventoryItem" style="cursor: pointer;"></i>'
 	},{
 		targets: [2, 3],
 		createdCell: createdCell
 	}]
 });
 tables.on('click', '.editInventory', function (e) {
-	var rowData = tables.row($(this).closest('tr')).data();
+	let rowData = tables.row($(this).closest('tr')).data();
 	$('#editInventoryProductId').val(rowData.id);
 	$("#editInventoryModal").modal('show');
 	subtable.columns.adjust().draw();
+});
+subtable.on('click', '.editInventoryItem', function() {
+	let rowData = subtable.row($(this).closest('tr')).data();
+	// this api can only change either location or quantity
+	console.log('Quantity changed: ', rowData.quantity);
+	console.log('Location changed: ', rowData.location);
+	if (!rowData.location.trim()){
+		bootboxAlertError("Location can not be empty!");
+		return;
+	}
+	if (!rowData.quantity || typeof(parseFloat(rowData.quantity)) !== 'number'){
+		bootboxAlertError("Quantity value is invalid!");
+		return;
+	}
+	$.ajax({
+		url: '/inventory/update',
+		method: 'PUT',
+		data: {
+			id: rowData.id,
+			location: rowData.location,
+			quantity: rowData.quantity
+		},
+		success : function(response) {
+			bootboxAlertPrompt(response);
+			//setTimeout(function(){location.reload();}, 2000);
+		},
+		error: function(xhr, status, error){
+			bootboxAlertError(xhr.responseText);
+			//setTimeout(function(){location.reload();}, 2000)
+		}
+	});
 });
 
 $("#searchProductInventoryBtn").on("click", function () {
@@ -160,9 +191,13 @@ const createdCell = function(cell) {
 	})
 	cell.addEventListener("blur", function(e) {
 		if (original !== e.target.textContent) {
-			const row = subtable.row(e.target.parentElement)
-			row.invalidate()
-			console.log('Row changed: ', row.data())
+			//const row = subtable.row(e.target.parentElement);
+			const cellData = subtable.cell(e.target).data();
+			const rowIndex = subtable.cell(e.target).index().row;
+			const colIndex = subtable.cell(e.target).index().column;
+			//row.invalidate()
+			subtable.cell({ row: rowIndex, column: colIndex }).data(e.target.textContent);
+			console.log('Row changed: ', e.target.textContent);
 		}
 	})
 }
