@@ -103,11 +103,11 @@ psql -U postgres hardwoodfloor < hardwoodfloor.sql
 
 ### March 27th changes:
 #### Bug fixes:
-1. <i> tag and corresponding text (My Account/Exit) does not display on the same line. Remove the "pr-5 pl-5" classes on <a> tags.
-Note: this will still happen when shrink the page width, maybe the text is too wide for its parent element <a> tag. I try to use @Media to make fontsize smaller.
+1. \<i\> tag and corresponding text (My Account/Exit) does not display on the same line. Remove the "pr-5 pl-5" classes on \<a\> tags.
+Note: this will still happen when shrink the page width, maybe the text is too wide for its parent element \<a\> tag. I try to use @Media to make fontsize smaller.
 #### Java/Spring side changes:
 1. Modify the common header, make the logo image smaller and move the location of the logo to top left corner.
-2. Change <ul> tag class from "mr-auto" to "ml-auto" to make it float right.
+2. Change \<ul\> tag class from "mr-auto" to "ml-auto" to make it float right.
 3. Change text "MY ACCOUNT" to "ACCOUNT"
 4. Update the reaction after press "addNewColour" button, pop up an alert bootbox showing necessary success information, reload the add new product page after predefined seconds of timeout.
 5. Add create/update wood_species api on add-new-product page.
@@ -206,7 +206,7 @@ show log_filename;
 Use commands to change status:
 ```postgresql
 alter system set logging_collector='on';
-alter system set log_directory='pg_log';
+alter system set log_directory='/var/log/pg_log';
 ```
 Note that log_directory is relative directory under postgresql/Data, we will create a directory and give access to postgres
 ```shell
@@ -214,3 +214,25 @@ mddir -p /var/log/pg_log
 chown postgres:postgres /var/log/pg_log/
 chmod 700 /var/log/pg_log/
 ```
+Java/Spring side changes:
+1. Change the default value of 'active' field of ProductRequest.
+2. Pass user object to ProductService/Impl.
+3. Add 'create_time/user', 'update_time/user' fields to HardwoodFloor class.
+4. Add conditions for adding/updating product.
+5. Minor change to apply service return value to ResponseBody.
+6. Change the upload file size restriction in application property file.
+7. Update the web page layout of InventoryItem with DataTable.
+8. Update the frontend InventoryItem table behavior.
+
+### April 9th changes:
+In markdown file:
+1. keep \<a\>, \<i\>, \<ul\> as is in rendered markdown files, using backslash as escape.
+
+Java/Spring side changes:
+1. Add InventoryItemRequest class to hold data passed from /add-new-inventory api.
+2. Add create/update user field to Inventory entity class.
+3. Add Location entity class.
+4. Add LocationRepository interface.
+5. Adjust the datatype of quantity in InventoryItemRequest.
+6. Add frontend/controller/service solution for adding a new entry of inventory.
+7. Add generating sequence for locations.
