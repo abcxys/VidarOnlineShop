@@ -1,0 +1,118 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common-fragments :: head"></head>
+<body>
+<div th:insert="~{fragments/common-fragments :: scripts}"></div>
+<div th:replace="fragments/common-fragments :: navbar"></div>
+<div id="container" class="bg-light">
+    <div class="py-5">
+        <div class="container py-5 bg-white shadow-sm card-height">
+            <div class="row mx-3">
+                <th:block th:replace="fragments/product-fragments :: update-sidebar"/>
+                <div class="col-md-9 mb-5">
+                    <th:block th:replace="fragments/common-fragments :: info-title(
+                        text='Add new container',
+                        icon='fas fa-plus-square mr-2'
+                    )"/>
+                    <form id="containerForm">
+                        <div class="form row">
+                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                                title='Container number',
+                                name='containerNumber',
+                                id='containerNumber',
+                                placeholder='Enter the container number',
+                                value=(${container} ? ${container.containerNumber} : ''),
+                                error=(${containerIdError})
+                            )"/>
+                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                                title='Bill of landing number',
+                                name='BLN',
+                                id='BLN',
+                                placeholder='Enter the BLN',
+                                value=(${container} ? ${container.bln} : ''),
+                                error=(${blnError})
+                            )"/>
+                        </div>
+                        <div class="form row mt-2">
+                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                                title='Shipping company',
+                                name='shippingCompany',
+                                id='shippingCompany',
+                                placeholder='Enter the logistic company name',
+                                value=(${container} ? ${container.shippingCompany} : ''),
+                                error=(${shippingError})
+                            )"/>
+                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                                title='Freight forwarder',
+                                name='freightForwarder',
+                                id='freightForwarder',
+                                placeholder='Enter the freight forwarder',
+                                value=(${container} ? ${container.freightForwarder} : ''),
+                                error=(${freightForwarderError})
+                            )"/>
+                        </div>
+                        <div class="form row mt-2">
+                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                                title='Logistic company',
+                                name='logisticCompany',
+                                id='logisticCompany',
+                                placeholder='Enter the logistic company name',
+                                value=(${container} ? ${container.logisticCompany} : ''),
+                                error=(${logisticError})
+                            )"/>
+                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
+                                title='Port name',
+                                name='portName',
+                                id='portName',
+                                placeholder='Enter the logistic company name',
+                                value=(${container} ? ${container.logisticCompany} : ''),
+                                error=(${logisticError})
+                            )"/>
+                        </div>
+                        <div class="form row mt-2">
+                            <div class="col">
+                                <div class="form-group">
+                                    <!-- Product Quantity Table -->
+                                    <table class="table table-bordered" id="productQuantities">
+                                        <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Skids</th>
+                                            <th>Boxes</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!-- Dynamically generated rows for product quantities -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form row mt-1">
+                            <div class="col">
+                                <button class="btn btn-success mt-3" id="addProductBtn">Add Product</button>
+                            </div>
+                        </div>
+                        <div class="form row mt-1">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary">Add</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer th:insert="~{fragments/common-fragments :: footer}"></footer>
+</body>
+
+<script src="/static/js/add-new-container.js">
+
+</script>
+
+<style>
+</style>
+</html>
