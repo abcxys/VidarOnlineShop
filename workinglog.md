@@ -236,3 +236,15 @@ Java/Spring side changes:
 5. Adjust the datatype of quantity in InventoryItemRequest.
 6. Add frontend/controller/service solution for adding a new entry of inventory.
 7. Add generating sequence for locations.
+
+### April 10th changes:
+Bug discovered:
+'/update/products' -> Update item info -> Search, click on the button will redirect to wrong page.
+Java/Spring side changes:
+1. Add update inventory related service/serviceImpl methods
+2. Add update inventory rest controller method for PutMapping url "/inventory/update"
+3. Add subtable DataTable definition in Javascript.
+4. Add location_id/description fields to InventoryEvent entity.
+Note: TODO:inventory_event table and entity will have to add further fields/attributes, for example, foreign keys for container_id/order_id etc.
+5. Add private method for adding inventory event to database.
+6. Add JpaRepository interface for InventoryEvent.
