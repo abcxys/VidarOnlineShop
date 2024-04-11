@@ -6,7 +6,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -63,6 +62,11 @@ public class UpdateInventoryController {
 	public String getProducts(Pageable pageable, Model model) {
 		controllerUtils.addPagination(model, productService.getProducts(pageable));
 		return Pages.UPDATE_ALL_PRODUCTS;
+	}
+
+	@GetMapping("/add-new-container")
+	public String addNewContainer(Pageable pageable, Model model) {
+		return Pages.ADD_NEW_CONTAINER;
 	}
 	
 	@GetMapping("/product/{productId}")
