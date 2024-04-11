@@ -99,6 +99,11 @@ public class ProductServiceImpl implements ProductService {
     	return hardwoodRepository.findAllFloorColor(pageable);
     }
 
+	@Override
+	public Page<FloorColorSize> getActiveProducts(Pageable pageable){
+		return hardwoodRepository.findActiveFloorColor(pageable);
+	}
+
     @Override
     public Page<FloorColorSize> searchProducts(SearchRequest request, Pageable pageable) {
         return hardwoodRepository.searchPerfumes(request.getSearchType(), request.getText(), pageable);

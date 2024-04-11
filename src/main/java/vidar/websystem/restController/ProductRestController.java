@@ -1,16 +1,11 @@
 package vidar.websystem.restController;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.extern.slf4j.Slf4j;
 import vidar.websystem.domain.FloorColorSize;
-import vidar.websystem.domain.HardwoodFloor;
-import vidar.websystem.repository.HardwoodFloorsRepository;
 import vidar.websystem.service.ProductService;
 
 import java.util.List;
@@ -26,8 +21,13 @@ import java.util.List;
 public class ProductRestController {
 	private final ProductService productService;
 
+	/**
+	 * Get list of active products' summary
+	 * @param pageable frontend argument
+	 * @return list of product's summary
+	 */
 	@GetMapping("/getProductDict")
-	public List<FloorColorSize> getProductDict(Pageable pageable){
-		return productService.getProducts(pageable).getContent();
+	public List<FloorColorSize> getActiveProductDict(Pageable pageable){
+		return productService.getActiveProducts(pageable).getContent();
 	}
 }

@@ -34,6 +34,8 @@ public interface ProductService {
     
     Page<FloorColorSize> getProducts(Pageable pageable);
 
+    Page<FloorColorSize> getActiveProducts(Pageable pageable);
+
     Page<FloorColorSize> searchProducts(SearchRequest searchRequest, Pageable pageable);
     
     List<PlankColor> getColorDict();

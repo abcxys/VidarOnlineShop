@@ -1,6 +1,6 @@
 function populateSelect(node) {
     $.ajax({
-        url: '/productApi/getProductDict',
+        url: '/productApi/getActiveProductDict',
         method: 'GET',
         success: function(response) {
             // Clear existing options
@@ -14,7 +14,7 @@ function populateSelect(node) {
                 node.append($('<option>', {
                     value: option.id,
                     text: option.width +'\" ' + option.woodSpeciesName.split(" ")[option.woodSpeciesName.split(" ").length - 1]
-                        + " " + option.colorName
+                        + " " + option.colorName + " " + option.gradeAlias + " " + option.sqftPerCarton + " " + option.batchName
                 }));
             });
 
