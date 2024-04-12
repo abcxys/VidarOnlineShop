@@ -37,18 +37,18 @@ $('#addProductBtn').on('click', function() {
                 </select>
             </td>
             <td>
-                <input type="number" class="form-control" name="quantity" required>
+                <input type="number" class="form-control" name="quantity">
             </td>
             <td>
-                <input type="number" class="form-control" name="box" required>
+                <input type="number" class="form-control" name="box">
             </td>
         </tr>
     `);
     populateSelect($('.productSelector').last());
-    //$(".productSelector").last().append($('#mySelect').clone().children());
-    //$('.productSelector').last().val("")
-    //$(".productSelector").last().selectpicker('refresh');
 });
 $(document).ready(function(){
     //populateSelect($('#mySelect'));
+    $('.datepicker').datepicker({
+        format: 'mm/dd/yyyy',
+    });
 });
