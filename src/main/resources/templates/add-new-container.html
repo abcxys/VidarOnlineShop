@@ -14,7 +14,7 @@
                         text='Add new container',
                         icon='fas fa-plus-square mr-2'
                     )"/>
-                    <form id="containerForm">
+                    <form id="containerForm" method="post" action="/update/add-new-container">
                         <div class="form row">
                             <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
                                 title='Container number',
@@ -22,15 +22,15 @@
                                 id='containerNumber',
                                 placeholder='Enter the container number',
                                 value=(${container} ? ${container.containerNumber} : ''),
-                                error=(${containerIdError})
+                                error=(${containerNumberError})
                             )"/>
                             <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
                                 title='Bill of landing number',
-                                name='BLN',
-                                id='BLN',
+                                name='billOfLandingNumber',
+                                id='billOfLandingNumber',
                                 placeholder='Enter the BLN',
-                                value=(${container} ? ${container.bln} : ''),
-                                error=(${blnError})
+                                value=(${container} ? ${container.billOfLandingNumber} : ''),
+                                error=(${billOfLandingNumberError})
                             )"/>
                         </div>
                         <div class="form row mt-2">
@@ -40,7 +40,7 @@
                                 id='shippingCompany',
                                 placeholder='Enter the logistic company name',
                                 value=(${container} ? ${container.shippingCompany} : ''),
-                                error=(${shippingError})
+                                error=(${shippingCompanyError})
                             )"/>
                             <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
                                 title='Freight forwarder',
@@ -53,20 +53,20 @@
                         </div>
                         <div class="form row mt-2">
                             <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
-                                title='Logistic company',
-                                name='logisticCompany',
-                                id='logisticCompany',
-                                placeholder='Enter the logistic company name',
-                                value=(${container} ? ${container.logisticCompany} : ''),
-                                error=(${logisticError})
-                            )"/>
-                            <th:block th:replace="fragments/product-fragments :: add-string-attribute-input(
                                 title='Port name',
                                 name='portName',
                                 id='portName',
                                 placeholder='Enter the logistic company name',
-                                value=(${container} ? ${container.logisticCompany} : ''),
-                                error=(${logisticError})
+                                value=(${container} ? ${container.portName} : ''),
+                                error=(${portNameError})
+                            )"/>
+                            <th:block th:replace="fragments/product-fragments :: add-datetime-attribute-input(
+                                title='Estimated arrival time',
+                                name='eta',
+                                id='eta',
+                                placeholder='Enter the estimated arrival time',
+                                value=(${container} ? ${container.eta} : ''),
+                                error=(${etaError})
                             )"/>
                         </div>
                         <div class="form row mt-2">
