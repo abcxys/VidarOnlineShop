@@ -22,7 +22,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import lombok.RequiredArgsConstructor;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
+import vidar.websystem.constants.SuccessMessage;
 import vidar.websystem.domain.*;
+import vidar.websystem.dto.request.ContainerRequest;
 import vidar.websystem.dto.request.InventoryItemRequest;
 import vidar.websystem.dto.request.ProductRequest;
 import vidar.websystem.dto.response.MessageResponse;
@@ -101,6 +103,15 @@ public class UpdateInventoryController {
 		}
 		User user = userService.getAuthenticatedUser();
 		return controllerUtils.setAlertFlashMessage(attributes, "/update", productService.addProduct(user, product, file));
+	}
+
+	@PostMapping("/add-new-container")
+	public String addNewContainer(@Valid ContainerRequest container, BindingResult bindingResult, Model model,
+								  RedirectAttributes attributes){
+		if (controllerUtils.validateInputFields(bindingResult, model, "container", container)){
+			return Pages.ADD_NEW_CONTAINER;
+		}
+		return controllerUtils.setAlertFlashMessage(attributes, "/update", new MessageResponse("alert-success", SuccessMessage.CONTAINER_ADDED));
 	}
 
 	@PostMapping("/add-new-inventory")
