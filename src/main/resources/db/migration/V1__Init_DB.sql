@@ -301,7 +301,7 @@ create table container_floors
     container_id    int8 not null,
     floor_id    int8 not null,
     skid        int4 not null,
-    quantity    int4 not null,
+    quantity    decimal(5, 1) not null,
     create_time timestamp,
     update_time timestamp,
     create_user_id  int8,
