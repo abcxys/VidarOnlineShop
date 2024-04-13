@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author yishi.xing
@@ -25,12 +26,32 @@ public class ProductContainerItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "floor_id")
+    @Column(name = "container_id", nullable = false)
+    private Long containerId;
+
+    @Column(name = "floor_id", nullable = false)
     private Long productId;
 
-    @Column(name = "skid")
+    @Column(name = "skid", nullable = false)
     private Integer skid;
 
-    @Column(name = "quantity")
+    @Column(name = "quantity", nullable = false)
     private BigDecimal box;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time", updatable = false)
+    private Date createTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_time")
+    private Date updateTime;
+
+    @Column(name = "create_user_id", updatable = false)
+    private Long createUserId;
+
+    @Column(name = "update_user_id")
+    private Long updateUserId;
+
+    @Column(name = "description")
+    private String description;
 }
