@@ -4,14 +4,16 @@ import java.util.Date;
 import java.util.List;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import vidar.websystem.constants.SuccessMessage;
 import vidar.websystem.domain.*;
+import vidar.websystem.dto.request.ContainerRequest;
 import vidar.websystem.dto.response.MessageResponse;
-import vidar.websystem.repository.InventoryEventRepository;
-import vidar.websystem.repository.InventoryRepository;
-import vidar.websystem.repository.LocationRepository;
+import vidar.websystem.repository.*;
 import vidar.websystem.service.InventoryService;
 
 import javax.transaction.Transactional;
@@ -20,6 +22,7 @@ import javax.transaction.Transactional;
  * @author yishi.xing
  * create datetime Feb 20, 2024 - 10:45:52 PM
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class InventoryServiceImpl implements InventoryService {
@@ -27,6 +30,9 @@ public class InventoryServiceImpl implements InventoryService {
 	private final InventoryRepository inventoryRepository;
 	private final LocationRepository locationRepository;
 	private final InventoryEventRepository inventoryEventRepository;
+	private final ContainerRepository containerRepository;
+	private final ProductContainerRepository productContainerRepository;
+	private final ModelMapper modelMapper;
 
 	@Override
 	public DatatablesView<ProductInventoryItem> getAllInventoryItems() {
@@ -89,7 +95,7 @@ public class InventoryServiceImpl implements InventoryService {
 		inventory.setCreateUserId(user.getId());
 		inventoryRepository.save(inventory);
 		addManualSetInventoryEvent(user, inventory);
-		return new MessageResponse("alert-success", "New inventory added successfully");
+		return new MessageResponse("alert-success", SuccessMessage.INVENTORY_ADDED);
 	}
 
 	/**
@@ -104,7 +110,33 @@ public class InventoryServiceImpl implements InventoryService {
 		// add into inventory_event table.
 		addManualSetInventoryEvent(user, inventory);
 		inventoryRepository.save(inventory);
-		return "Inventory item updated successfully!";
+		return SuccessMessage.INVENTORY_ITEM_UPDATED;
+	}
+
+	/**
+	 * @param user Authenticated user
+	 * @param containerRequest ContainerRequest from client-side JSON
+	 * @return Message of success/failure
+	 */
+	@Override
+	public MessageResponse addContainer(User user, ContainerRequest containerRequest) {
+		Container container = modelMapper.map(containerRequest, Container.class);
+		container.setTargetWarehouseId(1L);//Set the default targeted warehouse to be Toronto warehouse
+		container.setContainerStatusId(1L);
+		container.setCreateTime(new Date());
+		container.setCreateUserId(user.getId());
+		containerRepository.save(container);
+		containerRepository.flush();
+		log.info("The inserted container returns id = " + container.getId());
+
+		// Insert the container_floors entries for containerRequest->containerItems
+		for (ProductContainerItem productContainerItem : containerRequest.getContainerItems()){
+			productContainerItem.setContainerId(container.getId());
+			productContainerItem.setCreateTime(new Date());
+			productContainerItem.setCreateUserId(user.getId());
+			productContainerRepository.save(productContainerItem);
+		}
+		return new MessageResponse("alert-success", SuccessMessage.CONTAINER_ADDED);
 	}
 
 	@Override
@@ -113,8 +145,21 @@ public class InventoryServiceImpl implements InventoryService {
 		DatatablesView<ProductInventoryItem> dataView = new DatatablesView<>();
 		List<ProductInventoryItem> stock = inventoryRepository.findFilteredProductStocks(colourId, widthId, speciesId,
 				gradeId, batch);
-		int count = (int) inventoryRepository.count();
+		int count = stock.size();
 		dataView.setData(stock);
+		dataView.setRecordsTotal(count);
+		return dataView;
+	}
+
+	/**
+	 * @return DatatablesView of filtered containers
+	 */
+	@Override
+	public DatatablesView<Container> getFilteredContainers() {
+		DatatablesView<Container> dataView = new DatatablesView<>();
+		List<Container> containers = containerRepository.findAll();
+		int count = (int) inventoryRepository.count();
+		dataView.setData(containers);
 		dataView.setRecordsTotal(count);
 		return dataView;
 	}

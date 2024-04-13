@@ -1,6 +1,7 @@
 package vidar.websystem.service;
 
 import vidar.websystem.domain.*;
+import vidar.websystem.dto.request.ContainerRequest;
 import vidar.websystem.dto.response.MessageResponse;
 
 /**
@@ -22,6 +23,8 @@ public interface InventoryService {
 																		  int gradeId,
 																		  String batch);
 
+	DatatablesView<Container> getFilteredContainers();
+
 	DatatablesView<InventoryItem> getInventoryItemsByProductId(int productId);
 	
 	Long getStockByFloorId(Long floorId);
@@ -35,4 +38,6 @@ public interface InventoryService {
 	MessageResponse addInventory(User user, Inventory inventory);
 
 	String updateInventory(User user, Inventory inventory);
+
+	MessageResponse addContainer(User user, ContainerRequest containerRequest);
 }
