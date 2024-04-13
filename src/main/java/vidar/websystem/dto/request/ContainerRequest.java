@@ -4,9 +4,11 @@ import lombok.Data;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 import vidar.websystem.constants.ErrorMessage;
+import vidar.websystem.domain.ProductContainerItem;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author yishi.xing
@@ -37,6 +39,8 @@ public class ContainerRequest {
     @NotBlank(message = ErrorMessage.FILL_IN_THE_INPUT_FIELD)
     @Length(max = 255)
     private String portName;
+
+    private List<ProductContainerItem> containerItems;
 
     private Date eta;
 }
