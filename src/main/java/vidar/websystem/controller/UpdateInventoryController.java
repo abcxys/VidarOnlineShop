@@ -11,18 +11,13 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.RequiredArgsConstructor;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
-import vidar.websystem.constants.SuccessMessage;
 import vidar.websystem.domain.*;
 import vidar.websystem.dto.request.ContainerRequest;
 import vidar.websystem.dto.request.InventoryItemRequest;
@@ -106,12 +101,14 @@ public class UpdateInventoryController {
 	}
 
 	@PostMapping("/add-new-container")
-	public String addNewContainer(@Valid ContainerRequest container, BindingResult bindingResult, Model model,
+	public String addNewContainer(@RequestBody ContainerRequest container, BindingResult bindingResult, Model model,
 								  RedirectAttributes attributes){
 		if (controllerUtils.validateInputFields(bindingResult, model, "container", container)){
 			return Pages.ADD_NEW_CONTAINER;
 		}
-		return controllerUtils.setAlertFlashMessage(attributes, "/update", new MessageResponse("alert-success", SuccessMessage.CONTAINER_ADDED));
+		User user = userService.getAuthenticatedUser();
+
+		return controllerUtils.setAlertFlashMessage(attributes, "/update", inventoryService.addContainer(user, container));
 	}
 
 	@PostMapping("/add-new-inventory")
