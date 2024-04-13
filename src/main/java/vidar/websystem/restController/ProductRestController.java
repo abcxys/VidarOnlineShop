@@ -26,7 +26,7 @@ public class ProductRestController {
 	 * @param pageable frontend argument
 	 * @return list of product's summary
 	 */
-	@GetMapping("/getProductDict")
+	@GetMapping("/getActiveProductDict")
 	public List<FloorColorSize> getActiveProductDict(Pageable pageable){
 		return productService.getActiveProducts(pageable).getContent();
 	}
