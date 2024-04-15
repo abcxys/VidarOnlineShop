@@ -248,3 +248,51 @@ Java/Spring side changes:
 Note: TODO:inventory_event table and entity will have to add further fields/attributes, for example, foreign keys for container_id/order_id etc.
 5. Add private method for adding inventory event to database.
 6. Add JpaRepository interface for InventoryEvent.
+
+### April 11th changes:
+Javascript gist:
+1. To render selectpicker dynamically with data passed from backend, you can use ajax/RESTful API and pass the rendering node to js function.
+
+Java/Spring side changes:
+1. Update the hyperlink ordering in product-fragments::update-sidebar.
+2. Add GetMapping method for 'add-new-container' and the Pages constant.
+3. Add GetMapping method for returning a list of product summary to frontend \<select\> control.
+4. Add web page design and javascript functions to render add-new-container page.
+5. Change 'getProductDict' to 'getActiveProductDict'.
+6. Add initialization sql for table 'container_status', 'container', 'container_floors'.
+
+### April 12th changes:
+Dashboard alert design gist:
+Factory manufacturing alert and factory inventory release alert design:
+1. on-hand inventory lower than specific quantity && factory inventory greater than specific quantity, alert to release factory inventory.
+2. on-hand inventory + factory inventory lower than specific alert, alert to factory manufacturing.
+
+Javascript gist:
+1. In HTML, if a \<button\> element is placed inside a \<form\> element without specifying the type attribute, it defaults to type="submit". So you need to explicitly assign the type of button if you don't want it to submit form upon click.
+
+Database design gist:
+1. Set automatically update expire date for order, with help of a designed field/attribute specifying the lengthe of validity.
+
+Java/Spring side changes:
+1. Drop the 'required' attribute of two numeric inputs for 'skid' and 'box'.
+2. Add ContainerRequest class to hold data from client side.
+3. Add PostMapping method for '/update/add-new-container'.
+4. Add dependency for bootstrap-datepicker and the thymeleaf fragment.
+5. add bootstrap-datepicker thymeleaf fragment.
+6. Adjust the data type of attribute 'quantity' of table 'container_floors'
+
+### April 13th changes:
+Java/Spring side changes:
+1. Add 'required' attribute to form elements.
+2. Add javascript function to handle containerForm submission event.
+3. Add 'Container' entity class to hold data for table 'container'.
+4. Adjust 'ContainerRequest' class to include ProductContainerItem list.
+5. Adjust the name of getActiveProductDict endpoint url.
+6. Add update-containers web page with Datatable of Container information.
+7. Add javascript file for rendering of container Datatable. (Require further adjustment for at least 'ETA' column and 'Status' column).
+8. Add two repositories for 'Container' and 'ProductContainer'.
+9. Add REST controller for container-related web requests.
+10. Add container-related service/implements to InventoryService/Impl.
+11. Update constants/fragments with regard to Containers.
+12. Adjust annotation for ContainerRequest to accommodate for contentType application/json.
+13. Add necessary field/attributes for ProductContainerItem and successMessage constants.
