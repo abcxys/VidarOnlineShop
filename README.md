@@ -7,7 +7,7 @@ docker run -d --name postgresVidar -p 5432:5432 -e POSTGRES_PASSWORD=pass123 pos
 ```
 And create database and change password of user 'postgres'
 ```sql
-CREATE DATABASE perfume;
+CREATE DATABASE hardwoodfloor;
 ALTER USER postgres WITH PASSWORD 'root';
 ```
 
