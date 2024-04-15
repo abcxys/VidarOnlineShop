@@ -30,6 +30,11 @@ $(function() {
             {"data" : '', "bSortable" : false}
         ],
         'columnDefs': [{
+            'targets': 3,
+            'render' : function(data, type, full, meta){
+                return "<input type='text' class='datepicker' value='" + data + "'/>"
+            }
+        }, {
             'targets': -1,
             data: null,
             defaultContent: '<i class="fas fa-light fa-edit editContainer" style="cursor: pointer;"></i>'

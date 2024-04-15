@@ -62,10 +62,10 @@
                             )"/>
                             <th:block th:replace="fragments/product-fragments :: add-datetime-required-attribute-input(
                                 title='Estimated arrival time',
-                                name='eta',
-                                id='eta',
+                                name='estimatedArrivalDate',
+                                id='estimatedArrivalDate',
                                 placeholder='Enter the estimated arrival time',
-                                value=(${container} ? ${container.eta} : ''),
+                                value=(${container} ? ${container.estimatedArrivalDate} : ''),
                                 error=(${etaError})
                             )"/>
                         </div>

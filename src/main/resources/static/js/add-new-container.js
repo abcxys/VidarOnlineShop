@@ -81,7 +81,7 @@ $('form#containerForm').submit(function(event){
         "freightForwarder": $('#freightForwarder').val(),
         "portName": $('#portName').val(),
         "containerItems": tableData,
-        "eta": $('#eta').datepicker('getDate')
+        "estimatedArrivalDate": $('#estimatedArrivalDate').datepicker('getDate')
     };
 
     $.ajax({

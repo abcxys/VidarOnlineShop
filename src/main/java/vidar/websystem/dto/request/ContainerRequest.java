@@ -42,5 +42,5 @@ public class ContainerRequest {
 
     private List<ProductContainerItem> containerItems;
 
-    private Date eta;
+    private Date estimatedArrivalDate;
 }
