@@ -185,8 +185,8 @@ $(function() {
             data: null,
             defaultContent: '<i class="fas fa-light fa-edit editContainerItem" style="cursor: pointer;"></i>'
         },{
-            targets: [3, 4],
-            //createdCell: createdCell
+            'targets': [3, 4],
+            "createdCell": createdNumericCell,
             "render": function(data, type, full, meta) {
                 // Render the select element with options
                 return data;
@@ -218,7 +218,13 @@ const createdCell = function(cell) {
     cell.setAttribute('spellcheck', false)
     cell.addEventListener("focus", function(e) {
         original = e.target.textContent
-    })
+    });
+    cell.addEventListener("keypress", function(e) {
+        let charCode = (e.which) ? e.which : e.keyCode;
+        if (charCode < 48 || charCode > 57){
+            e.preventDefault();
+        }
+    });
     cell.addEventListener("blur", function(e) {
         if (original !== e.target.textContent) {
             //const row = subtable.row(e.target.parentElement);
@@ -230,6 +236,17 @@ const createdCell = function(cell) {
             console.log('Row changed: ', e.target.textContent);
         }
     })
+}
+
+const createdNumericCell = function(cell) {
+    createdCell(cell);
+    cell.addEventListener("keypress", function(e) {
+        let charCode = (e.which) ? e.which : e.keyCode;
+        if (charCode < 48 || charCode > 57){
+            e.preventDefault();
+        }
+    });
+
 }
 
 function closeEditContainerModal(){
