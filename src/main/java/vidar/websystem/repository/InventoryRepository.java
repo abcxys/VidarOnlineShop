@@ -64,7 +64,7 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 														 String batch);
 	
 	@Query(nativeQuery = true, value = 
-			"SELECT inventory.current_quantity as stock FROM " +
+			"SELECT SUM(inventory.current_quantity) as stock FROM " +
 			"inventory inventory " +
     		"LEFT JOIN hardwoodfloors floor ON floor.id = inventory.floor_id " +
     		"WHERE (:floorId = -1 or floor.id = :floorId) ")
