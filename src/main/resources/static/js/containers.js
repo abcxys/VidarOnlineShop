@@ -95,7 +95,7 @@ $(function() {
             'targets': 4,
             "render": function(data, type, full, meta) {
                 // Render the select element with options
-                let selectHtml = '<select class="containerStatusSelect selectpicker" data-live-search="true">';
+                let selectHtml = '<select aria-label="Status" class="containerStatusSelect selectpicker" data-live-search="true">';
                 // Add options dynamically, you can fetch these from the server or define them statically
                 selectHtml += '<option value="1" ' + (data === 1 ? 'selected' : '') + '>Created</option>';
                 selectHtml += '<option value="2" ' + (data === 2 ? 'selected' : '') + '>On water</option>';
@@ -111,6 +111,9 @@ $(function() {
             data: null,
             defaultContent: '<i class="fas fa-light fa-edit editContainer" style="cursor: pointer;"></i>'
         }]
+    });
+    containerTable.on('draw', function() {
+        $('.containerStatusSelect').selectpicker();
     });
     containerTable.on('click', '.editContainer', function(){
         let rowData = containerTable.row($(this).closest('tr')).data();
@@ -166,6 +169,7 @@ $(function() {
         columns : [
             {"data" : 'id', "bSortable" : false},
             {"data" : 'containerId', "bSortable" : true},
+            {"data" : 'productId', "bSortable" : false},
             {"data" : 'skid', "bSortable" : true},
             {"data" : 'box', "bSortable" : true},
             {"data" : '', "bSortable" : false}
@@ -181,11 +185,10 @@ $(function() {
             data: null,
             defaultContent: '<i class="fas fa-light fa-edit editContainerItem" style="cursor: pointer;"></i>'
         },{
-            targets: [2, 3],
+            targets: [3, 4],
             //createdCell: createdCell
             "render": function(data, type, full, meta) {
                 // Render the select element with options
-                console.log("test");
                 return data;
             }
         }]
