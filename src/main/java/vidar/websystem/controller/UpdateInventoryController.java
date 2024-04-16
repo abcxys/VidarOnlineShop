@@ -65,6 +65,11 @@ public class UpdateInventoryController {
 	public String addNewContainer(Pageable pageable, Model model) {
 		return Pages.ADD_NEW_CONTAINER;
 	}
+
+	@GetMapping("/containers")
+	public String getContainers(Pageable pageable, Model model) {
+		return Pages.UPDATE_CONTAINERS;
+	}
 	
 	@GetMapping("/product/{productId}")
 	public String getProduct(@PathVariable Long productId, Model model) {
