@@ -26,10 +26,14 @@ public interface InventoryService {
 	DatatablesView<Container> getFilteredContainers();
 
 	DatatablesView<InventoryItem> getInventoryItemsByProductId(int productId);
+
+	DatatablesView<ProductContainerItem> getContainerItemsById(Long containerId);
 	
 	Long getStockByFloorId(Long floorId);
 
 	Inventory getInventoryById(Long id);
+
+	Container getContainerById(Long id);
 
 	boolean existsLocationTorontoWarehouse(String location);
 
@@ -40,4 +44,6 @@ public interface InventoryService {
 	String updateInventory(User user, Inventory inventory);
 
 	MessageResponse addContainer(User user, ContainerRequest containerRequest);
+
+	String updateContainer(User user, Container container);
 }

@@ -71,6 +71,15 @@ public class InventoryServiceImpl implements InventoryService {
 		return inventoryRepository.findById(id).orElse(null);
 	}
 
+	/**
+	 * @param id container id
+	 * @return Container instance correspond to argument id
+	 */
+	@Override
+	public Container getContainerById(Long id) {
+		return containerRepository.findById(id).orElse(null);
+	}
+
 	@Override
 	public boolean existsLocationTorontoWarehouse(String location) {
 		// The warehouse_id for Toronto warehouse is set to Long value of 1.
@@ -139,6 +148,23 @@ public class InventoryServiceImpl implements InventoryService {
 		return new MessageResponse("alert-success", SuccessMessage.CONTAINER_ADDED);
 	}
 
+	/**
+	 * @param user Authenticated user
+	 * @param container Container instance to update
+	 * @return message
+	 */
+	@Override
+	public String updateContainer(User user, Container container) {
+		container.setUpdateTime(new Date());
+		container.setUpdateUserId(user.getId());
+		try{
+			containerRepository.save(container);
+			return SuccessMessage.CONTAINER_UPDATED;
+		} catch (Exception e){
+			return "Container update failed";
+		}
+	}
+
 	@Override
 	public DatatablesView<ProductInventoryItem> getFilteredProductInventoryItems(int colourId, int widthId, int speciesId,
 																				 int gradeId, String batch) {
@@ -168,7 +194,21 @@ public class InventoryServiceImpl implements InventoryService {
 	public DatatablesView<InventoryItem> getInventoryItemsByProductId(int productId) {
 		DatatablesView<InventoryItem> dataView = new DatatablesView<>();
 		List<InventoryItem> items = inventoryRepository.findInventoryItemsByProductId(productId);
-		int count = (int) inventoryRepository.count();
+		int count = items.size();
+		dataView.setData(items);
+		dataView.setRecordsTotal(count);
+		return dataView;
+	}
+
+	/**
+	 * @param containerId Container id
+	 * @return Datatable of product container item.
+	 */
+	@Override
+	public DatatablesView<ProductContainerItem> getContainerItemsById(Long containerId) {
+		DatatablesView<ProductContainerItem> dataView = new DatatablesView<>();
+		List<ProductContainerItem> items = productContainerRepository.findByContainerId(containerId);
+		int count = items.size();
 		dataView.setData(items);
 		dataView.setRecordsTotal(count);
 		return dataView;
