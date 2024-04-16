@@ -18,7 +18,7 @@ $(function() {
         "bInfo": false,
         "paging": false,
         ajax:{
-            type: "post",
+            method: "post",
             url: "/container/getFilteredContainers",
             dataSrc: "data",
             data: function(){
@@ -123,6 +123,30 @@ $(function() {
     containerTable.on('draw', function() {
         $('.containerStatusSelect').selectpicker();
     });
+    containerTable.on('change', 'select.containerStatusSelect', function(){
+        let selectedValue = $(this).val();
+        const cell = containerTable.cell($(this).closest('td'));
+        const rowData = containerTable.row(cell.index().row).data();
+
+        // Update the corresponding cell data to the selected value
+        rowData.containerStatusId = selectedValue;
+
+        // Update the DataTable row with the modified rowData
+        containerTable.row(cell.index().row).data(rowData);
+
+        // Recreate the select picker with the correct markup
+        let selectHtml = '<select aria-label="Status" class="containerStatusSelect selectpicker" data-live-search="true">';
+        selectHtml += '<option value="1" ' + (rowData.containerStatusId === '1' ? 'selected' : '') + '>Created</option>';
+        selectHtml += '<option value="2" ' + (rowData.containerStatusId === '2' ? 'selected' : '') + '>On water</option>';
+        selectHtml += '<option value="3" ' + (rowData.containerStatusId === '3' ? 'selected' : '') + '>At port</option>';
+        selectHtml += '<option value="4" ' + (rowData.containerStatusId === '4' ? 'selected' : '') + '>On rail</option>';
+        selectHtml += '<option value="5" ' + (rowData.containerStatusId === '5' ? 'selected' : '') + '>Arrive</option>';
+        selectHtml += '</select>';
+
+        // Update the cell's HTML content with the recreated select picker
+        cell.node().innerHTML = selectHtml;
+        $('.containerStatusSelect').selectpicker();
+    });
     containerTable.on('click', '.editContainer', function(){
         let rowData = containerTable.row($(this).closest('tr')).data();
         console.log('container id: ', rowData.id);
@@ -132,13 +156,14 @@ $(function() {
         console.log('Status changes: ', rowData.containerStatusId);
         $.ajax({
             url: '/container/update',
-            method: 'PUT',
+            method: 'put',
+            dataSrc: "data",
             data: {
-                id: rowData.id,
-                containerNumber: rowData.containerNumber,
-                billOfLandingNumber: rowData.billOfLandingNumber,
-                estimatedArrivalDate: formatDate(new Date(rowData.estimatedArrivalDate.time)),
-                containerStatusId: rowData.containerStatusId
+                    id: rowData.id,
+                    containerNumber: rowData.containerNumber,
+                    billOfLandingNumber: rowData.billOfLandingNumber,
+                    estimatedArrivalDate: formatDate(new Date(rowData.estimatedArrivalDate.time)),
+                    containerStatusId: rowData.containerStatusId
             },
             success: function(response){
                 bootboxAlertPrompt(response);
@@ -233,20 +258,15 @@ const createdCell = function(cell) {
     cell.addEventListener("focus", function(e) {
         original = e.target.textContent
     });
-    cell.addEventListener("keypress", function(e) {
-        let charCode = (e.which) ? e.which : e.keyCode;
-        if (charCode < 48 || charCode > 57){
-            e.preventDefault();
-        }
-    });
     cell.addEventListener("blur", function(e) {
+        const parentTable = $(e.target).closest('table').DataTable();
         if (original !== e.target.textContent) {
-            //const row = subtable.row(e.target.parentElement);
-            const cellData = subtable.cell(e.target).data();
-            const rowIndex = subtable.cell(e.target).index().row;
-            const colIndex = subtable.cell(e.target).index().column;
+            //const row = parentTable.row(e.target.parentElement);
+            const cellData = parentTable.cell(e.target).data();
+            const rowIndex = parentTable.cell(e.target).index().row;
+            const colIndex = parentTable.cell(e.target).index().column;
             //row.invalidate()
-            subtable.cell({ row: rowIndex, column: colIndex }).data(e.target.textContent);
+            parentTable.cell({ row: rowIndex, column: colIndex }).data(e.target.textContent);
             console.log('Row changed: ', e.target.textContent);
         }
     })
