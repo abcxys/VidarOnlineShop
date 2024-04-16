@@ -1,6 +1,12 @@
 let containerTable;
 let containerItemTable;
 let tempDate;
+function submitContainerSearchForm(e){
+    e.preventDefault();
+    //console.log("The search type is " + $('#searchType').val());
+    //console.log("The search value is " + $('#searchValue').val());
+    containerTable.draw();
+}
 $(function() {
     containerTable = $('#updateContainerTable').DataTable({
         "serverSide": true,
@@ -15,9 +21,11 @@ $(function() {
             type: "post",
             url: "/container/getFilteredContainers",
             dataSrc: "data",
-            data: {
-                searchType: $('#searchType').val(),
-                text: $('#searchValue').val()
+            data: function(){
+                return {
+                    searchType: $('#searchType').val(),
+                    searchValue: $('#searchValue').val()
+                }
             },
             "error": function (data) {
                 alert("error");

@@ -1,5 +1,6 @@
 package vidar.websystem.service;
 
+import org.springframework.data.domain.Pageable;
 import vidar.websystem.domain.*;
 import vidar.websystem.dto.request.ContainerRequest;
 import vidar.websystem.dto.response.MessageResponse;
@@ -23,7 +24,7 @@ public interface InventoryService {
 																		  int gradeId,
 																		  String batch);
 
-	DatatablesView<Container> getFilteredContainers();
+	DatatablesView<Container> getFilteredContainers(String searchType, String searchValue, Pageable pageable);
 
 	DatatablesView<InventoryItem> getInventoryItemsByProductId(int productId);
 

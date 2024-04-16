@@ -37,9 +37,10 @@ public class ContainerRestController {
     private final UserService userService;
 
     @PostMapping(value = "/getFilteredContainers")
-    public String getFilteredContainers(SearchRequest searchRequest, Model model, Pageable pageable){
+    public String getFilteredContainers(@RequestParam("searchType") String searchType,
+            @RequestParam("searchValue") String searchValue, Model model, Pageable pageable){
         log.info("returning filtered containers' info");
-        DatatablesView<Container> datatablesView = inventoryService.getFilteredContainers();
+        DatatablesView<Container> datatablesView = inventoryService.getFilteredContainers(searchType, searchValue, pageable);
         return JSONObject.fromObject(datatablesView).toString();
     }
 

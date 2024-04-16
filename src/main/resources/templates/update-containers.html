@@ -16,7 +16,7 @@
                         icon='fas fa-list ml-2 mr-2'
                     )"/>
                     <th:block th:replace="fragments/common-fragments :: alert-message"/>
-                    <form class="my-3" id="containerSearchForm" style="justify-content: center">
+                    <form class="my-3" id="containerSearchForm" style="justify-content: center" onsubmit="submitContainerSearchForm(event)">
                         <div th:insert="~{fragments/common-fragments :: searchContainer(
                             options=(${ {
                                 { value: 'containerNumber', text: 'Container Number' },

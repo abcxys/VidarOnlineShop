@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -181,11 +182,12 @@ public class InventoryServiceImpl implements InventoryService {
 	 * @return DatatablesView of filtered containers
 	 */
 	@Override
-	public DatatablesView<Container> getFilteredContainers() {
+	public DatatablesView<Container> getFilteredContainers(String searchType, String searchValue, Pageable pageable) {
 		DatatablesView<Container> dataView = new DatatablesView<>();
-		List<Container> containers = containerRepository.findAll();
-		int count = (int) inventoryRepository.count();
-		dataView.setData(containers);
+		//List<Container> containers = containerRepository.findAll();
+		List<Container> filteredContainers = containerRepository.searchContainers(searchType, searchValue, pageable).getContent();
+		int count = filteredContainers.size();
+		dataView.setData(filteredContainers);
 		dataView.setRecordsTotal(count);
 		return dataView;
 	}
