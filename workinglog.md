@@ -296,3 +296,20 @@ Java/Spring side changes:
 11. Update constants/fragments with regard to Containers.
 12. Adjust annotation for ContainerRequest to accommodate for contentType application/json.
 13. Add necessary field/attributes for ProductContainerItem and successMessage constants.
+
+### April 15th changes:
+Javascript gist:
+Setting datatable cell value, must comply to the ColumnDef data type.
+
+Bug fixes:
+1. New container 'estimatedArrivalDate' not written into database. 
+Reason, the attribute keys are different on client/server sides.
+
+Java/Spring side changes:
+1. Add REST api for update container info and retrieve container product info.
+2. Add success message for updating container.
+3. Add GetMapping for retrieving filtered container info to update.
+4. Add native ProductContainerRepository query for retrieving container product info.
+5. Update update-container web page, add necessary pop up modal for container product.
+6. Add service/impl methods for retrieve/update container info and retrieving container product info.
+7. Update javascript code for rendering two tables in container web page.
