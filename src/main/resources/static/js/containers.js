@@ -181,6 +181,12 @@ $(function() {
             'targets': 1,
             'visible': false
         },{
+            'targets': 2,
+            'render' : function(data){
+                let baseUrl = window.location.origin;
+                return '<a href="' + baseUrl + '/product/' + data + '" target="_blank">' + data + '</a>';
+            }
+        },{
             targets: -1,
             data: null,
             defaultContent: '<i class="fas fa-light fa-edit editContainerItem" style="cursor: pointer;"></i>'
