@@ -194,6 +194,26 @@
         </div>
     </div>
 </th:block>
+<th:block th:fragment="searchContainer">
+    <div class="row">
+        <div class="col-md-4">
+            <select id="searchType" name="searchType" class="form-control">
+                <option th:each="option : ${options}" th:value="${option.value}" th:text="${option.text}"
+                        th:selected="${value == option.value}"></option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input id="searchValue" type="text" class="form-control" placeholder="Search..." name="text"
+                   th:value="${searchRequest} ? ${searchRequest.getText()} : ''"/>
+        </div>
+        <div class="col-md-5">
+            <button type="submit" class="btn btn-dark">
+                <i class="fas fa-search mr-2"></i>
+                Search
+            </button>
+        </div>
+    </div>
+</th:block>
 
 <!--footer-->
 <footer th:fragment="footer" class="page-footer p-5 bg-black text-white">
