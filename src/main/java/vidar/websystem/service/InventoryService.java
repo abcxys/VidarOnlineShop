@@ -29,6 +29,8 @@ public interface InventoryService {
 	DatatablesView<InventoryItem> getInventoryItemsByProductId(int productId);
 
 	DatatablesView<ProductContainerItem> getContainerItemsById(Long containerId);
+
+	ProductContainerItem getContainerItemById(Long productContainerId);
 	
 	Long getStockByFloorId(Long floorId);
 
@@ -47,4 +49,6 @@ public interface InventoryService {
 	MessageResponse addContainer(User user, ContainerRequest containerRequest);
 
 	String updateContainer(User user, Container container);
+
+	String updateContainerItem(User user, ProductContainerItem productContainerItem);
 }

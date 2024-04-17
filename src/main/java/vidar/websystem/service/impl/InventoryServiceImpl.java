@@ -166,6 +166,23 @@ public class InventoryServiceImpl implements InventoryService {
 		}
 	}
 
+	/**
+	 * @param user Authenticated user
+	 * @param productContainerItem Container product item
+	 * @return message
+	 */
+	@Override
+	public String updateContainerItem(User user, ProductContainerItem productContainerItem) {
+		productContainerItem.setUpdateTime(new Date());
+		productContainerItem.setUpdateUserId(user.getId());
+		try {
+			productContainerRepository.save(productContainerItem);
+			return SuccessMessage.CONTAINER_PRODUCT_ITEM_UPDATED;
+		} catch (Exception e){
+			return "Container item update failed";
+		}
+	}
+
 	@Override
 	public DatatablesView<ProductInventoryItem> getFilteredProductInventoryItems(int colourId, int widthId, int speciesId,
 																				 int gradeId, String batch) {
@@ -214,6 +231,15 @@ public class InventoryServiceImpl implements InventoryService {
 		dataView.setData(items);
 		dataView.setRecordsTotal(count);
 		return dataView;
+	}
+
+	/**
+	 * @param productContainerId Id of product container item.
+	 * @return the exact container product item.
+	 */
+	@Override
+	public ProductContainerItem getContainerItemById(Long productContainerId) {
+		return productContainerRepository.findById(productContainerId).orElse(null);
 	}
 
 	private void addManualSetInventoryEvent(User user, Inventory inventory){
