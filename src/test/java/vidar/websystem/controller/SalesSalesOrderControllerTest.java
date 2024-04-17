@@ -27,14 +27,14 @@ import static vidar.websystem.util.TestConstants.*;
         executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = {"/sql/create-orders-after.sql", "/sql/create-user-after.sql", "/sql/create-perfumes-after.sql"},
         executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-public class OrderControllerTest {
+public class SalesSalesOrderControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     @WithUserDetails(USER_EMAIL)
-    @DisplayName("[200] GET /order/{orderId} - Get Order")
+    @DisplayName("[200] GET /order/{orderId} - Get SalesOrder")
     public void getOrder() throws Exception {
         mockMvc.perform(get(PathConstants.ORDER + "/{orderId}", 111))
                 .andExpect(status().isOk())
@@ -53,7 +53,7 @@ public class OrderControllerTest {
 
     @Test
     @WithUserDetails(USER_EMAIL)
-    @DisplayName("[404] GET /order/{orderId} - Get Order Not Found")
+    @DisplayName("[404] GET /order/{orderId} - Get SalesOrder Not Found")
     public void getOrder_NotFound() throws Exception {
         mockMvc.perform(get(PathConstants.ORDER + "/{orderId}", 222))
                 .andExpect(status().isNotFound())
@@ -82,7 +82,7 @@ public class OrderControllerTest {
 
     @Test
     @WithUserDetails(USER_EMAIL)
-    @DisplayName("[200] POST /order - Post Order")
+    @DisplayName("[200] POST /order - Post SalesOrder")
     public void postOrder() throws Exception {
         mockMvc.perform(post(PathConstants.ORDER)
                         .param("firstName", ORDER_FIRST_NAME)
@@ -99,7 +99,7 @@ public class OrderControllerTest {
 
     @Test
     @WithUserDetails(USER_EMAIL)
-    @DisplayName("[200] POST /order - Post Order Return Input Errors")
+    @DisplayName("[200] POST /order - Post SalesOrder Return Input Errors")
     public void postOrder_ReturnInputErrors() throws Exception {
         mockMvc.perform(post(PathConstants.ORDER)
                         .param("firstName", "")

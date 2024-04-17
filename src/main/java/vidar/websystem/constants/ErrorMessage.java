@@ -7,7 +7,7 @@ public class ErrorMessage {
     public static final String EMAIL_IN_USE = "Email is already in use.";
     public static final String INVALID_PASSWORD_CODE = "Password reset code is invalid!";
     public static final String ACTIVATION_CODE_NOT_FOUND = "Activation code not found.";
-    public static final String ORDER_NOT_FOUND = "Order not found.";
+    public static final String ORDER_NOT_FOUND = "SalesOrder not found.";
     public static final String PERFUME_NOT_FOUND = "Perfume not found.";
     public static final String USER_NOT_FOUND = "User not found.";
     public static final String EMPTY_FIRST_NAME = "First name cannot be empty";

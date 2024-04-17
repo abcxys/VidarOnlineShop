@@ -9,8 +9,8 @@ import java.util.HashSet;
 
 @Data
 @Entity
-@Table(name = "orders")
-public class Order {
+@Table(name = "sales_orders")
+public class SalesOrder {
 
     @Id
     @Column(name = "id")
@@ -49,11 +49,11 @@ public class Order {
 			cascade = { 
 					CascadeType.PERSIST, 
 					CascadeType.MERGE })
-	@JoinTable(name = "orders_hardwoodfloors", joinColumns = { @JoinColumn(name = "order_id") }, inverseJoinColumns = {
+	@JoinTable(name = "sales_orders_hardwoodfloors", joinColumns = { @JoinColumn(name = "sales_order_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "hardwoodfloors_id") })
 	private Set<HardwoodFloor> hardwoodfloors = new HashSet<>();
 //	
-//	@OneToMany(mappedBy = "order")
+//	@OneToMany(mappedBy = "salesOrder")
 //    private Set<FloorOrder> floorOrders = new HashSet<FloorOrder>();
 
     @ManyToOne

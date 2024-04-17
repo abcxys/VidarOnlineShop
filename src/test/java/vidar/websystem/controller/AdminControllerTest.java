@@ -125,7 +125,7 @@ public class AdminControllerTest {
     }
 
     @Test
-    @DisplayName("[200] GET /admin/order/111 - Get Order")
+    @DisplayName("[200] GET /admin/order/111 - Get SalesOrder")
     public void getOrder() throws Exception {
         mockMvc.perform(get(PathConstants.ADMIN + "/order/{orderId}", 111))
                 .andExpect(status().isOk())

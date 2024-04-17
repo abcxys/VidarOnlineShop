@@ -15,14 +15,14 @@ import lombok.Data;
  */
 @Data
 @Entity
-@Table(name = "orders_hardwoodfloors")
+@Table(name = "sales_orders_hardwoodfloors")
 public class FloorOrder {
 	@Id
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "order_id")
-	Order order;
+	@JoinColumn(name = "sales_order_id")
+	SalesOrder salesOrder;
 	
 	@ManyToOne
 	@JoinColumn(name = "hardwoodfloors_id")

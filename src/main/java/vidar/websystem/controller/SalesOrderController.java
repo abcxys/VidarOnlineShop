@@ -22,8 +22,8 @@ import javax.validation.Valid;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(PathConstants.ORDER)
-public class OrderController {
+@RequestMapping(PathConstants.SALESORDER)
+public class SalesOrderController {
 
     private final OrderService orderService;
     private final UserService userService;
@@ -41,7 +41,7 @@ public class OrderController {
         return Pages.ORDERING;
     }
 
-    @GetMapping("/user/orders")
+    @GetMapping("/user/salesOrders")
     public String getUserOrdersList(Model model, Pageable pageable) {
         controllerUtils.addPagination(model, orderService.getUserOrdersList(pageable));
         return Pages.ORDERS;

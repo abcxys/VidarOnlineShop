@@ -1,14 +1,13 @@
 package vidar.websystem.service.impl;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 import vidar.websystem.domain.DatatablesView;
-import vidar.websystem.domain.Order;
-import vidar.websystem.repository.OrderRepository;
+import vidar.websystem.domain.SalesOrder;
+import vidar.websystem.repository.SalesOrderRepository;
 import vidar.websystem.service.PackingService;
 
 /**
@@ -19,15 +18,15 @@ import vidar.websystem.service.PackingService;
 @RequiredArgsConstructor
 public class PackingServiceImpl implements PackingService{
 	
-	private final OrderRepository orderRepository;
+	private final SalesOrderRepository salesOrderRepository;
 
 	@Override
-	public DatatablesView<Order> getAllOrders() {
-		DatatablesView<Order> dataView = new DatatablesView<Order>();
-		List<Order> orderList = orderRepository.findAll();
+	public DatatablesView<SalesOrder> getAllOrders() {
+		DatatablesView<SalesOrder> dataView = new DatatablesView<SalesOrder>();
+		List<SalesOrder> salesOrderList = salesOrderRepository.findAll();
 		
-		int count = (int) orderRepository.count();
-		dataView.setData(orderList);
+		int count = (int) salesOrderRepository.count();
+		dataView.setData(salesOrderList);
 		dataView.setRecordsTotal(count);
 		return dataView;
 	}

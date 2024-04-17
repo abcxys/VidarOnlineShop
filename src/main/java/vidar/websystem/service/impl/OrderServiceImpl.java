@@ -3,10 +3,10 @@ package vidar.websystem.service.impl;
 import lombok.RequiredArgsConstructor;
 import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.domain.HardwoodFloor;
-import vidar.websystem.domain.Order;
+import vidar.websystem.domain.SalesOrder;
 import vidar.websystem.domain.User;
 import vidar.websystem.dto.request.OrderRequest;
-import vidar.websystem.repository.OrderRepository;
+import vidar.websystem.repository.SalesOrderRepository;
 import vidar.websystem.service.OrderService;
 import vidar.websystem.service.UserService;
 
@@ -27,14 +27,14 @@ import java.util.Map;
 public class OrderServiceImpl implements OrderService {
 
     private final UserService userService;
-    private final OrderRepository orderRepository;
+    private final SalesOrderRepository salesOrderRepository;
     private final ModelMapper modelMapper;
     private final MailService mailService;
 
     @Override
-    public Order getOrder(Long orderId) {
+    public SalesOrder getOrder(Long orderId) {
         User user = userService.getAuthenticatedUser();
-        return orderRepository.getByIdAndUserId(orderId, user.getId())
+        return salesOrderRepository.getByIdAndUserId(orderId, user.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.ORDER_NOT_FOUND));
     }
 
@@ -45,22 +45,22 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Page<Order> getUserOrdersList(Pageable pageable) {
+    public Page<SalesOrder> getUserOrdersList(Pageable pageable) {
         User user = userService.getAuthenticatedUser();
-        return orderRepository.findOrderByUserId(user.getId(), pageable);
+        return salesOrderRepository.findOrderByUserId(user.getId(), pageable);
     }
 
     @Override
     @Transactional
     public Long postOrder(User user, OrderRequest orderRequest) {
-        Order order = modelMapper.map(orderRequest, Order.class);
-        order.setUser(user);
-        order.getHardwoodfloors().addAll(user.getPerfumeList());
-        orderRepository.save(order);
+        SalesOrder salesOrder = modelMapper.map(orderRequest, SalesOrder.class);
+        salesOrder.setUser(user);
+        salesOrder.getHardwoodfloors().addAll(user.getPerfumeList());
+        salesOrderRepository.save(salesOrder);
         user.getPerfumeList().clear();
         Map<String, Object> attributes = new HashMap<>();
-        attributes.put("order", order);
-        mailService.sendMessageHtml(order.getEmail(), "Order #" + order.getId(), "order-template", attributes);
-        return order.getId();
+        attributes.put("order", salesOrder);
+        mailService.sendMessageHtml(salesOrder.getEmail(), "SalesOrder #" + salesOrder.getId(), "salesOrder-template", attributes);
+        return salesOrder.getId();
     }
 }

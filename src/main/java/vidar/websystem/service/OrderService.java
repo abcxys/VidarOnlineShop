@@ -1,7 +1,7 @@
 package vidar.websystem.service;
 
 import vidar.websystem.domain.HardwoodFloor;
-import vidar.websystem.domain.Order;
+import vidar.websystem.domain.SalesOrder;
 import vidar.websystem.domain.User;
 import vidar.websystem.dto.request.OrderRequest;
 
@@ -12,11 +12,11 @@ import java.util.List;
 
 public interface OrderService {
 
-    Order getOrder(Long orderId);
+    SalesOrder getOrder(Long orderId);
 
     List<HardwoodFloor> getOrdering();
 
-    Page<Order> getUserOrdersList(Pageable pageable);
+    Page<SalesOrder> getUserOrdersList(Pageable pageable);
 
     Long postOrder(User user, OrderRequest orderRequest);
 }

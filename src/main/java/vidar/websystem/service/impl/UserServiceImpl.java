@@ -3,13 +3,13 @@ package vidar.websystem.service.impl;
 import lombok.RequiredArgsConstructor;
 import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.constants.SuccessMessage;
-import vidar.websystem.domain.Order;
+import vidar.websystem.domain.SalesOrder;
 import vidar.websystem.domain.User;
 import vidar.websystem.dto.request.ChangePasswordRequest;
 import vidar.websystem.dto.request.EditUserRequest;
 import vidar.websystem.dto.request.SearchRequest;
 import vidar.websystem.dto.response.MessageResponse;
-import vidar.websystem.repository.OrderRepository;
+import vidar.websystem.repository.SalesOrderRepository;
 import vidar.websystem.repository.UserRepository;
 import vidar.websystem.security.UserPrincipal;
 import vidar.websystem.service.UserService;
@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final OrderRepository orderRepository;
+    private final SalesOrderRepository salesOrderRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -36,9 +36,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<Order> searchUserOrders(SearchRequest request, Pageable pageable) {
+    public Page<SalesOrder> searchUserOrders(SearchRequest request, Pageable pageable) {
         User user = getAuthenticatedUser();
-        return orderRepository.searchUserOrders(user.getId(), request.getSearchType(), request.getText(), pageable);
+        return salesOrderRepository.searchUserOrders(user.getId(), request.getSearchType(), request.getText(), pageable);
     }
 
     @Override

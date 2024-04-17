@@ -1,6 +1,6 @@
 package vidar.websystem.service;
 
-import vidar.websystem.domain.Order;
+import vidar.websystem.domain.SalesOrder;
 import vidar.websystem.domain.User;
 import vidar.websystem.dto.request.ChangePasswordRequest;
 import vidar.websystem.dto.request.EditUserRequest;
@@ -14,7 +14,7 @@ public interface UserService {
 
     User getAuthenticatedUser();
 
-    Page<Order> searchUserOrders(SearchRequest request, Pageable pageable);
+    Page<SalesOrder> searchUserOrders(SearchRequest request, Pageable pageable);
 
     MessageResponse editUserInfo(EditUserRequest request);
 

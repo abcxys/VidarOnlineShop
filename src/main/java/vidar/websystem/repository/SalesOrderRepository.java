@@ -6,38 +6,36 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import vidar.websystem.domain.FloorOrder;
-import vidar.websystem.domain.Order;
+import vidar.websystem.domain.SalesOrder;
 
-import java.util.List;
 import java.util.Optional;
 
-public interface OrderRepository extends JpaRepository<Order, Long> {
+public interface SalesOrderRepository extends JpaRepository<SalesOrder, Long> {
 
     @EntityGraph(attributePaths = {"hardwoodfloors", "user", "user.roles"})
-    Page<Order> findAll(Pageable pageable);
+    Page<SalesOrder> findAll(Pageable pageable);
 
     @EntityGraph(attributePaths = {"hardwoodfloors", "user", "user.roles"})
-    Optional<Order> getById(Long orderId);
+    Optional<SalesOrder> getById(Long orderId);
 
     @EntityGraph(attributePaths = {"hardwoodfloors"})
-    Optional<Order> getByIdAndUserId(Long orderId, Long userId);
+    Optional<SalesOrder> getByIdAndUserId(Long orderId, Long userId);
 
     @EntityGraph(attributePaths = {"hardwoodfloors", "user", "user.roles"})
-    Page<Order> findOrderByUserId(Long userId, Pageable pageable);
+    Page<SalesOrder> findOrderByUserId(Long userId, Pageable pageable);
 
     @EntityGraph(attributePaths = {"hardwoodfloors", "user", "user.roles"})
-    @Query("SELECT orders FROM Order orders WHERE " +
+    @Query("SELECT orders FROM SalesOrder orders WHERE " +
             "(CASE " +
             "   WHEN :searchType = 'firstName' THEN UPPER(orders.firstName) " +
             "   WHEN :searchType = 'lastName' THEN UPPER(orders.lastName) " +
             "   ELSE UPPER(orders.email) " +
             "END) " +
             "LIKE UPPER(CONCAT('%',:text,'%'))")
-    Page<Order> searchOrders(String searchType, String text, Pageable pageable);
+    Page<SalesOrder> searchOrders(String searchType, String text, Pageable pageable);
 
     @EntityGraph(attributePaths = {"hardwoodfloors", "user", "user.roles"})
-    @Query("SELECT orders FROM Order orders " +
+    @Query("SELECT orders FROM SalesOrder orders " +
             "LEFT JOIN orders.user user " +
             "WHERE user.id = :userId " +
             "AND (CASE " +
@@ -46,5 +44,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
             "   ELSE UPPER(orders.email) " +
             "END) " +
             "LIKE UPPER(CONCAT('%',:text,'%'))")
-    Page<Order> searchUserOrders(Long userId, String searchType, String text, Pageable pageable);
+    Page<SalesOrder> searchUserOrders(Long userId, String searchType, String text, Pageable pageable);
 }

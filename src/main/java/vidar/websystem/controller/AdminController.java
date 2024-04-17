@@ -53,19 +53,19 @@ public class AdminController {
         return Pages.ADMIN_ALL_USERS;
     }
 
-    @GetMapping("/order/{orderId}")
+    @GetMapping("/salesOrder/{orderId}")
     public String getOrder(@PathVariable Long orderId, Model model) {
-        model.addAttribute("order", adminService.getOrder(orderId));
+        model.addAttribute("salesOrder", adminService.getOrder(orderId));
         return Pages.ORDER;
     }
 
-    @GetMapping("/orders")
+    @GetMapping("/salesOrders")
     public String getOrders(Pageable pageable, Model model) {
         controllerUtils.addPagination(model, adminService.getOrders(pageable));
         return Pages.ORDERS;
     }
 
-    @GetMapping("/orders/search")
+    @GetMapping("/salesOrders/search")
     public String searchOrders(SearchRequest request, Pageable pageable, Model model) {
         controllerUtils.addPagination(request, model, adminService.searchOrders(request, pageable));
         return Pages.ORDERS;

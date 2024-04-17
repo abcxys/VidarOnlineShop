@@ -2,7 +2,7 @@ package vidar.websystem.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import vidar.websystem.domain.Order;
+import vidar.websystem.domain.SalesOrder;
 import vidar.websystem.domain.User;
 
 import org.springframework.data.domain.Page;
@@ -11,5 +11,5 @@ import org.springframework.data.domain.Page;
 @AllArgsConstructor
 public class UserInfoResponse {
     private User user;
-    private Page<Order> orders;
+    private Page<SalesOrder> orders;
 }

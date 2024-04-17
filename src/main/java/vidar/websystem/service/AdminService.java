@@ -2,7 +2,7 @@ package vidar.websystem.service;
 
 import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.HardwoodFloor;
-import vidar.websystem.domain.Order;
+import vidar.websystem.domain.SalesOrder;
 import vidar.websystem.domain.User;
 import vidar.websystem.dto.request.PerfumeRequest;
 import vidar.websystem.dto.request.SearchRequest;
@@ -23,11 +23,11 @@ public interface AdminService {
 
     Page<User> searchUsers(SearchRequest request, Pageable pageable);
 
-    Order getOrder(Long orderId);
+    SalesOrder getOrder(Long orderId);
 
-    Page<Order> getOrders(Pageable pageable);
+    Page<SalesOrder> getOrders(Pageable pageable);
 
-    Page<Order> searchOrders(SearchRequest request, Pageable pageable);
+    Page<SalesOrder> searchOrders(SearchRequest request, Pageable pageable);
 
     HardwoodFloor getPerfumeById(Long perfumeId);
 

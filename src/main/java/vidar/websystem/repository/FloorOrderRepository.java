@@ -11,6 +11,6 @@ import vidar.websystem.domain.FloorOrder;
  * @created Feb 19, 2024 - 11:23:35 PM
  */
 public interface FloorOrderRepository extends JpaRepository<FloorOrder, Long> {
-	List<FloorOrder> findFloorOrdersByOrderId(Long id);
+	List<FloorOrder> findFloorOrdersBySalesOrderId(Long id);
 	List<FloorOrder> findFloorOrdersByHardwoodfloorId(Long id);
 }

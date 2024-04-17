@@ -14,7 +14,7 @@ import net.sf.json.JSONObject;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.DatatablesView;
-import vidar.websystem.domain.Order;
+import vidar.websystem.domain.SalesOrder;
 import vidar.websystem.service.PackingService;
 
 /**
@@ -39,7 +39,7 @@ public class PackingController {
 	@RequestMapping(value = "/showOrders", method = RequestMethod.POST)
 	@ResponseBody
 	public String getAllOrders() {
-		DatatablesView<Order> datatablesView = packingService.getAllOrders();
+		DatatablesView<SalesOrder> datatablesView = packingService.getAllOrders();
 		
 		return JSONObject.fromObject(datatablesView).toString();
 	}

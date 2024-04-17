@@ -41,23 +41,23 @@
                             <th>Sum, $</th>
                             <th></th>
                         </tr>
-                        <tbody th:each="order : ${page.getContent()}">
+                        <tbody th:each="salesOrder : ${page.getContent()}">
                         <tr>
-                            <th th:text="${order.getId()}"></th>
-                            <th th:text="${#temporals.format(order.getDate(), 'yyyy-MM-dd HH:mm')}"></th>
-                            <th th:text="${order.getFirstName() + ' ' + order.getLastName()}"></th>
-                            <th th:text="${order.getEmail()}"></th>
-                            <th th:text="'$' + ${order.getTotalPrice()} + '0'"></th>
+                            <th th:text="${salesOrder.getId()}"></th>
+                            <th th:text="${#temporals.format(salesOrder.getDate(), 'yyyy-MM-dd HH:mm')}"></th>
+                            <th th:text="${salesOrder.getFirstName() + ' ' + salesOrder.getLastName()}"></th>
+                            <th th:text="${salesOrder.getEmail()}"></th>
+                            <th th:text="'$' + ${salesOrder.getTotalPrice()} + '0'"></th>
                             <th:block sec:authorize="hasAuthority('ADMIN')">
                                 <th>
-                                    <a th:href="@{/admin/order/{orderId} (orderId = ${order.getId()})}">
+                                    <a th:href="@{/admin/salesOrder/{orderId} (orderId = ${salesOrder.getId()})}">
                                         Show more
                                     </a>
                                 </th>
                             </th:block>
                             <th:block sec:authorize="hasAuthority('USER')">
                                 <th>
-                                    <a th:href="@{/order/{orderId} (orderId = ${order.getId()})}">
+                                    <a th:href="@{/salesOrder/{orderId} (orderId = ${salesOrder.getId()})}">
                                         Show more
                                     </a>
                                 </th>

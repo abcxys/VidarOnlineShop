@@ -6,14 +6,14 @@ import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.constants.SuccessMessage;
 import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.HardwoodFloor;
-import vidar.websystem.domain.Order;
+import vidar.websystem.domain.SalesOrder;
 import vidar.websystem.domain.User;
 import vidar.websystem.dto.request.PerfumeRequest;
 import vidar.websystem.dto.request.SearchRequest;
 import vidar.websystem.dto.response.MessageResponse;
 import vidar.websystem.dto.response.UserInfoResponse;
 import vidar.websystem.repository.HardwoodFloorsRepository;
-import vidar.websystem.repository.OrderRepository;
+import vidar.websystem.repository.SalesOrderRepository;
 import vidar.websystem.repository.UserRepository;
 import vidar.websystem.service.AdminService;
 
@@ -40,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
 
     private final UserRepository userRepository;
     private final HardwoodFloorsRepository perfumeRepository;
-    private final OrderRepository orderRepository;
+    private final SalesOrderRepository salesOrderRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -64,20 +64,20 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Order getOrder(Long orderId) {
-        return orderRepository.getById(orderId)
+    public SalesOrder getOrder(Long orderId) {
+        return salesOrderRepository.getById(orderId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.ORDER_NOT_FOUND));
     }
 
     @Override
-    public Page<Order> getOrders(Pageable pageable) {
-        return orderRepository.findAll(pageable);
+    public Page<SalesOrder> getOrders(Pageable pageable) {
+        return salesOrderRepository.findAll(pageable);
 
     }
 
     @Override
-    public Page<Order> searchOrders(SearchRequest request, Pageable pageable) {
-        return orderRepository.searchOrders(request.getSearchType(), request.getText(), pageable);
+    public Page<SalesOrder> searchOrders(SearchRequest request, Pageable pageable) {
+        return salesOrderRepository.searchOrders(request.getSearchType(), request.getText(), pageable);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class AdminServiceImpl implements AdminService {
     public UserInfoResponse getUserById(Long userId, Pageable pageable) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.USER_NOT_FOUND));
-        Page<Order> orders = orderRepository.findOrderByUserId(userId, pageable);
+        Page<SalesOrder> orders = salesOrderRepository.findOrderByUserId(userId, pageable);
         return new UserInfoResponse(user, orders);
     }
 
