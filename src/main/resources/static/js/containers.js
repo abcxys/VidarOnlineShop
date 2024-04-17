@@ -248,7 +248,7 @@ $(function() {
                 bootboxAlertPrompt(response);
                 setTimeout(function(){
                     location.reload();
-                })
+                }, 2000);
             },
             error: function(xhr, status, error){
                 bootboxAlertError(xhr.responseText);
