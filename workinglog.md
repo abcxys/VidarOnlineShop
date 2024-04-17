@@ -313,3 +313,34 @@ Java/Spring side changes:
 5. Update update-container web page, add necessary pop up modal for container product.
 6. Add service/impl methods for retrieve/update container info and retrieving container product info.
 7. Update javascript code for rendering two tables in container web page.
+
+### April 16th changes:
+Shell gist:
+1. When encountered "Port 8080 was already in use" scenario, try to use the following shell command
+```shell
+ netstat -ano | findstr 8080
+ taskkill /F /PID ***
+```
+Sometimes it still does not work, you can only restart your computer.
+2. Javascript gist:
+For DataTable ajax data argument injection, if the data needs to update every time on ajax trigger, use function instead of JSON like return type.
+```Javascript
+data: function(){
+    return {
+        searchType: $('#searchType').val(),
+        searchValue: $('#searchValue').val()
+    }
+}
+```
+
+Bug fixes:
+1. Column 4 with selectPicker sometimes not showing up properly on refresh. Add an on-draw function to the DataTable to forcefully activate selectPicker.
+2. Duplicated queried result from findStockByFloorId, updated the native query to return sum of multiple stocks.
+
+Java/Spring side changes:
+1. Make 'skid' and 'box' columns editable and only take numerical inputs.
+2. Add a column to show the productId of ProductContainerItem, with a link to the product details.
+3. Activate the container search form functionality.
+4. Update the javascript code to make the container updating functions normally.
+Note: the update of \<select\> inside datatable requires extra care with the inner html coding.
+5. Add client-side entry point and server-side PutMapping method for container item update.
