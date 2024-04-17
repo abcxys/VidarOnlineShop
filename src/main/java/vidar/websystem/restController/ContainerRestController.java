@@ -75,6 +75,10 @@ public class ContainerRestController {
     public ResponseEntity<?> updateContainerItem(@RequestParam("id") Long id,
                                                  @RequestParam("skid") Integer skid,
                                                  @RequestParam("box") BigDecimal box){
-        return ResponseEntity.ok("ok");
+        User user = userService.getAuthenticatedUser();
+        ProductContainerItem containerItem = inventoryService.getContainerItemById(id);
+        containerItem.setBox(box);
+        containerItem.setSkid(skid);
+        return ResponseEntity.ok(inventoryService.updateContainerItem(user, containerItem));
     }
 }
