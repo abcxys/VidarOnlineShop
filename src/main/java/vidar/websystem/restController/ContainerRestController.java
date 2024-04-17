@@ -3,6 +3,7 @@ package vidar.websystem.restController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -68,5 +69,12 @@ public class ContainerRestController {
         }
         container.setContainerStatusId(containerStatusId);
         return ResponseEntity.ok(inventoryService.updateContainer(user, container));
+    }
+
+    @PutMapping(value = "updateItem")
+    public ResponseEntity<?> updateContainerItem(@RequestParam("id") Long id,
+                                                 @RequestParam("skid") Integer skid,
+                                                 @RequestParam("box") BigDecimal box){
+        return ResponseEntity.ok("ok");
     }
 }

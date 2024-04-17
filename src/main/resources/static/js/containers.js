@@ -233,6 +233,29 @@ $(function() {
         }]
     });
 
+    containerItemTable.on('click', '.editContainerItem', function() {
+        let rowData = containerItemTable.row($(this).closest('tr')).data();
+        $.ajax({
+            url: '/container/updateItem',
+            method: 'put',
+            dataSrc: "data",
+            data: {
+                id: rowData.id,
+                skid: rowData.skid,
+                box: rowData.box
+            },
+            success: function(response){
+                bootboxAlertPrompt(response);
+                setTimeout(function(){
+                    location.reload();
+                })
+            },
+            error: function(xhr, status, error){
+                bootboxAlertError(xhr.responseText);
+            }
+        });
+    });
+
     $('#updateContainerTable tbody').on('dblclick', 'tr', function(){
         let rowData = containerTable.row(this).data();
         console.log("Double click with data id = " + rowData.id);
