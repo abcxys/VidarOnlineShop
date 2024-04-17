@@ -17,13 +17,13 @@
                                 <th:block th:replace="fragments/account-fragments :: edit-perfume-input(
                                     title='Perfume title',
                                     name='perfumeTitle',
-                                    value=(${perfume.getPerfumeTitle()}),
+                                    value=(${perfume.getCountry()}),
                                     error=(${perfumeTitleError})
                                 )"/>
                                 <th:block th:replace="fragments/account-fragments :: edit-perfume-input(
                                     title='Brand',
                                     name='perfumer',
-                                    value=(${perfume.getPerfumer()}),
+                                    value=(${perfume.getCountry()}),
                                     error=(${perfumerError})
                                 )"/>
                                 <th:block th:replace="fragments/account-fragments :: edit-perfume-input(
@@ -42,38 +42,38 @@
                                     title='Perfume type',
                                     name='type',
                                     options=(${ {'Eau de Parfum', 'Eau de Toilette'} }),
-                                    value=(${perfume.getType()}),
+                                    value=(${perfume.getCountry()}),
                                     error=(${typeError})
                                 )"/>
                                 <th:block th:replace="fragments/account-fragments :: edit-perfume-input(
                                     title='Volume',
                                     name='volume',
-                                    value=(${perfume.getVolume()}),
+                                    value=(${perfume.getCountry()}),
                                     error=(${volumeError})
                                 )"/>
                                 <th:block th:replace="fragments/account-fragments :: edit-perfume-select(
                                     title='Gender',
                                     name='perfumeGender',
                                     options=(${ {'male', 'female'} }),
-                                    value=(${perfume.getPerfumeGender()}),
+                                    value=(${perfume.getCountry()}),
                                     error=(${perfumeGenderError})
                                 )"/>
                                 <th:block th:replace="fragments/account-fragments :: edit-perfume-input(
                                     title='Top notes',
                                     name='fragranceTopNotes',
-                                    value=(${perfume.getFragranceTopNotes()}),
+                                    value=(${perfume.getCountry()}),
                                     error=(${fragranceTopNotesError})
                                 )"/>
                                 <th:block th:replace="fragments/account-fragments :: edit-perfume-input(
                                     title='Heart notes',
                                     name='fragranceMiddleNotes',
-                                    value=(${perfume.getFragranceMiddleNotes()}),
+                                    value=(${perfume.getCountry()}),
                                     error=(${fragranceMiddleNotesError})
                                 )"/>
                                 <th:block th:replace="fragments/account-fragments :: edit-perfume-input(
                                     title='Base notes',
                                     name='fragranceBaseNotes',
-                                    value=(${perfume.getFragranceBaseNotes()}),
+                                    value=(${perfume.getCountry()}),
                                     error=(${fragranceBaseNotesError})
                                 )"/>
                                 <th:block th:replace="fragments/account-fragments :: edit-perfume-input(
