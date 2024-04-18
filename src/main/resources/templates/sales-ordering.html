@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common-fragments :: head"></head>
+<body>
+<div th:insert="~{fragments/common-fragments :: scripts}"></div>
+<div th:replace="fragments/common-fragments :: navbar"></div>
+<script src="/static/js/sales-ordering.js"></script>
+<div class="bg-light">
+    <div class="py-5">
+        <div class="container py-5 bg-white shadow-sm card-height">
+            <div class="container-fluid" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+                <div class="box-body">
+                    <table class="table table-striped table-bordered table-hover dataTable" role="grid" id="packingSlipTable">
+                        <thead>
+                        <tr class="info">
+                            <th><input type="checkbox" name="select_all" value="1" id="example-select-all" onclick="checkAll()"></th>
+                            <th>Invoice N.O.</th>
+                            <th>Store</th>
+                            <th>Number of items</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="~{fragments/common-fragments :: footer}"></footer>
+</body>
+</html>
+<script type="text/javascript">
+
+</script>
