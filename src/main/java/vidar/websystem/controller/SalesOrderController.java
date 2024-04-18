@@ -35,6 +35,14 @@ public class SalesOrderController {
         return Pages.ORDER;
     }
 
+    @GetMapping("/salesOrdering")
+    public String getSalesOrdering(Model model, Pageable pageable) {
+
+        controllerUtils.addPagination(model, orderService.getUserOrdersList(pageable));
+        return Pages.SALES_ORDERING;
+    }
+
+
     @GetMapping
     public String getOrdering(Model model) {
         model.addAttribute("perfumes", orderService.getOrdering());
