@@ -5,6 +5,7 @@ import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.User;
 import vidar.websystem.dto.request.OrderRequest;
+import vidar.websystem.service.CartService;
 import vidar.websystem.service.OrderService;
 import vidar.websystem.service.UserService;
 import vidar.websystem.utils.ControllerUtils;
@@ -27,6 +28,7 @@ public class SalesOrderController {
 
     private final OrderService orderService;
     private final UserService userService;
+    private final CartService cartService;
     private final ControllerUtils controllerUtils;
 
     @GetMapping("/{orderId}")
@@ -39,6 +41,7 @@ public class SalesOrderController {
     public String getSalesOrdering(Model model, Pageable pageable) {
 
         controllerUtils.addPagination(model, orderService.getUserOrdersList(pageable));
+        model.addAttribute("dealer_dict", cartService.getDealers());
         return Pages.SALES_ORDERING;
     }
 
