@@ -1,9 +1,7 @@
 package vidar.websystem.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import vidar.websystem.domain.CartItem;
-import vidar.websystem.domain.HardwoodFloor;
-import vidar.websystem.domain.User;
+import vidar.websystem.domain.*;
 import vidar.websystem.repository.HardwoodFloorsRepository;
 import vidar.websystem.service.CartService;
 import vidar.websystem.service.UserService;
@@ -11,7 +9,7 @@ import vidar.websystem.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +20,7 @@ import java.util.stream.Collectors;
 public class CartServiceImpl implements CartService {
 
     private final UserService userService;
-    private final HardwoodFloorsRepository perfumeRepository;
+    private final HardwoodFloorsRepository hardwoodFloorsRepository;
 
     @Override
     public List<HardwoodFloor> getPerfumesInCart() {
@@ -34,7 +32,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public void addPerfumeToCart(Long perfumeId) {
         User user = userService.getAuthenticatedUser();
-        HardwoodFloor perfume = perfumeRepository.getOne(perfumeId);
+        HardwoodFloor perfume = hardwoodFloorsRepository.getOne(perfumeId);
         user.getPerfumeList().add(perfume);
     }
 
@@ -42,7 +40,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public void removePerfumeFromCart(Long perfumeId) {
         User user = userService.getAuthenticatedUser();
-        HardwoodFloor perfume = perfumeRepository.getOne(perfumeId);
+        HardwoodFloor perfume = hardwoodFloorsRepository.getOne(perfumeId);
         while(user.getPerfumeList().contains(perfume))
         	user.getPerfumeList().remove(perfume);
     }
@@ -51,11 +49,25 @@ public class CartServiceImpl implements CartService {
 	@Transactional
 	public void addHardwoodWithQuantityToCart(Long floorId, Long quantity) {
 		User user = userService.getAuthenticatedUser();
-        HardwoodFloor floor = perfumeRepository.getOne(floorId);
+        HardwoodFloor floor = hardwoodFloorsRepository.getOne(floorId);
         for(int i = 0;i < quantity;i++) {
         	user.getPerfumeList().add(floor);
         }
 	}
+
+    @Override
+    public DatatablesView<CartItem> getCartItemsTable(){
+        DatatablesView<CartItem> cartView  = new DatatablesView<>();
+        List<CartItem> cartList = getFloorQuantitesInCart();
+        List<SalesOrderItem> salesOrderItemList = cartList.stream().map(cartItem ->{
+            FloorColorSize floorColorSize = hardwoodFloorsRepository.findFloorColorById(cartItem.getFloor().getId());
+            return new SalesOrderItem(floorColorSize, cartItem.getQuantity());
+        }).collect(Collectors.toList());
+        int count = cartList.size();
+        cartView.setData(cartList);
+        cartView.setRecordsTotal(count);
+        return cartView;
+    }
 
 	@Override
 	public List<CartItem> getFloorQuantitesInCart() {
@@ -64,7 +76,7 @@ public class CartServiceImpl implements CartService {
 		Map<HardwoodFloor, Long> counts = floors.stream().collect(Collectors.groupingBy(e -> e, Collectors.counting()));
 		List<CartItem> cart = new ArrayList<>();
 		for(HardwoodFloor floor : counts.keySet())
-			cart.add(new CartItem(floor, counts.get(floor)));
+			cart.add(new CartItem(floor, new BigDecimal(counts.get(floor))));
         return cart;
 	}
 
@@ -72,7 +84,7 @@ public class CartServiceImpl implements CartService {
 	@Transactional
 	public void updateHardwoodWithQuantityToCart(Long floorId, Long quantity) {
 		User user = userService.getAuthenticatedUser();
-        HardwoodFloor perfume = perfumeRepository.getOne(floorId);
+        HardwoodFloor perfume = hardwoodFloorsRepository.getOne(floorId);
         while(user.getPerfumeList().contains(perfume))
         	user.getPerfumeList().remove(perfume);
         while(quantity-- > 0)
