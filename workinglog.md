@@ -37,7 +37,7 @@ For dealers and general public, just show the available date according to their 
 
 ### The sequence order of creating product/product-attributes/container/inventory?
 
-### What database table should I create to manage the "back order" inventory?
+### What database table should I create to manage the "back salesOrder" inventory?
 
 ### March 22nd changes:
 #### Database design visio file changes:
@@ -271,7 +271,7 @@ Javascript gist:
 1. In HTML, if a \<button\> element is placed inside a \<form\> element without specifying the type attribute, it defaults to type="submit". So you need to explicitly assign the type of button if you don't want it to submit form upon click.
 
 Database design gist:
-1. Set automatically update expire date for order, with help of a designed field/attribute specifying the lengthe of validity.
+1. Set automatically update expire date for salesOrder, with help of a designed field/attribute specifying the lengthe of validity.
 
 Java/Spring side changes:
 1. Drop the 'required' attribute of two numeric inputs for 'skid' and 'box'.
@@ -344,3 +344,21 @@ Java/Spring side changes:
 4. Update the javascript code to make the container updating functions normally.
 Note: the update of \<select\> inside datatable requires extra care with the inner html coding.
 5. Add client-side entry point and server-side PutMapping method for container item update.
+
+### April 17th changes:
+Java/Spring side changes:
+1. Add service/impl method for update container product item.
+2. Move link for "Update factory inventory" towards bottom.
+3. Fulfill the functionality of updateContainerItem controller method.
+4. Add a two-second reload timeout to bootbox alert of successful update of container product item.
+5. Update sql files:
+    1. Rename table 'store' to 'dealers'
+    2. Rename table 'orders' attribute 'store_id' to 'dealer_id'
+    3. Rename table 'orders' to 'sales_orders'
+    4. Rename table 'orders_hardwoodfloors' to 'sales_orders_hardwoodfloors'
+    5. Rename table 'sales_orders_hardwoodfloors' attribute 'order_id' to 'sales_order_id'
+6. Conform thymeleaf fragment method name to the change of HardwoodFloor class.
+
+Visio database design changes:
+1. Rename table 'store' to 'dealers', rename table 'orders' attribute 'store_id' to 'dealer_id'
+2. Rename table 'orders' to 'sales_orders'
