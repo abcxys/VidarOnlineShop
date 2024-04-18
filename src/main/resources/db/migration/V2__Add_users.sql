@@ -62,7 +62,10 @@ values (1, 'Regular', null);
 insert into joint_types (id, name, description)
 values (2, 'Click', null);
 
-insert into dealers (id, name, address, phone_number)
-values(1, 'AA', '111', '111');
-insert into dealers (id, name, address, phone_number)
-values(2, 'Brampton', '222', '222');
+insert into dealer_types (id, type_name, type_alias, description)
+values (1, 'Retail', 'rt', null);
+
+insert into dealers (id, type_id, company_name, full_name, address, phone_number, main_email1, main_email2, cc_email, active)
+values(1, 1, 'Brampton Hardwood', 'bh', 'Brampton', '111', '11@bramptonhardwood.com', '22@bramptonhardwood.com', 'cc@bramptonhardwood.com', true);
+insert into dealers (id, type_id, company_name, full_name, address, phone_number, main_email1, main_email2, cc_email, active)
+values(2, 1, 'AA Floors & More', 'AA', 'Toronto', '222', '11@aafloors.com', '22@aafloors.com', 'cc@aafloors.com', true);
