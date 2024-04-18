@@ -1,6 +1,6 @@
 let salesOrdersTable;
 $(function() {
-    salesOrdersTable = $('#packingSlipTable').DataTable({
+    salesOrdersTable = $('#itemOrderingTable').DataTable({
         "serverSide" : true,//分页，取数据等等的都放到服务端去
         "lengthChange": true,
         "order": [],
@@ -12,8 +12,8 @@ $(function() {
         "scrollCollapse": true,
         "sPaginationType" : "full_numbers",
         ajax : {
-            type : "post",
-            url : "http://localhost:8080/packing/showOrders",
+            method : "get",
+            url : "/salesOrder/getItemsInCart",
             dataSrc : "data",
             data : function (d) {
                 var param = {};
@@ -28,18 +28,30 @@ $(function() {
         },
         columns : [
             {"data" : '', "bSortable" : false},
-            {"data" : 'firstName', "bSortable" : true},
-            {"data" : 'lastName', "bSortable" : true},
-            {"data" : 'city', "bSortable" : true},
-            {"data" : 'email', "bSortable" : false}
+            {"data" : 'quantity', "bSortable" : true},
+            {"data" : 'floor', "bSortable" : true},
+            {"data" : 'floor', "bSortable" : false}
         ],
         'columnDefs': [{
             'targets': 0,
             'searchable': false,
-            'orderable': false,
             'className': 'dt-body-center',
             'render': function (data, type, full, meta){
                 return '<input type="checkbox" class="call-checkbox" name="checkbox-id" value="' + '">';
+            }
+        }, {
+            'targets': 2,
+            'searchable': false,
+            'className': 'dt-body-center',
+            'render': function(data) {
+                return data.batch_id;
+            }
+        }, {
+            'targets': 3,
+            'searchable': false,
+            'className': 'dt-body-center',
+            'render': function(data) {
+                return data.price;
             }
         }]
     });

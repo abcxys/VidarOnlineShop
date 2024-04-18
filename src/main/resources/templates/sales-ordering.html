@@ -10,14 +10,13 @@
         <div class="container py-5 bg-white shadow-sm card-height">
             <div class="container-fluid" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
                 <div class="box-body">
-                    <table class="table table-striped table-bordered table-hover dataTable" role="grid" id="packingSlipTable">
+                    <table class="table table-striped table-bordered table-hover dataTable" role="grid" id="itemOrderingTable">
                         <thead>
                         <tr class="info">
-                            <th><input type="checkbox" name="select_all" value="1" id="example-select-all" onclick="checkAll()"></th>
-                            <th>Invoice N.O.</th>
-                            <th>Store</th>
-                            <th>Number of items</th>
-                            <th>Status</th>
+                            <th><input aria-label="checkbox" type="checkbox" name="select_all" value="1" id="example-select-all" onclick="checkAll()"></th>
+                            <th>Quantity</th>
+                            <th>Product</th>
+                            <th>Price</th>
                         </tr>
                         </thead>
                     </table>
