@@ -1,10 +1,10 @@
 package vidar.websystem.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import vidar.websystem.domain.CartItem;
 import vidar.websystem.domain.DatatablesView;
+import vidar.websystem.domain.Dealer;
 import vidar.websystem.domain.HardwoodFloor;
 
 public interface CartService {
@@ -12,6 +12,10 @@ public interface CartService {
     List<HardwoodFloor> getPerfumesInCart();
     
     List<CartItem> getFloorQuantitesInCart();
+
+    List<Dealer> getDealers();
+
+    List<Dealer> getActiveDealers();
 
     DatatablesView<CartItem> getCartItemsTable();
 

@@ -2,6 +2,7 @@ package vidar.websystem.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import vidar.websystem.domain.*;
+import vidar.websystem.repository.DealerRepository;
 import vidar.websystem.repository.HardwoodFloorsRepository;
 import vidar.websystem.service.CartService;
 import vidar.websystem.service.UserService;
@@ -21,6 +22,7 @@ public class CartServiceImpl implements CartService {
 
     private final UserService userService;
     private final HardwoodFloorsRepository hardwoodFloorsRepository;
+    private final DealerRepository dealerRepository;
 
     @Override
     public List<HardwoodFloor> getPerfumesInCart() {
@@ -80,7 +82,23 @@ public class CartServiceImpl implements CartService {
         return cart;
 	}
 
-	@Override
+    /**
+     * @return Entire dealers' list.
+     */
+    @Override
+    public List<Dealer> getDealers() {
+        return dealerRepository.findAll();
+    }
+
+    /**
+     * @return Active Dealer's list.
+     */
+    @Override
+    public List<Dealer> getActiveDealers() {
+        return dealerRepository.findByActiveTrue();
+    }
+
+    @Override
 	@Transactional
 	public void updateHardwoodWithQuantityToCart(Long floorId, Long quantity) {
 		User user = userService.getAuthenticatedUser();
