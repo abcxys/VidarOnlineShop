@@ -5,6 +5,7 @@ $(function() {
         "lengthChange": false,
         "info": false,
         "bProcessing" : true,
+        "bPaginate" : false,
         "searching" : false,
         "autoWidth": false,
         "scrollY": "400px",
