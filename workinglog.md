@@ -362,3 +362,21 @@ Java/Spring side changes:
 Visio database design changes:
 1. Rename table 'store' to 'dealers', rename table 'orders' attribute 'store_id' to 'dealer_id'
 2. Rename table 'orders' to 'sales_orders'
+
+### April 18th changes:
+Visio database design changes:
+1. Add necessary fields to table 'dealers'. Add table 'dealer_types'.
+
+Java/Spring side changes:
+1. Add a web page for sales order creation, with customer/product information insertion.
+2. Add path/pages constants to support sales ordering controller construction.
+3. Add sales ordering controller method to SalesOrderController class.
+4. Update quantity data type in 'CartItem' class.
+5. Update client side web page and javascript to show SalesOrderItem object in Datatable.
+6. Add SalesOrderRestController for Sales orders CRUD.
+7. Add SalesOrderItem class to hold sales order product/quantity item for salesOrdering table.
+8. Add CartService/Impl getCartItemsTable() method to retrieve DataTable for SalesOrdering webpage.
+9. Update sql queries for dealer related initialization/queries.
+10. Add entity/repository classes for Dealer.
+11. Add dealer list retrieving methods in service/impl.
+12. Add dealer_dict to model of salesOrdering web page.
