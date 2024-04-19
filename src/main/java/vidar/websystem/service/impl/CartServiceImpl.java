@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import vidar.websystem.domain.*;
 import vidar.websystem.repository.DealerRepository;
 import vidar.websystem.repository.HardwoodFloorsRepository;
+import vidar.websystem.repository.WarehouseRepository;
 import vidar.websystem.service.CartService;
 import vidar.websystem.service.UserService;
 
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -23,6 +25,7 @@ public class CartServiceImpl implements CartService {
     private final UserService userService;
     private final HardwoodFloorsRepository hardwoodFloorsRepository;
     private final DealerRepository dealerRepository;
+    private final WarehouseRepository warehouseRepository;
 
     @Override
     public List<HardwoodFloor> getPerfumesInCart() {
@@ -105,6 +108,14 @@ public class CartServiceImpl implements CartService {
     @Override
     public Dealer getDealerById(Long id) {
         return dealerRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * @return List of available warehouses.
+     */
+    @Override
+    public List<Warehouse> getWarehouses() {
+        return warehouseRepository.findAll();
     }
 
     @Override

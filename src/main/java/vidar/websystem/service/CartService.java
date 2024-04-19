@@ -2,10 +2,7 @@ package vidar.websystem.service;
 
 import java.util.List;
 
-import vidar.websystem.domain.CartItem;
-import vidar.websystem.domain.DatatablesView;
-import vidar.websystem.domain.Dealer;
-import vidar.websystem.domain.HardwoodFloor;
+import vidar.websystem.domain.*;
 
 public interface CartService {
 
@@ -18,6 +15,8 @@ public interface CartService {
     List<Dealer> getActiveDealers();
 
     Dealer getDealerById(Long id);
+
+    List<Warehouse> getWarehouses();
 
     DatatablesView<CartItem> getCartItemsTable();
 
