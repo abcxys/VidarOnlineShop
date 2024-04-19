@@ -2,15 +2,14 @@ let salesOrdersTable;
 $(function() {
     salesOrdersTable = $('#itemOrderingTable').DataTable({
         "serverSide" : true,//分页，取数据等等的都放到服务端去
-        "lengthChange": true,
-        "order": [],
+        "lengthChange": false,
+        "info": false,
         "bProcessing" : true,
         "searching" : false,
         "autoWidth": false,
         "scrollY": "400px",
         "scrollX": true,
         "scrollCollapse": true,
-        "sPaginationType" : "full_numbers",
         ajax : {
             method : "get",
             url : "/salesOrder/getItemsInCart",
