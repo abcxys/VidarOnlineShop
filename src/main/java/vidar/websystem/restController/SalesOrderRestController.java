@@ -6,10 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.CartItem;
 import vidar.websystem.domain.DatatablesView;
+import vidar.websystem.domain.Dealer;
 import vidar.websystem.service.CartService;
 import vidar.websystem.service.UserService;
 
@@ -31,5 +33,11 @@ public class SalesOrderRestController {
     public String getItemsInCart(Model model, Pageable pageable){
         DatatablesView<CartItem> cartItem = cartService.getCartItemsTable();
         return JSONObject.fromObject(cartItem).toString();
+    }
+
+    @GetMapping(value = "/getDealerInfoById")
+    public Dealer getDealerInfoById(@RequestParam("id") Long id){
+        Dealer dealer = cartService.getDealerById(id);
+        return dealer;
     }
 }

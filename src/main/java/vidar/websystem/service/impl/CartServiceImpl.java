@@ -98,6 +98,15 @@ public class CartServiceImpl implements CartService {
         return dealerRepository.findByActiveTrue();
     }
 
+    /**
+     * @param id Dealer's id.
+     * @return the full dealer entity object.
+     */
+    @Override
+    public Dealer getDealerById(Long id) {
+        return dealerRepository.findById(id).orElse(null);
+    }
+
     @Override
 	@Transactional
 	public void updateHardwoodWithQuantityToCart(Long floorId, Long quantity) {

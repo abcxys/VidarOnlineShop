@@ -17,6 +17,8 @@ public interface CartService {
 
     List<Dealer> getActiveDealers();
 
+    Dealer getDealerById(Long id);
+
     DatatablesView<CartItem> getCartItemsTable();
 
     void addPerfumeToCart(Long perfumeId);
