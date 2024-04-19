@@ -43,7 +43,7 @@ $(function() {
             'searchable': false,
             'className': 'dt-body-center',
             'render': function(data) {
-                return data.batch_id;
+                return data.batchNumber;
             }
         }, {
             'targets': 3,
@@ -54,4 +54,38 @@ $(function() {
             }
         }]
     });
+
+    $('#dealer').on('change', function(){
+       console.log('Selected dealer changed!');
+       $.ajax({
+          url: '/salesOrder/getDealerInfoById',
+          method: 'GET',
+          data: {
+              id: $('#dealer').val()
+          },
+           success : function(response){
+                console.log(response);
+                $('#dealer_name').val(response.address).change();
+                $('#dealer_address').val(response.address).change();
+           },
+           error: function(xhr){
+              bootboxAlertError(xhr.responseText);
+           }
+       });
+    });
+
+    $('#dealer_name').on('input change', function(){
+        let fontSize = parseInt(window.getComputedStyle(this, null).getPropertyValue('font-size'));
+        let lineHeight = parseInt(window.getComputedStyle(this, null).getPropertyValue('line-height'));
+
+        while(this.scrollHeight > this.offsetHeight){
+            fontSize--;
+            lineHeight -=2;
+            this.style.fontSize = fontSize + 'px';
+            this.style.lineHeight = lineHeight + 'px';
+        }
+    });
+
+    // set the value of the datepicker default to be current datetime.
+    $('#soDatepicker').datepicker("setDate", new Date());
 });
