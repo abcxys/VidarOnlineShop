@@ -74,7 +74,7 @@ $(function() {
        });
     });
 
-    $('#dealer_name').on('input change', function(){
+    $('.dealer-address').on('input change', function(){
         let fontSize = parseInt(window.getComputedStyle(this, null).getPropertyValue('font-size'));
         let lineHeight = parseInt(window.getComputedStyle(this, null).getPropertyValue('line-height'));
 
