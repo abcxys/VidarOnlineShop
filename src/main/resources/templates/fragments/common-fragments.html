@@ -257,6 +257,13 @@
         <th:block th:text="${text}"></th:block>
     </h4>
 </th:block>
+<!-- large info-title -->
+<th:block th:fragment="large-info-title">
+    <h2 th:class="${titleClass}">
+        <i th:class="${icon}"></i>
+        <th:block th:text="${text}"></th:block>
+    </h2>
+</th:block>
 
 <!-- icon-button -->
 <th:block th:fragment="icon-button">
