@@ -2,10 +2,6 @@
 INSERT INTO inventory_event_type (id, name, alias, description) VALUES (1, 'manual-add', 'MAN-ADD', null);
 INSERT INTO inventory_event_type (id, name, alias, description) VALUES (2, 'manual-minus', 'MAN-MIN', null);
 INSERT INTO inventory_event_type (id, name, alias, description) VALUES (3, 'manual-set', 'MAN-SET', null);
--- create warehouse entries
-INSERT INTO warehouses (id, city, address, description) VALUES (1, 'Toronto', 'Unit #2, 1775 Sismet Road, Mississauga, ON, L4W 1P9', null);
-INSERT INTO warehouses (id, city, address, description) VALUES (2, 'Montreal', '160-6391 Westminster Hwy, Richmond, BC V7C 4V4', null);
-INSERT INTO warehouses (id, city, address, description) VALUES (3, 'Vancouver', '9325, Trans-Canada Highway, St-Laurent, QC, H4S1V3' , null);
 -- create warehouse locations
 INSERT INTO locations (id, warehouse_id, bay, description) VALUES (1, 1, 'A3', null);
 INSERT INTO locations (id, warehouse_id, bay, description) VALUES (2, 1, 'A4', null);
