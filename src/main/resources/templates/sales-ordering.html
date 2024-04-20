@@ -25,9 +25,9 @@
             <div class="container-fluid mt-3">
                 <div class="row">
                     <div class="col-md-5">
-                        <th:block th:replace="fragments/common-fragments :: info-title(
+                        <th:block th:replace="fragments/common-fragments :: large-info-title(
                         text='Sales Order',
-                        icon='fas fa-plus-square mr-2'
+                        icon='fas fa-square-poll-horizontal fa-lg mr-2'
                     )"/>
                     </div>
                     <div class="col-sm-2">
@@ -55,6 +55,34 @@
                     <div class="col-sm-2 ml-3" style="float:right;">
                         <label>SHIP TO</label>
                         <textarea aria-label="dealer_name" id="dealer_name" class="dealer-address" readonly></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+
+                    </div>
+                    <div class="col-sm-2" style="padding-left: 0;padding-right:0;">
+                        <th:block th:replace="fragments/product-fragments :: add-string-required-attribute-input(
+                            title='P.O.NO.',
+                            name='poNumber',
+                            id='poNumber',
+                            placeholder=''
+                        )"/>
+                    </div>
+                    <div class="col-sm-2" style="padding-left: 0;padding-right:0;float:right;">
+                        <th:block th:replace="fragments/product-fragments :: add-salesRep-select(
+                            title='REP',
+                            name='salesRep',
+                            options=${salesRep_dict}
+                        )"/>
+                    </div>
+                    <div class="col-sm-2 ml-3" style="padding-left: 0;padding-right:0;float:right">
+                        <th:block th:replace="fragments/product-fragments :: add-datetime-required-attribute-input(
+                            title='DATE WANTED',
+                            name='dateWanted',
+                            id='dateWanted',
+                            placeholder=''
+                        )"/>
                     </div>
                 </div>
             </div>

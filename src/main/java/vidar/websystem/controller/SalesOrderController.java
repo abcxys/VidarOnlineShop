@@ -43,6 +43,7 @@ public class SalesOrderController {
         controllerUtils.addPagination(model, orderService.getUserOrdersList(pageable));
         model.addAttribute("warehouse_dict", cartService.getWarehouses());
         model.addAttribute("dealer_dict", cartService.getDealers());
+        model.addAttribute("salesRep_dict", cartService.getSalesReps());
         return Pages.SALES_ORDERING;
     }
 
