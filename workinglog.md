@@ -380,3 +380,23 @@ Java/Spring side changes:
 10. Add entity/repository classes for Dealer.
 11. Add dealer list retrieving methods in service/impl.
 12. Add dealer_dict to model of salesOrdering web page.
+
+### April 19th changes:
+Javascript design gist:
+1. Event trigerring: for example, textarea.val() would not directly trigger 'change' or 'input' event. Need to call the event manually like textarea.val().change();
+
+Java/Spring side changes:
+1. Adjust the javascript code for salesOrderTable, to hide the 'length' and 'info' part of DataTable.
+2. Set the default date format inferred from bootstrap-datepicker to be 'yyyy-mm-dd'.
+3. Add dealer select on 'change' action.
+4. Add html sections for date/S.O.No./dealer info.
+5. Apply auto-adjusting font size function to both textarea.
+6. Restrict the second textarea to be readonly also.
+7. Add getDealerInfoById method to SalesOrderRestController. Also add the necessary service/impl functions.
+8. Add thymeleaf fragment for dealer select, with label and select on same line.
+9. Restrict height of dealer name/address detail textarea to be 100px.
+10. Add Warehouse entity class and repository interface.
+11. Hide pagination section of salesOrder DataTable.
+12. Add warehouse dict to the sales ordering web page.
+13. Add warehouse dict service/impl methods.
+14. Add switch between cart/salesOrdering page link by keeping two thymeleaf blocks on navbar simultaneously.
