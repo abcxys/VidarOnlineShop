@@ -34,4 +34,9 @@ public class SalesRep {
 
     @Column(name = "description")
     private String description;
+
+    @Override
+    public String toString() {
+        return alias;
+    }
 }
