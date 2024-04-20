@@ -62,6 +62,17 @@ values (1, 'Regular', null);
 insert into joint_types (id, name, description)
 values (2, 'Click', null);
 
+insert into sales_reps  (id, first_name, last_name, alias, description)
+values (1, 'Steven', 'Li', 'XL', null);
+insert into sales_reps  (id, first_name, last_name, alias, description)
+values (2, 'Daniel', 'Wu', 'DW', null);
+insert into sales_reps  (id, first_name, last_name, alias, description)
+values (3, 'Judy', 'Wang', 'JW', null);
+insert into sales_reps  (id, first_name, last_name, alias, description)
+values (4, 'Grace', 'Huang', 'GH', null);
+insert into sales_reps  (id, first_name, last_name, alias, description)
+values (5, '', 'Lau', 'Lau', null);
+
 insert into dealer_types (id, type_name, type_alias, description)
 values (1, 'Retail', 'rt', null);
 
