@@ -18,6 +18,8 @@ public interface CartService {
 
     List<Warehouse> getWarehouses();
 
+    List<SalesRep> getSalesReps();
+
     DatatablesView<CartItem> getCartItemsTable();
 
     void addPerfumeToCart(Long perfumeId);

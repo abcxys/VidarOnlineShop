@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import vidar.websystem.domain.*;
 import vidar.websystem.repository.DealerRepository;
 import vidar.websystem.repository.HardwoodFloorsRepository;
+import vidar.websystem.repository.SalesRepRepository;
 import vidar.websystem.repository.WarehouseRepository;
 import vidar.websystem.service.CartService;
 import vidar.websystem.service.UserService;
@@ -26,6 +27,7 @@ public class CartServiceImpl implements CartService {
     private final HardwoodFloorsRepository hardwoodFloorsRepository;
     private final DealerRepository dealerRepository;
     private final WarehouseRepository warehouseRepository;
+    private final SalesRepRepository salesRepRepository;
 
     @Override
     public List<HardwoodFloor> getPerfumesInCart() {
@@ -116,6 +118,14 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<Warehouse> getWarehouses() {
         return warehouseRepository.findAll();
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public List<SalesRep> getSalesReps() {
+        return salesRepRepository.findAll();
     }
 
     @Override
