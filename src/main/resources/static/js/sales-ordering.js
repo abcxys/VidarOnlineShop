@@ -89,4 +89,34 @@ $(function() {
 
     // set the value of the datepicker default to be current datetime.
     $('#soDatepicker').datepicker("setDate", new Date());
+
+    $('form#salesOrderForm').submit(function(event){
+        event.preventDefault();
+        console.log("Submitting sales order form!");
+
+        let tableData = [];
+        $('#itemOrderingTable tbody tr').each(function(){
+           let rowData = {
+
+           };
+           tableData.push(rowData);
+        });
+
+        let jsonData = {
+
+        };
+
+        $.ajax({
+            url: $(this).attr('action'),
+            method: $(this).attr('method'),
+            data: JSON.stringify(jsonData),
+            contentType: "application/json",
+            success: function(response){
+                console.log(response);
+            },
+            error: function(xhr, status, error){
+
+            }
+        });
+    });
 });
