@@ -86,7 +86,7 @@ $('form#containerForm').submit(function(event){
 
     $.ajax({
         url: $(this).attr('action'),
-        type: $(this).attr('method'),
+        method: $(this).attr('method'),
         data: JSON.stringify(jsonData),
         contentType: "application/json",
         success: function(response){
