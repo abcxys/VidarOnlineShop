@@ -3,7 +3,7 @@ package vidar.websystem.domain;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -22,7 +22,7 @@ public class SalesOrder {
     private Double totalPrice;
 
     @Column(name = "date", columnDefinition = "timestamp default current_timestamp")
-    private LocalDateTime date = LocalDateTime.now();
+    private Date date = new Date();
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
