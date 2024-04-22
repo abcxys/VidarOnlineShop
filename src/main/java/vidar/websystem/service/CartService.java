@@ -22,6 +22,8 @@ public interface CartService {
 
     DatatablesView<CartItem> getCartItemsTable();
 
+    DatatablesView<SalesOrderItem> getSalesOrderItemsTable();
+
     void addPerfumeToCart(Long perfumeId);
     
     void addHardwoodWithQuantityToCart(Long floorId, Long quantity);

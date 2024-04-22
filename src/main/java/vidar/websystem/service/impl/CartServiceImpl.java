@@ -66,14 +66,24 @@ public class CartServiceImpl implements CartService {
     public DatatablesView<CartItem> getCartItemsTable(){
         DatatablesView<CartItem> cartView  = new DatatablesView<>();
         List<CartItem> cartList = getFloorQuantitesInCart();
-        List<SalesOrderItem> salesOrderItemList = cartList.stream().map(cartItem ->{
-            FloorColorSize floorColorSize = hardwoodFloorsRepository.findFloorColorById(cartItem.getFloor().getId());
-            return new SalesOrderItem(floorColorSize, cartItem.getQuantity());
-        }).collect(Collectors.toList());
         int count = cartList.size();
         cartView.setData(cartList);
         cartView.setRecordsTotal(count);
         return cartView;
+    }
+
+    @Override
+    public DatatablesView<SalesOrderItem> getSalesOrderItemsTable(){
+        DatatablesView<SalesOrderItem> salesOrderItemView = new DatatablesView<>();
+        List<CartItem> cartList = getFloorQuantitesInCart();
+        List<SalesOrderItem> salesOrderItemList = cartList.stream().map(cartItem ->{
+            FloorColorSize floorColorSize = hardwoodFloorsRepository.findFloorColorById(cartItem.getFloor().getId());
+            return new SalesOrderItem(floorColorSize, cartItem.getQuantity());
+        }).collect(Collectors.toList());
+        int count = salesOrderItemList.size();
+        salesOrderItemView.setData(salesOrderItemList);
+        salesOrderItemView.setRecordsTotal(count);
+        return salesOrderItemView;
     }
 
 	@Override

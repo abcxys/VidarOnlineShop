@@ -1,5 +1,7 @@
 package vidar.websystem.domain;
 
+import lombok.Data;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,6 +9,7 @@ import java.math.BigDecimal;
  * create datetime 4/18/2024 12:06 PM
  * description
  */
+@Data
 public class SalesOrderItem {
 
     public SalesOrderItem(FloorColorSize floorColorSize, BigDecimal quantity) {

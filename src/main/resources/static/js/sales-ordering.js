@@ -13,7 +13,7 @@ $(function() {
         "scrollCollapse": true,
         ajax : {
             method : "get",
-            url : "/salesOrder/getItemsInCart",
+            url : "/salesOrder/getSalesOrderItems",
             dataSrc : "data",
             data : function (d) {
                 var param = {};
@@ -29,8 +29,9 @@ $(function() {
         columns : [
             {"data" : '', "bSortable" : false},
             {"data" : 'quantity', "bSortable" : true},
-            {"data" : 'floor', "bSortable" : true},
-            {"data" : 'floor', "bSortable" : false}
+            {"data" : 'floorColorSize', "bSortable" : false},
+            {"data" : 'floorColorSize', "bSortable" : true},
+            {"data" : 'floorColorSize', "bSortable" : false}
         ],
         'columnDefs': [{
             'targets': 0,
@@ -41,13 +42,22 @@ $(function() {
             }
         }, {
             'targets': 2,
+            'visible': false,
             'searchable': false,
             'className': 'dt-body-center',
             'render': function(data) {
-                return data.batchNumber;
+                return data.id;
             }
         }, {
             'targets': 3,
+            'searchable': false,
+            'className': 'dt-body-center',
+            'render': function(data) {
+                return data.width +'\" ' + data.woodSpeciesName.split(" ")[data.woodSpeciesName.split(" ").length - 1]
+                    + " " + data.colorName + " " + data.gradeAlias + " " + data.sqftPerCarton + " " + data.batchName;
+            }
+        }, {
+            'targets': 4,
             'searchable': false,
             'className': 'dt-body-center',
             'render': function(data) {
