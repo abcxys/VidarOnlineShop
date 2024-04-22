@@ -400,3 +400,17 @@ Java/Spring side changes:
 12. Add warehouse dict to the sales ordering web page.
 13. Add warehouse dict service/impl methods.
 14. Add switch between cart/salesOrdering page link by keeping two thymeleaf blocks on navbar simultaneously.
+
+### April 20th changes:
+Bug fixes:
+1. duplicated sql constraints, incorrect table entries insertion.
+
+Java/Spring side changes:
+1. Update the database initialization/data insertion with regard to sales_reps.
+2. Update visio database design. ('sales_orders' and 'sales_reps' table)
+3. Add sales_rep entity/repository classes.
+4. Add overridden toString() method for SalesRep entity class.
+5. Add a \<h2\> thymeleaf block for text block 'Sales Orders'
+6. Add service/impl methods for SaleReps list retrieval.
+7. Add salesRep select thymeleaf block.
+8. Add client/server-side data transfer of SalesRep list.
