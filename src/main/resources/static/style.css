@@ -356,5 +356,6 @@ nav ul li {
 }
 
 .dealer-address {
+    resize: none;
     height: 100px;
 }
