@@ -16,7 +16,7 @@ import vidar.websystem.domain.WoodSpecies;
 import vidar.websystem.dto.request.ProductRequest;
 import vidar.websystem.dto.request.SearchRequest;
 import vidar.websystem.dto.response.MessageResponse;
-import vidar.websystem.repository.FloorOrderRepository;
+import vidar.websystem.repository.SalesOrderProductRepository;
 import vidar.websystem.repository.GradeRepository;
 import vidar.websystem.repository.HardwoodFloorsRepository;
 import vidar.websystem.repository.PlankColorRepository;
@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
 	private String uploadPath;
 
     private final HardwoodFloorsRepository hardwoodRepository;
-    private final FloorOrderRepository floorOrderRepository;
+    private final SalesOrderProductRepository salesOrderProductRepository;
     private final PlankSizeRepository plankSizeRepository;
     private final PlankColorRepository plankColorRepository;
     private final WoodSpeciesRepository woodSpeciesRepository;
