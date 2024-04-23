@@ -414,3 +414,20 @@ Java/Spring side changes:
 6. Add service/impl methods for SaleReps list retrieval.
 7. Add salesRep select thymeleaf block.
 8. Add client/server-side data transfer of SalesRep list.
+
+### April 22nd changes:
+System design gist:
+1. Design factory inventory update page before May 14th.
+2. You have to use "Data" annotation to allow Java side class instance to be parsed on client side.
+
+Java/Spring side changes:
+1. Update attribute name of ajax 'type' to 'method'.
+2. Add \<form\> for submitting the sales order with table of items.
+3. Add submit button with icon at footer location.
+4. Add salesOrderForm submission handler.
+5. Add PostMapping method in SalesOrderRestController, for adding new sales order.
+6. Restrict the resizable attribute of textarea in salesordering web page.
+7. Switch Java class passed to client side. 'CartItem' to 'SalesOrderItem'.
+8. Update data types of table 'sales_orders'.
+9. Replace date class of SalesOrder class.
+10. 
