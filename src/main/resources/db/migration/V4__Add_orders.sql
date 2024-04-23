@@ -6,4 +6,4 @@ INSERT INTO warehouses (id, city, address, description) VALUES (3, 'Vancouver', 
 INSERT INTO sales_orders (id, address, city, date, email, first_name, last_name, phone_number, post_index, total_price, user_id, SO_number, PO_number, dealer_id, sales_rep_id, warehouse_id)
     VALUES (1, 'Wall Street1', '3', '2021-04-07', 'Completed', '61109', 'AA Floors', '1234567890', 1234567890, 840, 2, '111', '111', 1, 1, 1);
 
-INSERT INTO sales_orders_hardwoodfloors (sales_order_id, hardwoodfloors_id, quantity) VALUES (1, 1, 54);
+--INSERT INTO salesOrders_products (sales_order_id, hardwoodfloors_id, quantity) VALUES (1, 1, 54);
