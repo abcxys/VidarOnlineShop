@@ -18,44 +18,77 @@ public class SalesOrder {
     @SequenceGenerator(name = "orders_seq", sequenceName = "orders_seq", initialValue = 6, allocationSize = 1)
     private Long id;
 
-    @Column(name = "total_price", nullable = false)
-    private Double totalPrice;
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "city")
+    private String city;
 
     @Column(name = "date", columnDefinition = "timestamp default current_timestamp")
     private Date date = new Date();
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    @Column(name = "date_wanted")
+    private Date dateWanted;
 
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
-    @Column(name = "city", nullable = false)
-    private String city;
-
-    @Column(name = "address", nullable = false)
-    private String address;
-
-    @Column(name = "email", nullable = false)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "post_index", nullable = false)
+    @Column(name = "post_index")
     private Integer postIndex;
 
-	@ManyToMany(fetch = FetchType.LAZY, 
+    @Column(name = "total_price")
+    private Double totalPrice;
+
+    @Column(name = "SO_number", nullable = false)
+    private String soNumber;
+
+    @Column(name = "PO_number", nullable = false)
+    private String poNumber;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dealer_id")
+    private Dealer dealer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sales_rep_id")
+    private SalesRep salesRep;
+
+    @Column(name = "warehouse_id")
+    private Long warehouseId;
+
+	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = { 
 					CascadeType.PERSIST, 
 					CascadeType.MERGE })
-	@JoinTable(name = "sales_orders_hardwoodfloors", joinColumns = { @JoinColumn(name = "sales_order_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "hardwoodfloors_id") })
+	@JoinTable(name = "sales_orders_products", joinColumns = { @JoinColumn(name = "so_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "product_id") })
 	private Set<HardwoodFloor> hardwoodfloors = new HashSet<>();
-//	
-//	@OneToMany(mappedBy = "salesOrder")
-//    private Set<FloorOrder> floorOrders = new HashSet<FloorOrder>();
 
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time", updatable = false)
+    private Date createTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "update_time")
+    private Date updateTime;
+
+    @Column(name = "create_user_id", updatable = false)
+    private Long createUserId;
+
+    @Column(name = "update_user_id")
+    private Long updateUserId;
+
 }
