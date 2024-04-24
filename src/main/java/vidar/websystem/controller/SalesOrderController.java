@@ -1,6 +1,7 @@
 package vidar.websystem.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.User;
@@ -14,10 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
@@ -35,6 +32,12 @@ public class SalesOrderController {
     public String getOrder(@PathVariable Long orderId, Model model) {
         model.addAttribute("order", orderService.getOrder(orderId));
         return Pages.ORDER;
+    }
+
+    @PostMapping("/add")
+    public String addProductToSalesOrder(@RequestParam("productId") Long productId, @RequestParam("txtEstimatedCarton") Long quantity){
+        cartService.addHardwoodWithQuantityToCart(productId, quantity);
+        return "redirect:" + PathConstants.SALESORDER + "/salesOrdering";
     }
 
     @GetMapping("/salesOrdering")
