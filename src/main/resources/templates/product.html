@@ -1,5 +1,5 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="fragments/common-fragments :: head"></head>
 <body>
 <div th:insert="~{fragments/common-fragments :: scripts}"></div>
@@ -22,46 +22,90 @@
 <!--                     <h6 class="mr-5"> -->
 <!--                         $<span th:text="${product.getGradeName()}"></span>.00 -->
 <!--                     </h6> -->
-		        	<form action="/cart/add" method="post">
-		        		<div style="margin: 15px 0 15px 0;">
-				            <span id="estimatedBase"></span>
-				            <input type="hidden" id="txtEstimatedCarton" name="txtEstimatedCarton">
-				        </div>
-				        <div>
-                    	<div>
-                    		<input id="sqft_quantity" name="sqft_quantity" type="number" value="0" style="width: 75px;"/> <label><span> SQFT</span></label>
-                    	</div>
-                    	<div>
-                    		<input id="carton_quantity" name="carton_quantity" type="number" value="0" style="width: 75px;"/> <label><span> CARTONS</span></label>
-                    	</div>
-                    	<div>
-                    		<button type="submit" name="productId" class="btn btn-success"
-                                th:value="${product.getId()}">
-                            <i class="fas fa-cart-plus mr-2 fa-lg"></i>
-                            ADD TO CART
-                        </button>
-                    	</div>
-                    	<div>
-						    <form>
-						        <table>
-						            <tr>
-						                <td style="padding: 5px 5px 5px 0;">
-						                     <button id="check_product_stock" type="button" class="btn btn-primary">
-						                     <i class="fas fa-warehouse mr-2 fa-lg"></i>
-						                     CHECK STOCK
-						                     </button>
-						                     <!--  <input id="product_sku" type="hidden" value="SDP2338" /> -->
-						                </td>
-						            </tr>
-						            <tr>
-						                <td style="padding: 5px 5px 5px 0;">
-						                    <div class="send-request" id="check-result" style="margin-top:5px"></div>
-						                </td>
-						            </tr>
-						        </table>
-						    </form>
-						</div>
-                    </form>
+		        	<th:block sec:authorize="hasAuthority('USER')">
+                        <form action="/cart/add" method="post">
+                            <div style="margin: 15px 0 15px 0;">
+                                <span id="estimatedBase"></span>
+                                <input type="hidden" id="txtEstimatedCarton" name="txtEstimatedCarton">
+                            </div>
+                            <div>
+                                <div>
+                                    <input id="sqft_quantity" name="sqft_quantity" type="number" value="0" style="width: 75px;"/> <label><span> SQFT</span></label>
+                                </div>
+                                <div>
+                                    <input id="carton_quantity" name="carton_quantity" type="number" value="0" style="width: 75px;"/> <label><span> CARTONS</span></label>
+                                </div>
+                                <div>
+                                    <button type="submit" name="productId" class="btn btn-success"
+                                            th:value="${product.getId()}">
+                                        <i class="fas fa-cart-plus mr-2 fa-lg"></i>
+                                        ADD TO CART
+                                    </button>
+                                </div>
+                                <div>
+                                    <form>
+                                        <table>
+                                            <tr>
+                                                <td style="padding: 5px 5px 5px 0;">
+                                                    <button id="check_product_stock" type="button" class="btn btn-primary">
+                                                        <i class="fas fa-warehouse mr-2 fa-lg"></i>
+                                                        CHECK STOCK
+                                                    </button>
+                                                    <!--  <input id="product_sku" type="hidden" value="SDP2338" /> -->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px 5px 5px 0;">
+                                                    <div class="send-request" id="check-result" style="margin-top:5px"></div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+                        </form>
+                    </th:block>
+                    <th:block sec:authorize="hasAuthority('ADMIN')">
+                        <form action="/salesOrder/add" method="post">
+                            <div style="margin: 15px 0 15px 0;">
+                                <span id="estimatedBase"></span>
+                                <input type="hidden" id="txtEstimatedCarton" name="txtEstimatedCarton">
+                            </div>
+                            <div>
+                                <div>
+                                    <input id="sqft_quantity" name="sqft_quantity" type="number" value="0" style="width: 75px;"/> <label><span> SQFT</span></label>
+                                </div>
+                                <div>
+                                    <input id="carton_quantity" name="carton_quantity" type="number" value="0" style="width: 75px;"/> <label><span> CARTONS</span></label>
+                                </div>
+                                <div>
+                                    <button type="submit" name="productId" class="btn btn-success"
+                                            th:value="${product.getId()}">
+                                        <i class="fas fa-cart-plus mr-2 fa-lg"></i>
+                                        ADD TO SALES ORDER
+                                    </button>
+                                </div>
+                                <div>
+                                    <form>
+                                        <table>
+                                            <tr>
+                                                <td style="padding: 5px 5px 5px 0;">
+                                                    <button id="check_product_stock" type="button" class="btn btn-primary">
+                                                        <i class="fas fa-warehouse mr-2 fa-lg"></i>
+                                                        CHECK STOCK
+                                                    </button>
+                                                    <!--  <input id="product_sku" type="hidden" value="SDP2338" /> -->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 5px 5px 5px 0;">
+                                                    <div class="send-request" id="check-result" style="margin-top:5px"></div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+                        </form>
+                    </th:block>
 		        </div>
              </div>
                 <br>
