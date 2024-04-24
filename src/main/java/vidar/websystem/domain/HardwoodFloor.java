@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "hardwoodfloors")
@@ -84,7 +86,6 @@ public class HardwoodFloor {
     @Column(name = "update_user_id")
     private Long updateUserId;
 
-//    
-//    @OneToMany(mappedBy = "hardwoodfloor")
-//    private Set<FloorOrder> floorOrders = new HashSet<FloorOrder>();
+    @ManyToMany(mappedBy = "hardwoodfloors")
+    private Set<SalesOrder> salesOrders = new HashSet<>();
 }
