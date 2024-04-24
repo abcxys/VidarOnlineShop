@@ -1,5 +1,6 @@
 package vidar.websystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -65,6 +66,7 @@ public class SalesOrder {
     @Column(name = "warehouse_id")
     private Long warehouseId;
 
+    @JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = { 
 					CascadeType.PERSIST, 

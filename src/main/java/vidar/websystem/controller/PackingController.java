@@ -1,5 +1,7 @@
 package vidar.websystem.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import net.sf.json.JsonConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import net.sf.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.DatatablesView;
@@ -35,12 +38,22 @@ public class PackingController {
         return Pages.PACKING;
     }
 	
-	@CrossOrigin(origins = {"http://localhost:8080/","http://www.google.com"},maxAge = 3600)
 	@RequestMapping(value = "/showOrders", method = RequestMethod.POST)
 	@ResponseBody
 	public String getAllOrders() {
 		DatatablesView<SalesOrder> datatablesView = packingService.getAllOrders();
-		
-		return JSONObject.fromObject(datatablesView).toString();
+		ObjectMapper mapper = new ObjectMapper();
+		try{
+			return mapper.writeValueAsString(datatablesView);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+			return null;
+		}
+		/*
+		JsonConfig jsonConfig = new JsonConfig();
+		jsonConfig.setExcludes( new String[]{ "data:hardwoodfloors"} );
+
+		return JSONObject.fromObject(datatablesView, jsonConfig).toString();
+		 */
 	}
 }

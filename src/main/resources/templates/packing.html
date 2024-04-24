@@ -78,7 +78,7 @@ tables = $('#packingSlipTable').DataTable({
 	"sPaginationType" : "full_numbers",
 	ajax : {
 		type : "post",
-		url : "http://localhost:8080/packing/showOrders",
+		url : "/packing/showOrders",
 		dataSrc : "data",
 		data : function (d) {
 			var param = {};
