@@ -1,7 +1,10 @@
 package vidar.websystem.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
+import vidar.websystem.json.DealerSerializer;
+import vidar.websystem.json.SalesRepSerializer;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -55,10 +58,12 @@ public class SalesOrder {
     @Column(name = "PO_number", nullable = false)
     private String poNumber;
 
+    @JsonSerialize(using = DealerSerializer.class)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "dealer_id")
     private Dealer dealer;
 
+    @JsonSerialize(using = SalesRepSerializer.class)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sales_rep_id")
     private SalesRep salesRep;
