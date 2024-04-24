@@ -8,12 +8,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vidar.websystem.constants.PathConstants;
-import vidar.websystem.domain.CartItem;
-import vidar.websystem.domain.DatatablesView;
-import vidar.websystem.domain.Dealer;
-import vidar.websystem.domain.SalesOrderItem;
+import vidar.websystem.domain.*;
 import vidar.websystem.dto.request.SalesOrderRequest;
+import vidar.websystem.dto.response.MessageResponse;
 import vidar.websystem.service.CartService;
+import vidar.websystem.service.SalesOrderService;
 import vidar.websystem.service.UserService;
 
 /**
@@ -29,6 +28,7 @@ public class SalesOrderRestController {
     private final UserService userService;
 
     private final CartService cartService;
+    private final SalesOrderService salesOrderService;
 
     @GetMapping(value = "/getItemsInCart")
     public String getItemsInCart(Model model, Pageable pageable){
@@ -44,15 +44,15 @@ public class SalesOrderRestController {
 
     @GetMapping(value = "/getDealerInfoById")
     public Dealer getDealerInfoById(@RequestParam("id") Long id){
-        Dealer dealer = cartService.getDealerById(id);
-        return dealer;
+        return cartService.getDealerById(id);
     }
 
     @PostMapping("/add-new-order")
-    public String addNewOrder(@RequestBody SalesOrderRequest salesOrderRequest,
-                              BindingResult bindingResult,
-                              Model model,
-                              RedirectAttributes attributes){
-        return "add-new-order-success";
+    public MessageResponse addNewOrder(@RequestBody SalesOrderRequest salesOrderRequest,
+                                       BindingResult bindingResult,
+                                       Model model,
+                                       RedirectAttributes attributes){
+        User user = userService.getAuthenticatedUser();
+        return salesOrderService.addSalesOrder(user, salesOrderRequest);
     }
 }
