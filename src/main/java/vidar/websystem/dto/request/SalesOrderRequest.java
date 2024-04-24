@@ -42,5 +42,5 @@ public class SalesOrderRequest {
 
     private Long warehouseId;
 
-    private List<SalesOrderItem> salesOrderItems;
+    private List<SalesOrderItemRequest> salesOrderItems;
 }
