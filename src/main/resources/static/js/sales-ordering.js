@@ -67,7 +67,6 @@ $(function() {
     });
 
     $('#dealer').on('change', function(){
-       console.log('Selected dealer changed!');
        $.ajax({
           url: '/salesOrder/getDealerInfoById',
           method: 'GET',
@@ -75,7 +74,6 @@ $(function() {
               id: $('#dealer').val()
           },
            success : function(response){
-                console.log(response);
                 $('#dealer_name').val(response.address).change();
                 $('#dealer_address').val(response.address).change();
            },
@@ -107,14 +105,26 @@ $(function() {
         let tableData = [];
         $('#itemOrderingTable tbody tr').each(function(){
            let rowData = {
-
+               productId: salesOrdersTable.row(this).data().floorColorSize.id,
+               quantity: salesOrdersTable.row(this).data().quantity
            };
            tableData.push(rowData);
         });
 
         let jsonData = {
-
+            "address": $('#dealer_address').val(),
+            "date": $('#soDatepicker').datepicker('getDate'),
+            "dataWanted": $('#dateWanted').datepicker('getDate'),
+            "soNumber": $('#soNumber').val(),
+            "poNumber": $('#poNumber').val(),
+            "dealerId": $('#dealer').val(),
+            "salesRepId": $('#salesRep').val(),
+            "warehouseId": $('#warehouse').val(),
+            "salesOrderItems": tableData
         };
+
+        console.log('The json data to be transferred is ');
+        console.log(jsonData);
 
         $.ajax({
             url: $(this).attr('action'),
@@ -122,10 +132,13 @@ $(function() {
             data: JSON.stringify(jsonData),
             contentType: "application/json",
             success: function(response){
-                console.log(response);
+                console.log(response.message);
+                bootboxAlertPrompt(response.message);
+                setTimeout(function(){location.reload();}, 2000);
             },
             error: function(xhr, status, error){
-
+                bootboxAlertError(xhr.responseText);
+                setTimeout(function(){location.reload();}, 2000);
             }
         });
     });
