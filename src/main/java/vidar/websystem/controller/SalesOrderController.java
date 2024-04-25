@@ -50,12 +50,18 @@ public class SalesOrderController {
         return Pages.SALES_ORDERING;
     }
 
+    @GetMapping
+    public String getSalesOrders(Model model){
+        return Pages.SALES_ORDERS;
+    }
 
+    /*
     @GetMapping
     public String getOrdering(Model model) {
         model.addAttribute("perfumes", orderService.getOrdering());
         return Pages.ORDERING;
     }
+     */
 
     @GetMapping("/user/salesOrders")
     public String getUserOrdersList(Model model, Pageable pageable) {

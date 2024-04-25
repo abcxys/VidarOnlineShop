@@ -26,6 +26,7 @@ public class Pages {
     public static final String INVENTORY = "inventory";
     public static final String CREATE_ORDER = "create-order";
     public static final String SALES_ORDERING = "sales-ordering";
+    public static final String SALES_ORDERS = "sales-orders";
     public static final String UPDATE = "update";
     public static final String UPDATE_INVENTORY = "update-inventory";
     public static final String ADD_NEW_CONTAINER = "add-new-container";
