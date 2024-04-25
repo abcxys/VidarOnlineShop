@@ -286,3 +286,15 @@
         <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
     </div>
 </th:block>
+<th:block th:fragment="sales-order-address-textarea">
+    <div class="col-sm-2" style="float:right;">
+        <label th:text="${title}"></label>
+        <textarea
+                th:id="${name}"
+                th:text="${value}"
+                class="dealer-address"
+                readonly
+        >
+        </textarea>
+    </div>
+</th:block>
