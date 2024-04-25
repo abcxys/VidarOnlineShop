@@ -1,5 +1,6 @@
 package vidar.websystem.service;
 
+import org.springframework.http.ResponseEntity;
 import vidar.websystem.domain.User;
 import vidar.websystem.dto.request.SalesOrderRequest;
 import vidar.websystem.dto.response.MessageResponse;
@@ -10,5 +11,5 @@ import vidar.websystem.dto.response.MessageResponse;
  * description
  */
 public interface SalesOrderService {
-    MessageResponse addSalesOrder(User user, SalesOrderRequest salesOrderRequest);
+    ResponseEntity<?> addSalesOrder(User user, SalesOrderRequest salesOrderRequest);
 }

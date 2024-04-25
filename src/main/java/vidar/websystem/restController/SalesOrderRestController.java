@@ -3,6 +3,7 @@ package vidar.websystem.restController;
 import lombok.RequiredArgsConstructor;
 import net.sf.json.JSONObject;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -48,10 +49,10 @@ public class SalesOrderRestController {
     }
 
     @PostMapping("/add-new-order")
-    public MessageResponse addNewOrder(@RequestBody SalesOrderRequest salesOrderRequest,
-                                       BindingResult bindingResult,
-                                       Model model,
-                                       RedirectAttributes attributes){
+    public ResponseEntity<?> addNewOrder(@RequestBody SalesOrderRequest salesOrderRequest,
+                                      BindingResult bindingResult,
+                                      Model model,
+                                      RedirectAttributes attributes){
         User user = userService.getAuthenticatedUser();
         return salesOrderService.addSalesOrder(user, salesOrderRequest);
     }

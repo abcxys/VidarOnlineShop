@@ -132,8 +132,7 @@ $(function() {
             data: JSON.stringify(jsonData),
             contentType: "application/json",
             success: function(response){
-                console.log(response.message);
-                bootboxAlertPrompt(response.message);
+                bootboxAlertPrompt(response);
                 setTimeout(function(){location.reload();}, 2000);
             },
             error: function(xhr, status, error){

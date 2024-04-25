@@ -4,6 +4,7 @@ import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.constants.SuccessMessage;
@@ -42,7 +43,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
      * @return Success/Failure message
      */
     @Override
-    public MessageResponse addSalesOrder(User user, SalesOrderRequest salesOrderRequest) {
+    public ResponseEntity<?> addSalesOrder(User user, SalesOrderRequest salesOrderRequest) {
         SalesOrder salesOrder = modelMapper.map(salesOrderRequest, SalesOrder.class);
         // Set city as the salesOrderRequest's address attribute, just for now.
         salesOrder.setCity(salesOrderRequest.getAddress());
@@ -71,9 +72,11 @@ public class SalesOrderServiceImpl implements SalesOrderService {
             user.getPerfumeList().clear();
             userRepository.save(user);
         } catch (Exception e){
-            return new MessageResponse("alert-danger", ErrorMessage.SALES_ORDER_CREATED_FAILED);
+            //return new MessageResponse("alert-danger", ErrorMessage.SALES_ORDER_CREATED_FAILED);
+            return ResponseEntity.badRequest().body(ErrorMessage.SALES_ORDER_CREATED_FAILED);
         }
 
-        return new MessageResponse("alert-success", SuccessMessage.SALES_ORDER_CREATED);
+        //return new MessageResponse("alert-success", SuccessMessage.SALES_ORDER_CREATED);
+        return ResponseEntity.ok().body(SuccessMessage.SALES_ORDER_CREATED);
     }
 }
