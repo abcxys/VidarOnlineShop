@@ -8,6 +8,7 @@ import vidar.websystem.domain.User;
 import vidar.websystem.dto.request.OrderRequest;
 import vidar.websystem.service.CartService;
 import vidar.websystem.service.OrderService;
+import vidar.websystem.service.SalesOrderService;
 import vidar.websystem.service.UserService;
 import vidar.websystem.utils.ControllerUtils;
 
@@ -27,11 +28,24 @@ public class SalesOrderController {
     private final UserService userService;
     private final CartService cartService;
     private final ControllerUtils controllerUtils;
+    private final SalesOrderService salesOrderService;
 
+    /*
     @GetMapping("/{orderId}")
     public String getOrder(@PathVariable Long orderId, Model model) {
         model.addAttribute("order", orderService.getOrder(orderId));
         return Pages.ORDER;
+    }
+
+     */
+
+    @GetMapping("/{salesOrderId}")
+    public String getSalesOrder(@PathVariable Long salesOrderId, Model model) {
+        model.addAttribute("salesOrder", salesOrderService.getSalesOrder(salesOrderId));
+        model.addAttribute("warehouse_dict", cartService.getWarehouses());
+        model.addAttribute("dealer_dict", cartService.getDealers());
+        model.addAttribute("salesRep_dict", cartService.getSalesReps());
+        return Pages.SALES_ORDER;
     }
 
     @PostMapping("/add")

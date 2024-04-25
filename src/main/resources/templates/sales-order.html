@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common-fragments :: head"></head>
+<body>
+<div th:insert="~{fragments/common-fragments :: scripts}"></div>
+<div th:replace="fragments/common-fragments :: navbar"></div>
+<script src="/static/js/sales-order.js"></script>
+<div class="bg-light">
+    <div class="py-5">
+        <div class="container py-5 bg-white shadow-sm card-height">
+            <form id="salesOrderForm" method="post" action="/salesOrder/add-new-order">
+                <div class="container-fluid">
+                    <div class="row mx-3">
+                        <th:block th:replace="fragments/product-fragments :: add-dealer-select(
+                        title='Dealer',
+                        name='dealer',
+                        value=${salesOrder.getDealer().getId()},
+                        options=${dealer_dict}
+                    )"/>
+                        <th:block th:replace="fragments/product-fragments :: add-dealer-select(
+                        title='Warehouse',
+                        name='warehouse',
+                        value=${salesOrder.getWarehouse().getId()},
+                        options=${warehouse_dict}
+                    )"/>
+                    </div>
+                </div>
+                <div class="container-fluid mt-3">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <th:block th:replace="fragments/common-fragments :: large-info-title(
+                        text='Sales Order',
+                        icon='fas fa-square-poll-horizontal fa-lg mr-2'
+                    )"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="row">
+                                <th:block th:replace="fragments/product-fragments :: add-datetime-required-attribute-input(
+                                title='DATE',
+                                name='soDatepicker',
+                                id='soDatepicker',
+                                value=${#dates.format(salesOrder.getDate(), 'yyyy-MM-dd')},
+                                placeholder=''
+                            )"/>
+                            </div>
+                            <div class="row">
+                                <th:block th:replace="fragments/product-fragments :: add-string-required-attribute-input(
+                                title='S.O.NO.',
+                                name='soNumber',
+                                id='soNumber',
+                                value=${salesOrder.getSoNumber()},
+                                placeholder=''
+                            )"/>
+                            </div>
+                        </div>
+                        <th:block th:replace="fragments/product-fragments :: sales-order-address-textarea(
+                        title='NAME/ADDRESS',
+                        name='dealer_address',
+                        value=${salesOrder.getDealer().getCompanyName()}
+                        )"/>
+                        <th:block th:replace="fragments/product-fragments :: sales-order-address-textarea(
+                        title='SHIP TO',
+                        name='dealer_name',
+                        value=${salesOrder.getDealer().getAddress()}
+                        )"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+
+                        </div>
+                        <div class="col-sm-2" style="padding-left: 0;padding-right:0;">
+                            <th:block th:replace="fragments/product-fragments :: add-string-required-attribute-input(
+                            title='P.O.NO.',
+                            name='poNumber',
+                            id='poNumber',
+                            value=${salesOrder.getPoNumber()},
+                            placeholder=''
+                        )"/>
+                        </div>
+                        <div class="col-sm-2" style="padding-left: 0;padding-right:0;float:right;">
+                            <th:block th:replace="fragments/product-fragments :: add-salesRep-select(
+                            title='REP',
+                            name='salesRep',
+                            value=${salesOrder.getSalesRep().getId()},
+                            options=${salesRep_dict}
+                        )"/>
+                        </div>
+                        <div class="col-sm-2 ml-3" style="padding-left: 0;padding-right:0;float:right">
+                            <th:block th:replace="fragments/product-fragments :: add-datetime-required-attribute-input(
+                            title='DATE WANTED',
+                            name='dateWanted',
+                            id='dateWanted',
+                            placeholder=''
+                        )"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid mt-3" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+                    <div class="box-body">
+                        <table class="table table-striped table-bordered table-hover dataTable" role="grid" id="itemOrderingTable">
+                            <thead>
+                            <tr class="info">
+                                <th><input aria-label="checkbox" type="checkbox" name="select_all" value="1" id="example-select-all" onclick="checkAll()"></th>
+                                <th>Quantity</th>
+                                <th>ProductId</th>
+                                <th>Product</th>
+                                <th>Price</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="form row mr-3">
+                    <div class="ml-auto">
+                        <th:block th:replace="fragments/common-fragments :: icon-button(
+                            id='addNewSOBtn',
+                            text='Save',
+                            buttonClassName='btn-success mt-3',
+                            icon='fas fa-plus-square mr-2'
+                        )"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<footer th:insert="~{fragments/common-fragments :: footer}"></footer>
+</body>
+</html>
+<script type="text/javascript">
+
+</script>

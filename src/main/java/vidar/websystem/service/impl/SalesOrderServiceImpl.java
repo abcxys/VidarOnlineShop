@@ -4,8 +4,10 @@ import java.util.Date;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.constants.SuccessMessage;
 import vidar.websystem.domain.*;
@@ -33,6 +35,12 @@ public class SalesOrderServiceImpl implements SalesOrderService {
     private final DealerRepository dealerRepository;
     private final SalesOrderProductRepository salesOrderProductRepository;
     private final UserRepository userRepository;
+
+    @Override
+    public SalesOrder getSalesOrder(Long salesOrderId){
+        return salesOrderRepository.findById(salesOrderId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.ORDER_NOT_FOUND));
+    }
 
     /**
      * @param user Authenticated user
