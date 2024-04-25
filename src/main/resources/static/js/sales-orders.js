@@ -55,4 +55,11 @@ $(function() {
             }
         }]
     });
+
+    $('#salesOrdersTable tbody').on('dblclick', 'tr', function(){
+        let rowData = salesOrdersTable.row(this).data();
+        console.log("The double clicked sales order id = " + rowData.id);
+        let baseurl = window.location;
+        window.open(baseurl + "/" + rowData.id);
+    });
 });
