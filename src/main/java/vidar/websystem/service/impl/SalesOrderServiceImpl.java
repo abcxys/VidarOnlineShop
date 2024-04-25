@@ -8,10 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.constants.SuccessMessage;
-import vidar.websystem.domain.SalesOrder;
-import vidar.websystem.domain.SalesOrderItem;
-import vidar.websystem.domain.SalesOrderProduct;
-import vidar.websystem.domain.User;
+import vidar.websystem.domain.*;
 import vidar.websystem.dto.request.SalesOrderItemRequest;
 import vidar.websystem.dto.request.SalesOrderRequest;
 import vidar.websystem.dto.response.MessageResponse;
@@ -48,7 +45,9 @@ public class SalesOrderServiceImpl implements SalesOrderService {
         // Set city as the salesOrderRequest's address attribute, just for now.
         salesOrder.setCity(salesOrderRequest.getAddress());
         salesOrder.setUser(user);
-        salesOrder.setDealer(dealerRepository.findById(salesOrderRequest.getDealerId()).orElse(null));
+        Dealer dealer = dealerRepository.findById(salesOrderRequest.getDealerId()).orElse(null);
+        salesOrder.setDealer(dealer);
+        salesOrder.setFirstName(dealer == null ? null : dealer.getCompanyName());
         salesOrder.setSalesRep(salesRepRepository.findById(salesOrderRequest.getSalesRepId()).orElse(null));
         salesOrder.setCreateTime(new Date());
         salesOrder.setCreateUserId(user.getId());
