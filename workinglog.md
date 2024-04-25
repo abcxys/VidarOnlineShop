@@ -430,4 +430,51 @@ Java/Spring side changes:
 7. Switch Java class passed to client side. 'CartItem' to 'SalesOrderItem'.
 8. Update data types of table 'sales_orders'.
 9. Replace date class of SalesOrder class.
-10. 
+
+### April 23rd changes:
+Database design changes:
+1. Add sales_order_status table and corresponding attribute 'status_id' to 'sales_orders" table.
+
+Java class design gist:
+1. We cannot map json data directly from client-side to Java interface (FloorColorSize). So I create a request class to hold simple productId-quantity data.
+
+Html web page design gist:
+1. I tried to keep navbar 'fixed' or 'sticky' by setting the 'position' value in style. It will have to work with 'z-index: 1'. Moreover, the following div has to set its margin top.
+2. Example of hiding/showing navbar menu on scroll.
+https://www.w3schools.com/howto/howto_js_navbar_hide_scroll.asp
+
+Java/Spring side changes:
+1. Add SalesOrderRequest class to hold data submitted from client-side.
+2. Add sales order service/impl class, and method for adding new sales order.
+3. Update definitions for table 'sales_orders' and 'sales_orders_product'.
+4. Rename 'FloorOrder' related class to 'SalesOrder'.
+5. Update name of second \<select\> from 'dealer1' to 'warehouse'.
+6. Make dealer-select and salesRep-select 'required' on sales-ordering page.
+7. Add success/error messages for creating sales order.
+8. Add a request class to hold Json data passed from client side.
+
+### April 24th changes:
+System design gist:
+1. Return section design needed, based on packing slip.
+
+Java design gist:
+1. With ManyToMany annotation to define relationship between entites, we may encounter 'There is a cycle in the hierarchy!' error upon serializing data into JSON.
+We want to use JsonIgnore to skip certain attributes that cause hierarchial recursion.
+But it won't work with net.sf.json. So the easiest way to work around is to use ObjectMapper to convert Java List to JSON.
+
+Database design changes:
+1. Add boolean attribute release_ok to table 'Sales_Orders'.
+
+Java/Spring side changes:
+1. Update addSalesOrder serviceImpl method, use SalesOrderItemRequest class to hold table data from client-side.
+2. Add service method execution coding to addNewOrder controller method.
+3. Update client-side javascript code to organize data to transfer towards server-side.
+4. Revert and update comment on salesOrders Set attribute.
+5. Remove unnecessary PathConstants key SALES_ORDER.
+6. Update text for 'addNewSOBtn' from 'Add' to 'Save'.
+7. Add PostMapping("/add") for SalesOrderController, as counterpart of "/cart/add" mapping.
+8. Add a conditional thymeleaf block to product page.
+9. Apply @JsonIgnore annotation to attribute 'hardwoodfloors', to avoid json recursion.
+10. Add customized json serializers for Dealer/SalesRep class objects.
+
+### April 25th changes:
