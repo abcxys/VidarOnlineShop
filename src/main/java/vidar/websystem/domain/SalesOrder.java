@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import vidar.websystem.json.DealerSerializer;
 import vidar.websystem.json.SalesRepSerializer;
+import vidar.websystem.json.WarehouseSerializer;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -68,8 +69,10 @@ public class SalesOrder {
     @JoinColumn(name = "sales_rep_id")
     private SalesRep salesRep;
 
-    @Column(name = "warehouse_id")
-    private Long warehouseId;
+    @JsonSerialize(using = WarehouseSerializer.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "warehouse_id")
+    private Warehouse warehouse;
 
     @JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY,
