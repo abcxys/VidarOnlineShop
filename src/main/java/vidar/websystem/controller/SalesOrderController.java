@@ -66,6 +66,7 @@ public class SalesOrderController {
 
     @GetMapping
     public String getSalesOrders(Model model){
+        model.addAttribute("dealer_dict", cartService.getDealers());
         return Pages.SALES_ORDERS;
     }
 
