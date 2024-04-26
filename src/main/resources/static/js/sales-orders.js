@@ -1,5 +1,8 @@
 let salesOrdersTable;
 $(function() {
+    $('#startDatepicker').datepicker("setDate", new Date());
+    $('#endDatepicker').datepicker("setDate", new Date());
+
     salesOrdersTable = $('#salesOrdersTable').DataTable({
         "serverSide" : true,//分页，取数据等等的都放到服务端去
         "lengthChange": true,
@@ -13,13 +16,16 @@ $(function() {
         "sPaginationType" : "full_numbers",
         ajax : {
             type : "post",
-            url : "/packing/showOrders",
+            url : "/salesOrder/getFilteredSalesOrders",
             dataSrc : "data",
             data : function (d) {
                 var param = {};
                 param.draw = d.draw;
                 param.startPos = d.start;
                 param.pageSize = d.length;
+                param.dealerId = $('#dealer').val() || null;
+                param.startDate = ($('#startDatepicker').datepicker('getDate') == null) ? new Date(0) : $('#startDatepicker').datepicker('getDate');
+                param.endDate = ($('#endDatepicker').datepicker('getDate') == null) ? new Date(0) : $('#endDatepicker').datepicker('getDate');
                 return param;
             },
             "error": function (data) {
@@ -61,5 +67,9 @@ $(function() {
         console.log("The double clicked sales order id = " + rowData.id);
         let baseurl = window.location;
         window.open(baseurl + "/" + rowData.id);
+    });
+
+    $('#searchSalesOrderBtn').on('click', function() {
+        salesOrdersTable.draw();
     });
 });

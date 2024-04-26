@@ -5,6 +5,47 @@
 <div th:insert="~{fragments/common-fragments :: scripts}"></div>
 <script src="/static/js/sales-orders.js"></script>
 <div th:replace="fragments/common-fragments :: navbar"></div>
+<div class="box box-primary">
+    <form class="form-horizontal" role="form" style="justify-content: center">
+
+        <div class="box-body">
+            <div class="container-fluid mt-5 ml-1">
+                <div class="form-group row">
+                    <th:block th:replace="fragments/product-fragments :: add-dealer-select(
+                        title='Dealer',
+                        name='dealer',
+                        options=${dealer_dict}
+                    )"/>
+                    <th:block th:replace="fragments/product-fragments :: add-so-datepicker(
+                        title='startDate',
+                        name='startDatepicker',
+                        id='startDatepicker',
+                        placeholder=''
+                    )"/>
+                    <th:block th:replace="fragments/product-fragments :: add-so-datepicker(
+                        title='EndDate',
+                        name='endDatepicker',
+                        id='endDatepicker',
+                        placeholder=''
+                    )"/>
+                    <div class="pull-right mr-3">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary"
+                                    id="searchSalesOrderBtn">
+                                <i class="fa fa-search"></i> Search
+                            </button>
+                            <button type="button" class="btn btn-primary"
+                                    onclick="javascript:location = location;">
+                                <i class="fa fa-refresh"></i> Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
 <div class="bg-light">
     <div class="py-5">
         <div class="container py-5 bg-white shadow-sm card-height">
