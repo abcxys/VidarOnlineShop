@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import vidar.websystem.domain.SalesOrder;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public interface SalesOrderRepository extends JpaRepository<SalesOrder, Long> {
@@ -45,4 +47,16 @@ public interface SalesOrderRepository extends JpaRepository<SalesOrder, Long> {
             "END) " +
             "LIKE UPPER(CONCAT('%',:text,'%'))")
     Page<SalesOrder> searchUserOrders(Long userId, String searchType, String text, Pageable pageable);
+
+    /*
+    @Query(nativeQuery = true, value = "SELECT * FROM sales_orders orders")
+    List<SalesOrder> findFilteredSalesOrders(Long dealerId, Date startDate, Date endDate);
+
+     */
+
+    @Query("SELECT orders FROM SalesOrder orders " +
+    "WHERE (:dealerId IS NULL OR orders.dealer.id = :dealerId) " +
+    "AND (coalesce(:startDate, NULL) IS NULL OR orders.date >= :startDate) " +
+    "AND (coalesce(:endDate, NULL ) IS NULL OR orders.date <= :endDate)")
+    List<SalesOrder> findFilteredSalesOrders(Long dealerId, Date startDate, Date endDate);
 }

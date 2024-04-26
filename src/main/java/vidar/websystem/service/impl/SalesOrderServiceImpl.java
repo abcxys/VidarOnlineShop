@@ -1,6 +1,9 @@
 package vidar.websystem.service.impl;
 
 import java.util.Date;
+import java.util.List;
+
+import formbean.SalesOrderFilterConditionForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -13,7 +16,6 @@ import vidar.websystem.constants.SuccessMessage;
 import vidar.websystem.domain.*;
 import vidar.websystem.dto.request.SalesOrderItemRequest;
 import vidar.websystem.dto.request.SalesOrderRequest;
-import vidar.websystem.dto.response.MessageResponse;
 import vidar.websystem.repository.*;
 import vidar.websystem.service.SalesOrderService;
 
@@ -40,6 +42,23 @@ public class SalesOrderServiceImpl implements SalesOrderService {
     public SalesOrder getSalesOrder(Long salesOrderId){
         return salesOrderRepository.findById(salesOrderId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.ORDER_NOT_FOUND));
+    }
+
+    /**
+     * @param salesOrderFilterConditionForm filtering conditions
+     * @return queried results
+     */
+    @Override
+    public DatatablesView<SalesOrder> getFilteredSalesOrders(SalesOrderFilterConditionForm salesOrderFilterConditionForm) {
+        DatatablesView<SalesOrder> dataView = new DatatablesView<>();
+        List<SalesOrder> salesOrderList = salesOrderRepository.findFilteredSalesOrders(
+                salesOrderFilterConditionForm.getDealerId(),
+                salesOrderFilterConditionForm.getStartDate(),
+                salesOrderFilterConditionForm.getEndDate()
+        );
+        dataView.setData(salesOrderList);
+        dataView.setRecordsTotal(salesOrderList.size());
+        return dataView;
     }
 
     /**

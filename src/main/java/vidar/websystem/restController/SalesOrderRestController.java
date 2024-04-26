@@ -1,5 +1,8 @@
 package vidar.websystem.restController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import formbean.SalesOrderFilterConditionForm;
 import lombok.RequiredArgsConstructor;
 import net.sf.json.JSONObject;
 import org.springframework.data.domain.Pageable;
@@ -46,6 +49,19 @@ public class SalesOrderRestController {
     @GetMapping(value = "/getDealerInfoById")
     public Dealer getDealerInfoById(@RequestParam("id") Long id){
         return cartService.getDealerById(id);
+    }
+
+    @RequestMapping(value = "/getFilteredSalesOrders", method = RequestMethod.POST)
+    @ResponseBody
+    public String getFilteredSalesOrders(SalesOrderFilterConditionForm salesOrderFilterConditionForm) {
+        DatatablesView<SalesOrder> datatablesView = salesOrderService.getFilteredSalesOrders(salesOrderFilterConditionForm);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(datatablesView);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @PostMapping("/add-new-order")
