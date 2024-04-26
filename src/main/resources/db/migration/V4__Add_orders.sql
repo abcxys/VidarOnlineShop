@@ -17,4 +17,9 @@ INSERT INTO sales_order_status (id, status_name, status_alias) VALUES (3, 'compl
 INSERT INTO sales_orders (id, address, city, date, email, first_name, last_name, phone_number, post_index, total_price, user_id, SO_number, PO_number, dealer_id, sales_rep_id, warehouse_id, status_id, release_ok)
     VALUES (1, 'Wall Street1', '3', '2021-04-07', 'Completed', 'Brampton Hardwood', 'Brampton Hardwood', '1234567890', 1234567890, 840, 2, '111', '111', 1, 1, 1, 1, true);
 
+-- create sales_orders_products entries
+INSERT INTO sales_orders_products (id, so_id, product_id, quantity_ordered, quantity_picked_up)
+    VALUES (1, 1, 4, 80, 0);
+INSERT INTO sales_orders_products (id, so_id, product_id, quantity_ordered, quantity_picked_up)
+    VALUES (2, 1, 3, 20, 0);
 --INSERT INTO salesOrders_products (sales_order_id, hardwoodfloors_id, quantity) VALUES (1, 1, 54);
