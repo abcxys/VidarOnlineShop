@@ -195,6 +195,21 @@
         <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
     </div>
 </th:block>
+<th:block th:fragment="add-so-datepicker">
+    <div class="col" style="display: flex; align-items: center;">
+        <label th:text="${title} + ':'"></label>
+        <div class="input-group date" data-provide="datepicker">
+            <input
+                    type="text"
+                    th:id="${name}"
+                    th:name="${name}"
+                    th:placeholder="${placeholder}"
+                    th:value="${value}"
+                    class="form-control" th:classappend="${error} ? ' is-invalid'"
+            /><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        </div>
+    </div>
+</th:block>
 <th:block th:fragment="add-datetime-attribute-input">
     <div class="col">
         <label th:text="${title} + ':'"></label>
@@ -206,22 +221,6 @@
                    th:placeholder="${placeholder}"
                    th:value="${value}"
                    class="form-control" th:classappend="${error} ? ' is-invalid'"
-            /><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-        </div>
-        <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
-    </div>
-</th:block>
-<th:block th:fragment="add-datetime-attribute-input">
-    <div class="col">
-        <label th:text="${title} + ':'"></label>
-        <div class="input-group date" data-provide="datepicker">
-            <input
-                    type="text"
-                    th:id="${name}"
-                    th:name="${name}"
-                    th:placeholder="${placeholder}"
-                    th:value="${value}"
-                    class="form-control" th:classappend="${error} ? ' is-invalid'"
             /><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
         </div>
         <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
