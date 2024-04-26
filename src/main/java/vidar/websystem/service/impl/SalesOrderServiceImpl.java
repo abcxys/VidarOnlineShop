@@ -1,5 +1,6 @@
 package vidar.websystem.service.impl;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
     private final DealerRepository dealerRepository;
     private final SalesOrderProductRepository salesOrderProductRepository;
     private final UserRepository userRepository;
+    private final SalesOrderStatusRepository salesOrderStatusRepository;
 
     @Override
     public SalesOrder getSalesOrder(Long salesOrderId){
@@ -104,5 +106,13 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 
         //return new MessageResponse("alert-success", SuccessMessage.SALES_ORDER_CREATED);
         return ResponseEntity.ok().body(SuccessMessage.SALES_ORDER_CREATED);
+    }
+
+    /**
+     * @return order status dictionary
+     */
+    @Override
+    public List<SalesOrderStatus> getSalesOrderStatusDict() {
+        return salesOrderStatusRepository.findAll();
     }
 }

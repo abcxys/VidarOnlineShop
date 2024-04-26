@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Data;
 import vidar.websystem.json.DealerSerializer;
+import vidar.websystem.json.SalesOrderStatusSerializer;
 import vidar.websystem.json.SalesRepSerializer;
 import vidar.websystem.json.WarehouseSerializer;
 
@@ -73,6 +74,14 @@ public class SalesOrder {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "warehouse_id")
     private Warehouse warehouse;
+
+    @JsonSerialize(using = SalesOrderStatusSerializer.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id")
+    private SalesOrderStatus status;
+
+    @Column(name = "release_ok")
+    private boolean releaseOk;
 
     @JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY,

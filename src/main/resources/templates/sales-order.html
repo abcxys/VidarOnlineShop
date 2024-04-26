@@ -65,8 +65,25 @@
                         )"/>
                     </div>
                     <div class="row">
-                        <div class="col-md-5">
-
+                        <div class="col-sm-1" style="float:right">
+                        </div>
+                        <div class="col-sm-2" style="float:right">
+                            <th:block th:replace="fragments/product-fragments :: add-salesRep-select(
+                                title='STATUS',
+                                name='salesOrderStatus',
+                                id='salesOrderStatus',
+                                options=${salesOrderStatus_dict},
+                                value=${salesOrder.getStatus().getId()},
+                                placeholder=''
+                            )"/>
+                        </div>
+                        <div class="col-sm-2" style="float:right">
+                            <th:block th:replace="fragments/product-fragments :: add-so-boolean-select(
+                                title='RELEASE OK',
+                                name='releaseOk',
+                                options=(${ {{key: 1, value: 'True'}, {key: 0, value: 'False'}} }),
+                                value=${salesOrder.isReleaseOk()}
+                            )"/>
                         </div>
                         <div class="col-sm-2" style="padding-left: 0;padding-right:0;">
                             <th:block th:replace="fragments/product-fragments :: add-string-required-attribute-input(

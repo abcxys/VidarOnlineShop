@@ -45,6 +45,7 @@ public class SalesOrderController {
         model.addAttribute("warehouse_dict", cartService.getWarehouses());
         model.addAttribute("dealer_dict", cartService.getDealers());
         model.addAttribute("salesRep_dict", cartService.getSalesReps());
+        model.addAttribute("salesOrderStatus_dict", salesOrderService.getSalesOrderStatusDict());
         return Pages.SALES_ORDER;
     }
 
