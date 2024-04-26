@@ -478,3 +478,14 @@ Java/Spring side changes:
 10. Add customized json serializers for Dealer/SalesRep class objects.
 
 ### April 25th changes:
+1. Update database UML design.
+2. Add sql initialization queries for tables 'drivers', 'packing_status', 'packing_slips', 'sales_order_status'.
+3. Update the return type of 'addSalesOrder' from 'MessageResponse' to 'ResponseEntity'.
+4. Add sales-orders page upon click on 'order' in navbar.
+5. Add page constant for sales-orders and GetMapping controller method.
+6. Use 'first_name' attribute of SalesOrder to hold dealer name for Datatable display.
+7. Add sales-order edit/update page for specific sales order id.
+8. Add ManyToOne relationship to the 'warehouse' attribute of 'SalesOrder' class.
+9. Update href link to 'ORDERS' navbar tab.
+10. Add thymeleaf fragment for sales order 'dealer_address' and 'dealer_name' textarea.
+11. Add url link for double-click on sales orders table to edit/update specific sales order.
