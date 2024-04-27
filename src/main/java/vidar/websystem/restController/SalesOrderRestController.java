@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.*;
 import vidar.websystem.dto.request.SalesOrderRequest;
-import vidar.websystem.dto.response.MessageResponse;
 import vidar.websystem.service.CartService;
 import vidar.websystem.service.SalesOrderService;
 import vidar.websystem.service.UserService;
@@ -49,6 +48,12 @@ public class SalesOrderRestController {
     @GetMapping(value = "/getDealerInfoById")
     public Dealer getDealerInfoById(@RequestParam("id") Long id){
         return cartService.getDealerById(id);
+    }
+
+    @PostMapping(value = "/getSalesOrderProducts")
+    public String getSalesOrderProducts(@RequestParam("so_id") Long id, Model model, RedirectAttributes redirectAttributes){
+        DatatablesView<SalesOrderItem> salesOrderProducts = salesOrderService.getSalesOrderProductsBySOId(id);
+        return JSONObject.fromObject(salesOrderProducts).toString();
     }
 
     @RequestMapping(value = "/getFilteredSalesOrders", method = RequestMethod.POST)

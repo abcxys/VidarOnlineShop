@@ -3,6 +3,7 @@ package vidar.websystem.service.impl;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import formbean.SalesOrderFilterConditionForm;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
     private final SalesOrderProductRepository salesOrderProductRepository;
     private final UserRepository userRepository;
     private final SalesOrderStatusRepository salesOrderStatusRepository;
+    private final HardwoodFloorsRepository hardwoodFloorsRepository;
 
     @Override
     public SalesOrder getSalesOrder(Long salesOrderId){
@@ -60,6 +62,23 @@ public class SalesOrderServiceImpl implements SalesOrderService {
         );
         dataView.setData(salesOrderList);
         dataView.setRecordsTotal(salesOrderList.size());
+        return dataView;
+    }
+
+    /**
+     * @param salesOrderId salesOrderId field of SalesOrderProduct class
+     * @return Datatable view of the sales order products.
+     */
+    @Override
+    public DatatablesView<SalesOrderItem> getSalesOrderProductsBySOId(Long salesOrderId) {
+        DatatablesView<SalesOrderItem> dataView = new DatatablesView<>();
+        List<SalesOrderProduct> salesOrderProducts = salesOrderProductRepository.findBySalesOrderId(salesOrderId);
+        List<SalesOrderItem> salesOrderItems = salesOrderProducts.stream().map(item -> {
+            FloorColorSize floorColorSize = hardwoodFloorsRepository.findFloorColorById(item.getHardwoodfloorId());
+            return new SalesOrderItem(floorColorSize, item.getQuantityOrdered());
+        }).collect(Collectors.toList());
+        dataView.setData(salesOrderItems);
+        dataView.setRecordsTotal(salesOrderItems.size());
         return dataView;
     }
 

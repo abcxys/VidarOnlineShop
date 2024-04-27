@@ -2,10 +2,7 @@ package vidar.websystem.service;
 
 import formbean.SalesOrderFilterConditionForm;
 import org.springframework.http.ResponseEntity;
-import vidar.websystem.domain.DatatablesView;
-import vidar.websystem.domain.SalesOrderStatus;
-import vidar.websystem.domain.User;
-import vidar.websystem.domain.SalesOrder;
+import vidar.websystem.domain.*;
 import vidar.websystem.dto.request.SalesOrderRequest;
 
 import java.util.List;
@@ -19,6 +16,8 @@ public interface SalesOrderService {
     SalesOrder getSalesOrder(Long salesOrderId);
 
     DatatablesView<SalesOrder> getFilteredSalesOrders(SalesOrderFilterConditionForm salesOrderFilterConditionForm);
+
+    DatatablesView<SalesOrderItem> getSalesOrderProductsBySOId(Long salesOrderId);
 
     ResponseEntity<?> addSalesOrder(User user, SalesOrderRequest salesOrderRequest);
 
