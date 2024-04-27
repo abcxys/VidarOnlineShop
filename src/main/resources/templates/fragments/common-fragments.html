@@ -273,6 +273,14 @@
     </button>
 </th:block>
 
+<!-- icon-button no submit-->
+<th:block th:fragment="icon-button-noSubmit">
+    <button th:id="${id}" type="button" class="btn " th:classappend="${buttonClassName}">
+        <i th:class="${icon}"></i>
+        <th:block th:text="${text}"></th:block>
+    </button>
+</th:block>
+
 <!-- edit-button -->
 <th:block th:fragment="edit-button">
 	<button th:id="${id}" type="submit" class="btn btn-success" th:classappend="${buttonClassName}">
