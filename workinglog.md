@@ -489,3 +489,13 @@ Java/Spring side changes:
 9. Update href link to 'ORDERS' navbar tab.
 10. Add thymeleaf fragment for sales order 'dealer_address' and 'dealer_name' textarea.
 11. Add url link for double-click on sales orders table to edit/update specific sales order.
+
+### April 26th changes:
+1. Add SalesOrderFilterConditionForm to hold filter data passed from client-side.
+2. Update add_orders sql to test for sales_orders_products table display.
+3. Add thymeleaf fragment for sales order date picker.
+4. Update sales-orders client-side web page design and behavior.
+5. Add sales orders filter service/impl/controller/repository methods.
+6. Add Entity/Repository/Serializer for table 'sales_order_status'.
+7. Add SalesOrderStatus/ReleaseOk \<select\> to sales order editing page.
+8. Add a boolean \<select\> thymeleaf fragment for ReleaseOk status display.
