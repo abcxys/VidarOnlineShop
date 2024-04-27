@@ -11,6 +11,6 @@ import vidar.websystem.domain.SalesOrderProduct;
  * @created Feb 19, 2024 - 11:23:35 PM
  */
 public interface SalesOrderProductRepository extends JpaRepository<SalesOrderProduct, Long> {
-	List<SalesOrderProduct> findFloorOrdersBySalesOrderId(Long id);
+	List<SalesOrderProduct> findBySalesOrderId(Long id);
 	List<SalesOrderProduct> findFloorOrdersByHardwoodfloorId(Long id);
 }
