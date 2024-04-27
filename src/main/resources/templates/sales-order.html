@@ -4,6 +4,7 @@
 <body>
 <div th:insert="~{fragments/common-fragments :: scripts}"></div>
 <div th:replace="fragments/common-fragments :: navbar"></div>
+<script src="/static/js/add-new-container.js"></script>
 <script src="/static/js/sales-order.js"></script>
 <div class="bg-light">
     <div class="py-5">
@@ -130,11 +131,17 @@
                 </div>
                 <div class="form row mr-3">
                     <div class="ml-auto">
+                        <th:block th:replace="fragments/common-fragments :: icon-button-noSubmit(
+                            id='addProductBtn',
+                            text='Add product',
+                            buttonClassName='btn-primary mt-3',
+                            icon='fas fa-plus-square mr-2'
+                        )"/>
                         <th:block th:replace="fragments/common-fragments :: icon-button(
                             id='addNewSOBtn',
                             text='Save',
                             buttonClassName='btn-success mt-3',
-                            icon='fas fa-plus-square mr-2'
+                            icon='fas fa-check-square mr-2'
                         )"/>
                     </div>
                 </div>
@@ -144,7 +151,16 @@
 </div>
 <footer th:insert="~{fragments/common-fragments :: footer}"></footer>
 </body>
-</html>
-<script type="text/javascript">
 
-</script>
+<style>
+.dataTables_scrollBody{
+overflow-x:auto !important;
+overflow-y:hidden !important;
+}
+
+.dropdown-menu.show{
+    max-height:20px;
+    z-index:100;
+}
+</style>
+</html>

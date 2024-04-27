@@ -142,4 +142,25 @@ $(function() {
             }
         });
     });
+
+    $('#addProductBtn').on('click', function(){
+        $('#salesOrderProductsTable tbody').append(`
+            <tr>
+                <td class="dt-body-center">
+                    <input type="checkbox" class="call-checkbox" name="checkbox-id" value="' + '">
+                </td>
+                <td class="dt-body-center">
+                    <input type="number" class="form-control" name="quantity">
+                </td>
+                <td class="dt-body-center">
+                    <select class="selectpicker form-control productSelector" data-live-search="true">
+                    </select>
+                </td>
+                <td class="dt-body-center">
+                    <input type="number" class="form-control" name="price">
+                </td>
+            </tr>
+        `);
+        populateSelect($('.productSelector').last());
+    });
 });
