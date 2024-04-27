@@ -9,6 +9,7 @@
     <div class="py-5">
         <div class="container py-5 bg-white shadow-sm card-height">
             <form id="salesOrderForm" method="post" action="/salesOrder/add-new-order">
+                <input type="hidden" id="salesOrderId" th:value="${salesOrder.getId()}"/>
                 <div class="container-fluid">
                     <div class="row mx-3">
                         <th:block th:replace="fragments/product-fragments :: add-dealer-select(

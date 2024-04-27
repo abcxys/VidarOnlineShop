@@ -20,7 +20,7 @@ $(function() {
                 param.draw = d.draw;
                 param.startPos = d.start;
                 param.pageSize = d.length;
-                param.so_id = 1;
+                param.so_id = $('#salesOrderId').val();
                 return param;
             },
             "error": function (data) {
