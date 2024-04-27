@@ -1,6 +1,6 @@
 let salesOrdersTable;
 $(function() {
-    salesOrdersTable = $('#itemOrderingTable').DataTable({
+    salesOrdersTable = $('#salesOrderProductsTable').DataTable({
         "serverSide" : true,//分页，取数据等等的都放到服务端去
         "lengthChange": false,
         "info": false,
@@ -12,14 +12,15 @@ $(function() {
         "scrollX": true,
         "scrollCollapse": true,
         ajax : {
-            method : "get",
-            url : "/salesOrder/getSalesOrderItems",
+            method : "POST",
+            url : "/salesOrder/getSalesOrderProducts",
             dataSrc : "data",
             data : function (d) {
                 var param = {};
                 param.draw = d.draw;
                 param.startPos = d.start;
                 param.pageSize = d.length;
+                param.so_id = 1;
                 return param;
             },
             "error": function (data) {
@@ -103,7 +104,7 @@ $(function() {
         console.log("Submitting sales order form!");
 
         let tableData = [];
-        $('#itemOrderingTable tbody tr').each(function(){
+        $('#salesOrderProductsTable tbody tr').each(function(){
             let rowData = {
                 productId: salesOrdersTable.row(this).data().floorColorSize.id,
                 quantity: salesOrdersTable.row(this).data().quantity
