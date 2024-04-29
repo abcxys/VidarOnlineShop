@@ -1,7 +1,7 @@
 let salesOrdersTable;
 $(function() {
     salesOrdersTable = $('#itemOrderingTable').DataTable({
-        "serverSide" : true,//分页，取数据等等的都放到服务端去
+        "serverSide" : false,//分页，取数据等等的都放到服务端去
         "lengthChange": false,
         "info": false,
         "bProcessing" : true,
@@ -36,9 +36,9 @@ $(function() {
         'columnDefs': [{
             'targets': 0,
             'searchable': false,
-            'className': 'dt-body-center',
+            'className': 'dt-body-center editor-delete',
             'render': function (data, type, full, meta){
-                return '<input type="checkbox" class="call-checkbox" name="checkbox-id" value="' + '">';
+                return '<button type="button"><i class="fa fa-trash"/></button>';
             }
         }, {
             'targets': 2,
@@ -64,6 +64,10 @@ $(function() {
                 return data.price;
             }
         }]
+    });
+
+    salesOrdersTable.on('click', 'td.editor-delete button', function(e){
+        let row = $(this).parent('tr');
     });
 
     $('#dealer').on('change', function(){
