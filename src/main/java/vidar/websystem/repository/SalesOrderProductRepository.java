@@ -13,4 +13,5 @@ import vidar.websystem.domain.SalesOrderProduct;
 public interface SalesOrderProductRepository extends JpaRepository<SalesOrderProduct, Long> {
 	List<SalesOrderProduct> findBySalesOrderId(Long id);
 	List<SalesOrderProduct> findFloorOrdersByHardwoodfloorId(Long id);
+	void deleteBySalesOrderId(Long id);
 }
