@@ -499,3 +499,10 @@ Java/Spring side changes:
 6. Add Entity/Repository/Serializer for table 'sales_order_status'.
 7. Add SalesOrderStatus/ReleaseOk \<select\> to sales order editing page.
 8. Add a boolean \<select\> thymeleaf fragment for ReleaseOk status display.
+
+### April 27th changes:
+1. Update method of SalesOrderProductRepository, to return data type SalesOrderProduct.
+2. Update server side code for retrieving SalesOrderProducts table for specific sales order id.
+3. Update client side code to pass current sales order id for retrieving sales order products table.
+4. Add 'addProductBtn' to sales-order page, to add new row entries to table.
+5. Add a button fragment with type="button" to avoid submitting form.
