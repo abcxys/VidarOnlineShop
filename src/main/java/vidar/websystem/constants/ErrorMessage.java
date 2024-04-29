@@ -19,5 +19,6 @@ public class ErrorMessage {
     public static final String FILL_IN_THE_INPUT_FIELD = "Fill in the input field";
     public static final String EMPTY_PHONE_NUMBER = "Phone number cannot be empty";
     public static final String EMPTY_POST_INDEX = "Post index must contain 5 digits";
-    public static final String SALES_ORDER_CREATED_FAILED = "Sales order created failed";
+    public static final String SALES_ORDER_CREATED_FAILED = "Sales order create failed";
+    public static final String SALES_ORDER_UPDATED_FAILED = "Sales order update failed";
 }

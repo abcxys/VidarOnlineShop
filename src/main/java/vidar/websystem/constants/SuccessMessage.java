@@ -16,4 +16,5 @@ public class SuccessMessage {
     public static final String CONTAINER_UPDATED = "Container successfully updated!";
     public static final String CONTAINER_PRODUCT_ITEM_UPDATED = "Container product item successfully updated!";
     public static final String SALES_ORDER_CREATED = "Sales order successfully created!";
+    public static final String SALES_ORDER_UPDATED = "Sales order successfully updated!";
 }
