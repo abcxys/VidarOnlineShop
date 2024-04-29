@@ -1,7 +1,7 @@
 let salesOrdersTable;
 $(function() {
     salesOrdersTable = $('#salesOrderProductsTable').DataTable({
-        "serverSide" : true,//分页，取数据等等的都放到服务端去
+        "serverSide" : false,
         "lengthChange": false,
         "info": false,
         "bProcessing" : true,
@@ -37,9 +37,10 @@ $(function() {
         'columnDefs': [{
             'targets': 0,
             'searchable': false,
-            'className': 'dt-body-center',
+            'className': 'dt-body-center editor-delete',
             'render': function (data, type, full, meta){
-                return '<input type="checkbox" class="call-checkbox" name="checkbox-id" value="' + '">';
+                //return '<input type="checkbox" class="call-checkbox" name="checkbox-id" value="' + '">';
+                return '<button type="button"><i class="fa fa-trash"/></button>'
             }
         }, {
             'targets': 2,
@@ -64,7 +65,23 @@ $(function() {
             'render': function(data) {
                 return data.price;
             }
-        }]
+        }],
+        order: []
+    });
+
+    salesOrdersTable.on('click', 'td.editor-delete button', function (e) {
+        let row = $(this).parents('tr');
+
+        if ($(row).hasClass('child')) {
+            salesOrdersTable.row($(row).prev('tr')).remove().draw(false);
+        }
+        else
+        {
+            salesOrdersTable
+                .row($(this).parents('tr'))
+                .remove()
+                .draw(false);
+        }
     });
 
     $('#dealer').on('change', function(){
@@ -146,18 +163,18 @@ $(function() {
     $('#addProductBtn').on('click', function(){
         $('#salesOrderProductsTable tbody').append(`
             <tr>
-                <td class="dt-body-center">
-                    <input type="checkbox" class="call-checkbox" name="checkbox-id" value="' + '">
+                <td class="dt-body-center editor-delete">
+                    <button type="button"><i class="fa fa-trash"/></button>
                 </td>
                 <td class="dt-body-center">
-                    <input type="number" class="form-control" name="quantity">
+                    <input type="number" class="form-control" name="quantity" required>
                 </td>
                 <td class="dt-body-center">
-                    <select class="selectpicker form-control productSelector" data-live-search="true">
+                    <select class="selectpicker form-control productSelector" data-live-search="true" required>
                     </select>
                 </td>
                 <td class="dt-body-center">
-                    <input type="number" class="form-control" name="price">
+                    <input type="number" class="form-control" name="price" required>
                 </td>
             </tr>
         `);
