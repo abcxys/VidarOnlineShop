@@ -20,4 +20,6 @@ public class SalesOrderItem {
     private FloorColorSize floorColorSize;
 
     private BigDecimal quantity;
+
+    private BigDecimal quantity_picked_up = BigDecimal.ZERO;
 }
