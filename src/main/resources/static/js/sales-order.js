@@ -1,5 +1,5 @@
 let salesOrdersTable;
-$(function() {
+$(document).ready(function() {
     salesOrdersTable = $('#salesOrderProductsTable').DataTable({
         "serverSide" : false,
         "lengthChange": false,
@@ -32,7 +32,8 @@ $(function() {
             {"data" : 'quantity', "bSortable" : true},
             {"data" : 'floorColorSize', "bSortable" : false},
             {"data" : 'floorColorSize', "bSortable" : true},
-            {"data" : 'floorColorSize', "bSortable" : false}
+            {"data" : 'floorColorSize', "bSortable" : false},
+            {"data" : 'quantity_picked_up', "bSortable" : false}
         ],
         'columnDefs': [{
             'targets': 0,
@@ -65,22 +66,20 @@ $(function() {
             'render': function(data) {
                 return data.price;
             }
+        }, {
+            'targets': 5,
+            'visible': false
         }],
         order: []
     });
 
     salesOrdersTable.on('click', 'td.editor-delete button', function (e) {
-        let row = $(this).parents('tr');
+        let row = $(this).closest('tr');
 
-        if ($(row).hasClass('child')) {
-            salesOrdersTable.row($(row).prev('tr')).remove().draw(false);
-        }
-        else
-        {
-            salesOrdersTable
-                .row($(this).parents('tr'))
-                .remove()
-                .draw(false);
+        if (row.hasClass('child')) {
+            salesOrdersTable.row(row.prev('tr')).remove().draw(false);
+        } else {
+            salesOrdersTable.row(row).remove().draw(false);
         }
     });
 
@@ -122,14 +121,24 @@ $(function() {
 
         let tableData = [];
         $('#salesOrderProductsTable tbody tr').each(function(){
-            let rowData = {
-                productId: salesOrdersTable.row(this).data().floorColorSize.id,
-                quantity: salesOrdersTable.row(this).data().quantity
-            };
-            tableData.push(rowData);
+            if (salesOrdersTable.row(this).data()!=null){
+                let rowData = {
+                    productId: salesOrdersTable.row(this).data().floorColorSize.id,
+                    quantity: salesOrdersTable.row(this).data().quantity
+                };
+                tableData.push(rowData);
+            } else{
+                let rowData = {
+                    productId: Number($(this).find('select').val()),
+                    quantity: Number($(this).find('td:eq(1) input').val())
+                };
+                tableData.push(rowData);
+            }
+
         });
 
         let jsonData = {
+            "id": $('#salesOrderId').val(),
             "address": $('#dealer_address').val(),
             "date": $('#soDatepicker').datepicker('getDate'),
             "dataWanted": $('#dateWanted').datepicker('getDate'),
