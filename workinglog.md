@@ -506,3 +506,12 @@ Java/Spring side changes:
 3. Update client side code to pass current sales order id for retrieving sales order products table.
 4. Add 'addProductBtn' to sales-order page, to add new row entries to table.
 5. Add a button fragment with type="button" to avoid submitting form.
+
+### April 29th changes:
+1. Update content of the first column of table salesOrdersTable.
+2. Update inventory.html indentation.
+3. Update sales-ordering page to match the entry deleting feature on sales-order page.
+4. Add quantity_picked_up attribute to SalesOrderItem class.
+5. Add sales order update messages.
+6. Update client side design to correctly pass updated sales order data to server side.
+7. Add a JPA query method to delete sales order products entry by sales order id.
