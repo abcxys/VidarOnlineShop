@@ -3,7 +3,7 @@ INSERT INTO warehouses (id, city, address, description) VALUES (1, 'Toronto', 'U
 INSERT INTO warehouses (id, city, address, description) VALUES (2, 'Montreal', '160-6391 Westminster Hwy, Richmond, BC V7C 4V4', null);
 INSERT INTO warehouses (id, city, address, description) VALUES (3, 'Vancouver', '9325, Trans-Canada Highway, St-Laurent, QC, H4S1V3' , null);
 -- create driver entries
-INSERT INTO drivers (id, name, cellphone, description) VALUES (1, 'XiaoLi', '123123123', null);
+INSERT INTO drivers (id, name, cellphone, description) VALUES (1, 'Driver', 'N/A', null);
 -- create packing_status entries
 INSERT INTO packing_status (id, name, alias, description) VALUES (1, 'preparing', 'PP', null);
 INSERT INTO packing_status (id, name, alias, description) VALUES (2, 'ready', 'RD', null);
