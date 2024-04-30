@@ -447,6 +447,7 @@ create table sales_orders_products
     product_id int8 not null,
     quantity_ordered    decimal(5,1) not null,
     quantity_picked_up   decimal(5,1),
+    active boolean default true,
     create_time  timestamp default null,
     update_time timestamp default null,
     create_user_id int8,

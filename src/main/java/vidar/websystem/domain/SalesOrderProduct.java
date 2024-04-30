@@ -46,7 +46,10 @@ public class SalesOrderProduct {
 	private BigDecimal quantityOrdered;
 
 	@Column(name = "quantity_picked_up")
-	private BigDecimal quantityPickedUp;
+	private BigDecimal quantityPickedUp = BigDecimal.ZERO;
+
+	@Column(name = "active")
+	private boolean active = true;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "create_time", updatable = false)
