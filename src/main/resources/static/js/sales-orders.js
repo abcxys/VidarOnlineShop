@@ -1,5 +1,14 @@
 let salesOrdersTable;
-$(function() {
+function checkAll(){
+    //var rows = tables.rows({'search': 'applied'}).nodes();
+    //$('input[type="checkbox"]', rows).prop('checked', this.checked);
+    var checked = document.getElementById('example-select-all').checked;
+    console.log(checked);
+    $("input[name='checkbox-id']").each(function(){
+        this.checked = checked;
+    });
+}
+$(document).ready(function() {
     $('#startDatepicker').datepicker("setDate", new Date());
     $('#endDatepicker').datepicker("setDate", new Date());
 
@@ -72,4 +81,5 @@ $(function() {
     $('#searchSalesOrderBtn').on('click', function() {
         salesOrdersTable.draw();
     });
+
 });
