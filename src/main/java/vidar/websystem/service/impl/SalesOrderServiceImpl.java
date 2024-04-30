@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.constants.SuccessMessage;
@@ -41,6 +42,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
     private final UserRepository userRepository;
     private final SalesOrderStatusRepository salesOrderStatusRepository;
     private final HardwoodFloorsRepository hardwoodFloorsRepository;
+    private final WarehouseRepository warehouseRepository;
 
     @Override
     public SalesOrder getSalesOrder(Long salesOrderId){
@@ -73,7 +75,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
     public DatatablesView<SalesOrderItem> getSalesOrderProductsBySOId(Long salesOrderId) {
         DatatablesView<SalesOrderItem> dataView = new DatatablesView<>();
         List<SalesOrderProduct> salesOrderProducts = salesOrderProductRepository.findBySalesOrderId(salesOrderId);
-        List<SalesOrderItem> salesOrderItems = salesOrderProducts.stream().map(item -> {
+        List<SalesOrderItem> salesOrderItems = salesOrderProducts.stream().filter(SalesOrderProduct::isActive).map(item -> {
             FloorColorSize floorColorSize = hardwoodFloorsRepository.findFloorColorById(item.getHardwoodfloorId());
             return new SalesOrderItem(floorColorSize, item.getQuantityOrdered());
         }).collect(Collectors.toList());
@@ -87,6 +89,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
      * @param salesOrderRequest SalesOrderRequest from client-side
      * @return Success/Failure message
      */
+    @Transactional
     @Override
     public ResponseEntity<?> addSalesOrder(User user, SalesOrderRequest salesOrderRequest) {
         SalesOrder salesOrder = modelMapper.map(salesOrderRequest, SalesOrder.class);
@@ -97,6 +100,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
         salesOrder.setDealer(dealer);
         salesOrder.setFirstName(dealer == null ? null : dealer.getCompanyName());
         salesOrder.setSalesRep(salesRepRepository.findById(salesOrderRequest.getSalesRepId()).orElse(null));
+        salesOrder.setWarehouse(warehouseRepository.findById(salesOrderRequest.getWarehouseId()).orElse(null));
         salesOrder.setCreateTime(new Date());
         salesOrder.setCreateUserId(user.getId());
         try {
@@ -104,16 +108,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
             salesOrderRepository.flush();
             log.info("The inserted sales order returns id = " + salesOrder.getId());
 
-            // Insert salesOrderItem entries for salesOrderRequest
-            for (SalesOrderItemRequest soi : salesOrderRequest.getSalesOrderItems()) {
-                SalesOrderProduct sop = new SalesOrderProduct();
-                sop.setSalesOrderId(salesOrder.getId());
-                sop.setQuantityOrdered(soi.getQuantity());
-                sop.setHardwoodfloorId(soi.getProductId());
-                sop.setCreateTime(new Date());
-                sop.setCreateUserId(user.getId());
-                salesOrderProductRepository.save(sop);
-            }
+            insertSalesOrderItems(user, salesOrder, salesOrderRequest);
 
             // Clear everything in cart after successfully create new sales order.
             user.getPerfumeList().clear();
@@ -125,6 +120,46 @@ public class SalesOrderServiceImpl implements SalesOrderService {
 
         //return new MessageResponse("alert-success", SuccessMessage.SALES_ORDER_CREATED);
         return ResponseEntity.ok().body(SuccessMessage.SALES_ORDER_CREATED);
+    }
+
+    @Transactional
+    @Override
+    public void insertSalesOrderItems(User user, SalesOrder salesOrder, SalesOrderRequest salesOrderRequest){
+        // Insert salesOrderItem entries for salesOrderRequest
+        for (SalesOrderItemRequest soi : salesOrderRequest.getSalesOrderItems()) {
+            SalesOrderProduct sop = new SalesOrderProduct();
+            sop.setSalesOrderId(salesOrder.getId());
+            sop.setQuantityOrdered(soi.getQuantity());
+            sop.setHardwoodfloorId(soi.getProductId());
+            sop.setCreateTime(new Date());
+            sop.setCreateUserId(user.getId());
+            salesOrderProductRepository.save(sop);
+        }
+    }
+
+    /**
+     * @param user Authenticated user
+     * @param salesOrderRequest salesOrderRequest from client-side to be updated
+     * @return Success/Failure message
+     */
+    @Transactional
+    @Override
+    public ResponseEntity<?> updateSalesOrder(User user, SalesOrderRequest salesOrderRequest) {
+        SalesOrder salesOrder = salesOrderRepository.findById(salesOrderRequest.getId()).orElse(null);
+        //salesOrderProductRepository.deleteBySalesOrderId(salesOrderRequest.getId());
+        deactivateSalesOrderProductsBySoId(salesOrderRequest.getId(), user);
+        insertSalesOrderItems(user, salesOrder, salesOrderRequest);
+        assert salesOrder != null;
+        salesOrder.setUpdateTime(new Date());
+        salesOrder.setUpdateUserId(user.getId());
+        salesOrderRepository.save(salesOrder);
+        return ResponseEntity.ok().body(SuccessMessage.SALES_ORDER_UPDATED);
+    }
+
+    @Transactional
+    @Override
+    public void deactivateSalesOrderProductsBySoId(Long id, User user){
+        salesOrderProductRepository.setInActiveForSoId(id, user.getId());
     }
 
     /**

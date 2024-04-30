@@ -77,4 +77,13 @@ public class SalesOrderRestController {
         User user = userService.getAuthenticatedUser();
         return salesOrderService.addSalesOrder(user, salesOrderRequest);
     }
+
+    @PostMapping("/update-order")
+    public ResponseEntity<?> updateOrder(@RequestBody SalesOrderRequest salesOrderRequest,
+                                       BindingResult bindingResult,
+                                       Model model,
+                                       RedirectAttributes attributes){
+        User user = userService.getAuthenticatedUser();
+        return salesOrderService.updateSalesOrder(user, salesOrderRequest);
+    }
 }

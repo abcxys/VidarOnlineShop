@@ -21,5 +21,11 @@ public interface SalesOrderService {
 
     ResponseEntity<?> addSalesOrder(User user, SalesOrderRequest salesOrderRequest);
 
+    ResponseEntity<?> updateSalesOrder(User user, SalesOrderRequest salesOrderRequest);
+
     List<SalesOrderStatus> getSalesOrderStatusDict();
+
+    void insertSalesOrderItems(User user, SalesOrder salesOrder, SalesOrderRequest salesOrderRequest);
+
+    void deactivateSalesOrderProductsBySoId(Long salesOrderId, User user);
 }
