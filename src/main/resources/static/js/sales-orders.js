@@ -1,4 +1,5 @@
 let salesOrdersTable;
+let subtable;
 function checkAll(){
     //var rows = tables.rows({'search': 'applied'}).nodes();
     //$('input[type="checkbox"]', rows).prop('checked', this.checked);
@@ -7,6 +8,30 @@ function checkAll(){
     $("input[name='checkbox-id']").each(function(){
         this.checked = checked;
     });
+}
+
+const createdCell = function(cell) {
+    let original;
+    cell.setAttribute('contenteditable', true)
+    cell.setAttribute('spellcheck', false)
+    cell.addEventListener("focus", function(e) {
+        original = e.target.textContent
+    })
+    cell.addEventListener("blur", function(e) {
+        if (original !== e.target.textContent) {
+            //const row = subtable.row(e.target.parentElement);
+            const cellData = subtable.cell(e.target).data();
+            const rowIndex = subtable.cell(e.target).index().row;
+            const colIndex = subtable.cell(e.target).index().column;
+            //row.invalidate()
+            subtable.cell({ row: rowIndex, column: colIndex }).data(e.target.textContent);
+            console.log('Row changed: ', e.target.textContent);
+        }
+    })
+}
+
+function closeCreatePackingSlipModal() {
+    $('#createPackingSlipModal').modal('hide');
 }
 $(document).ready(function() {
     $('#startDatepicker').datepicker("setDate", new Date());
@@ -80,6 +105,89 @@ $(document).ready(function() {
 
     $('#searchSalesOrderBtn').on('click', function() {
         salesOrdersTable.draw();
+    });
+
+    $('#createPacking').on('click', function(){
+        let rows = $(salesOrdersTable.$('input[type="checkbox"]').map(function(){
+            return $(this).prop("checked") ? $(this).closest('tr') : null;
+        }))
+
+        // Get the selected rows
+        //let rows = salesOrdersTable.rows({ selected: true }).data();
+
+        // Extract IDs from selected rows and store them in a list
+        let ids = [];
+        rows.each(function (index, row) {
+            ids.push(salesOrdersTable.row(row).data().id);
+        });
+
+        // Convert array to comma-separated string
+        let idsString = ids.join(',');
+        subtable = $('#createPackingSlipTable').DataTable({
+            "serverSide": true,
+            "lengthChange": true,
+            "order": [],
+            "bProcessing": true,
+            "autoWidth": true,
+            "searching": false,
+            "bInfo": false,
+            "paging": false,
+            "bDestroy": true,
+            ajax : {
+                method : "GET",
+                url : "/salesOrder/getSalesOrderProductsList",
+                dataSrc : "data",
+                data: { ids: idsString }, // Pass ids as URL parameter
+                "error": function (data) {
+                    alert("error");
+                }
+            },
+            columns : [
+                {"data" : 'id', "bSortable" : false},
+                {"data" : 'floorColorSize', "bSortable" : false},
+                {"data" : 'soDate', "bSortable" : false},
+                {"data" : 'soNumber', "bSortable" : false},
+                {"data" : 'quantity_on_hand', "bSortable" : false},
+                {"data" : 'quantity', "bSortable" : false},
+                {"data" : 'quantity_picked_up', "bSortable" : false},
+                {"data" : '', "bSortable" : false}
+            ],
+            'columnDefs': [{
+                'targets': 0,
+                'visible': false
+            },{
+                'targets': 1,
+                'searchable': false,
+                'className': 'dt-body-center',
+                'render': function(data) {
+                    return data.width +'\" ' + data.woodSpeciesName.split(" ")[data.woodSpeciesName.split(" ").length - 1]
+                        + " " + data.colorName + " " + data.gradeAlias + " " + data.sqftPerCarton + " " + data.batchName;
+                }
+            }, {
+                'targets': 2,
+                'render' : function(data, type, full, meta){
+                    // Convert the milliseconds to a Date object
+                    let date = new Date(data.time);
+                    tempDate = data;
+
+                    // Extract day, month, and year from the Date object
+                    let day = date.getDate();
+                    let month = date.getMonth() + 1; // Months are zero-indexed, so add 1
+                    let year = date.getFullYear();
+
+                    // Construct the formatted date string
+                    let formattedDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+                    return formattedDate;
+                }
+            }, {
+                targets: -1,
+                data: null,
+                defaultContent: '',
+                createdCell: createdCell
+            }]
+        });
+        //subtable.columns.adjust().draw();
+        $('#createPackingSlipModal').modal('show');
     });
 
 });
