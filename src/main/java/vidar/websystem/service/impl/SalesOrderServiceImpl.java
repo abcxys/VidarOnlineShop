@@ -43,6 +43,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
     private final SalesOrderStatusRepository salesOrderStatusRepository;
     private final HardwoodFloorsRepository hardwoodFloorsRepository;
     private final WarehouseRepository warehouseRepository;
+    private final InventoryRepository inventoryRepository;
 
     @Override
     public SalesOrder getSalesOrder(Long salesOrderId){
@@ -89,6 +90,33 @@ public class SalesOrderServiceImpl implements SalesOrderService {
         List<SalesOrderItem> salesOrderItems = salesOrderProducts.stream().filter(SalesOrderProduct::isActive).map(item -> {
             FloorColorSize floorColorSize = hardwoodFloorsRepository.findFloorColorById(item.getHardwoodfloorId());
             return new SalesOrderItem(floorColorSize, item.getQuantityOrdered());
+        }).collect(Collectors.toList());
+        dataView.setData(salesOrderItems);
+        dataView.setRecordsTotal(salesOrderItems.size());
+        return dataView;
+    }
+
+    /**
+     * @param ids sales order id's to create packing slip
+     * @return table of sales order items
+     */
+    @Override
+    public DatatablesView<SalesOrderItem> getSalesOrderProductsBySOIdsIn(List<Long> ids) {
+        DatatablesView<SalesOrderItem> dataView = new DatatablesView<>();
+        List<SalesOrderProduct> salesOrderProducts = salesOrderProductRepository.findBySalesOrderIdIn(ids);
+        List<SalesOrderItem> salesOrderItems = salesOrderProducts.stream().filter(SalesOrderProduct::isActive).map(item -> {
+            SalesOrderItem salesOrderItem = new SalesOrderItem();
+            salesOrderItem.setId(item.getId());
+            FloorColorSize floorColorSize = hardwoodFloorsRepository.findFloorColorById(item.getHardwoodfloorId());
+            salesOrderItem.setFloorColorSize(floorColorSize);
+            salesOrderItem.setQuantity(item.getQuantityOrdered());
+            salesOrderItem.setQuantity_picked_up(item.getQuantityPickedUp());
+            SalesOrder salesOrder = salesOrderRepository.findById(item.getSalesOrderId()).orElse(null);
+            if (salesOrder != null) {
+                salesOrderItem.setSoDate(salesOrder.getDate());
+                salesOrderItem.setSoNumber(salesOrder.getSoNumber());
+            }
+            return salesOrderItem;
         }).collect(Collectors.toList());
         dataView.setData(salesOrderItems);
         dataView.setRecordsTotal(salesOrderItems.size());

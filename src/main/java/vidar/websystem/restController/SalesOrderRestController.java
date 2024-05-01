@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import formbean.SalesOrderFilterConditionForm;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,8 @@ import vidar.websystem.service.CartService;
 import vidar.websystem.service.SalesOrderService;
 import vidar.websystem.service.UserService;
 
+import java.util.List;
+
 /**
  * @author yishi.xing
  * create datetime 4/18/2024 10:34 AM
@@ -25,6 +28,7 @@ import vidar.websystem.service.UserService;
  */
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping(PathConstants.SALESORDER)
 public class SalesOrderRestController {
 
@@ -53,6 +57,13 @@ public class SalesOrderRestController {
     @GetMapping(value = "/getSalesOrderProducts")
     public String getSalesOrderProducts(@RequestParam("so_id") Long id, Model model, RedirectAttributes redirectAttributes){
         DatatablesView<SalesOrderItem> salesOrderProducts = salesOrderService.getSalesOrderProductsBySOId(id);
+        return JSONObject.fromObject(salesOrderProducts).toString();
+    }
+
+    @GetMapping(value = "/getSalesOrderProductsList")
+    @ResponseBody
+    public String getSalesOrderProductsList(@RequestParam List<Long> ids){
+        DatatablesView<SalesOrderItem> salesOrderProducts = salesOrderService.getSalesOrderProductsBySOIdsIn(ids);
         return JSONObject.fromObject(salesOrderProducts).toString();
     }
 

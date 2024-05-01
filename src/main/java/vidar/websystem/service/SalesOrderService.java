@@ -19,6 +19,8 @@ public interface SalesOrderService {
 
     DatatablesView<SalesOrderItem> getSalesOrderProductsBySOId(Long salesOrderId);
 
+    DatatablesView<SalesOrderItem> getSalesOrderProductsBySOIdsIn(List<Long> ids);
+
     ResponseEntity<?> addSalesOrder(User user, SalesOrderRequest salesOrderRequest);
 
     ResponseEntity<?> updateSalesOrder(User user, SalesOrderRequest salesOrderRequest);
