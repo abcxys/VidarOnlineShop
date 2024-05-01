@@ -78,7 +78,7 @@ public class SalesOrder {
     @JsonSerialize(using = SalesOrderStatusSerializer.class)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id")
-    private SalesOrderStatus status;
+    private SalesOrderStatus status = new SalesOrderStatus(1L, "created", "CR", null);
 
     @Column(name = "release_ok")
     private boolean releaseOk;
