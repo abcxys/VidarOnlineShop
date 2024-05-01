@@ -24,7 +24,7 @@ $(document).ready(function() {
         "scrollCollapse": true,
         "sPaginationType" : "full_numbers",
         ajax : {
-            type : "post",
+            method : "GET",
             url : "/salesOrder/getFilteredSalesOrders",
             dataSrc : "data",
             data : function (d) {

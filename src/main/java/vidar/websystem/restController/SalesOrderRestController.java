@@ -50,13 +50,13 @@ public class SalesOrderRestController {
         return cartService.getDealerById(id);
     }
 
-    @PostMapping(value = "/getSalesOrderProducts")
+    @GetMapping(value = "/getSalesOrderProducts")
     public String getSalesOrderProducts(@RequestParam("so_id") Long id, Model model, RedirectAttributes redirectAttributes){
         DatatablesView<SalesOrderItem> salesOrderProducts = salesOrderService.getSalesOrderProductsBySOId(id);
         return JSONObject.fromObject(salesOrderProducts).toString();
     }
 
-    @RequestMapping(value = "/getFilteredSalesOrders", method = RequestMethod.POST)
+    @GetMapping(value = "/getFilteredSalesOrders")
     @ResponseBody
     public String getFilteredSalesOrders(SalesOrderFilterConditionForm salesOrderFilterConditionForm) {
         DatatablesView<SalesOrder> datatablesView = salesOrderService.getFilteredSalesOrders(salesOrderFilterConditionForm);

@@ -12,7 +12,7 @@ $(document).ready(function() {
         "scrollX": true,
         "scrollCollapse": true,
         ajax : {
-            method : "POST",
+            method : "GET",
             url : "/salesOrder/getSalesOrderProducts",
             dataSrc : "data",
             data : function (d) {
