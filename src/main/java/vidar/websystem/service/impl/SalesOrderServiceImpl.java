@@ -1,6 +1,6 @@
 package vidar.websystem.service.impl;
 
-import java.util.Collections;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,14 +57,25 @@ public class SalesOrderServiceImpl implements SalesOrderService {
     @Override
     public DatatablesView<SalesOrder> getFilteredSalesOrders(SalesOrderFilterConditionForm salesOrderFilterConditionForm) {
         DatatablesView<SalesOrder> dataView = new DatatablesView<>();
+
         List<SalesOrder> salesOrderList = salesOrderRepository.findFilteredSalesOrders(
                 salesOrderFilterConditionForm.getDealerId(),
-                salesOrderFilterConditionForm.getStartDate(),
-                salesOrderFilterConditionForm.getEndDate()
+                getBeginOfDate(salesOrderFilterConditionForm.getStartDate(), true),
+                getBeginOfDate(salesOrderFilterConditionForm.getEndDate(), false)
         );
         dataView.setData(salesOrderList);
         dataView.setRecordsTotal(salesOrderList.size());
         return dataView;
+    }
+
+    private Date getBeginOfDate(Date date, boolean isBegin){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, isBegin ? 0 : 23);
+        calendar.set(Calendar.MINUTE, isBegin ? 0 : 59);
+        calendar.set(Calendar.SECOND, isBegin ? 0 : 59);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
     }
 
     /**
