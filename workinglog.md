@@ -515,3 +515,16 @@ Java/Spring side changes:
 5. Add sales order update messages.
 6. Update client side design to correctly pass updated sales order data to server side.
 7. Add a JPA query method to delete sales order products entry by sales order id.
+
+### April 30th changes:
+Database insert entry duplicated id error.
+This kind of error will raise when I insert some entries manually by sql, then insert by JPA/Hibernate.
+
+1. Add update sales order REST controller service/impl methods.
+Note: each time sales order get updated, the sales order product entries will be deleted and then added again. No history will be maintained.
+2. Add boolean 'active' field/attribute to SalesOrderProduct and corresponding table.
+3. Add set inactive method to SalesOrderProductRepository.
+4. Update table checkbox header, to make it align in the center.
+5. Add table 'sales_orders_packing' for salesOrder/PackingSlip ManyToMany relationship.
+6. Add entity classes for table 'packing_slips' and 'sales_orders_packing'.
+7. Add 'createPackingSlipModal' modal for creating packing slip from salesOrderProducts.
