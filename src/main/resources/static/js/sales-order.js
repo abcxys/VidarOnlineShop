@@ -140,8 +140,10 @@ $(document).ready(function() {
         let jsonData = {
             "id": $('#salesOrderId').val(),
             "address": $('#dealer_address').val(),
+            "statusId": $('#salesOrderStatus').val(),
+            "releaseOk": parseInt($('#releaseOk').val()) === 1,
             "date": $('#soDatepicker').datepicker('getDate'),
-            "dataWanted": $('#dateWanted').datepicker('getDate'),
+            "dateWanted": $('#dateWanted').datepicker('getDate'),
             "soNumber": $('#soNumber').val(),
             "poNumber": $('#poNumber').val(),
             "dealerId": $('#dealer').val(),
