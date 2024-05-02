@@ -41,6 +41,7 @@ public class SalesOrderController {
 
     @GetMapping("/{salesOrderId}")
     public String getSalesOrder(@PathVariable Long salesOrderId, Model model) {
+        model.addAttribute("booleanOptions", salesOrderService.getBooleanOptions());
         model.addAttribute("salesOrder", salesOrderService.getSalesOrder(salesOrderId));
         model.addAttribute("warehouse_dict", cartService.getWarehouses());
         model.addAttribute("dealer_dict", cartService.getDealers());

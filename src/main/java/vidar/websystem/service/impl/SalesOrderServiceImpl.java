@@ -214,4 +214,21 @@ public class SalesOrderServiceImpl implements SalesOrderService {
     public List<SalesOrderStatus> getSalesOrderStatusDict() {
         return salesOrderStatusRepository.findAll();
     }
+
+    @Override
+    public List<Map<String, Object>> getBooleanOptions() {
+        List<Map<String, Object>> options = new ArrayList<>();
+
+        Map<String, Object> trueOption = new HashMap<>();
+        trueOption.put("key", 1);
+        trueOption.put("value", "True");
+        options.add(trueOption);
+
+        Map<String, Object> falseOption = new HashMap<>();
+        falseOption.put("key", 0);
+        falseOption.put("value", "False");
+        options.add(falseOption);
+
+        return options;
+    }
 }

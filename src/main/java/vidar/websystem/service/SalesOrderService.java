@@ -6,6 +6,7 @@ import vidar.websystem.domain.*;
 import vidar.websystem.dto.request.SalesOrderRequest;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yishi.xing
@@ -30,4 +31,6 @@ public interface SalesOrderService {
     void insertSalesOrderItems(User user, SalesOrder salesOrder, SalesOrderRequest salesOrderRequest);
 
     void deactivateSalesOrderProductsBySoId(Long salesOrderId, User user);
+
+    List<Map<String, Object>> getBooleanOptions();
 }
