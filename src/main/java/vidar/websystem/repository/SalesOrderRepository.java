@@ -64,8 +64,8 @@ public interface SalesOrderRepository extends JpaRepository<SalesOrder, Long> {
     // The packable sales orders are orders with status 1 or 2.
     @Query("SELECT orders FROM SalesOrder orders " +
             "WHERE (:dealerId IS NULL OR orders.dealer.id = :dealerId) " +
+            "AND ((:statusIds) IS NULL OR orders.status.id IN (:statusIds))" +
             "AND (coalesce(:startDate, NULL) IS NULL OR orders.date >= :startDate) " +
-            "AND (coalesce(:endDate, NULL ) IS NULL OR orders.date <= :endDate) " +
-            "AND orders.status.id in (1, 2) ")
-    List<SalesOrder> findFilteredPackableSalesOrders(Long dealerId, Date startDate, Date endDate);
+            "AND (coalesce(:endDate, NULL ) IS NULL OR orders.date <= :endDate) ")
+    List<SalesOrder> findFilteredPackableSalesOrders(Long dealerId, List<Long> statusIds, Date startDate, Date endDate);
 }
