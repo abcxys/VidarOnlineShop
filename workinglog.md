@@ -528,3 +528,13 @@ Note: each time sales order get updated, the sales order product entries will be
 5. Add table 'sales_orders_packing' for salesOrder/PackingSlip ManyToMany relationship.
 6. Add entity classes for table 'packing_slips' and 'sales_orders_packing'.
 7. Add 'createPackingSlipModal' modal for creating packing slip from salesOrderProducts.
+
+### May 1st changes:
+Java/Spring side changes:
+1. Update the DataTable retrieval ajax methods from 'POST' to 'GET' for Sales Orders.
+2. Adjust order of table initialization of table 'sales_orders_products'.
+3. Fix the bug of adding new sales order.
+4. Update the 'getFilteredSalesOrders' method of SalesOrderServiceImpl.
+5. Add necessary fields/attributes to SalesOrderItem for creating packingSlip display.
+6. Update client-side web design and javascript code for creating packing slips from sales orders.
+7. Add server side repository/service/impl/controller methods for creating packing slips.
