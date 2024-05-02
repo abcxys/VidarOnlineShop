@@ -83,7 +83,7 @@
                             <th:block th:replace="fragments/product-fragments :: add-so-boolean-select(
                                 title='RELEASE OK',
                                 name='releaseOk',
-                                options=(${ {{key: 1, value: 'True'}, {key: 0, value: 'False'}} }),
+                                options=${booleanOptions},
                                 value=${salesOrder.isReleaseOk()}
                             )"/>
                         </div>
@@ -109,6 +109,7 @@
                             title='DATE WANTED',
                             name='dateWanted',
                             id='dateWanted',
+                            value=${#dates.format(salesOrder.getDateWanted(), 'yyyy-MM-dd')},
                             placeholder=''
                         )"/>
                         </div>
@@ -156,11 +157,6 @@
 .dataTables_scrollBody{
 overflow-x:auto !important;
 overflow-y:hidden !important;
-}
-
-.dropdown-menu.show{
-    max-height:20px;
-    z-index:100;
 }
 </style>
 </html>
