@@ -53,11 +53,14 @@ $(document).ready(function() {
             url : "/salesOrder/getFilteredSalesOrders",
             dataSrc : "data",
             data : function (d) {
-                var param = {};
+                let param = {};
+                let statusList = $('#salesOrderStatus').val();
+                statusString = statusList.join(',');
                 param.draw = d.draw;
                 param.startPos = d.start;
                 param.pageSize = d.length;
                 param.dealerId = $('#dealer').val() || null;
+                param.statusIdsString = statusString || null;
                 param.startDate = ($('#startDatepicker').datepicker('getDate') == null) ? new Date(0) : $('#startDatepicker').datepicker('getDate');
                 param.endDate = ($('#endDatepicker').datepicker('getDate') == null) ? new Date(0) : $('#endDatepicker').datepicker('getDate');
                 return param;

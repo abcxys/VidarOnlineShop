@@ -12,18 +12,25 @@
             <div class="container-fluid mt-5 ml-1">
                 <div class="form-group row">
                     <th:block th:replace="fragments/product-fragments :: add-dealer-select(
-                        title='Dealer',
+                        title='DEALER',
                         name='dealer',
                         options=${dealer_dict}
                     )"/>
+                    <th:block th:replace="fragments/product-fragments :: add-dealer-multiple-select(
+                        title='STATUS',
+                        name='salesOrderStatus',
+                        id='salesOrderStatus',
+                        options=${salesOrderStatus_dict},
+                        placeholder=''
+                    )"/>
                     <th:block th:replace="fragments/product-fragments :: add-so-datepicker(
-                        title='startDate',
+                        title='STARTDATE',
                         name='startDatepicker',
                         id='startDatepicker',
                         placeholder=''
                     )"/>
                     <th:block th:replace="fragments/product-fragments :: add-so-datepicker(
-                        title='EndDate',
+                        title='ENDDATE',
                         name='endDatepicker',
                         id='endDatepicker',
                         placeholder=''
