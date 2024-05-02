@@ -24,6 +24,10 @@ public class SalesOrderRequest {
     @Length(max = 255)
     private String address;
 
+    private Long statusId;
+
+    private boolean releaseOk;
+
     private Date date;
 
     private Date dateWanted;

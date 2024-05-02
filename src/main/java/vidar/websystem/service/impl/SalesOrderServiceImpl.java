@@ -1,8 +1,6 @@
 package vidar.websystem.service.impl;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import formbean.SalesOrderFilterConditionForm;
@@ -59,7 +57,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
     public DatatablesView<SalesOrder> getFilteredSalesOrders(SalesOrderFilterConditionForm salesOrderFilterConditionForm) {
         DatatablesView<SalesOrder> dataView = new DatatablesView<>();
 
-        List<SalesOrder> salesOrderList = salesOrderRepository.findFilteredSalesOrders(
+        List<SalesOrder> salesOrderList = salesOrderRepository.findFilteredPackableSalesOrders(
                 salesOrderFilterConditionForm.getDealerId(),
                 getBeginOfDate(salesOrderFilterConditionForm.getStartDate(), true),
                 getBeginOfDate(salesOrderFilterConditionForm.getEndDate(), false)
@@ -189,6 +187,14 @@ public class SalesOrderServiceImpl implements SalesOrderService {
         deactivateSalesOrderProductsBySoId(salesOrderRequest.getId(), user);
         insertSalesOrderItems(user, salesOrder, salesOrderRequest);
         assert salesOrder != null;
+        Dealer dealer = dealerRepository.findById(salesOrderRequest.getDealerId()).orElse(null);
+        salesOrder.setDate(salesOrderRequest.getDate());
+        salesOrder.setDateWanted(salesOrderRequest.getDateWanted());
+        salesOrder.setSalesRep(salesRepRepository.findById(salesOrderRequest.getSalesRepId()).orElse(null));
+        salesOrder.setWarehouse(warehouseRepository.findById(salesOrderRequest.getWarehouseId()).orElse(null));
+        salesOrder.setStatus(salesOrderStatusRepository.findById(salesOrderRequest.getStatusId()).orElse(null));
+        salesOrder.setReleaseOk(salesOrderRequest.isReleaseOk());
+        salesOrder.setDealer(dealer);
         salesOrder.setUpdateTime(new Date());
         salesOrder.setUpdateUserId(user.getId());
         salesOrderRepository.save(salesOrder);
