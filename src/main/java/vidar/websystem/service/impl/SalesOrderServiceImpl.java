@@ -57,8 +57,14 @@ public class SalesOrderServiceImpl implements SalesOrderService {
     public DatatablesView<SalesOrder> getFilteredSalesOrders(SalesOrderFilterConditionForm salesOrderFilterConditionForm) {
         DatatablesView<SalesOrder> dataView = new DatatablesView<>();
 
+        List<Long> statusIds = salesOrderFilterConditionForm.getStatusIdsString().equals("") ? null :
+                Arrays.stream(salesOrderFilterConditionForm.getStatusIdsString().split(","))
+                .map(Long::parseLong)
+                .collect(Collectors.toList());
+
         List<SalesOrder> salesOrderList = salesOrderRepository.findFilteredPackableSalesOrders(
                 salesOrderFilterConditionForm.getDealerId(),
+                statusIds,
                 getBeginOfDate(salesOrderFilterConditionForm.getStartDate(), true),
                 getBeginOfDate(salesOrderFilterConditionForm.getEndDate(), false)
         );

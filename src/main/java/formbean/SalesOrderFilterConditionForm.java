@@ -3,6 +3,7 @@ package formbean;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author yishi.xing
@@ -18,6 +19,7 @@ public class SalesOrderFilterConditionForm {
     private String orderType;
 
     private Long dealerId;
+    private String statusIdsString;
     private Date startDate;
     private Date endDate;
 }
