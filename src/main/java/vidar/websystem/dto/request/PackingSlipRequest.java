@@ -19,4 +19,6 @@ public class PackingSlipRequest {
     private Long driverId;
 
     private List<PackingSlipItem> packingSlipItems;
+
+    private String description;
 }
