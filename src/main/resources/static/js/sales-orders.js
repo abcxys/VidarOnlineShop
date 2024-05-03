@@ -12,22 +12,75 @@ function checkAll(){
 
 const createdCell = function(cell) {
     let original;
-    cell.setAttribute('contenteditable', true)
-    cell.setAttribute('spellcheck', false)
+    let maxVal=1000;
+    cell.setAttribute('contenteditable', true);
+    cell.setAttribute('spellcheck', false);
     cell.addEventListener("focus", function(e) {
-        original = e.target.textContent
-    })
+        original = e.target.textContent;
+        maxVal = subtable.row(e.target).data().quantity;
+    });
+    cell.addEventListener("keyup", function(e) {
+        if (original !== e.target.textContent) {
+            const newValue = e.target.textContent.trim();
+            if (!isNaN(newValue)){
+                //const row = subtable.row(e.target.parentElement);
+                if (newValue > maxVal){
+                    console.log('Value greater than max value. Reverting to original value.');
+                    e.target.textContent = original;
+                } else {
+                    const cellData = subtable.cell(e.target).data();
+                    const rowIndex = subtable.cell(e.target).index().row;
+                    const colIndex = subtable.cell(e.target).index().column;
+                    //row.invalidate()
+                    subtable.cell({ row: rowIndex, column: colIndex }).data(newValue);
+                    console.log('Row changed: ', newValue);
+                    // Set cursor position to end of cell content
+                    const range = document.createRange();
+                    const sel = window.getSelection();
+                    range.selectNodeContents(e.target);
+                    range.collapse(false);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                    e.target.focus();
+                }
+            } else {
+                // If the input is not a valid number, revert to the original value
+                e.target.textContent = original;
+                console.log('Invalid input. Reverting to original value.');
+            }
+        }
+    });
     cell.addEventListener("blur", function(e) {
         if (original !== e.target.textContent) {
-            //const row = subtable.row(e.target.parentElement);
-            const cellData = subtable.cell(e.target).data();
-            const rowIndex = subtable.cell(e.target).index().row;
-            const colIndex = subtable.cell(e.target).index().column;
-            //row.invalidate()
-            subtable.cell({ row: rowIndex, column: colIndex }).data(e.target.textContent);
-            console.log('Row changed: ', e.target.textContent);
+            const newValue = e.target.textContent.trim();
+            if (!isNaN(newValue)){
+                //const row = subtable.row(e.target.parentElement);
+                if (newValue > maxVal){
+                    console.log('Value greater than max value. Reverting to original value.');
+                    e.target.textContent = original;
+                } else {
+                    const cellData = subtable.cell(e.target).data();
+                    const rowIndex = subtable.cell(e.target).index().row;
+                    const colIndex = subtable.cell(e.target).index().column;
+                    //row.invalidate()
+                    subtable.cell({ row: rowIndex, column: colIndex }).data(newValue);
+                    console.log('Row changed: ', newValue);
+                    // Set cursor position to end of cell content
+                    const range = document.createRange();
+                    const sel = window.getSelection();
+                    range.selectNodeContents(e.target);
+                    range.collapse(false);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                    e.target.focus();
+                }
+            } else {
+                // If the input is not a valid number, revert to the original value
+                e.target.textContent = original;
+                console.log('Invalid input. Reverting to original value.');
+            }
         }
-    })
+    });
 }
 
 function closeCreatePackingSlipModal() {
@@ -193,4 +246,43 @@ $(document).ready(function() {
         $('#createPackingSlipModal').modal('show');
     });
 
+
+    $('form#createPackingForm').on('submit',function(event){
+        event.preventDefault();
+        // create packing slip
+        console.log('create packing slip!');
+
+        // collect a list of SalesOrderPacking instances
+        // so_product_id
+        // quantity
+        let tableData = [];
+        $('#createPackingSlipTable tbody tr').each(function() {
+            // Aggregate data for table 'sales_order_packing'
+            // Note that if only push to tableData when quantity > 0
+            let rowData = {
+                soProductId: subtable.row($(this)).data().id,
+                quantity: subtable.cell(subtable.row($(this)).index(), 7).data()
+            };
+            if (rowData.quantity > 0)
+                tableData.push(rowData);
+        });
+
+        let jsonData = {
+            "driverId": $('#driver').val(),
+            "packingSlipItems": tableData
+        }
+
+        $.ajax({
+            url: $(this).attr('action'),
+            method: $(this).attr('method'),
+            data: JSON.stringify(jsonData),
+            contentType: "application/json",
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error){
+
+            }
+        });
+    });
 });
