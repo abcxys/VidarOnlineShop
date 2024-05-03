@@ -359,3 +359,9 @@ nav ul li {
     resize: none;
     height: 100px;
 }
+
+.packing-slip-description {
+    resize: none;
+    height: 100px;
+    width: 100%;
+}

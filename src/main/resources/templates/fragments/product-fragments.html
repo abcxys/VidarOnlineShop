@@ -316,3 +316,14 @@
         </textarea>
     </div>
 </th:block>
+<th:block th:fragment="add-packing-slip-description">
+    <div class="col" style="display: flex; align-items: start;">
+        <label th:text="${title} + ':'"></label>
+        <textarea
+                th:id="${name}"
+                th:text="${value}"
+                class="packing-slip-description"
+        >
+        </textarea>
+    </div>
+</th:block>
