@@ -13,10 +13,7 @@ import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.constants.SuccessMessage;
 import vidar.websystem.domain.*;
 import vidar.websystem.dto.request.PackingSlipRequest;
-import vidar.websystem.repository.DriverRepository;
-import vidar.websystem.repository.PackingSlipRepository;
-import vidar.websystem.repository.PackingStatusRepository;
-import vidar.websystem.repository.SalesOrderRepository;
+import vidar.websystem.repository.*;
 import vidar.websystem.service.PackingService;
 
 /**
@@ -32,6 +29,7 @@ public class PackingServiceImpl implements PackingService{
 	private final SalesOrderRepository salesOrderRepository;
 	private final PackingStatusRepository packingStatusRepository;
 	private final DriverRepository driverRepository;
+	private final PackingSlipItemRepository packingSlipItemRepository;
 
 	@Override
 	public DatatablesView<SalesOrder> getAllOrders() {
@@ -64,16 +62,30 @@ public class PackingServiceImpl implements PackingService{
 		PackingSlip packingSlip = new PackingSlip();
 		packingSlip.setPackingStatus(packingStatusRepository.findById(1L));
 		packingSlip.setDriver(driverRepository.findById(packingSlipRequest.getDriverId()).orElse(null));
+		packingSlip.setDescription(packingSlipRequest.getDescription());
 		packingSlip.setCreateUserId(user.getId());
 		packingSlip.setCreateTime(new Date());
 		try {
 			packingSlipRepository.save(packingSlip);
 			packingSlipRepository.flush();
 			log.info("The inserted packing slip returns id = " + packingSlip.getId());
+
+			insertSalesOrderPackingItems(user, packingSlip, packingSlipRequest);
 		} catch (Exception e){
 			return ResponseEntity.badRequest().body(ErrorMessage.PACKING_SLIP_CREATED_FAILED);
 		}
 		return ResponseEntity.ok().body(SuccessMessage.PACKING_SLIP_CREATED);
 	}
 
+	@Transactional
+	@Override
+	public void insertSalesOrderPackingItems(User user, PackingSlip packingSlip, PackingSlipRequest packingSlipRequest) {
+		// Insert packingSlipItems for packingSlipRequest
+		for (PackingSlipItem item : packingSlipRequest.getPackingSlipItems()) {
+			item.setPackingSlipId(packingSlip.getId());
+			item.setCreateTime(new Date());
+			item.setCreateUserId(user.getId());
+			packingSlipItemRepository.save(item);
+		}
+	}
 }
