@@ -24,11 +24,13 @@ public class PackingSlip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "packing_status_id", nullable = false)
-    private Long packingStatusId = 1L;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "packing_status_id")
+    private PackingStatus packingStatus;
 
-    @Column(name = "driver_id", nullable = false)
-    private Long driverId = 1L;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "driver_id")
+    private Driver driver;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", updatable = false)
