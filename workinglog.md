@@ -538,3 +538,22 @@ Java/Spring side changes:
 5. Add necessary fields/attributes to SalesOrderItem for creating packingSlip display.
 6. Update client-side web design and javascript code for creating packing slips from sales orders.
 7. Add server side repository/service/impl/controller methods for creating packing slips.
+
+### May 2nd changes:
+Java/Spring design gist:
+1. When using JPQL with java.util.List as input argument, you need to wrap the argument with parenthesis in query
+Example: "AND ((:statusIds) IS NULL OR orders.status.id IN (:statusIds))"
+
+Java/Spring side changes:
+1. Update sales-order web page, display date wanted on page request.
+2. Add 'findFilteredPackableSalesOrders' method to SalesOrderRepository.
+3. Update salesOrderServiceImpl to set salesOrder's dealer, date, dateWanted, salesRep, warehouse, status, releaseOk fields.
+4. Update sales-order.js to retrieve updated data of statusId/releaseOk/dateWanted.
+5. Update thymeleaf rendering of the boolean \<select\>.
+6. Update client side web design and add a \<select\> for SalesOrderStatus. Make the status \<select\> multiple.
+7. Add a multiple \<select\> for SalesOrderStatus selection.
+8. Add String attribute 'statusIdsString' to hold and pass selection of 'salesOrderStatus' from client-side to server-side.
+9. Add salesOrderStatus_dict to sales-orders web page model.
+10. Update findFilteredPackableSalesOrders JPQL query to accommodate input argument statusIds.
+11. Add entity class and repository interface for packing_status table.
+12. Add entity class and repository interface for drivers table.
