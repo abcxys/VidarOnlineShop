@@ -1,7 +1,10 @@
 package vidar.websystem.service;
 
 import vidar.websystem.domain.DatatablesView;
+import vidar.websystem.domain.Driver;
 import vidar.websystem.domain.SalesOrder;
+
+import java.util.List;
 
 /**
  * @author yishi.xing
@@ -9,4 +12,6 @@ import vidar.websystem.domain.SalesOrder;
  */
 public interface PackingService {
 	DatatablesView<SalesOrder> getAllOrders();
+
+	List<Driver> getDrivers();
 }

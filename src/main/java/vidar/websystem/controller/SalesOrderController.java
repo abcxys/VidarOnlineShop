@@ -6,10 +6,7 @@ import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.User;
 import vidar.websystem.dto.request.OrderRequest;
-import vidar.websystem.service.CartService;
-import vidar.websystem.service.OrderService;
-import vidar.websystem.service.SalesOrderService;
-import vidar.websystem.service.UserService;
+import vidar.websystem.service.*;
 import vidar.websystem.utils.ControllerUtils;
 
 import org.springframework.data.domain.Pageable;
@@ -29,6 +26,7 @@ public class SalesOrderController {
     private final CartService cartService;
     private final ControllerUtils controllerUtils;
     private final SalesOrderService salesOrderService;
+    private final PackingService packingService;
 
     /*
     @GetMapping("/{orderId}")
@@ -69,6 +67,7 @@ public class SalesOrderController {
     @GetMapping
     public String getSalesOrders(Model model){
         model.addAttribute("dealer_dict", cartService.getDealers());
+        model.addAttribute("driver_dict", packingService.getDrivers());
         model.addAttribute("salesOrderStatus_dict", salesOrderService.getSalesOrderStatusDict());
         return Pages.SALES_ORDERS;
     }
