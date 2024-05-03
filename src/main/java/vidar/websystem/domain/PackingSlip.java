@@ -25,10 +25,10 @@ public class PackingSlip {
     private Long id;
 
     @Column(name = "packing_status_id", nullable = false)
-    private Long packingStatusId;
+    private Long packingStatusId = 1L;
 
     @Column(name = "driver_id", nullable = false)
-    private Long driverId;
+    private Long driverId = 1L;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", updatable = false)
