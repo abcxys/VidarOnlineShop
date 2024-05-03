@@ -5,9 +5,10 @@ INSERT INTO warehouses (id, city, address, description) VALUES (3, 'Vancouver', 
 -- create driver entries
 INSERT INTO drivers (id, name, cellphone, description) VALUES (1, 'Driver', 'N/A', null);
 -- create packing_status entries
-INSERT INTO packing_status (id, name, alias, description) VALUES (1, 'preparing', 'PP', null);
-INSERT INTO packing_status (id, name, alias, description) VALUES (2, 'ready', 'RD', null);
-INSERT INTO packing_status (id, name, alias, description) VALUES (3, 'loaded', 'LD', null);
+INSERT INTO packing_status (id, name, alias, description) VALUES (1, 'created', 'CR', null);
+INSERT INTO packing_status (id, name, alias, description) VALUES (2, 'preparing', 'PP', null);
+INSERT INTO packing_status (id, name, alias, description) VALUES (3, 'ready', 'RD', null);
+INSERT INTO packing_status (id, name, alias, description) VALUES (4, 'loaded', 'LD', null);
 -- create sales_order_status entries
 INSERT INTO sales_order_status (id, status_name, status_alias) VALUES (1, 'created', 'CR');
 INSERT INTO sales_order_status (id, status_name, status_alias) VALUES (2, 'picked up', 'PU');
