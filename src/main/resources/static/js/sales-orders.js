@@ -269,7 +269,8 @@ $(document).ready(function() {
 
         let jsonData = {
             "driverId": $('#driver').val(),
-            "packingSlipItems": tableData
+            "packingSlipItems": tableData,
+            "description": $('description').val()
         }
 
         $.ajax({
