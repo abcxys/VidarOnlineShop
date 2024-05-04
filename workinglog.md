@@ -557,3 +557,20 @@ Java/Spring side changes:
 10. Update findFilteredPackableSalesOrders JPQL query to accommodate input argument statusIds.
 11. Add entity class and repository interface for packing_status table.
 12. Add entity class and repository interface for drivers table.
+
+### May 3rd changes:
+Java/Spring side changes:
+1. Add server side controller/service/impl methods for drivers dict retrieval and transfer.
+2. Update default packingStatusId and driverId value for PackingSlip entity class.
+3. Add \<form\> with action to sales-orders page and driver selection on top of the form.
+4. Add success/error messages for create/update packing slips.
+5. Add an entry of packing slip status 'created'. 
+6. Add entity class PackingSlipItem for table 'sales_orders_packing'.
+7. Add REST controller/repository class for packing slip and also PackingSlipRequest class to hold data from client side.
+8. Update PackingSlip class, replace packingStatusId and driverId with actual entity class.
+9. Update javascript code of sales-orders page for editing packing slip creation.
+10. Add addPackingSlip service/impl methods. Note that only packing slip is created, the associated 'sales_order_packing' entries are not added.
+11. Add thymeleaf fragment for packing slip description textarea.
+12. Add packing slip description html element  to client side.
+13. Update PackingSlipRequest class to hold the packing slip description.
+14. Add insertSalesOrderPackingItems method to Packing Service/Impl, for creating new entries for table 'sales_orders_packing'.
