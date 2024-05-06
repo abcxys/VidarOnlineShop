@@ -168,6 +168,10 @@ $(document).ready(function() {
             return $(this).prop("checked") ? $(this).closest('tr') : null;
         }))
 
+        if (rows.length > 0){
+            $('#dealerCompanyName').val(salesOrdersTable.row(rows[0]).data().dealer);
+        }
+
         // Get the selected rows
         //let rows = salesOrdersTable.rows({ selected: true }).data();
 
@@ -269,6 +273,7 @@ $(document).ready(function() {
 
         let jsonData = {
             "driverId": $('#driver').val(),
+            "dealerCompanyName": $('#dealerCompanyName').val(),
             "packingSlipItems": tableData,
             "description": $('description').val()
         }
