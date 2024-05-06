@@ -73,7 +73,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
         return dataView;
     }
 
-    private Date getBeginOfDate(Date date, boolean isBegin){
+    public static Date getBeginOfDate(Date date, boolean isBegin){
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, isBegin ? 0 : 23);
