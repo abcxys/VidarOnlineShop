@@ -65,17 +65,21 @@ $(document).ready(function() {
             }
         },
         columns : [
-            {
-                className: "dt-control",
-                orderable: false,
-                data: null,
-                defaultContent: ''
-            },
+            {"data" : '', "bSortable" : false},
             {"data" : 'id', "bSortable" : true},
-            {"data" : 'dealer', "bSortable" : true},
-            {"data" : 'packingStatus', "bSortable" : true}
+            {"data" : 'dealer', "bSortable" : false},
+            {"data" : 'packingStatus', "bSortable" : true},
+            {"data" : '', "bSortable" : false}
         ],
         'columnDefs': [{
+            'targets': 0,
+            'searchable': false,
+            'orderable': false,
+            'className': 'dt-body-center',
+            'render': function (data, type, full, meta){
+                return '<input type="checkbox" class="call-checkbox" name="checkbox-id" value="' + '">';
+            }
+        }, {
             'targets': 3,
             "render": function(data, type, full, meta) {
                 // Define the background colors for each option
@@ -97,6 +101,10 @@ $(document).ready(function() {
                 selectHtml += '</div>';
                 return selectHtml;
             }
+        },{
+            'targets': -1,
+            data: null,
+            defaultContent: '<i class="fas fa-light fa-edit editContainer" style="cursor: pointer;"></i>'
         }]
     });
 
@@ -124,13 +132,16 @@ $(document).ready(function() {
     });
 
     $('#packingSlipTable tbody').on('dblclick', 'tr', function(){
+        /*
         let rowData = packingSlipTable.row(this).data();
         console.log("The double clicked sales order id = " + rowData.id);
         let baseurl = window.location;
         window.open(baseurl + "/" + rowData.id);
+
+         */
     });
 
-    packingSlipTable.on('click', 'tbody td.dt-control', function () {
+    packingSlipTable.on('click', 'tbody tr', function () {
         let tr = event.target.closest('tr');
         let row = packingSlipTable.row(tr);
         let idx = detailRows.indexOf(tr.id);
@@ -157,7 +168,7 @@ $(document).ready(function() {
     packingSlipTable.on('draw', () => {
         $('.packingStatusSelector').selectpicker();
         detailRows.forEach((id, i) => {
-            let el = document.querySelector('#' + id + ' td.dt-control');
+            let el = document.querySelector('#' + id);
 
             if (el) {
                 el.dispatchEvent(new Event('click', { bubbles: true }));
