@@ -1,11 +1,15 @@
 package vidar.websystem.service.impl;
 
+import formbean.SalesOrderFilterConditionForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +22,7 @@ import vidar.websystem.service.PackingService;
 
 /**
  * @author yishi.xing
- * @created Feb 15, 2024 - 10:50:47 PM
+ * created Feb 15, 2024 - 10:50:47 PM
  */
 @Slf4j
 @Service
@@ -30,6 +34,7 @@ public class PackingServiceImpl implements PackingService{
 	private final PackingStatusRepository packingStatusRepository;
 	private final DriverRepository driverRepository;
 	private final PackingSlipItemRepository packingSlipItemRepository;
+	private final DealerRepository dealerRepository;
 
 	@Override
 	public DatatablesView<SalesOrder> getAllOrders() {
@@ -39,6 +44,28 @@ public class PackingServiceImpl implements PackingService{
 		int count = (int) salesOrderRepository.count();
 		dataView.setData(salesOrderList);
 		dataView.setRecordsTotal(count);
+		return dataView;
+	}
+
+	/**
+	 * @param salesOrderFilterConditionForm filtering conditions (Note form for sales order is reused here, possibly replace with new form)
+	 * @return queried results
+	 */
+	@Override
+	public DatatablesView<PackingSlip> getFilteredPackingSlips(SalesOrderFilterConditionForm packingSlipFilterConditionForm) {
+		DatatablesView<PackingSlip> dataView = new DatatablesView<>();
+		List<Long> statusIds = packingSlipFilterConditionForm.getStatusIdsString().equals("") ? null :
+				Arrays.stream(packingSlipFilterConditionForm.getStatusIdsString().split(","))
+						.map(Long::parseLong)
+						.collect(Collectors.toList());
+		List<PackingSlip> packingSlipList = packingSlipRepository.findFilteredPackingSlips(
+				packingSlipFilterConditionForm.getDealerId(),
+				statusIds,
+				SalesOrderServiceImpl.getBeginOfDate(packingSlipFilterConditionForm.getStartDate(), true),
+				SalesOrderServiceImpl.getBeginOfDate(packingSlipFilterConditionForm.getEndDate(), false)
+		);
+		dataView.setData(packingSlipList);
+		dataView.setRecordsTotal(packingSlipList.size());
 		return dataView;
 	}
 
@@ -61,6 +88,7 @@ public class PackingServiceImpl implements PackingService{
 		// Create packing slip with status 'created'
 		PackingSlip packingSlip = new PackingSlip();
 		packingSlip.setPackingStatus(packingStatusRepository.findById(1L));
+		packingSlip.setDealer(dealerRepository.findByCompanyName(packingSlipRequest.getDealerCompanyName()));
 		packingSlip.setDriver(driverRepository.findById(packingSlipRequest.getDriverId()).orElse(null));
 		packingSlip.setDescription(packingSlipRequest.getDescription());
 		packingSlip.setCreateUserId(user.getId());
@@ -87,5 +115,13 @@ public class PackingServiceImpl implements PackingService{
 			item.setCreateUserId(user.getId());
 			packingSlipItemRepository.save(item);
 		}
+	}
+
+	/**
+	 * @return All entries of packing_status table.
+	 */
+	@Override
+	public List<PackingStatus> getPackingSlipStatusDict() {
+		return packingStatusRepository.findAll();
 	}
 }
