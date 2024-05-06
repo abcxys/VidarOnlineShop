@@ -1,8 +1,6 @@
 package vidar.websystem.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import net.sf.json.JsonConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
-import net.sf.json.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.DatatablesView;
 import vidar.websystem.domain.SalesOrder;
+import vidar.websystem.service.CartService;
 import vidar.websystem.service.PackingService;
 
 /**
@@ -30,12 +28,14 @@ import vidar.websystem.service.PackingService;
 @RequestMapping(PathConstants.PACKING)
 public class PackingController {
 	
-	@Autowired
-	private PackingService packingService;
+	private final PackingService packingService;
+	private final CartService cartService;
 	
 	@GetMapping
     public String getPacking(Model model) {
-        return Pages.PACKING;
+		model.addAttribute("dealer_dict", cartService.getDealers());
+		model.addAttribute("packingSlipStatus_dict", packingService.getPackingSlipStatusDict());
+		return Pages.PACKING;
     }
 	
 	@RequestMapping(value = "/showOrders", method = RequestMethod.POST)
