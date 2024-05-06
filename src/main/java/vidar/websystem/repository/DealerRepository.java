@@ -13,4 +13,6 @@ import java.util.List;
 public interface DealerRepository extends JpaRepository<Dealer, Long> {
 
     List<Dealer> findByActiveTrue();
+
+    Dealer findByCompanyName(String companyName);
 }

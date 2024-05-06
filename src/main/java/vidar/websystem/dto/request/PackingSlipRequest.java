@@ -18,6 +18,8 @@ public class PackingSlipRequest {
 
     private Long driverId;
 
+    private String dealerCompanyName;
+
     private List<PackingSlipItem> packingSlipItems;
 
     private String description;
