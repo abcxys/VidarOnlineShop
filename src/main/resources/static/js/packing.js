@@ -88,7 +88,7 @@ $(document).ready(function() {
 
                 // Render the div with custom dropdown and options
                 let selectHtml = '<div class="dropdown bootstrap-select packingStatusSelect">';
-                selectHtml += '<select aria-label="Status" class="packingStatusSelect selectpicker" data-container="body" tabindex="null">';
+                selectHtml += '<select aria-label="Status" class="packingStatusSelector selectpicker" data-container="body" tabindex="null">';
                 selectHtml += '<option value="1">Created</option>';
                 selectHtml += '<option value="2">Preparing</option>';
                 selectHtml += '<option value="3">Ready</option>';
@@ -100,7 +100,7 @@ $(document).ready(function() {
         }]
     });
 
-    $('#packingSlipTable tbody').on('changed.bs.select', '.packingStatusSelect', function (e, clickedIndex, isSelected, previousValue) {
+    $('#packingSlipTable tbody').on('loaded.bs.select changed.bs.select', '.packingStatusSelector', function (e, clickedIndex, isSelected, previousValue) {
         const selectedValue = $(this).val();
         if (selectedValue === "")
             return;
@@ -112,7 +112,7 @@ $(document).ready(function() {
                 selectedColor = 'yellow';
                 break;
             case '3':
-                selectedColor = 'blue';
+                selectedColor = '#007bff';
                 break;
             default:
                 selectedColor = 'green';
@@ -155,6 +155,7 @@ $(document).ready(function() {
 
     // On each draw, loop over the `detailRows` array and show any child rows
     packingSlipTable.on('draw', () => {
+        $('.packingStatusSelector').selectpicker();
         detailRows.forEach((id, i) => {
             let el = document.querySelector('#' + id + ' td.dt-control');
 
@@ -164,7 +165,7 @@ $(document).ready(function() {
         });
     });
 
-    $('#searchSalesOrderBtn').on('click', function() {
+    $('#searchPackingSlipBtn').on('click', function() {
         packingSlipTable.draw();
     });
 
