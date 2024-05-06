@@ -3,20 +3,24 @@ let packingSlipTable;
 const detailRows = [];
 let selectedColor;
 
-function format(d) {
-    return (
-        'Item 1: ' +
-        'Test item name' +
-        ' ' +
-        'Test item quantity' +
-        '<br>' +
-        'Item 2: ' +
-        'Test item name' +
-        ' ' +
-        'Test item quantity' +
-        '<br>' +
-        'Driver name - cellphone'
-    );
+function format(packingSlipItems) {
+    let table = '<table>';
+    let id = 1;
+
+    packingSlipItems.forEach(function(packingItem) {
+        table += '<tr>';
+        table += '<td>Item ' + id++ + ':</td>';
+        table += '<td>' + packingItem.floorColorSize.width +'\" ' + packingItem.floorColorSize.woodSpeciesName.split(" ")[packingItem.floorColorSize.woodSpeciesName.split(" ").length - 1]
+            + " " + packingItem.floorColorSize.colorName + " " + packingItem.floorColorSize.gradeAlias + " " + packingItem.floorColorSize.sqftPerCarton + " " + packingItem.floorColorSize.batchName + '</td>';
+        table += '</tr>';
+        table += '<tr>';
+        table += '<td>Quantity:</td>';
+        table += '<td>' + packingItem.quantity + '</td>';
+        table += '</tr>';
+    });
+
+    table += '</table>';
+    return table;
 }
 function checkAll(){
     //var rows = tables.rows({'search': 'applied'}).nodes();
@@ -149,22 +153,36 @@ $(document).ready(function() {
             let row = packingSlipTable.row(tr);
             let idx = detailRows.indexOf(tr.id);
 
-            if (row.child.isShown()) {
-                tr.classList.remove('details');
-                row.child.hide();
+            $.ajax({
+                url: "/packing/getSalesOrderItemsById",
+                method: 'GET',
+                data: {
+                    packingSlipId: row.data().id
+                },
+                success: function(response){
+                    console.log('getSalesOrderItemsById');
 
-                // Remove from the 'open' array
-                detailRows.splice(idx, 1);
-            }
-            else {
-                tr.classList.add('details');
-                row.child(format(row.data())).show();
+                    if (row.child.isShown()) {
+                        tr.classList.remove('details');
+                        row.child.hide();
 
-                // Add to the 'open' array
-                if (idx === -1) {
-                    detailRows.push(tr.id);
+                        // Remove from the 'open' array
+                        detailRows.splice(idx, 1);
+                    }
+                    else {
+                        tr.classList.add('details');
+                        row.child(format(response)).show();
+
+                        // Add to the 'open' array
+                        if (idx === -1) {
+                            detailRows.push(tr.id);
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
                 }
-            }
+            });
         }
 
     });
@@ -173,10 +191,12 @@ $(document).ready(function() {
     packingSlipTable.on('draw', () => {
         $('.packingStatusSelector').selectpicker();
         detailRows.forEach((id, i) => {
-            let el = document.querySelector('#' + id);
+            if (id){
+                let el = document.querySelector('#' + id);
 
-            if (el) {
-                el.dispatchEvent(new Event('click', { bubbles: true }));
+                if (el) {
+                    el.dispatchEvent(new Event('click', { bubbles: true }));
+                }
             }
         });
     });
