@@ -104,7 +104,7 @@ $(document).ready(function() {
         },{
             'targets': -1,
             data: null,
-            defaultContent: '<i class="fas fa-light fa-edit editContainer" style="cursor: pointer;"></i>'
+            defaultContent: '<i class="fas fa-light fa-edit editPacking" style="cursor: pointer;"></i>'
         }]
     });
 
@@ -141,27 +141,32 @@ $(document).ready(function() {
          */
     });
 
-    packingSlipTable.on('click', 'tbody tr', function () {
-        let tr = event.target.closest('tr');
-        let row = packingSlipTable.row(tr);
-        let idx = detailRows.indexOf(tr.id);
+    packingSlipTable.on('click', 'tbody tr', function (event) {
+        if (!$(event.target).closest('.packingStatusSelect').length &&
+            !$(event.target).closest('.call-checkbox').length &&
+            !$(event.target).closest('.editPacking').length) {
+            let tr = event.target.closest('tr');
+            let row = packingSlipTable.row(tr);
+            let idx = detailRows.indexOf(tr.id);
 
-        if (row.child.isShown()) {
-            tr.classList.remove('details');
-            row.child.hide();
+            if (row.child.isShown()) {
+                tr.classList.remove('details');
+                row.child.hide();
 
-            // Remove from the 'open' array
-            detailRows.splice(idx, 1);
-        }
-        else {
-            tr.classList.add('details');
-            row.child(format(row.data())).show();
+                // Remove from the 'open' array
+                detailRows.splice(idx, 1);
+            }
+            else {
+                tr.classList.add('details');
+                row.child(format(row.data())).show();
 
-            // Add to the 'open' array
-            if (idx === -1) {
-                detailRows.push(tr.id);
+                // Add to the 'open' array
+                if (idx === -1) {
+                    detailRows.push(tr.id);
+                }
             }
         }
+
     });
 
     // On each draw, loop over the `detailRows` array and show any child rows
