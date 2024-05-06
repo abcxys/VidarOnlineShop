@@ -1,6 +1,10 @@
 package vidar.websystem.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
+import vidar.websystem.json.DealerSerializer;
+import vidar.websystem.json.DriverSerializer;
+import vidar.websystem.json.PackingStatusSerializer;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -24,10 +28,17 @@ public class PackingSlip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonSerialize(using = DealerSerializer.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dealer_id")
+    private Dealer dealer;
+
+    @JsonSerialize(using = PackingStatusSerializer.class)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "packing_status_id")
     private PackingStatus packingStatus;
 
+    @JsonSerialize(using = DriverSerializer.class)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id")
     private Driver driver;
