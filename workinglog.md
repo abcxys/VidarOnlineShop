@@ -573,4 +573,18 @@ Java/Spring side changes:
 11. Add thymeleaf fragment for packing slip description textarea.
 12. Add packing slip description html element  to client side.
 13. Update PackingSlipRequest class to hold the packing slip description.
-14. Add insertSalesOrderPackingItems method to Packing Service/Impl, for creating new entries for table 'sales_orders_packing'.
+14. Add insertSalesOrderPackingItems method to Packing Service/Impl, for creating new entries for table 'sales_orders_packing'. 
+
+### May 4th changes:
+Java/Spring side changes:
+1. Add repository interface for PackingSlipItem, aka table 'sales_orders_packing'.
+
+### May 5th changes:
+1. Add javascript code for 'packing' web page. Two new feature of the Datatable: 1. row details section with .dt-control class. 2. colorization of the bootstrap-select.
+2. Update PackingSlip class, replace packingStatusId and driverId with entity classes, add dealer info as attribute.
+3. Update the database initialization query. 
+4. Add serializers for PackingStatus and Driver.
+5. Update html web design for packing page.
+6. Update the getBeginOfDate function to be public static, easier to be reused.
+7. Add a big header to sales-orders page.
+8. Update javascript ajax call. Transfer dealer's company name for creation of packing slips.
