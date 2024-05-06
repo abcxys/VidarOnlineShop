@@ -22,7 +22,7 @@ public class PackingStatusSerializer extends JsonSerializer<PackingStatus> {
     @Override
     public void serialize(PackingStatus packingStatus, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         if (packingStatus != null) {
-            jsonGenerator.writeString(packingStatus.toString());
+            jsonGenerator.writeNumber(packingStatus.getId());
         }
     }
 }

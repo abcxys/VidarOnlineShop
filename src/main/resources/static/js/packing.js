@@ -97,10 +97,10 @@ $(document).ready(function() {
                 // Render the div with custom dropdown and options
                 let selectHtml = '<div class="dropdown bootstrap-select packingStatusSelect">';
                 selectHtml += '<select aria-label="Status" class="packingStatusSelector selectpicker" data-container="body" tabindex="null">';
-                selectHtml += '<option value="1">Created</option>';
-                selectHtml += '<option value="2">Preparing</option>';
-                selectHtml += '<option value="3">Ready</option>';
-                selectHtml += '<option value="4">Loaded</option>';
+                selectHtml += '<option value="1" ' + (data === 1 ? 'selected' : '') + '>Created</option>';
+                selectHtml += '<option value="2" ' + (data === 2 ? 'selected' : '') + '>Preparing</option>';
+                selectHtml += '<option value="3" ' + (data === 3 ? 'selected' : '') + '>Ready</option>';
+                selectHtml += '<option value="4" ' + (data === 4 ? 'selected' : '') + '>Loaded</option>';
                 selectHtml += '</select>';
                 selectHtml += '</div>';
                 return selectHtml;
