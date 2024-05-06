@@ -35,6 +35,15 @@ public class PackingServiceImpl implements PackingService{
 	private final PackingSlipItemRepository packingSlipItemRepository;
 	private final DealerRepository dealerRepository;
 
+	/**
+	 * @param id of PackingSlip
+	 * @return PackingSlip object
+	 */
+	@Override
+	public PackingSlip getPackingSlipById(Long id) {
+		return packingSlipRepository.findById(id).orElse(null);
+	}
+
 	@Override
 	public DatatablesView<SalesOrder> getAllOrders() {
 		DatatablesView<SalesOrder> dataView = new DatatablesView<>();
@@ -137,5 +146,23 @@ public class PackingServiceImpl implements PackingService{
 			return new SalesOrderItem(floorColorSize, rawItem.getQuantity());
 		}).collect(Collectors.toList());
 		return packingSlipItems;
+	}
+
+	/**
+	 * @param user Authenticated user
+	 * @param packingSlip PackingSlip object to be updated
+	 * @param statusId id of PackingStatus
+	 * @return Success/Failure message
+	 */
+	@Override
+	public ResponseEntity<?> updatePackingSlipStatus(User user, PackingSlip packingSlip, Long statusId) {
+		packingSlip.setUpdateTime(new Date());
+		packingSlip.setUpdateUserId(user.getId());
+		PackingStatus newStatus = packingStatusRepository.findById(statusId).orElse(null);
+		if (newStatus == null)
+			return ResponseEntity.badRequest().body(ErrorMessage.PACKING_SLIP_UPDATED_FAILED);
+		packingSlip.setPackingStatus(newStatus);
+		packingSlipRepository.save(packingSlip);
+		return ResponseEntity.ok().body(SuccessMessage.PACKING_SLIP_UPDATED);
 	}
 }

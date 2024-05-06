@@ -55,4 +55,12 @@ public class PackingRestController {
     public ResponseEntity<?> getSalesOrderItemsById(@RequestParam("packingSlipId") Long packingSlipId){
         return ResponseEntity.ok().body(packingService.getSalesOrderPackingItemsByPackingSlipId(packingSlipId));
     }
+
+    @PutMapping(value = "/updatePackingStatus")
+    public ResponseEntity<?> updatePackingSlipStatus(@RequestParam("id") Long id,
+                                                     @RequestParam("statusId") Long statusId) {
+        User user = userService.getAuthenticatedUser();
+        PackingSlip packingSlip = packingService.getPackingSlipById(id);
+        return ResponseEntity.ok(packingService.updatePackingSlipStatus(user, packingSlip, statusId));
+    }
 }

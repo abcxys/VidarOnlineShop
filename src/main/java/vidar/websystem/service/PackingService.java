@@ -9,9 +9,11 @@ import java.util.List;
 
 /**
  * @author yishi.xing
- * @created Feb 15, 2024 - 10:47:30 PM
+ * @create Feb 15, 2024 - 10:47:30 PM
  */
 public interface PackingService {
+	PackingSlip getPackingSlipById(Long id);
+
 	DatatablesView<SalesOrder> getAllOrders();
 
 	DatatablesView<PackingSlip> getFilteredPackingSlips(SalesOrderFilterConditionForm salesOrderFilterConditionForm);
@@ -25,4 +27,6 @@ public interface PackingService {
 	List<PackingStatus> getPackingSlipStatusDict();
 
 	List<SalesOrderItem> getSalesOrderPackingItemsByPackingSlipId(Long packingSlipId);
+
+	ResponseEntity<?> updatePackingSlipStatus(User user, PackingSlip packingSlip, Long statusId);
 }

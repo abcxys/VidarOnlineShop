@@ -145,6 +145,30 @@ $(document).ready(function() {
          */
     });
 
+    packingSlipTable.on('click', '.editPacking', function(){
+        let rowData = packingSlipTable.row($(this).closest('tr')).data();
+        let statusId = $(this).closest('tr').find('.packingStatusSelector.selectpicker').val();
+        console.log('update the packing slip', rowData.id);
+        $.ajax({
+           url: '/packing/updatePackingStatus',
+           method: 'PUT',
+           dataSrc: 'data',
+           data: {
+                id: rowData.id,
+                statusId: statusId
+           },
+           success: function(response){
+                bootboxAlertPrompt(response);
+                setTimeout(function(){
+                    location.reload();
+                }, 1000);
+           },
+           error: function(xhr, status, error){
+                bootboxAlertError(xhr.responseText);
+           }
+        });
+    });
+
     packingSlipTable.on('click', 'tbody tr', function (event) {
         if (!$(event.target).closest('.packingStatusSelect').length &&
             !$(event.target).closest('.call-checkbox').length &&
