@@ -23,4 +23,6 @@ public interface PackingService {
 	void insertSalesOrderPackingItems(User user, PackingSlip packingSlip, PackingSlipRequest packingSlipRequest);
 
 	List<PackingStatus> getPackingSlipStatusDict();
+
+	List<SalesOrderItem> getSalesOrderPackingItemsByPackingSlipId(Long packingSlipId);
 }

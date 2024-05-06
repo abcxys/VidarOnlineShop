@@ -13,6 +13,7 @@ import vidar.websystem.domain.User;
 import vidar.websystem.domain.PackingSlip;
 import vidar.websystem.dto.request.PackingSlipRequest;
 import vidar.websystem.service.PackingService;
+import vidar.websystem.service.ProductService;
 import vidar.websystem.service.UserService;
 
 /**
@@ -28,6 +29,7 @@ public class PackingRestController {
 
     private final PackingService packingService;
     private final UserService userService;
+    private final ProductService productService;
 
     @PostMapping(value = "/create")
     public ResponseEntity<?> createPackingSlip(@RequestBody PackingSlipRequest packingSlipRequest) {
@@ -47,5 +49,10 @@ public class PackingRestController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @GetMapping(value = "/getSalesOrderItemsById")
+    public ResponseEntity<?> getSalesOrderItemsById(@RequestParam("packingSlipId") Long packingSlipId){
+        return ResponseEntity.ok().body(packingService.getSalesOrderPackingItemsByPackingSlipId(packingSlipId));
     }
 }

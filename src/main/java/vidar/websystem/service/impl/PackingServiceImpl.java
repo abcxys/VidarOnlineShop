@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
@@ -29,8 +26,10 @@ import vidar.websystem.service.PackingService;
 @RequiredArgsConstructor
 public class PackingServiceImpl implements PackingService{
 
+	private final HardwoodFloorsRepository hardwoodFloorsRepository;
 	private final PackingSlipRepository packingSlipRepository;
 	private final SalesOrderRepository salesOrderRepository;
+	private final SalesOrderProductRepository salesOrderProductRepository;
 	private final PackingStatusRepository packingStatusRepository;
 	private final DriverRepository driverRepository;
 	private final PackingSlipItemRepository packingSlipItemRepository;
@@ -48,7 +47,7 @@ public class PackingServiceImpl implements PackingService{
 	}
 
 	/**
-	 * @param salesOrderFilterConditionForm filtering conditions (Note form for sales order is reused here, possibly replace with new form)
+	 * @param packingSlipFilterConditionForm filtering conditions (Note form for sales order is reused here, possibly replace with new form)
 	 * @return queried results
 	 */
 	@Override
@@ -123,5 +122,20 @@ public class PackingServiceImpl implements PackingService{
 	@Override
 	public List<PackingStatus> getPackingSlipStatusDict() {
 		return packingStatusRepository.findAll();
+	}
+
+	/**
+	 * @param packingSlipId packing slip id
+	 * @return List of Sales order item that includes product info and packing quantity
+	 */
+	@Override
+	public List<SalesOrderItem> getSalesOrderPackingItemsByPackingSlipId(Long packingSlipId) {
+		List<PackingSlipItem> packingSlipRawItems = packingSlipItemRepository.findByPackingSlipId(packingSlipId);
+		List<SalesOrderItem> packingSlipItems = packingSlipRawItems.stream().map(rawItem -> {
+			FloorColorSize floorColorSize = hardwoodFloorsRepository.findFloorColorById(
+					Objects.requireNonNull(salesOrderProductRepository.findById(rawItem.getSoProductId()).orElse(null)).getHardwoodfloorId());
+			return new SalesOrderItem(floorColorSize, rawItem.getQuantity());
+		}).collect(Collectors.toList());
+		return packingSlipItems;
 	}
 }
