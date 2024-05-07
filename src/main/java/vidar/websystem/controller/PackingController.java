@@ -35,7 +35,7 @@ public class PackingController {
     public String getPacking(Model model) {
 		model.addAttribute("dealer_dict", cartService.getDealers());
 		model.addAttribute("packingSlipStatus_dict", packingService.getPackingSlipStatusDict());
-		return Pages.PACKING;
+		return Pages.PACKINGS;
     }
 	
 	@RequestMapping(value = "/showOrders", method = RequestMethod.POST)
