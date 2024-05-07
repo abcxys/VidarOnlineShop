@@ -65,7 +65,7 @@ $(document).ready(function() {
                 param.dealerId = $('#dealer').val() || null;
                 param.statusIdsString = statusString || null;
                 param.startDate = ($('#startDatepicker').datepicker('getDate') == null) ? new Date(0) : $('#startDatepicker').datepicker('getDate');
-                param.endDate = ($('#endDatepicker').datepicker('getDate') == null) ? new Date(0) : $('#endDatepicker').datepicker('getDate');
+                param.endDate = ($('#endDatepicker').datepicker('getDate') == null) ? new Date() : $('#endDatepicker').datepicker('getDate');
                 return param;
             },
             "error": function (data) {
