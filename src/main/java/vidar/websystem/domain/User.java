@@ -1,5 +1,6 @@
 package vidar.websystem.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -64,5 +65,6 @@ public class User {
     private Set<Role> roles;
 
     @ManyToMany
+    @JsonIgnore
     private List<HardwoodFloor> perfumeList;
 }
