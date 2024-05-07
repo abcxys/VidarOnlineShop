@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/common-fragments :: head"></head>
+<body>
+<div th:insert="~{fragments/common-fragments :: scripts}"></div>
+<div th:replace="fragments/common-fragments :: navbar"></div>
+<script src="/static/js/add-new-container.js"></script>
+<script src="/static/js/packing.js"></script>
+<div class="bg-light">
+    <div class="py-5">
+        <div class="container py-5 bg-white shadow-sm card-height">
+            <form id="packingSlipForm" method="post" action="/packing/update-packing">
+                <input type="hidden" id="packingSlipId" th:value="${packingSlip.getId()}"/>
+                <div class="container-fluid">
+                    <div class="row mx-3">
+                        <th:block th:replace="fragments/product-fragments :: add-dealer-select(
+                            title='Dealer',
+                            name='dealer',
+                            value=${packingSlip.getDealer().getId()},
+                            options=${dealer_dict}
+                        )"/>
+                        <th:block th:replace="fragments/product-fragments :: add-dealer-select(
+                            title='DRIVER',
+                            name='driver',
+                            value=${packingSlip.getDriver().getId()},
+                            options=${driver_dict}
+                        )"/>
+                    </div>
+                </div>
+                <div class="container-fluid mt-3">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <th:block th:replace="fragments/common-fragments :: large-info-title(
+                        text='Packing Slip',
+                        icon='fas fa-square-poll-horizontal fa-lg mr-2'
+                    )"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="row">
+                                <th:block th:replace="fragments/product-fragments :: add-datetime-attribute-input(
+                                title='DATE',
+                                name='soDatepicker',
+                                id='soDatepicker',
+                                value=${#dates.format(packingSlip.getCreateTime(), 'yyyy-MM-dd')},
+                                placeholder=''
+                            )"/>
+                            </div>
+                            <div class="row">
+                                <th:block th:replace="fragments/product-fragments :: add-salesRep-select(
+                                title='STATUS',
+                                name='packingSlipStatus',
+                                id='packingSlipStatus',
+                                options=${packingSlipStatus_dict},
+                                value=${packingSlip.getPackingStatus().getId()},
+                                placeholder=''
+                            )"/>
+                            </div>
+                        </div>
+                        <th:block th:replace="fragments/product-fragments :: sales-order-address-textarea(
+                        title='NAME/ADDRESS',
+                        name='dealer_address',
+                        value=${packingSlip.getDealer().getCompanyName()}
+                        )"/>
+                        <th:block th:replace="fragments/product-fragments :: sales-order-address-textarea(
+                        title='SHIP TO',
+                        name='dealer_name',
+                        value=${packingSlip.getDealer().getAddress()}
+                        )"/>
+                    </div>
+                </div>
+                <div class="container-fluid mt-3" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+                    <div class="box-body">
+                        <table class="table table-striped table-bordered table-hover dataTable" role="grid" id="packingSlipProductsTable">
+                            <thead>
+                            <tr class="info">
+                                <th></th>
+                                <th>Quantity</th>
+                                <th>Id</th>
+                                <th>ProductId</th>
+                                <th>Product</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="form row mr-3">
+                    <div class="ml-auto">
+                        <th:block th:replace="fragments/common-fragments :: icon-button-noSubmit(
+                            id='addProductBtn',
+                            text='Add product',
+                            buttonClassName='btn-primary mt-3',
+                            icon='fas fa-plus-square mr-2'
+                        )"/>
+                        <th:block th:replace="fragments/common-fragments :: icon-button(
+                            id='updatePackingSlipBtn',
+                            text='Save',
+                            buttonClassName='btn-success mt-3',
+                            icon='fas fa-check-square mr-2'
+                        )"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<footer th:insert="~{fragments/common-fragments :: footer}"></footer>
+</body>
+
+<style>
+    .dataTables_scrollBody{
+        overflow-x:auto !important;
+        overflow-y:hidden !important;
+    }
+</style>
+</html>
