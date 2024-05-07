@@ -588,3 +588,26 @@ Java/Spring side changes:
 6. Update the getBeginOfDate function to be public static, easier to be reused.
 7. Add a big header to sales-orders page.
 8. Update javascript ajax call. Transfer dealer's company name for creation of packing slips.
+
+### May 6th changes:
+Bug fixes:
+1. The select picker disappears upon click on 'searchPackingSlipBtn'.
+Solution: add a call to selectpicker() function upon table.draw event.
+2. The colorization function is not triggered upon refresh of the page. 
+Solution: add the handler function to 'loaded.bs.select' event.
+3. Click on select picker will also trigger expansion of packing slip details.
+Solution: add a filtering condition on the event triggering, make sure the click is not on the select picker/checkbox/editPacking.
+4. Select picker of packing status does not show correctly the actual status of packing slip.
+Solution: update selectHtml of packing.js, to make the correct option 'selected', update serializer for PackingStatus to return id as number.
+
+Java/Spring side changes:
+1. Update PackingSlipRequest class to hold dealerCompany info. Add find dealer by company name method to DealerRepository.
+2. Add repository/service/serviceImpl/REST controller methods for rendering filtered packing slip table. Also add PackingStatusDict retrieval service/impl methods.
+3. Update PackingSlipRequest class to hold dealerCompany info. Add find dealer by company name method to DealerRepository.
+4. Add dealer_dict and packingSlipStatus_dict to model of packing page. To enable packing slip filtering.
+5. Replace the first column of packingSlipTable dt-control with checkbox (for the purpose of creating returns). 
+6. Add edit button for the last column of packingSlipTable.
+7. Update packing page html code to allow overflow-y.
+8. Update javascript code for packing page to GET packing slip items to show in details table.
+9. Update server side code repository/service/impl/REST controller for GET packing slip items.
+10. Add client-side ajax function and server-side service/impl/controller methods for updating packing slip's status.
