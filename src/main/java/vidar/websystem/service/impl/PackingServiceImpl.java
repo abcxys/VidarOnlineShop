@@ -2,6 +2,8 @@ package vidar.websystem.service.impl;
 
 import formbean.SalesOrderFilterConditionForm;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -70,17 +72,41 @@ public class PackingServiceImpl implements PackingService{
 			orderName = packingSlipFilterConditionForm.getOrderName();
 			orderType = packingSlipFilterConditionForm.getOrderType();
 		}
-		List<Long> statusIds = packingSlipFilterConditionForm.getStatusIdsString().equals("") ? null :
+		List<Long> statusIds = packingSlipFilterConditionForm.getStatusIdsString().equals("") ? Arrays.asList(1L, 2L, 3L, 4L) :
 				Arrays.stream(packingSlipFilterConditionForm.getStatusIdsString().split(","))
 						.map(Long::parseLong)
 						.collect(Collectors.toList());
-		List<PackingSlip> packingSlipList = packingSlipRepository.findFilteredPackingSlips(
-				packingSlipFilterConditionForm.getDealerId(),
-				statusIds,
-				SalesOrderServiceImpl.getBeginOfDate(packingSlipFilterConditionForm.getStartDate(), true),
-				SalesOrderServiceImpl.getBeginOfDate(packingSlipFilterConditionForm.getEndDate(), false),
-				orderName
+
+		// Create a Pageable object with sorting based on orderName and orderType
+		Sort sort = Sort.by(
+				orderType.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC,
+				orderName.equalsIgnoreCase("1") ? "id" : "packingStatus"
 		);
+		Pageable pageable = PageRequest.of(packingSlipFilterConditionForm.getStartPos(), packingSlipFilterConditionForm.getPageSize(), sort);
+
+		Date startDate = packingSlipFilterConditionForm.getStartDate();
+		Date endDate = packingSlipFilterConditionForm.getEndDate();
+		if (startDate == null) startDate = new Date(0);
+		if (endDate == null) endDate = new Date();
+
+		List<PackingSlip> packingSlipList = new ArrayList<>();
+		if (packingSlipFilterConditionForm.getDealerId() == null){
+			packingSlipList = packingSlipRepository.findAllByPackingStatusIdInAndCreateTimeBetween(
+					statusIds,
+					SalesOrderServiceImpl.getBeginOfDate(startDate, true),
+					SalesOrderServiceImpl.getBeginOfDate(endDate, false),
+					pageable
+			).getContent();
+		} else {
+			packingSlipList = packingSlipRepository.findAllByDealerIdAndPackingStatusIdInAndCreateTimeBetween(
+					packingSlipFilterConditionForm.getDealerId(),
+					statusIds,
+					SalesOrderServiceImpl.getBeginOfDate(startDate, true),
+					SalesOrderServiceImpl.getBeginOfDate(endDate, false),
+					pageable
+			).getContent();
+		}
+
 		dataView.setData(packingSlipList);
 		dataView.setRecordsTotal(packingSlipList.size());
 		return dataView;
