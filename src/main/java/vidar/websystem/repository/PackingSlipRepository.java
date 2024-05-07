@@ -18,10 +18,14 @@ public interface PackingSlipRepository extends JpaRepository<PackingSlip, Long> 
             "WHERE (:dealerId IS NULL OR slips.dealer.id = :dealerId) " +
             "AND ((:statusIds) IS NULL OR slips.packingStatus.id IN (:statusIds)) " +
             "AND (coalesce(:startDate, NULL) IS NULL OR slips.createTime >= :startDate) " +
-            "AND (coalesce(:endDate, NULL ) IS NULL OR slips.createTime <= :endDate) ")
+            "AND (coalesce(:endDate, NULL ) IS NULL OR slips.createTime <= :endDate) " +
+            "ORDER BY " +
+            "CASE WHEN (:orderName = '1') THEN slips.id " +
+            "ELSE slips.packingStatus END DESC")
     List<PackingSlip> findFilteredPackingSlips(Long dealerId,
                                                List<Long> statusIds,
                                                Date startDate,
-                                               Date endDate);
+                                               Date endDate,
+                                               String orderName);
 
 }

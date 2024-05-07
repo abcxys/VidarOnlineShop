@@ -56,6 +56,10 @@ $(document).ready(function() {
                 let statusList = $('#packingSlipStatus').val();
                 statusString = statusList.join(',');
                 param.draw = d.draw;
+                if (d.order.length > 0){
+                    param.orderType = d.order[0].dir;
+                    param.orderName = d.order[0].column;
+                }
                 param.startPos = d.start;
                 param.pageSize = d.length;
                 param.dealerId = $('#dealer').val() || null;

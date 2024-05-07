@@ -2,6 +2,7 @@ package vidar.websystem.service.impl;
 
 import formbean.SalesOrderFilterConditionForm;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +63,13 @@ public class PackingServiceImpl implements PackingService{
 	@Override
 	public DatatablesView<PackingSlip> getFilteredPackingSlips(SalesOrderFilterConditionForm packingSlipFilterConditionForm) {
 		DatatablesView<PackingSlip> dataView = new DatatablesView<>();
+		String orderName = "1";; // Initialize order by clause
+		String orderType = "desc";
+		// if packingSlipFilterConditionForm.getOrderType() is null, set default sorting.
+		if (packingSlipFilterConditionForm.getOrderName() != null){
+			orderName = packingSlipFilterConditionForm.getOrderName();
+			orderType = packingSlipFilterConditionForm.getOrderType();
+		}
 		List<Long> statusIds = packingSlipFilterConditionForm.getStatusIdsString().equals("") ? null :
 				Arrays.stream(packingSlipFilterConditionForm.getStatusIdsString().split(","))
 						.map(Long::parseLong)
@@ -70,7 +78,8 @@ public class PackingServiceImpl implements PackingService{
 				packingSlipFilterConditionForm.getDealerId(),
 				statusIds,
 				SalesOrderServiceImpl.getBeginOfDate(packingSlipFilterConditionForm.getStartDate(), true),
-				SalesOrderServiceImpl.getBeginOfDate(packingSlipFilterConditionForm.getEndDate(), false)
+				SalesOrderServiceImpl.getBeginOfDate(packingSlipFilterConditionForm.getEndDate(), false),
+				orderName
 		);
 		dataView.setData(packingSlipList);
 		dataView.setRecordsTotal(packingSlipList.size());
