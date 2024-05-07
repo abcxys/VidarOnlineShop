@@ -90,6 +90,13 @@ $(document).ready(function() {
     $('#startDatepicker').datepicker("setDate", new Date());
     $('#endDatepicker').datepicker("setDate", new Date());
 
+    $('.datepicker').datepicker({
+        autoclose: true // Enable autoclose to close the datepicker when a date is selected
+    }).on('changeDate', function(e) {
+        // Handle the change date event for the start date picker
+        console.log('Start date changed:', e.date);
+    });
+
     salesOrdersTable = $('#salesOrdersTable').DataTable({
         "serverSide" : true,//分页，取数据等等的都放到服务端去
         "lengthChange": true,
