@@ -598,7 +598,7 @@ Solution: add the handler function to 'loaded.bs.select' event.
 3. Click on select picker will also trigger expansion of packing slip details.
 Solution: add a filtering condition on the event triggering, make sure the click is not on the select picker/checkbox/editPacking.
 4. Select picker of packing status does not show correctly the actual status of packing slip.
-Solution: update selectHtml of packing.js, to make the correct option 'selected', update serializer for PackingStatus to return id as number.
+Solution: update selectHtml of packings.js, to make the correct option 'selected', update serializer for PackingStatus to return id as number.
 
 Java/Spring side changes:
 1. Update PackingSlipRequest class to hold dealerCompany info. Add find dealer by company name method to DealerRepository.
@@ -611,3 +611,18 @@ Java/Spring side changes:
 8. Update javascript code for packing page to GET packing slip items to show in details table.
 9. Update server side code repository/service/impl/REST controller for GET packing slip items.
 10. Add client-side ajax function and server-side service/impl/controller methods for updating packing slip's status.
+
+### May 7th changes:
+Bug fixes:
+1. The datepicker does not work on date change, the date value always keep the same.
+Solution: remove the 'data-provide' attribute in div.
+2. The datepicker for endDate returns the Date value of year 1900.
+Solution: update the javascript code for endDate value assignment.
+3. Infinite recursion HardwoodFloor['salesOrders'] -> SalesOrder['users'] -> User['perfumeList']...
+Solution: put @JsonIgnore annotion on either 'perfumeList' field of User or 'user' field of SalesOrder
+
+Java/Spring side changes:
+1. Update repository/serviceImpl for PackingSlip filtering. To allow pagination on server side.
+2. Update the naming of 'packing' to 'packings' for packing slips display.
+3. Add client side page design/javascript code for single packing slip, and the page constant.
+4. 
