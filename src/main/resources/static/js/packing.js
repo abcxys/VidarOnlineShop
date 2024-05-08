@@ -139,7 +139,7 @@ $(document).ready(function() {
             "address": $('#dealer_address').val(),
             "statusId": $('#salesOrderStatus').val(),
             "releaseOk": parseInt($('#releaseOk').val()) === 1,
-            "date": $('#soDatepicker').datepicker('getDate'),
+            "date": $('#packingDatepicker').datepicker('getDate'),
             "dateWanted": $('#dateWanted').datepicker('getDate'),
             "soNumber": $('#soNumber').val(),
             "poNumber": $('#poNumber').val(),

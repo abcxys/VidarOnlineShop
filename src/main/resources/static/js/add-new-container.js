@@ -102,6 +102,11 @@ $('form#containerForm').submit(function(event){
 $(document).ready(function(){
     //populateSelect($('#mySelect'));
     $('.datepicker').datepicker({
-        format: 'mm/dd/yyyy',
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        todayHighlight: true
+    }).on('changeDate', function(e) {
+        // Handle the change date event for the start date picker
+        console.log('Start date changed:', e.date);
     });
 });

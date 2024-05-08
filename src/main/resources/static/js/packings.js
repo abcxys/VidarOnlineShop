@@ -33,6 +33,15 @@ function checkAll(){
 }
 
 $(document).ready(function() {
+    $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        todayHighlight: true
+    }).on('changeDate', function(e) {
+        // Handle the change date event for the start date picker
+        console.log('Start date changed:', e.date);
+    });
+
     $('#startDatepicker').datepicker("setDate", new Date());
     $('#endDatepicker').datepicker("setDate", new Date());
 

@@ -31,29 +31,29 @@
                     <div class="row">
                         <div class="col-md-5">
                             <th:block th:replace="fragments/common-fragments :: large-info-title(
-                        text='Packing Slip',
-                        icon='fas fa-square-poll-horizontal fa-lg mr-2'
-                    )"/>
+                                text='Packing Slip',
+                                icon='fas fa-square-poll-horizontal fa-lg mr-2'
+                            )"/>
                         </div>
                         <div class="col-sm-2">
                             <div class="row">
-                                <th:block th:replace="fragments/product-fragments :: add-datetime-attribute-input(
-                                title='DATE',
-                                name='soDatepicker',
-                                id='soDatepicker',
-                                value=${#dates.format(packingSlip.getCreateTime(), 'yyyy-MM-dd')},
-                                placeholder=''
-                            )"/>
+                                <th:block th:replace="fragments/product-fragments :: add-packing-datepicker(
+                                    title='DATE',
+                                    name='packingDatepicker',
+                                    id='packingDatepicker',
+                                    value=${#dates.format(packingSlip.getCreateTime(), 'yyyy-MM-dd')},
+                                    placeholder=''
+                                )"/>
                             </div>
                             <div class="row">
                                 <th:block th:replace="fragments/product-fragments :: add-salesRep-select(
-                                title='STATUS',
-                                name='packingSlipStatus',
-                                id='packingSlipStatus',
-                                options=${packingSlipStatus_dict},
-                                value=${packingSlip.getPackingStatus().getId()},
-                                placeholder=''
-                            )"/>
+                                    title='STATUS',
+                                    name='packingSlipStatus',
+                                    id='packingSlipStatus',
+                                    options=${packingSlipStatus_dict},
+                                    value=${packingSlip.getPackingStatus().getId()},
+                                    placeholder=''
+                                )"/>
                             </div>
                         </div>
                         <th:block th:replace="fragments/product-fragments :: sales-order-address-textarea(
