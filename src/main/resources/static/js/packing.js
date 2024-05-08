@@ -1,4 +1,31 @@
 let packingSlipsTable;
+const quantityCell = function(cell) {
+    let original;
+    cell.setAttribute('contenteditable', true)
+    cell.setAttribute('spellcheck', false)
+    cell.addEventListener("focus", function(e) {
+        original = e.target.textContent
+    });
+    cell.addEventListener("blur", function(e) {
+        const parentTable = $(e.target).closest('table').DataTable();
+        if (original !== e.target.textContent) {
+            //const row = parentTable.row(e.target.parentElement);
+            const cellData = parentTable.cell(e.target).data();
+            const rowIndex = parentTable.cell(e.target).index().row;
+            const colIndex = parentTable.cell(e.target).index().column;
+            //row.invalidate()
+            parentTable.cell({ row: rowIndex, column: colIndex }).data(e.target.textContent);
+            console.log('Row changed: ', e.target.textContent);
+        }
+    });
+    cell.addEventListener("keypress", function(e) {
+        let charCode = (e.which) ? e.which : e.keyCode;
+        if (charCode < 48 || charCode > 57){
+            e.preventDefault();
+        }
+    });
+}
+
 $(document).ready(function() {
     packingSlipsTable = $('#packingSlipProductsTable').DataTable({
         "serverSide" : false,
@@ -43,6 +70,9 @@ $(document).ready(function() {
                 return '<button type="button"><i class="fa fa-trash"/></button>'
             }
         }, {
+            'targets': 1,
+            'createdCell': quantityCell
+        },{
             'targets': 2,
             'visible': false,
             'searchable': false,
@@ -71,13 +101,7 @@ $(document).ready(function() {
     });
 
     packingSlipsTable.on('click', 'td.editor-delete button', function (e) {
-        let row = $(this).closest('tr');
-
-        if (row.hasClass('child')) {
-            packingSlipsTable.row(row.prev('tr')).remove().draw(false);
-        } else {
-            packingSlipsTable.row(row).remove().draw(false);
-        }
+        $(this).closest('tr').remove();
     });
 
     $('#dealer').on('change', function(){
@@ -180,9 +204,6 @@ $(document).ready(function() {
                 <td class="dt-body-center">
                     <select class="selectpicker form-control productSelector" data-live-search="true" required>
                     </select>
-                </td>
-                <td class="dt-body-center">
-                    <input type="number" class="form-control" name="price" required>
                 </td>
             </tr>
         `);
