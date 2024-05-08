@@ -169,6 +169,19 @@ public class PackingServiceImpl implements PackingService{
 	}
 
 	/**
+	 * @param packingSlipId queried packingSlipId
+	 * @return DatatablesView of packingItems
+	 */
+	@Override
+	public DatatablesView<SalesOrderItem> getSalesOrderPackingItemsTableByPackingSlipId(Long packingSlipId) {
+		DatatablesView<SalesOrderItem> dataView = new DatatablesView<>();
+		List<SalesOrderItem> packingItems = getSalesOrderPackingItemsByPackingSlipId(packingSlipId);
+		dataView.setData(packingItems);
+		dataView.setRecordsTotal(packingItems.size());
+		return dataView;
+	}
+
+	/**
 	 * @param packingSlipId packing slip id
 	 * @return List of Sales order item that includes product info and packing quantity
 	 */

@@ -26,6 +26,8 @@ public interface PackingService {
 
 	List<PackingStatus> getPackingSlipStatusDict();
 
+	DatatablesView<SalesOrderItem> getSalesOrderPackingItemsTableByPackingSlipId(Long packingSlipId);
+
 	List<SalesOrderItem> getSalesOrderPackingItemsByPackingSlipId(Long packingSlipId);
 
 	ResponseEntity<?> updatePackingSlipStatus(User user, PackingSlip packingSlip, Long statusId);

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vidar.websystem.constants.PathConstants;
 import vidar.websystem.domain.DatatablesView;
+import vidar.websystem.domain.SalesOrderItem;
 import vidar.websystem.domain.User;
 import vidar.websystem.domain.PackingSlip;
 import vidar.websystem.dto.request.PackingSlipRequest;
@@ -45,6 +46,19 @@ public class PackingRestController {
         ObjectMapper mapper = new ObjectMapper();
         try {
             return mapper.writeValueAsString(packingSlipView);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @GetMapping(value ="/getSalesOrderItemsTableById")
+    @ResponseBody
+    public String getSalesOrderItemsTableById(@RequestParam("packingSlipId") Long packingSlipId) {
+        DatatablesView<SalesOrderItem> packingItemsView = packingService.getSalesOrderPackingItemsTableByPackingSlipId(packingSlipId);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(packingItemsView);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return null;

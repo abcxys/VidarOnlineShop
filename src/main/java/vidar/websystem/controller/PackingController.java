@@ -3,11 +3,7 @@ package vidar.websystem.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +16,7 @@ import vidar.websystem.service.PackingService;
 
 /**
  * @author yishi.xing
- * @created Feb 12, 2024 - 8:23:02 PM
+ * created Feb 12, 2024 - 8:23:02 PM
  */
 @Controller
 @CrossOrigin(origins = "http://localhost:8080/")
@@ -37,6 +33,15 @@ public class PackingController {
 		model.addAttribute("packingSlipStatus_dict", packingService.getPackingSlipStatusDict());
 		return Pages.PACKINGS;
     }
+
+	@GetMapping("/{packingSlipId}")
+	public String getPackingSlip(@PathVariable("packingSlipId") Long packingSlipId, Model model) {
+		model.addAttribute("dealer_dict", cartService.getDealers());
+		model.addAttribute("driver_dict", packingService.getDrivers());
+		model.addAttribute("packingSlipStatus_dict", packingService.getPackingSlipStatusDict());
+		model.addAttribute("packingSlip", packingService.getPackingSlipById(packingSlipId));
+		return Pages.PACKING;
+	}
 	
 	@RequestMapping(value = "/showOrders", method = RequestMethod.POST)
 	@ResponseBody
