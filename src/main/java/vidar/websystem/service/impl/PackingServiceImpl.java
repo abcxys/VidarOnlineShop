@@ -130,7 +130,7 @@ public class PackingServiceImpl implements PackingService{
 	public ResponseEntity<?> addPackingSlip(User user, PackingSlipRequest packingSlipRequest) {
 		// Create packing slip with status 'created'
 		PackingSlip packingSlip = new PackingSlip();
-		packingSlip.setPackingStatus(packingStatusRepository.findById(1L));
+		packingSlip.setPackingStatus(packingStatusRepository.findById(packingSlipRequest.getStatusId()).orElse(null));
 		packingSlip.setDealer(dealerRepository.findByCompanyName(packingSlipRequest.getDealerCompanyName()));
 		packingSlip.setDriver(driverRepository.findById(packingSlipRequest.getDriverId()).orElse(null));
 		packingSlip.setDescription(packingSlipRequest.getDescription());
