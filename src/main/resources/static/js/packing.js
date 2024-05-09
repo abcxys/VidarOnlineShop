@@ -214,7 +214,8 @@ $(document).ready(function() {
     // set the value of the datepicker default to be current datetime.
     //$('#soDatepicker').datepicker("setDate", new Date());
 
-    $('form#packingSlipForm').submit(function(event){
+    $('form#updatePackingForm').submit(function(event){
+        // click on updatePackingSlipBtn
         event.preventDefault();
         console.log("Submitting packing slip form!");
 
@@ -222,7 +223,7 @@ $(document).ready(function() {
         $('#packingSlipProductsTable tbody tr').each(function(){
             if (packingSlipsTable.row(this).data()!=null){
                 let rowData = {
-                    productId: packingSlipsTable.row(this).data().floorColorSize.id,
+                    id: packingSlipsTable.row(this).data().id,
                     quantity: packingSlipsTable.row(this).data().quantity
                 };
                 tableData.push(rowData);
@@ -237,18 +238,10 @@ $(document).ready(function() {
         });
 
         let jsonData = {
-            "id": $('#salesOrderId').val(),
-            "address": $('#dealer_address').val(),
-            "statusId": $('#salesOrderStatus').val(),
-            "releaseOk": parseInt($('#releaseOk').val()) === 1,
-            "date": $('#packingDatepicker').datepicker('getDate'),
-            "dateWanted": $('#dateWanted').datepicker('getDate'),
-            "soNumber": $('#soNumber').val(),
-            "poNumber": $('#poNumber').val(),
-            "dealerId": $('#dealer').val(),
-            "salesRepId": $('#salesRep').val(),
-            "warehouseId": $('#warehouse').val(),
-            "salesOrderItems": tableData
+            "id": $('#packingSlipId').val(),
+            "statusId": $('#packingSlipStatus').val(),
+            "dealerCompanyName": $('dealer_address').val(),
+            "packingSlipItems": tableData
         };
 
         console.log('The json data to be transferred is ');

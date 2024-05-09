@@ -9,7 +9,7 @@
 <div class="bg-light">
     <div class="py-5">
         <div class="container py-5 bg-white shadow-sm card-height">
-            <form id="packingSlipForm" method="post" action="/packing/update-packing">
+            <form id="updatePackingForm" method="POST" action="/packing/update">
                 <input type="hidden" id="packingSlipId" th:value="${packingSlip.getId()}"/>
                 <div class="container-fluid">
                     <div class="row mx-3">
@@ -91,12 +91,12 @@
                             buttonClassName='btn-warning mt-3',
                             icon='fas fa-minus-square mr-2'
                         )"/>
-                        <th:block th:replace="fragments/common-fragments :: icon-button-noSubmit(
+                        <!--th:block th:replace="fragments/common-fragments :: icon-button-noSubmit(
                             id='addProductBtn',
                             text='Add product',
                             buttonClassName='btn-primary mt-3',
                             icon='fas fa-plus-square mr-2'
-                        )"/>
+                        )"/-->
                         <th:block th:replace="fragments/common-fragments :: icon-button(
                             id='updatePackingSlipBtn',
                             text='Save',
