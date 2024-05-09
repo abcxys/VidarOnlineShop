@@ -161,7 +161,7 @@ $(document).ready(function() {
             "id": $('#salesOrderId').val(),
             "address": $('#dealer_address').val(),
             "date": $('#soDatepicker').datepicker('getDate'),
-            "dataWanted": $('#dateWanted').datepicker('getDate'),
+            "dateWanted": $('#dateWanted').datepicker('getDate'),
             "soNumber": $('#soNumber').val(),
             "poNumber": $('#poNumber').val(),
             "dealerId": $('#dealer').val(),

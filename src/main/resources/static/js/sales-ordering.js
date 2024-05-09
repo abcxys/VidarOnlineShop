@@ -118,7 +118,7 @@ $(function() {
         let jsonData = {
             "address": $('#dealer_address').val(),
             "date": $('#soDatepicker').datepicker('getDate'),
-            "dataWanted": $('#dateWanted').datepicker('getDate'),
+            "dateWanted": $('#dateWanted').datepicker('getDate'),
             "soNumber": $('#soNumber').val(),
             "poNumber": $('#poNumber').val(),
             "dealerId": $('#dealer').val(),
