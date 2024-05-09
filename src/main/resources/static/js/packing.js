@@ -1,4 +1,5 @@
 let packingSlipsTable;
+let subtable;
 const quantityCell = function(cell) {
     let original;
     cell.setAttribute('contenteditable', true)
@@ -24,6 +25,83 @@ const quantityCell = function(cell) {
             e.preventDefault();
         }
     });
+}
+
+const createdCell = function(cell) {
+    let original;
+    let maxVal=10000;
+    cell.setAttribute('contenteditable', true);
+    cell.setAttribute('spellcheck', false);
+    cell.addEventListener("focus", function(e) {
+        original = e.target.textContent;
+        maxVal = subtable.row(e.target).data().quantity;
+    });
+    cell.addEventListener("keyup", function(e) {
+        if (original !== e.target.textContent) {
+            const newValue = e.target.textContent.trim();
+            if (!isNaN(newValue)){
+                //const row = subtable.row(e.target.parentElement);
+                if (newValue > maxVal){
+                    console.log('Value greater than max value. Reverting to original value.');
+                    e.target.textContent = original;
+                } else {
+                    const cellData = subtable.cell(e.target).data();
+                    const rowIndex = subtable.cell(e.target).index().row;
+                    const colIndex = subtable.cell(e.target).index().column;
+                    //row.invalidate()
+                    subtable.cell({ row: rowIndex, column: colIndex }).data(newValue);
+                    console.log('Row changed: ', newValue);
+                    // Set cursor position to end of cell content
+                    const range = document.createRange();
+                    const sel = window.getSelection();
+                    range.selectNodeContents(e.target);
+                    range.collapse(false);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                    e.target.focus();
+                }
+            } else {
+                // If the input is not a valid number, revert to the original value
+                e.target.textContent = original;
+                console.log('Invalid input. Reverting to original value.');
+            }
+        }
+    });
+    cell.addEventListener("blur", function(e) {
+        if (original !== e.target.textContent) {
+            const newValue = e.target.textContent.trim();
+            if (!isNaN(newValue)){
+                //const row = subtable.row(e.target.parentElement);
+                if (newValue > maxVal){
+                    console.log('Value greater than max value. Reverting to original value.');
+                    e.target.textContent = original;
+                } else {
+                    const cellData = subtable.cell(e.target).data();
+                    const rowIndex = subtable.cell(e.target).index().row;
+                    const colIndex = subtable.cell(e.target).index().column;
+                    //row.invalidate()
+                    subtable.cell({ row: rowIndex, column: colIndex }).data(newValue);
+                    console.log('Row changed: ', newValue);
+                    // Set cursor position to end of cell content
+                    const range = document.createRange();
+                    const sel = window.getSelection();
+                    range.selectNodeContents(e.target);
+                    range.collapse(false);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                    e.target.focus();
+                }
+            } else {
+                // If the input is not a valid number, revert to the original value
+                e.target.textContent = original;
+                console.log('Invalid input. Reverting to original value.');
+            }
+        }
+    });
+}
+
+function closeCreateReturnSlipModal() {
+    $('#createReturnSlipModal').modal('hide');
 }
 
 $(document).ready(function() {
@@ -138,7 +216,7 @@ $(document).ready(function() {
 
     $('form#packingSlipForm').submit(function(event){
         event.preventDefault();
-        console.log("Submitting sales order form!");
+        console.log("Submitting packing slip form!");
 
         let tableData = [];
         $('#packingSlipProductsTable tbody tr').each(function(){
@@ -208,5 +286,70 @@ $(document).ready(function() {
             </tr>
         `);
         populateSelect($('.productSelector').last());
+    });
+
+    $('#createReturn').on('click', function(){
+
+        $('#createReturnSlipModal').modal('show');
+    });
+
+    $('#createReturnSlipModal').on('shown.bs.modal', function () {
+        subtable = $('#createReturnSlipTable').DataTable({
+            "serverSide" : false,
+            "lengthChange": false,
+            "info": false,
+            "bProcessing" : true,
+            "bPaginate" : false,
+            "searching" : false,
+            "autoWidth": false,
+            "scrollY": "400px",
+            "scrollX": true,
+            "scrollCollapse": true,
+            ajax : {
+                method : "GET",
+                url : "/packing/getSalesOrderItemsTableById",
+                dataSrc : "data",
+                data : function (d) {
+                    let param = {};
+                    // param.draw = d.draw;
+                    // param.startPos = d.start;
+                    // param.pageSize = d.length;
+                    param.packingSlipId = $('#packingSlipId').val();
+                    return param;
+                },
+                "error": function (data) {
+                    alert("error");
+                }
+            },
+            columns : [
+                {"data" : '', "bSortable" : false},
+                {"data" : 'floorColorSize', "bSortable" : false},
+                {"data" : 'quantity', "bSortable" : true},
+                {"data" : '', "bSortable" : false}
+            ],
+            'columnDefs': [{
+                'targets': 0,
+                'searchable': false,
+                'className': 'dt-body-center editor-delete',
+                'render': function (data, type, full, meta){
+                    //return '<input type="checkbox" class="call-checkbox" name="checkbox-id" value="' + '">';
+                    return '<button type="button"><i class="fa fa-trash"/></button>'
+                }
+            }, {
+                'targets': 1,
+                'searchable': false,
+                'className': 'dt-body-center',
+                'render': function(data) {
+                    return data.width +'\" ' + data.woodSpeciesName.split(" ")[data.woodSpeciesName.split(" ").length - 1]
+                        + " " + data.colorName + " " + data.gradeAlias + " " + data.sqftPerCarton + " " + data.batchName;
+                }
+            }, {
+                targets: -1,
+                data: null,
+                defaultContent: '',
+                createdCell: createdCell
+            }],
+            order: []
+        });
     });
 });
