@@ -149,13 +149,11 @@ $(document).ready(function() {
     });
 
     $('#packingSlipTable tbody').on('dblclick', 'tr', function(){
-        /*
         let rowData = packingSlipTable.row(this).data();
-        console.log("The double clicked sales order id = " + rowData.id);
+        console.log("The double clicked packing slip id = " + rowData.id);
         let baseurl = window.location;
         window.open(baseurl + "/" + rowData.id);
 
-         */
     });
 
     packingSlipTable.on('click', '.editPacking', function(){
