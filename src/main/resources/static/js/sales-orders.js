@@ -87,15 +87,17 @@ function closeCreatePackingSlipModal() {
     $('#createPackingSlipModal').modal('hide');
 }
 $(document).ready(function() {
-    $('#startDatepicker').datepicker("setDate", new Date());
-    $('#endDatepicker').datepicker("setDate", new Date());
-
     $('.datepicker').datepicker({
-        autoclose: true // Enable autoclose to close the datepicker when a date is selected
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        todayHighlight: true
     }).on('changeDate', function(e) {
         // Handle the change date event for the start date picker
         console.log('Start date changed:', e.date);
     });
+
+    $('#startDatepicker').datepicker("setDate", new Date());
+    $('#endDatepicker').datepicker("setDate", new Date());
 
     salesOrdersTable = $('#salesOrdersTable').DataTable({
         "serverSide" : true,//分页，取数据等等的都放到服务端去
@@ -292,9 +294,14 @@ $(document).ready(function() {
             contentType: "application/json",
             success: function(response) {
                 console.log(response);
+                bootboxAlertPrompt(response);
+                let baseUrl = window.location.origin;
+                setTimeout(function(){
+                    window.open(baseUrl + "/packing", "_blank");
+                }, 2000);
             },
             error: function(xhr, status, error){
-
+                bootboxAlertError(xhr.responseText);
             }
         });
     });
