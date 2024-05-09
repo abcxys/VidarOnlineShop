@@ -263,14 +263,14 @@
 <th:block th:fragment="add-datetime-required-attribute-input">
     <div class="col">
         <label th:text="${title} + ':'"></label>
-        <div class="input-group date" data-provide="datepicker">
+        <div class="input-group date">
             <input
                     type="text"
                     th:id="${name}"
                     th:name="${name}"
                     th:placeholder="${placeholder}"
                     th:value="${value}"
-                    class="form-control" required th:classappend="${error} ? ' is-invalid'"
+                    class="form-control datepicker" required th:classappend="${error} ? ' is-invalid'"
             /><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
         </div>
         <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
