@@ -625,4 +625,39 @@ Java/Spring side changes:
 1. Update repository/serviceImpl for PackingSlip filtering. To allow pagination on server side.
 2. Update the naming of 'packing' to 'packings' for packing slips display.
 3. Add client side page design/javascript code for single packing slip, and the page constant.
-4. 
+
+### May 8th changes:
+Javascript design gist: packing.js
+When I add row to datatable on client-side only, the correct way to access cell data is by querying \<tr\> \<td\>
+``` javascript
+// Assuming you have the row index
+var rowIndex = 0; // Change this to the desired row index
+
+// Select the specific \<tr\> element
+var row = $('#packingSlipProductsTable tbody tr').eq(rowIndex);
+
+// Get the value of the input element in the second column (index 1)
+var quantityValue = row.find('td:eq(1) input').val();
+
+// Get the value of the select element in the third column (index 2)
+var productValue = row.find('td:eq(2) select').val();
+
+console.log("Quantity value:", quantityValue);
+console.log("Product value:", productValue);
+```
+
+Database UML design:
+1. Add return related database tables to visio file.
+
+Bug fixes:
+1. The datepicker in single packing slip page does not initialize correctly(format, autoclose etc).
+Solution: Remove datepicker initialization adn update it in add_new_container.js
+2. The dropdown menu for product selection is too long and extruding part will be clipped at table boundary.
+Solution: Set 'overflow' property of .dataTable_scrollBody to be visible.
+
+Java/Spring side changes:
+1. Add service/impl/controller methods for single packing slip page.
+2. Add a new thymeleaf fragment for datepicker in single packing slip page.
+3. Also update packing page html to avoid extruding dropdown menu clipping.
+4. Update packing.js for the client-side PackingSlip item.
+5. 
