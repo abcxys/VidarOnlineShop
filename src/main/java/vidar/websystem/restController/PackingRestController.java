@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import vidar.websystem.constants.PathConstants;
+import vidar.websystem.constants.SuccessMessage;
 import vidar.websystem.domain.DatatablesView;
 import vidar.websystem.domain.SalesOrderItem;
 import vidar.websystem.domain.User;
@@ -36,7 +37,7 @@ public class PackingRestController {
     public ResponseEntity<?> createPackingSlip(@RequestBody PackingSlipRequest packingSlipRequest) {
         User user = userService.getAuthenticatedUser();
         ResponseEntity<?> responseEntity = packingService.addPackingSlip(user, packingSlipRequest);
-        return ResponseEntity.ok().body("success");
+        return ResponseEntity.ok().body(SuccessMessage.PACKING_SLIP_CREATED);
     }
 
     @GetMapping(value = "/getFilteredPackingSlips")
