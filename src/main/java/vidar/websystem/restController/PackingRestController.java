@@ -36,8 +36,13 @@ public class PackingRestController {
     @PostMapping(value = "/create")
     public ResponseEntity<?> createPackingSlip(@RequestBody PackingSlipRequest packingSlipRequest) {
         User user = userService.getAuthenticatedUser();
-        ResponseEntity<?> responseEntity = packingService.addPackingSlip(user, packingSlipRequest);
-        return ResponseEntity.ok().body(SuccessMessage.PACKING_SLIP_CREATED);
+        return packingService.addPackingSlip(user, packingSlipRequest);
+    }
+
+    @PostMapping(value = "/update")
+    public ResponseEntity<?> updatePackingSlip(@RequestBody PackingSlipRequest packingSlipRequest) {
+        User user = userService.getAuthenticatedUser();
+        return packingService.updatePackingSlip(user, packingSlipRequest);
     }
 
     @GetMapping(value = "/getFilteredPackingSlips")

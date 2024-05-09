@@ -150,6 +150,30 @@ public class PackingServiceImpl implements PackingService{
 
 	@Transactional
 	@Override
+	public ResponseEntity<?> updatePackingSlip(User user, PackingSlipRequest packingSlipRequest) {
+		PackingSlip packingSlip = packingSlipRepository.findById(packingSlipRequest.getId()).orElse(null);
+		if (packingSlip == null) {
+			return ResponseEntity.notFound().build();
+		}
+		packingSlip.setPackingStatus(packingStatusRepository.findById(packingSlipRequest.getStatusId()).orElse(null));
+		//packingSlip.setDealer(dealerRepository.findByCompanyName(packingSlipRequest.getDealerCompanyName()));
+		packingSlip.setUpdateUserId(user.getId());
+		packingSlip.setUpdateTime(new Date());
+		try {
+			packingSlipRepository.save(packingSlip);
+			packingSlipRepository.flush();
+			log.info("The inserted packing slip returns id = " + packingSlip.getId());
+
+			// Do we need to update the PackingSlip items??
+			updateSalesOrderPackingItems(user, packingSlipRequest);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(ErrorMessage.PACKING_SLIP_UPDATED_FAILED);
+		}
+		return ResponseEntity.ok().body(SuccessMessage.SALES_ORDER_CREATED);
+	}
+
+	@Transactional
+	@Override
 	public void insertSalesOrderPackingItems(User user, PackingSlip packingSlip, PackingSlipRequest packingSlipRequest) {
 		// Insert packingSlipItems for packingSlipRequest
 		for (PackingSlipItem item : packingSlipRequest.getPackingSlipItems()) {
@@ -157,6 +181,18 @@ public class PackingServiceImpl implements PackingService{
 			item.setCreateTime(new Date());
 			item.setCreateUserId(user.getId());
 			packingSlipItemRepository.save(item);
+		}
+	}
+
+	public void updateSalesOrderPackingItems(User user, PackingSlipRequest packingSlipRequest) {
+		for (PackingSlipItem item : packingSlipRequest.getPackingSlipItems()) {
+			PackingSlipItem originalItem = packingSlipItemRepository.findById(item.getId()).orElse(null);
+			if (originalItem != null) {
+				originalItem.setQuantity(item.getQuantity());
+				originalItem.setUpdateTime(new Date());
+				originalItem.setUpdateUserId(user.getId());
+				packingSlipItemRepository.save(originalItem);
+			}
 		}
 	}
 
@@ -188,12 +224,11 @@ public class PackingServiceImpl implements PackingService{
 	@Override
 	public List<SalesOrderItem> getSalesOrderPackingItemsByPackingSlipId(Long packingSlipId) {
 		List<PackingSlipItem> packingSlipRawItems = packingSlipItemRepository.findByPackingSlipId(packingSlipId);
-		List<SalesOrderItem> packingSlipItems = packingSlipRawItems.stream().map(rawItem -> {
+        return packingSlipRawItems.stream().map(rawItem -> {
 			FloorColorSize floorColorSize = hardwoodFloorsRepository.findFloorColorById(
 					Objects.requireNonNull(salesOrderProductRepository.findById(rawItem.getSoProductId()).orElse(null)).getHardwoodfloorId());
-			return new SalesOrderItem(floorColorSize, rawItem.getQuantity());
+			return new SalesOrderItem(rawItem.getId(), floorColorSize, rawItem.getQuantity());
 		}).collect(Collectors.toList());
-		return packingSlipItems;
 	}
 
 	/**

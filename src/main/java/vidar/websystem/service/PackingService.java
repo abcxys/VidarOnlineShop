@@ -22,6 +22,8 @@ public interface PackingService {
 
 	ResponseEntity<?> addPackingSlip(User user, PackingSlipRequest packingSlipRequest);
 
+	ResponseEntity<?> updatePackingSlip(User user, PackingSlipRequest packingSlipRequest);
+
 	void insertSalesOrderPackingItems(User user, PackingSlip packingSlip, PackingSlipRequest packingSlipRequest);
 
 	List<PackingStatus> getPackingSlipStatusDict();
