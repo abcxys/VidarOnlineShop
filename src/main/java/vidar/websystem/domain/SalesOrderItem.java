@@ -20,6 +20,11 @@ public class SalesOrderItem {
         this.quantity = quantity;
     }
 
+    public SalesOrderItem(Long id, FloorColorSize floorColorSize, BigDecimal quantity) {
+        this(floorColorSize, quantity);
+        this.id = id;
+    }
+
     // Id of corresponding SalesOrderProduct
     private Long id;
 
