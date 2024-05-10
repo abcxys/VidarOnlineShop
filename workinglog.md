@@ -660,4 +660,26 @@ Java/Spring side changes:
 2. Add a new thymeleaf fragment for datepicker in single packing slip page.
 3. Also update packing page html to avoid extruding dropdown menu clipping.
 4. Update packing.js for the client-side PackingSlip item.
-5. 
+
+### May 9th changes:
+Javascript design gist:
+Sometimes the header of Datatable would not align with body. Especially when the table is inside a initially hidden modal.
+We have two solutions here:
+one is to call ```dataTable.columns.adjust()``` after table initialization.
+second is to initialize dataTable upon modal shown.
+
+Bug fixes:
+1. Date wanted selection not working on sales-ordering page.
+Solution: Another fucking TYPO!!! replace 'dataWanted' with 'dateWanted'.
+
+Java/Spring side changes:
+1. Add database return-related tables initialization queries.
+2. Update ResponseEntity message of createPackingSlip controller.
+3. Update javascript code for sales-orders page, add datepicker initialization attributes and response bootbox messages for creating packing slips.
+4. Add modal for creating return slips on client side.
+5. Update 'add-datetime-required-attribute-input' fragment, remove 'data-provider' attribute to allow manually initialization.
+6. Update PackingSlipRequest class, make the default setting of PackingStatus value within the class itself.
+7. Add a constructor with attribute 'id' to SalesOrderItem.
+8. Add double click event handler to packingSlipTable row.
+9. Add service/impl/REST controller methods for updating packing slip.
+10. Update the packingSlip update form name, and the DataTable dataSrc JSON data formating allow mapping towards SalesOrderItem class.
