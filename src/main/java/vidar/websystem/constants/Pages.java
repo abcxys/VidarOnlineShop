@@ -24,6 +24,7 @@ public class Pages {
     public static final String LOGIN = "login";
     public static final String PACKING = "packing";
     public static final String PACKINGS = "packings";
+    public static final String RETURNS = "returns";
     public static final String INVENTORY = "inventory";
     public static final String CREATE_ORDER = "create-order";
     public static final String SALES_ORDERING = "sales-ordering";

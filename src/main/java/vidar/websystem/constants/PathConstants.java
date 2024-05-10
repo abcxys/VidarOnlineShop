@@ -12,6 +12,7 @@ public class PathConstants {
     public static final String AUTH = "/auth";
     public static final String ERROR = "/error";
     public static final String PACKING = "/packing";
+    public static final String RETURN = "/return";
     public static final String CREATEORDER = "/create-order";
     public static final String UPDATE = "/update";
     public static final String CONTAINER = "/container";
