@@ -14,6 +14,9 @@ INSERT INTO sales_order_status (id, status_name, status_alias) VALUES (1, 'creat
 INSERT INTO sales_order_status (id, status_name, status_alias) VALUES (2, 'picked up', 'PU');
 INSERT INTO sales_order_status (id, status_name, status_alias) VALUES (3, 'completed', 'CP');
 INSERT INTO sales_order_status (id, status_name, status_alias) VALUES (4, 'cancelled', 'CL');
+-- create return_status entries
+INSERT INTO return_status (id, name, alias, description) VALUES (1, 'created', 'CR', null);
+INSERT INTO return_status (id, name, alias, description) VALUES (2, 'finalized', 'FN', null);
 
 -- create sales_order entries
 INSERT INTO sales_orders (id, address, city, date, email, first_name, last_name, phone_number, post_index, total_price, user_id, SO_number, PO_number, dealer_id, sales_rep_id, warehouse_id, status_id, release_ok)
