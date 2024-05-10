@@ -23,4 +23,6 @@ public class ErrorMessage {
     public static final String SALES_ORDER_UPDATED_FAILED = "Sales order update failed";
     public static final String PACKING_SLIP_CREATED_FAILED = "Packing slip create failed";
     public static final String PACKING_SLIP_UPDATED_FAILED = "Packing slip update failed";
+    public static final String RETURN_SLIP_CREATED_FAILED = "Return slip create failed";
+    public static final String RETURN_SLIP_UPDATED_FAILED = "Return slip update failed";
 }

@@ -19,4 +19,6 @@ public class SuccessMessage {
     public static final String SALES_ORDER_UPDATED = "Sales order successfully updated!";
     public static final String PACKING_SLIP_CREATED = "Packing slip successfully created!";
     public static final String PACKING_SLIP_UPDATED = "Packing slip successfully updated!";
+    public static final String RETURN_SLIP_CREATED = "Return slip successfully created!";
+    public static final String RETURN_SLIP_UPDATED = "Return slip successfully updated!";
 }
