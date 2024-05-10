@@ -345,4 +345,44 @@ $(document).ready(function() {
             order: []
         });
     });
+
+    $('form#createReturnForm').submit(function(event) {
+        event.preventDefault();
+        console.log('create return form submitted!');
+
+        let tableData = [];
+        $('#createReturnSlipTable tbody tr').each(function(){
+            if (packingSlipsTable.row(this).data()!=null && Number($(this).find('td:eq(3)').html()) > 0){
+                let rowData = {
+                    productId: packingSlipsTable.row(this).data().floorColorSize.id,
+                    quantity: Number($(this).find('td:eq(3)').html())
+                };
+                tableData.push(rowData);
+            }
+        });
+
+        let jsonData = {
+            "packingSlipId": $('#packingSlipId').val(),
+            "returnItems": tableData
+        };
+
+        console.log('Transfer json data to server side.');
+
+        $.ajax({
+            url: $(this).attr('action'),
+            method: $(this).attr('method'),
+            data: JSON.stringify(jsonData),
+            contentType: "application/json",
+            success: function(response) {
+                bootboxAlertPromp(response);
+                let baseUrl = window.location.origin;
+                setTimeout(function() {
+                    window.open(baseUrl + "/return", "_blank");
+                }, 2000);
+            },
+            error: function(xhr, status, error) {
+                bootboxAlertError(xhr.responseText);
+            }
+        });
+    })
 });
