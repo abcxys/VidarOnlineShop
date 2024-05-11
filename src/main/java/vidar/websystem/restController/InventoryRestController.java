@@ -1,7 +1,6 @@
 package vidar.websystem.restController;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
@@ -27,7 +26,7 @@ public class InventoryRestController {
 	private final InventoryService inventoryService;
 	private final UserService userService;
 
-	@RequestMapping(value = "/getFilteredProductStocks", method = RequestMethod.POST)
+	@GetMapping(value = "/getFilteredProductStocks")
 	public String getAllInventoryItems(InventoryFilterConditionForm inventoryFilterConditionForm) {
 		//DatatablesView<ProductInventoryItem> datatablesView = inventoryService.getAllInventoryItems();
 		int colourId = inventoryFilterConditionForm.getColour().equals("") ? -1 : Integer.parseInt(inventoryFilterConditionForm.getColour());
@@ -42,7 +41,7 @@ public class InventoryRestController {
 		return JSONObject.fromObject(datatablesView).toString();
 	}
 
-	@PostMapping(value = "/getInventoryByProductId")
+	@GetMapping(value = "/getInventoryByProductId")
 	public String getInventoryByProductId(@RequestParam("productId") Integer productId) {
 		if (productId == null)
 			return "Error";

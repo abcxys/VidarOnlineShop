@@ -13,7 +13,7 @@ $(function() {
     "scrollCollapse": true,
 	"sPaginationType" : "full_numbers",
 	ajax : {
-		type : "post",
+		method : "GET",
 		url : "/inventory/getFilteredProductStocks",
 		dataSrc : "data",
 		data : function (d) {
@@ -67,7 +67,7 @@ subtable = $('#updateInventoryItemTable').DataTable({
 	"bInfo": false,
 	"paging": false,
 	ajax : {
-		type : "post",
+		method : "GET",
 		url : "/inventory/getInventoryByProductId",
 		dataSrc : "data",
 		data : function () {
