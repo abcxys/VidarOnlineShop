@@ -83,6 +83,12 @@ public class UpdateInventoryController {
 		injectAttributesToModel(model);
 		return Pages.UPDATE_INVENTORY;
 	}
+
+	@GetMapping("/factory-inventory")
+	public String getProductFactoryInventory(Model model) {
+		injectAttributesToModel(model);
+		return Pages.UPDATE_FACTORY_INVENTORY;
+	}
 	
 	@PostMapping("/product")
 	public String updateProduct(@Valid ProductRequest product, BindingResult bindingResult, Model model,
