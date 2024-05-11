@@ -41,11 +41,33 @@ public class InventoryRestController {
 		return JSONObject.fromObject(datatablesView).toString();
 	}
 
+	@GetMapping(value = "/getFilteredProductFactoryStocks")
+	public String getFilteredProductFactoryStocks(InventoryFilterConditionForm inventoryFilterConditionForm) {
+		int colourId = inventoryFilterConditionForm.getColour().equals("") ? -1 : Integer.parseInt(inventoryFilterConditionForm.getColour());
+		int widthId = inventoryFilterConditionForm.getWidth().equals("") ? -1 : Integer.parseInt(inventoryFilterConditionForm.getWidth());
+		int speciesId = inventoryFilterConditionForm.getSpecies().equals("") ? -1 : Integer.parseInt(inventoryFilterConditionForm.getSpecies());
+		int gradeId = inventoryFilterConditionForm.getGrade().equals("") ? -1 : Integer.parseInt(inventoryFilterConditionForm.getGrade());
+		DatatablesView<ProductInventoryItem> datatablesView = inventoryService.getFilteredProductFactoryInventoryItems(colourId,
+				widthId,
+				speciesId,
+				gradeId,
+				inventoryFilterConditionForm.getBatch());
+		return JSONObject.fromObject(datatablesView).toString();
+	}
+
 	@GetMapping(value = "/getInventoryByProductId")
 	public String getInventoryByProductId(@RequestParam("productId") Integer productId) {
 		if (productId == null)
 			return "Error";
 		DatatablesView<InventoryItem> datatablesView = inventoryService.getInventoryItemsByProductId(productId);
+		return JSONObject.fromObject(datatablesView).toString();
+	}
+
+	@GetMapping(value = "/getFactoryInventoryByProductId")
+	public String getFactoryInventoryByProductId(@RequestParam("productId") Integer productId) {
+		if (productId == null)
+			return "Error";
+		DatatablesView<InventoryItem> datatablesView = inventoryService.getFactoryInventoryItemsByProductId(productId);
 		return JSONObject.fromObject(datatablesView).toString();
 	}
 

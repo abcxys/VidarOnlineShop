@@ -24,9 +24,17 @@ public interface InventoryService {
 																		  int gradeId,
 																		  String batch);
 
+	DatatablesView<ProductInventoryItem> getFilteredProductFactoryInventoryItems(int colourId,
+																				 int widthId,
+																				 int speciesId,
+																				 int gradeId,
+																				 String batch);
+
 	DatatablesView<Container> getFilteredContainers(String searchType, String searchValue, Pageable pageable);
 
 	DatatablesView<InventoryItem> getInventoryItemsByProductId(int productId);
+
+	DatatablesView<InventoryItem> getFactoryInventoryItemsByProductId(int productId);
 
 	DatatablesView<ProductContainerItem> getContainerItemsById(Long containerId);
 

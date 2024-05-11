@@ -196,6 +196,29 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	/**
+	 * @param colourId colour filtering condition
+	 * @param widthId width filtering condition
+	 * @param speciesId species filtering condition
+	 * @param gradeId grade filtering condition
+	 * @param batch batch filtering condition
+	 * @return queried result of ProductInventoryItem
+	 */
+	@Override
+	public DatatablesView<ProductInventoryItem> getFilteredProductFactoryInventoryItems(int colourId,
+																						int widthId,
+																						int speciesId,
+																						int gradeId,
+																						String batch) {
+		DatatablesView<ProductInventoryItem> dataView = new DatatablesView<>();
+		List<ProductInventoryItem> stock = inventoryRepository.findFilteredProductFactoryStocks(colourId, widthId, speciesId,
+				gradeId, batch);
+		int count = stock.size();
+		dataView.setData(stock);
+		dataView.setRecordsTotal(count);
+		return dataView;
+	}
+
+	/**
 	 * @return DatatablesView of filtered containers
 	 */
 	@Override
@@ -213,6 +236,20 @@ public class InventoryServiceImpl implements InventoryService {
 	public DatatablesView<InventoryItem> getInventoryItemsByProductId(int productId) {
 		DatatablesView<InventoryItem> dataView = new DatatablesView<>();
 		List<InventoryItem> items = inventoryRepository.findInventoryItemsByProductId(productId);
+		int count = items.size();
+		dataView.setData(items);
+		dataView.setRecordsTotal(count);
+		return dataView;
+	}
+
+	/**
+	 * @param productId
+	 * @return
+	 */
+	@Override
+	public DatatablesView<InventoryItem> getFactoryInventoryItemsByProductId(int productId) {
+		DatatablesView<InventoryItem> dataView = new DatatablesView<>();
+		List<InventoryItem> items = inventoryRepository.findFactoryInventoryItemsByProductId(productId);
 		int count = items.size();
 		dataView.setData(items);
 		dataView.setRecordsTotal(count);
