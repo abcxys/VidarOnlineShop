@@ -32,6 +32,7 @@ public class Pages {
     public static final String SALES_ORDER = "sales-order";
     public static final String UPDATE = "update";
     public static final String UPDATE_INVENTORY = "update-inventory";
+    public static final String UPDATE_FACTORY_INVENTORY = "update-factory-inventory";
     public static final String ADD_NEW_CONTAINER = "add-new-container";
     public static final String UPDATE_CONTAINERS = "update-containers";
     public static final String UPDATE_ALL_PRODUCTS = "update-all-products";
