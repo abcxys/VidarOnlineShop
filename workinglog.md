@@ -683,3 +683,24 @@ Java/Spring side changes:
 8. Add double click event handler to packingSlipTable row.
 9. Add service/impl/REST controller methods for updating packing slip.
 10. Update the packingSlip update form name, and the DataTable dataSrc JSON data formating allow mapping towards SalesOrderItem class.
+
+### May 10th changes:
+Java/Javascript coding gist:
+Be careful of Date transfer to client-side. Compare container.js and returns.js, you can see that when we use ObjectMapper to transfer Datatable onto client-side, the Date Java class would be left with only the milisecond value.
+
+Bug fixes:
+1. Thymeleaf fragment "add-dealer-multiple-select" has a redundant option that affect selection.
+Solution: remove the first option.
+
+Java/Spring side changes:
+1. Add two fundamental entries for table 'return_status'
+2. Add success/error messages for ReturnSlip create/update.
+3. Add Pages/PathConstants static final variables for returns web page.
+4. Update client-side html/javascript code for packing page, accommodate for creating return slips.
+5. Add serializers for PackingSlip/ReturnStatus classes, to avoid JSON recursion.
+6. Add repository interfaces for ReturnSlip/ReturnItem.
+7. Add repository interfaces for ReturnStatus.
+8. Add ReturnSlipRequest class for holding Return Slip data transfer from client-side.
+9. Add service/impl methods for 'create' and 'read' database operations of ReturnSlip.
+10. Add controller/rest controller methods for return slips related request mapping.
+11. Add client-side html/javascript code for returns.
