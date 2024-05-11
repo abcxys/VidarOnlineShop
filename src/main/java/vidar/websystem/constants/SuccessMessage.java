@@ -10,6 +10,8 @@ public class SuccessMessage {
     public static final String USER_UPDATED = "User successfully updated.";
     public static final String INVENTORY_ADDED = "Inventory successfully added!";
     public static final String INVENTORY_ITEM_UPDATED = "Inventory item successfully updated!";
+    public static final String FACTORY_INVENTORY_ADDED = "Factory inventory successfully added!";
+    public static final String FACTORY_INVENTORY_ITEM_UPDATED = "Factory inventory item successfully updated!";
     public static final String PRODUCT_ADDED = "Product successfully added!";
     public static final String PRODUCT_UPDATED = "Product successfully updated!";
     public static final String CONTAINER_ADDED = "Container successfully added!";
