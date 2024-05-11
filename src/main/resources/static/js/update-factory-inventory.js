@@ -97,7 +97,7 @@ $(function() {
             data: null,
             defaultContent: '<i class="fas fa-light fa-edit editInventoryItem" style="cursor: pointer;"></i>'
         },{
-            targets: [2, 3],
+            targets: 3,
             createdCell: createdCell
         }]
     });
@@ -121,7 +121,7 @@ $(function() {
             return;
         }
         $.ajax({
-            url: '/inventory/update',
+            url: '/factory-inventory/update',
             method: 'PUT',
             data: {
                 id: rowData.id,
@@ -148,18 +148,18 @@ $(function() {
         const mockInventory = {
             id: "",
             productId: $('#editInventoryProductId').val(),
-            location: "",
+            location: "factory",
             quantity: ""
         }
         console.log("The product id for adding new inventory is " + mockInventory.productId);
-        let newInventoryItemDiv = '<form class="form-horizontal" method="post" action="/update/add-new-inventory">' +
+        let newInventoryItemDiv = '<form class="form-horizontal" method="post" action="/update/add-new-factory-inventory">' +
             '<div class="modal-body">'+
             '<div class="form-group row">' +
             '<div style="display: none;"><input type="number" name="id" value="' + mockInventory.id + '"></div>' +
             '<div style="display: none;"><input type="number" name="productId" value="' + mockInventory.productId + '"></div>' +
             '<div class="col-md-2">' +
             '<label class="control-label xrequired">Location: </label>' +
-            '<input type="text" name="location" value="' + mockInventory.location + '" style="height: 50%;">' +
+            '<input type="text" name="location" value="' + mockInventory.location + '" style="height: 50%;" readonly>' +
             '</div>' +
             '<div class="col-md-2 ml-auto">' +
             '<label class="control-label xrequired">Quantity: </label>' +
