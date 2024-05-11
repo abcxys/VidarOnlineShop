@@ -9,6 +9,7 @@ INSERT INTO locations (id, warehouse_id, bay, description) VALUES (3, 1, 'A5', n
 INSERT INTO locations (id, warehouse_id, bay, description) VALUES (4, 1, 'A6', null);
 INSERT INTO locations (id, warehouse_id, bay, description) VALUES (5, 1, 'E10', null);
 INSERT INTO locations (id, warehouse_id, bay, description) VALUES (6, 1, 'F2', null);
+INSERT INTO locations (id, warehouse_id, bay, description) VALUES (7, 4, 'factory', null);
 -- create inventory entries
 INSERT INTO inventory (id, current_quantity, initial_quantity, floor_id, location_id) VALUES (1, 99, 199, 1, 1);
 INSERT INTO inventory (id, current_quantity, initial_quantity, floor_id, location_id) VALUES (2, 1188, 1188, 2, 2);
