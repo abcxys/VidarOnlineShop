@@ -30,7 +30,9 @@ public class InventoryServiceImpl implements InventoryService {
 	
 	private final InventoryRepository inventoryRepository;
 	private final LocationRepository locationRepository;
+	private final FactoryInventoryRepository factoryInventoryRepository;
 	private final InventoryEventRepository inventoryEventRepository;
+	private final FactoryInventoryEventRepository factoryInventoryEventRepository;
 	private final ContainerRepository containerRepository;
 	private final ProductContainerRepository productContainerRepository;
 	private final ModelMapper modelMapper;
@@ -73,6 +75,15 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	/**
+	 * @param id factory inventory id
+	 * @return the queried factory inventory entity
+	 */
+	@Override
+	public FactoryInventory getFactoryInventoryById(Long id) {
+		return factoryInventoryRepository.findById(id).orElse(null);
+	}
+
+	/**
 	 * @param id container id
 	 * @return Container instance correspond to argument id
 	 */
@@ -109,6 +120,22 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	/**
+	 * @param user Authenticated user
+	 * @param inventory Added inventory entity instance
+	 * @return Resulting Message response
+	 */
+	@Override
+	@SneakyThrows
+	@Transactional
+	public MessageResponse addFactoryInventory(User user, FactoryInventory inventory) {
+		inventory.setCreateTime(new Date());
+		inventory.setCreateUserId(user.getId());
+		factoryInventoryRepository.save(inventory);
+		addManualSetFactoryInventoryEvent(user, inventory);
+		return new MessageResponse("alert-success", SuccessMessage.FACTORY_INVENTORY_ADDED);
+	}
+
+	/**
 	 * @param user authenticated user information
 	 * @param inventory the inventory entity that needs to be updated
 	 * @return success/fail message
@@ -121,6 +148,21 @@ public class InventoryServiceImpl implements InventoryService {
 		addManualSetInventoryEvent(user, inventory);
 		inventoryRepository.save(inventory);
 		return SuccessMessage.INVENTORY_ITEM_UPDATED;
+	}
+
+	/**
+	 * @param user Authenticated user
+	 * @param factoryInventory the inventory entity to be updated
+	 * @return success/fail message
+	 */
+	@Override
+	public String updateFactoryInventory(User user, FactoryInventory factoryInventory) {
+		factoryInventory.setUpdateTime(new Date());
+		factoryInventory.setUpdateUserId(user.getId());
+		// add into factory_inventory_event table
+		addManualSetFactoryInventoryEvent(user, factoryInventory);
+		factoryInventoryRepository.save(factoryInventory);
+		return SuccessMessage.FACTORY_INVENTORY_ITEM_UPDATED;
 	}
 
 	/**
@@ -210,7 +252,7 @@ public class InventoryServiceImpl implements InventoryService {
 																						int gradeId,
 																						String batch) {
 		DatatablesView<ProductInventoryItem> dataView = new DatatablesView<>();
-		List<ProductInventoryItem> stock = inventoryRepository.findFilteredProductFactoryStocks(colourId, widthId, speciesId,
+		List<ProductInventoryItem> stock = factoryInventoryRepository.findFilteredProductFactoryStocks(colourId, widthId, speciesId,
 				gradeId, batch);
 		int count = stock.size();
 		dataView.setData(stock);
@@ -243,13 +285,13 @@ public class InventoryServiceImpl implements InventoryService {
 	}
 
 	/**
-	 * @param productId
-	 * @return
+	 * @param productId queried product id
+	 * @return queried DatatablesView
 	 */
 	@Override
 	public DatatablesView<InventoryItem> getFactoryInventoryItemsByProductId(int productId) {
 		DatatablesView<InventoryItem> dataView = new DatatablesView<>();
-		List<InventoryItem> items = inventoryRepository.findFactoryInventoryItemsByProductId(productId);
+		List<InventoryItem> items = factoryInventoryRepository.findFactoryInventoryItemsByProductId(productId);
 		int count = items.size();
 		dataView.setData(items);
 		dataView.setRecordsTotal(count);
@@ -288,5 +330,16 @@ public class InventoryServiceImpl implements InventoryService {
 		event.setCreateTime(new Date());
 		event.setCreateUserId(user.getId());
 		inventoryEventRepository.save(event);
+	}
+
+	private void addManualSetFactoryInventoryEvent(User user, FactoryInventory factoryInventory){
+		FactoryInventoryEvent event = new FactoryInventoryEvent();
+		event.setInventoryId(factoryInventory.getId());
+		event.setInventoryEventTypeId(3L);
+		event.setLocationId(factoryInventory.getLocationId());
+		event.setQuantity(factoryInventory.getCurrentQuantity());
+		event.setCreateTime(new Date());
+		event.setCreateUserId(user.getId());
+		factoryInventoryEventRepository.save(event);
 	}
 }

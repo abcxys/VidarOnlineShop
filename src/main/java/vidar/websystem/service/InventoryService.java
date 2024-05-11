@@ -44,6 +44,8 @@ public interface InventoryService {
 
 	Inventory getInventoryById(Long id);
 
+	FactoryInventory getFactoryInventoryById(Long id);
+
 	Container getContainerById(Long id);
 
 	boolean existsLocationTorontoWarehouse(String location);
@@ -52,7 +54,11 @@ public interface InventoryService {
 
 	MessageResponse addInventory(User user, Inventory inventory);
 
+	MessageResponse addFactoryInventory(User user, FactoryInventory factoryInventory);
+
 	String updateInventory(User user, Inventory inventory);
+
+	String updateFactoryInventory(User user, FactoryInventory factoryInventory);
 
 	MessageResponse addContainer(User user, ContainerRequest containerRequest);
 
