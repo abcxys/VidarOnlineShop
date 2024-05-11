@@ -17,4 +17,5 @@ public class PathConstants {
     public static final String UPDATE = "/update";
     public static final String CONTAINER = "/container";
     public static final String INVENTORY = "/inventory";
+    public static final String FACTORYINVENTORY = "/factory-inventory";
 }

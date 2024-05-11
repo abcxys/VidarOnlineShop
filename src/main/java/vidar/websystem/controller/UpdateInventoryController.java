@@ -30,7 +30,7 @@ import vidar.websystem.utils.ControllerUtils;
 
 /**
  * @author yishi.xing
- * @created Mar 6, 2024 - 11:47:06 PM
+ * created Mar 6, 2024 - 11:47:06 PM
  */
 @Slf4j
 @Controller
@@ -150,6 +150,29 @@ public class UpdateInventoryController {
 		return controllerUtils.setAlertFlashMessage(attributes,
 				"/update",
 				inventoryService.addInventory(user, newInventory));
+	}
+
+	@PostMapping(value = "/add-new-factory-inventory")
+	public String addNewFactoryInventory(@Valid InventoryItemRequest inventoryItemRequest, BindingResult bindingResult, Model model,
+										 RedirectAttributes attributes) {
+		// Validate the entered location exists
+		String location = inventoryItemRequest.getLocation();
+
+		BigDecimal quantity = inventoryItemRequest.getQuantity();
+		//Validate the entered quantity
+		if (quantity.compareTo(BigDecimal.ZERO) <0)
+			return controllerUtils.setAlertFlashMessage(attributes, "/update", new MessageResponse("alert-danger", "Please fill in correct quantity!"));
+		FactoryInventory newFactoryInventory = new FactoryInventory();
+		newFactoryInventory.setFloorId(inventoryItemRequest.getProductId());
+		newFactoryInventory.setInitialQuantity(quantity);
+		newFactoryInventory.setCurrentQuantity(quantity);
+		// Ignore the input of location of factory inventory
+		newFactoryInventory.setLocationId(inventoryService.getLocationIdByBayAndWarehouseId("factory", 4L));
+
+		User user = userService.getAuthenticatedUser();
+		return controllerUtils.setAlertFlashMessage(attributes,
+				"/update",
+				inventoryService.addFactoryInventory(user, newFactoryInventory));
 	}
 
 	private void injectAttributesToModel(Model model) {
