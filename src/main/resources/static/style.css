@@ -395,7 +395,3 @@ html.dark table.dataTable tr.dt-hasChild td.dt-control:before,
     border-top-color: rgba(255, 255, 255, 0.5);
     border-left-color: transparent;
 }
-
-.bootstrap-select .dropdown-menu{
-    max-height: 300px !important;
-}

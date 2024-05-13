@@ -160,6 +160,13 @@
 		</select>
         <div th:if="${error}" class="invalid-feedback" th:text="${error}"></div>
     </div>
+    <style>
+        /* Adjust the maximum height and enable scrolling */
+        .dropdown-menu.show {
+            max-height: 250px; /* Adjust the maximum height as needed */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+    </style>
 </th:block>
 <th:block th:fragment="add-salesRep-select">
     <div class="col">
