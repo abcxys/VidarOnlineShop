@@ -74,13 +74,7 @@ $(document).ready(function() {
     });
 
     salesOrdersTable.on('click', 'td.editor-delete button', function (e) {
-        let row = $(this).closest('tr');
-
-        if (row.hasClass('child')) {
-            salesOrdersTable.row(row.prev('tr')).remove().draw(false);
-        } else {
-            salesOrdersTable.row(row).remove().draw(false);
-        }
+        $(this).closest('tr').remove();
     });
 
     $('#dealer').on('change', function(){
