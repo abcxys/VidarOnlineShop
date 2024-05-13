@@ -83,7 +83,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public HardwoodFloor getPerfumeById(Long perfumeId) {
         return perfumeRepository.findById(perfumeId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PERFUME_NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PRODUCT_NOT_FOUND));
     }
 
     @Override

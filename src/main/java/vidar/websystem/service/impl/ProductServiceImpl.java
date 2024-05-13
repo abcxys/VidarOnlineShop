@@ -66,14 +66,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public FloorColorSize getProductInfoById(Long perfumeId) {
     	FloorColorSize result = hardwoodRepository.findFloorColorById(perfumeId);
-    	if (result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PERFUME_NOT_FOUND);
+    	if (result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PRODUCT_NOT_FOUND);
         return result;
     }
     
     @Override
     public PlankColor getHardwoodColorById(Long hardwoodId) {
     	return plankColorRepository.findById(hardwoodRepository.getPlankColorIdsByIds(Arrays.asList(hardwoodId), null).get(0))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PERFUME_NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PRODUCT_NOT_FOUND));
     }
 
     @Override

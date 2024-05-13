@@ -54,7 +54,7 @@ public class ProductControllerTest {
     public void getPerfumeById_NotFound() throws Exception {
         mockMvc.perform(get(PathConstants.PRODUCT + "/{perfumeId}", 111))
                 .andExpect(status().isNotFound())
-                .andExpect(status().reason(ErrorMessage.PERFUME_NOT_FOUND));
+                .andExpect(status().reason(ErrorMessage.PRODUCT_NOT_FOUND));
     }
 
     @Test

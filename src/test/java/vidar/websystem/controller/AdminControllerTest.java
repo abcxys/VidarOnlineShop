@@ -210,7 +210,7 @@ public class AdminControllerTest {
     public void getPerfume_NotFound() throws Exception {
         mockMvc.perform(get(PathConstants.ADMIN + "/perfume/{perfumeId}", 111))
                 .andExpect(status().isNotFound())
-                .andExpect(status().reason(ErrorMessage.PERFUME_NOT_FOUND));
+                .andExpect(status().reason(ErrorMessage.PRODUCT_NOT_FOUND));
     }
 
     @Test
