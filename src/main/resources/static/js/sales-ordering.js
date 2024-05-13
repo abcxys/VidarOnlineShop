@@ -99,6 +99,15 @@ $(function() {
         }
     });
 
+    $('.datepicker').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true,
+        todayHighlight: true
+    }).on('changeDate', function(e) {
+        // Handle the change date event for the start date picker
+        console.log('Start date changed:', e.date);
+    });
+
     // set the value of the datepicker default to be current datetime.
     $('#soDatepicker').datepicker("setDate", new Date());
 
