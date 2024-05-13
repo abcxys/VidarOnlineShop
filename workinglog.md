@@ -704,3 +704,24 @@ Java/Spring side changes:
 9. Add service/impl methods for 'create' and 'read' database operations of ReturnSlip.
 10. Add controller/rest controller methods for return slips related request mapping.
 11. Add client-side html/javascript code for returns.
+
+### May 11th changes:
+Java class design gist:
+1. For multiple entity class that share a decent number of attributes/fields, can we let them extends a father class so that we don't need to define the repeated attribtues?
+Pay attention to "@MappedSuperClass", this father class cannot be mapped to any table.
+
+Java/Spring side changes:
+1. Update javascript and REST controller code for methods of 'POST' to 'GET'.
+2. Add client side html/javascript code for displaying/updating factory inventory.
+3. Add update Page constant for update factory inventory. 
+4. Add update factory inventory link to thymeleaf 'update-sidebar' for 'update' page.
+5. Add controller method for retrieving update factory inventory page/model-view.
+6. Add repository/service/serviceImpl/REST controller for factory inventory DataTable retrieval.
+7. Update entries to table 'warehouse' and 'locations' for factory inventory foreign key of 'location_id'
+8. Add success message constants for factory inventory add/update.
+9. Add entity classes for table 'factory_inventory' and 'factory_inventory_event'.
+10. Add repository interfaces for table 'factory_inventory' and 'factory_inventory_event'.
+11. Add service/serviceImpl methods for factory inventory add/update.
+12. Add controller and REST controller methods for factory inventory add/update.
+13. Add mapping request path constant for factory inventory REST controller.
+14. Update javascript file for update-factory-inventory. Disable editing of the 'location' field in DataTable. Also update the url link for updating factory inventory.
