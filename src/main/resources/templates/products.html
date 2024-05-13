@@ -69,7 +69,7 @@
                 <div class="container-fluid">
                     <div class="row" th:fragment="list">
                         <th:block th:if="${page.getContent().size() == 0}"
-                                  th:insert="~{fragments/common-fragments :: empty-result(text='Perfumes not found')}"/>
+                                  th:insert="~{fragments/common-fragments :: empty-result(text='Products not found')}"/>
                         <th:block th:unless="${page.getContent().size() == 0}" th:each="perfume : ${page.getContent()}">
                             <th:block th:replace="fragments/product-fragments :: perfume-item(${perfume})"/>
                         </th:block>

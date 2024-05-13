@@ -28,7 +28,7 @@
                     <form method="get" action="/static">
                         <div class="row" th:fragment="list">
                             <th:block th:if="${page.getContent().size() == 0}"
-                                      th:insert="~{fragments/common-fragments :: empty-result(text='Perfumes not found')}"/>
+                                      th:insert="~{fragments/common-fragments :: empty-result(text='Products not found')}"/>
                             <div class="col-lg-3"
                                  th:unless="${page.getContent().size() == 0}"
                                  th:each="perfume : ${page.getContent()}">
