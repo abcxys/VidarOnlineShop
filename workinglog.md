@@ -725,3 +725,47 @@ Java/Spring side changes:
 12. Add controller and REST controller methods for factory inventory add/update.
 13. Add mapping request path constant for factory inventory REST controller.
 14. Update javascript file for update-factory-inventory. Disable editing of the 'location' field in DataTable. Also update the url link for updating factory inventory.
+
+
+### May 13th changes:
+Windows development environment, Replace environment variable JAVA_HOME = 'C:\Program Files\Android\Android Studio\jbr' with 'C:\Program Files\Java\jdk1.8.0_131'
+
+EC2 deployment gist:
+1. Create ec2 instance at and use ssh to connect 54.167.57.179
+```shell
+ssh -i ".\vidar-key.pem" ec2-user@54.167.57.179
+```
+2. Install docker on EC2 instance reference to https://www.jianshu.com/p/b5c800177baf
+3. Add security group setup for POSTGRESQL connection to EC2 instance.
+4. Install java 1.8 with ```sudo -i yum install java-1.8.0-openjdk-devel.x86_64```
+5. Add custom TCP rule for port 8080 to security groups of EC2.
+6. You can use Amazon Route 53 service to register for customized domain
+7. To stop springboot application
+```shell
+ps aux | grep your-application.jar
+kill -9 pid
+```
+8. To start springboot application
+```Shell
+nohup java -jar OnlineShop-1.0-SNAPSHOT.jar &
+```
+
+9. Restart docker service on EC2 reboot
+```Shell
+sudo service docker start
+docker start postgresVidar
+```
+10. In MvcConfiguration.java replace '.addResourceLocations("classpath:/uploads/");' with '.addResourceLocations("file:/home/ec2-user/uploads/");'
+11. Update application-prod.properties for upload.path=/home/ec2-user/uploads/
+
+
+Java/Spring side changes:
+1. Update product not found text from "Perfumes not found" to "Products not found".
+2. Add datepicker initialization to enable calendar dropdown for 'dateWanted' datetime control.
+3. Remove unnecessary upload images.
+4. Update ErrorMessage content of PRODUCT_NOT_FOUND.
+5. Update the behavior of clicking on td.editor-delete button, align with the controls in packing.js
+6. Update selectpicker dropdown menu appearance, enabling scrolling in vertical direction while set maximum height to be 250px.
+7. Update application-prod.properties for the upload path on EC2 instance.
+
+EC2 springboot on pid 13853
