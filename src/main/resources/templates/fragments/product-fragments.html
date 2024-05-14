@@ -22,8 +22,8 @@
 
 <div th:fragment="perfumes-brand-checkbox(brand)" class="checkbox">
     <label>
-        <input th:value="${brand}" type="checkbox" name="perfumers" onChange="this.form.submit()"
-               th:checked="${searchRequest.getPerfumers() != null ? #arrays.contains(searchRequest.getPerfumers(), brand) : false}"/>
+        <input th:value="${brand}" type="checkbox" name="colours" onChange="this.form.submit()"
+               th:checked="${searchRequest.getColours() != null ? #arrays.contains(searchRequest.getColours(), brand) : false}"/>
         <span class="cr"><i class="cr-icon fas fa-check"></i></span>
         <th:block th:text="${brand}"></th:block>
     </label>
@@ -32,7 +32,7 @@
 <div th:fragment="perfumes-gender-checkbox(gender)" class="checkbox">
     <label>
         <input th:value="${gender}" type="checkbox" name="genders" onChange="this.form.submit()"
-               th:checked="${searchRequest.getGenders() != null ? #arrays.contains(searchRequest.getGenders(), gender) : false}"/>
+               th:checked="${searchRequest.getWidths() != null ? #arrays.contains(searchRequest.getWidths(), gender) : false}"/>
         <span class="cr"><i class="cr-icon fas fa-check"></i></span>
         <th:block th:text="${#strings.capitalize(gender)}"></th:block>
     </label>

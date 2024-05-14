@@ -87,8 +87,8 @@ public class ProductServiceImpl implements ProductService {
         Integer startingPrice = request.getPrice();
         Integer endingPrice = startingPrice + (startingPrice == 0 ? 500 : 50);
         return hardwoodRepository.getPerfumesByFilterParams(
-                request.getPerfumers(),
-                request.getGenders(),
+                request.getColours(),
+                request.getWidths(),
                 startingPrice,
                 endingPrice,
                 pageable);
