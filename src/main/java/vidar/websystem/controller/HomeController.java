@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final ProductService perfumeService;
+    private final ProductService productService;
 
     @GetMapping
     public String home(Model model) {
-        model.addAttribute("perfumes", perfumeService.getPopularProducts());
+        model.addAttribute("perfumes", productService.getPopularProducts());
         return Pages.HOME;
     }
 }

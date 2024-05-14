@@ -11,10 +11,10 @@
                 <i class="fas fa-shopping-cart mr-2"></i>
                 Cart
             </p>
-            <div class="text-center" th:if="${perfumes.size() == 0}">
+            <div class="text-center" th:if="${products.size() == 0}">
                 <p>Cart is empty</p>
             </div>
-            <div th:if="${perfumes.size() > 0}">
+            <div th:if="${products.size() > 0}">
                 <div class="card mb-3 mx-auto" style="max-width: 940px;" th:each="cartItem : ${floors_quantities}">
                     <div class="row no-gutters">
                         <div class="col-2 mx-3 my-3">
@@ -23,9 +23,9 @@
                         <div class="col-7">
                             <div class="card-body">
                                 <h5 class="card-title"
-                                    th:text="${cartItem.getFloor().getPerfumer() + ' ' + cartItem.getFloor().getPerfumeTitle()}"></h5>
-                                <p class="card-text" th:text="${cartItem.getFloor().getType()}"></p>
-                                <p class="card-text"><span th:text="${cartItem.getFloor().getVolume()}"></span> ml.</p>
+                                    th:text="${cartItem.getFloor().getYear() + ' ' + cartItem.getFloor().getYear()}"></h5>
+                                <p class="card-text" th:text="${cartItem.getFloor().getYear()}"></p>
+                                <p class="card-text"><span th:text="${cartItem.getFloor().getYear()}"></span> ml.</p>
 								<form class="d-inline" action="/cart/update" method="post">
 									<div class="qtydiv">
 										<label for="Quantity" class="quantity-selector">Quantity</label>
@@ -59,14 +59,14 @@
                 <hr class="my-3"/>
                 <div class="row">
                     <div class="col-9">
-                        <p class="h5 text-right">Total: $<span th:text="${#aggregates.sum(perfumes.![price])}"></span></p>
+                        <p class="h5 text-right">Total: $<span th:text="${#aggregates.sum(products.![price])}"></span></p>
                     </div>
                     <div class="col-3">
-                        <form action="/order" method="get" class="ml-3">
+                        <form action="/salesOrder" method="get" class="ml-3">
                             <div class="form-row">
                                 <button class="btn btn-success">
                                     <i class="fas fa-shopping-bag mr-2"></i>
-                                    Checkout
+                                    Continue
                                 </button>
                             </div>
                         </form>

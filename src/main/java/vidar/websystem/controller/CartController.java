@@ -21,7 +21,7 @@ public class CartController {
 
     @GetMapping
     public String getCart(Model model) {
-        model.addAttribute("perfumes", cartService.getPerfumesInCart());
+        model.addAttribute("products", cartService.getPerfumesInCart());
         model.addAttribute("floors_quantities", cartService.getFloorQuantitesInCart());
         return Pages.CART;
     }
