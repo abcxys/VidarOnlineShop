@@ -63,7 +63,14 @@ $(function() {
             'render': function(data) {
                 return data.price;
             }
-        }]
+        }],
+        aoColumns : [
+            { sWidth: '5%' },
+            { sWidth: '8%' },
+            { sWidth: '0%' },
+            { sWidth: '25%' },
+            { sWidth: '15%' }
+        ]
     });
 
     salesOrdersTable.on('click', 'td.editor-delete button', function(e){
@@ -153,5 +160,26 @@ $(function() {
                 setTimeout(function(){location.reload();}, 2000);
             }
         });
+    });
+
+    $('#addProductBtn').on('click', function(){
+        $('#itemOrderingTable tbody').append(`
+            <tr>
+                <td class="dt-body-center editor-delete">
+                    <button type="button"><i class="fa fa-trash"/></button>
+                </td>
+                <td class="dt-body-center">
+                    <input type="number" class="form-control" name="quantity" required>
+                </td>
+                <td class="dt-body-center">
+                    <select class="selectpicker form-control productSelector" data-live-search="true" required>
+                    </select>
+                </td>
+                <td class="dt-body-center">
+                    <input type="number" class="form-control" name="price" required>
+                </td>
+            </tr>
+        `);
+        populateSelect($('.productSelector').last());
     });
 });

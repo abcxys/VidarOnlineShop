@@ -4,6 +4,7 @@
 <body>
 <div th:insert="~{fragments/common-fragments :: scripts}"></div>
 <div th:replace="fragments/common-fragments :: navbar"></div>
+<script src="/static/js/add-new-container.js"></script>
 <script src="/static/js/sales-ordering.js"></script>
 <div class="bg-light">
     <div class="py-5">
@@ -104,6 +105,12 @@
                 </div>
                 <div class="form row mr-3">
                     <div class="ml-auto">
+                        <th:block th:replace="fragments/common-fragments :: icon-button-noSubmit(
+                            id='addProductBtn',
+                            text='Add product',
+                            buttonClassName='btn-primary mt-3',
+                            icon='fas fa-plus-square mr-2'
+                        )"/>
                         <th:block th:replace="fragments/common-fragments :: icon-button(
                             id='addNewSOBtn',
                             text='Save',
@@ -118,7 +125,14 @@
 </div>
 <footer th:insert="~{fragments/common-fragments :: footer}"></footer>
 </body>
+<style>
+.dataTables_scrollBody{
+    overflow: visible !important;
+}
+/* Adjust the maximum height and enable scrolling */
+.dropdown-menu.show {
+    max-height: 250px; /* Adjust the maximum height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+</style>
 </html>
-<script type="text/javascript">
-
-</script>
