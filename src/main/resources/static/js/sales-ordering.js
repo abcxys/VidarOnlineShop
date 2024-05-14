@@ -124,11 +124,22 @@ $(function() {
 
         let tableData = [];
         $('#itemOrderingTable tbody tr').each(function(){
-           let rowData = {
-               productId: salesOrdersTable.row(this).data().floorColorSize.id,
-               quantity: salesOrdersTable.row(this).data().quantity
-           };
-           tableData.push(rowData);
+            if (salesOrdersTable.row(this).data()!=null) {
+                let rowData = {
+                    productId: salesOrdersTable.row(this).data().floorColorSize.id,
+                    quantity: salesOrdersTable.row(this).data().quantity
+                };
+                tableData.push(rowData);
+            } else {
+                if ($(this).find('select').val()!=null &&
+                    $(this).find('td:eq(1) input').val() != null) {
+                    let rowData = {
+                        productId: Number($(this).find('select').val()),
+                        quantity: Number($(this).find('td:eq(1) input').val())
+                    };
+                    tableData.push(rowData);
+                }
+            }
         });
 
         let jsonData = {
@@ -169,14 +180,14 @@ $(function() {
                     <button type="button"><i class="fa fa-trash"/></button>
                 </td>
                 <td class="dt-body-center">
-                    <input type="number" class="form-control" name="quantity" required>
+                    <input type="number" step="0.5" class="form-control" name="quantity" required>
                 </td>
                 <td class="dt-body-center">
                     <select class="selectpicker form-control productSelector" data-live-search="true" required>
                     </select>
                 </td>
                 <td class="dt-body-center">
-                    <input type="number" class="form-control" name="price" required>
+                    <input type="number" step="0.01" class="form-control" name="price" required>
                 </td>
             </tr>
         `);

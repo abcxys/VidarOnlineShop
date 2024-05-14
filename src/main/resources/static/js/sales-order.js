@@ -172,14 +172,14 @@ $(document).ready(function() {
                     <button type="button"><i class="fa fa-trash"/></button>
                 </td>
                 <td class="dt-body-center">
-                    <input type="number" class="form-control" name="quantity" required>
+                    <input type="number" step="0.5" class="form-control" name="quantity" required>
                 </td>
                 <td class="dt-body-center">
                     <select class="selectpicker form-control productSelector" data-live-search="true" required>
                     </select>
                 </td>
                 <td class="dt-body-center">
-                    <input type="number" class="form-control" name="price" required>
+                    <input type="number" step="0.01" class="form-control" name="price" required>
                 </td>
             </tr>
         `);
