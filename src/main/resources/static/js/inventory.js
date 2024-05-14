@@ -36,8 +36,7 @@ $(function() {
 	    {"data" : 'width', "bSortable" : true},
 		{"data" : 'colorName', "bSortable" : true},
 		{"data" : 'gradeAlias', "bSortable" : true},
-		{"data" : 'stock', "bSortable" : false},
-		{"data" : '', "bSortable" : false}
+		{"data" : 'stock', "bSortable" : false}
 	],
 	'columnDefs': [{
 		'targets': 0,
@@ -47,11 +46,15 @@ $(function() {
 		'render': function (data, type, full, meta){
 			return '<input type="checkbox" class="call-checkbox" name="checkbox-id" value="' + '">';
 		}
-	},{
+	}
+	/*
+	,{
 		data: null,
 		defaultContent: '<i class="fa fa-light fa-circle-plus add2order" style="cursor: pointer;"></i>',
 		targets: -1
-	}]
+	}
+	*/
+	]
 });
 tables.on('click', '.add2order', function (e) {
     $("#addFloorToOrderModal").modal('show');

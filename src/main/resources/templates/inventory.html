@@ -11,7 +11,7 @@
 
 			<div class="box-body">
 				<div class="container-fluid mt-5 ml-1">
-					<div class="form-group row">
+					<div class="form-group row ml-3">
 						<div class="col-md-2 ml-2">
 							<div class="input-group">
 								<select id="colour" name="colour" data-live-search="true" class="selectpicker" th:field="${colorDict}">
@@ -56,7 +56,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="pull-right">
+						<div class="col-md-1 ml-2">
+						</div>
+						<div style="float:right;">
 							<div class="btn-group">
 								<button type="button" class="btn btn-primary"
 									id="searchInventoryBtn">
@@ -74,7 +76,7 @@
 		</form>
 	</div>
 </div>
-<div class="bg-light">
+<div class="bg-light" style="border-top: solid;">
     <div class="py-5">
         <div class="container py-5 bg-white shadow-sm card-height">
             <div class="container-fluid" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
@@ -82,13 +84,12 @@
 					<table class="table table-striped table-bordered table-hover dataTable" role="grid" id="packingSlipTable">
 						<thead>
 							<tr class="info">
-								<th><input type="checkbox" name="select_all" value="1" id="example-select-all" onclick="checkAll()"></th>
+								<th style="text-align: center"><input type="checkbox" name="select_all" value="1" id="example-select-all" onclick="checkAll()"></th>
 								<th>Species</th>
 								<th>Width(inch)</th>
 								<th>Colour</th>
 								<th>Grade</th>
 								<th>Stock</th>
-								<th>Order</th>
 							</tr>
 						</thead>
 					</table>
