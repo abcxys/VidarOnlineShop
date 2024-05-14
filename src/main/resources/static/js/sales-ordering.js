@@ -29,9 +29,9 @@ $(function() {
         columns : [
             {"data" : '', "bSortable" : false},
             {"data" : 'quantity', "bSortable" : true},
-            {"data" : 'floorColorSize', "bSortable" : false},
-            {"data" : 'floorColorSize', "bSortable" : true},
-            {"data" : 'floorColorSize', "bSortable" : false}
+            {"data" : 'floor', "bSortable" : false},
+            {"data" : 'floor', "bSortable" : true},
+            {"data" : 'floor', "bSortable" : false}
         ],
         'columnDefs': [{
             'targets': 0,

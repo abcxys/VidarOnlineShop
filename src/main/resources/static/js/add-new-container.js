@@ -13,8 +13,12 @@ function populateSelect(node) {
             response.forEach(function(option) {
                 node.append($('<option>', {
                     value: option.id,
-                    text: option.width +'\" ' + option.woodSpeciesName.split(" ")[option.woodSpeciesName.split(" ").length - 1]
-                        + " " + option.colorName + " " + option.gradeAlias + " " + option.sqftPerCarton + " " + option.batchName
+                    text: option.size.split('inch')[0].trim() + "\"" + " " +
+                        option.species.split(' ')[option.species.split(' ').length-1] + " " +
+                        option.color + " " +
+                        option.grade + " " +
+                        option.size.split(' ')[option.size.split(' ').length-1] + " " +
+                        option.batchNumber
                 }));
             });
 

@@ -5,7 +5,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.constants.SuccessMessage;
-import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.Grade;
 import vidar.websystem.domain.HardwoodFloor;
 import vidar.websystem.domain.PlankColor;
@@ -35,22 +34,20 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-	
+
+	private final HardwoodFloorsRepository hardwoodFloorsRepository;
 	@Value("${upload.path}")
 	private String uploadPath;
 
@@ -64,57 +61,57 @@ public class ProductServiceImpl implements ProductService {
     private final ModelMapper modelMapper;
 
     @Override
-    public FloorColorSize getProductInfoById(Long perfumeId) {
-    	FloorColorSize result = hardwoodRepository.findFloorColorById(perfumeId);
+    public HardwoodFloor getProductInfoById(Long perfumeId) {
+    	HardwoodFloor result = hardwoodRepository.findById(perfumeId).orElse(null);
     	if (result == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PRODUCT_NOT_FOUND);
         return result;
     }
     
     @Override
     public PlankColor getHardwoodColorById(Long hardwoodId) {
-    	return plankColorRepository.findById(hardwoodRepository.getPlankColorIdsByIds(Arrays.asList(hardwoodId), null).get(0))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PRODUCT_NOT_FOUND));
+		HardwoodFloor floor = hardwoodFloorsRepository.findById(hardwoodId).orElse(null);
+		if (floor == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PRODUCT_NOT_FOUND);
+    	return floor.getColor();
     }
 
     @Override
-    public List<FloorColorSize> getPopularProducts() {
+    public List<HardwoodFloor> getPopularProducts() {
         List<Long> perfumeIds = Arrays.asList(1L, 2L, 3L, 4L, 5L);
-        return hardwoodRepository.findFloorColorByIdIn(perfumeIds);
+        return hardwoodRepository.findByIdIn(perfumeIds);
     }
 
     @Override
-    public Page<FloorColorSize> getProductsByFilterParams(SearchRequest request, Pageable pageable) {
+    public Page<HardwoodFloor> getProductsByFilterParams(SearchRequest request, Pageable pageable) {
         Integer startingPrice = request.getPrice();
         Integer endingPrice = startingPrice + (startingPrice == 0 ? 500 : 50);
-        return hardwoodRepository.getPerfumesByFilterParams(
-                request.getColours(),
-                request.getWidths(),
-                startingPrice,
-                endingPrice,
-                pageable);
+        return hardwoodRepository.findByFilter(
+				request.getColours() == null ? new ArrayList<>() : request.getColours(),
+				request.getWidths() == null ? new ArrayList<>() : request.getWidths(),
+				BigDecimal.valueOf(startingPrice),
+				BigDecimal.valueOf(endingPrice),
+				pageable
+		);
     }
     
     @Override
-    public Page<FloorColorSize> getProducts(Pageable pageable){
-    	return hardwoodRepository.findAllFloorColor(pageable);
+    public Page<HardwoodFloor> getProducts(Pageable pageable){
+    	return hardwoodRepository.findAll(pageable);
     }
 
 	@Override
-	public Page<FloorColorSize> getActiveProducts(Pageable pageable){
-		return hardwoodRepository.findActiveFloorColor(pageable);
+	public List<HardwoodFloor> getActiveProducts(Pageable pageable){
+		return hardwoodRepository.findByActive(true);
 	}
 
     @Override
-    public Page<FloorColorSize> searchProducts(SearchRequest request, Pageable pageable) {
-        return hardwoodRepository.searchPerfumes(request.getSearchType(), request.getText(), pageable);
+    public Page<HardwoodFloor> searchProducts(SearchRequest request, Pageable pageable) {
+        return hardwoodRepository.searchByFilter(request.getSearchType(), request.getText(), pageable);
     }
 
 	@Override
 	public List<PlankColor> getPopularHardwoodFloorColors() {
 		List<Long> perfumeIds = Arrays.asList(1L, 2L, 3L, 4L, 5L);
-        List<Long> plank_color_ids = hardwoodRepository.getPlankColorIdsByIds(perfumeIds, null);
-        return plank_color_ids.stream().map(plank_color_id->
-    		plankColorRepository.findById(plank_color_id).orElse(null)).collect(Collectors.toList());
+		return hardwoodFloorsRepository.findByIdIn(perfumeIds).stream().map(HardwoodFloor::getColor).collect(Collectors.toList());
 	}
 	
 	@Override
@@ -273,11 +270,16 @@ public class ProductServiceImpl implements ProductService {
 		if (floor.getId() == null){
 			// adding new product
 			// if the floor exists, we will update it and keep the existing file
-			List<HardwoodFloor> queriedList = hardwoodRepository.findByColorIdAndSizeIdAndTypeIdAndGradeIdAndSpeciesIdAndBatchNumber(floor.getColorId(),
-					floor.getSizeId(),
-					floor.getTypeId(),
-					floor.getGradeId(),
-					floor.getSpeciesId(),
+			PlankColor color = plankColorRepository.findById(productRequest.getColorId()).orElse(null);
+			PlankSize size = plankSizeRepository.findById(productRequest.getSizeId()).orElse(null);
+			PlankType type = plankTypeRepository.findById(productRequest.getTypeId()).orElse(null);
+			Grade grade = gradeRepository.findById(productRequest.getGradeId()).orElse(null);
+			WoodSpecies species = woodSpeciesRepository.findById(productRequest.getSpeciesId()).orElse(null);
+			List<HardwoodFloor> queriedList = hardwoodRepository.findByColorAndSizeAndTypeAndGradeAndSpeciesAndBatchNumber(color,
+					size,
+					type,
+					grade,
+					species,
 					floor.getBatchNumber());
 			if (queriedList.size() > 0) {
 				log.info("The queried entry already exists");

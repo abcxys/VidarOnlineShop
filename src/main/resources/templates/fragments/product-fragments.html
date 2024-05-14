@@ -2,9 +2,9 @@
     <div class="card mb-5 shadow" th:if="${perfume.getFilename()}">
         <img th:src="@{/img/{path} (path = ${perfume.getFilename()})}" class="rounded mx-auto w-100 h-50">
         <div class="card-body text-center">
-            <h5 th:text="${perfume.getColorName()}"></h5>
-            <h6 th:text="${perfume.getLength()}"></h6>
-            <h6>$<span th:text="${perfume.getSqftPerCarton()}"></span> sqft/box</h6>
+            <h6 th:text="${perfume.getSpecies().toString()}"></h6>
+            <h5 th:text="${perfume.getColor().toString()}"></h5>
+            <h6><span th:text="${perfume.getSize().getWidthInInch()}"></span> inch - <span th:text="${perfume.getSize().getSquarefootPerCarton()}"></span> sqft/box</h6>
         </div>
         <div class="text-center align-items-end mb-3">
             <a th:href="@{/product/{perfumeId} (perfumeId = ${perfume.getId()})}" class="btn btn-dark">

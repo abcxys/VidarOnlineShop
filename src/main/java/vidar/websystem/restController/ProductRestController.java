@@ -5,7 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import lombok.extern.slf4j.Slf4j;
-import vidar.websystem.domain.FloorColorSize;
+import vidar.websystem.domain.HardwoodFloor;
 import vidar.websystem.service.ProductService;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class ProductRestController {
 	 * @return list of product's summary
 	 */
 	@GetMapping("/getActiveProductDict")
-	public List<FloorColorSize> getActiveProductDict(Pageable pageable){
-		return productService.getActiveProducts(pageable).getContent();
+	public List<HardwoodFloor> getActiveProductDict(Pageable pageable){
+		return productService.getActiveProducts(pageable);
 	}
 }

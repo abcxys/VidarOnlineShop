@@ -225,9 +225,10 @@ public class PackingServiceImpl implements PackingService{
 	public List<SalesOrderItem> getSalesOrderPackingItemsByPackingSlipId(Long packingSlipId) {
 		List<PackingSlipItem> packingSlipRawItems = packingSlipItemRepository.findByPackingSlipId(packingSlipId);
         return packingSlipRawItems.stream().map(rawItem -> {
-			FloorColorSize floorColorSize = hardwoodFloorsRepository.findFloorColorById(
-					Objects.requireNonNull(salesOrderProductRepository.findById(rawItem.getSoProductId()).orElse(null)).getHardwoodfloorId());
-			return new SalesOrderItem(rawItem.getId(), floorColorSize, rawItem.getQuantity());
+			HardwoodFloor floor = hardwoodFloorsRepository.findById(
+					Objects.requireNonNull(salesOrderProductRepository.findById(rawItem.getSoProductId()).orElse(null)).getHardwoodfloorId()
+			).orElse(null);
+			return new SalesOrderItem(rawItem.getId(), floor, rawItem.getQuantity());
 		}).collect(Collectors.toList());
 	}
 

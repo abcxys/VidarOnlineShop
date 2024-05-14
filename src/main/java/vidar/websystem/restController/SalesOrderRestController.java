@@ -57,7 +57,13 @@ public class SalesOrderRestController {
     @GetMapping(value = "/getSalesOrderProducts")
     public String getSalesOrderProducts(@RequestParam("so_id") Long id, Model model, RedirectAttributes redirectAttributes){
         DatatablesView<SalesOrderItem> salesOrderProducts = salesOrderService.getSalesOrderProductsBySOId(id);
-        return JSONObject.fromObject(salesOrderProducts).toString();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(salesOrderProducts);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @GetMapping(value = "/getSalesOrderProductsList")

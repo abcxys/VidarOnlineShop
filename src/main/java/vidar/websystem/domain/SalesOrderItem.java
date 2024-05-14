@@ -15,20 +15,20 @@ import java.util.Date;
 @NoArgsConstructor
 public class SalesOrderItem {
 
-    public SalesOrderItem(FloorColorSize floorColorSize, BigDecimal quantity) {
-        this.floorColorSize = floorColorSize;
+    public SalesOrderItem(HardwoodFloor floor, BigDecimal quantity) {
+        this.floor = floor;
         this.quantity = quantity;
     }
 
-    public SalesOrderItem(Long id, FloorColorSize floorColorSize, BigDecimal quantity) {
-        this(floorColorSize, quantity);
+    public SalesOrderItem(Long id, HardwoodFloor floor, BigDecimal quantity) {
+        this(floor, quantity);
         this.id = id;
     }
 
     // Id of corresponding SalesOrderProduct
     private Long id;
 
-    private FloorColorSize floorColorSize;
+    private HardwoodFloor floor;
 
     // Quantity ordered by sales order
     private BigDecimal quantity;

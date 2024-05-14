@@ -39,10 +39,10 @@
                                              class="rounded mx-auto w-50 perfume_list_item_image">
                                     </div>
                                     <div class="card-body text-center">
-                                        <h6 th:text="${product.getWidth()} + ' inch'"></h6>
-                                        <h6 th:text="${#strings.arraySplit(product.getWoodSpeciesName(), ' ')[#strings.arraySplit(product.getWoodSpeciesName(), ' ').length - 1]}"></h6>
-                                        <h6 th:text="${product.getColorName()} + '-' + ${product.getGradeAlias()}"></h6>
-                                        <h6 th:text="'PO#: ' + ${product.getBatchName()}"></h6>
+                                        <h6 th:text="${product.getSize().getWidthInInch()} + ' inch'"></h6>
+                                        <h6 th:text="${#strings.arraySplit(product.getSpecies().getName(), ' ')[#strings.arraySplit(product.getSpecies().getName(), ' ').length - 1]}"></h6>
+                                        <h6 th:text="${product.getColor().getName()} + '-' + ${product.getGrade().getAlias()}"></h6>
+                                        <h6 th:text="'PO#: ' + ${product.getBatchNumber()}"></h6>
                                         <h6>$<span th:text="${product.getPrice()}"></span></h6>
                                     </div>
                                     <div class="text-center align-items-end mb-3">

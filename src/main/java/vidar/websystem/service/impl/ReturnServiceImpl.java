@@ -52,8 +52,7 @@ public class ReturnServiceImpl implements ReturnService {
     public List<SalesOrderItem> getSalesOrderReturnItemsByReturnSlipId(Long returnSlipId) {
         List<ReturnItem> returnRawItems = returnItemRepository.findByReturnSlipId(returnSlipId);
         return returnRawItems.stream().map(rawItem -> {
-            FloorColorSize floorColorSize = hardwoodFloorsRepository.findFloorColorById(rawItem.getProduct().getId());
-            return new SalesOrderItem(rawItem.getId(), floorColorSize, rawItem.getQuantity());
+            return new SalesOrderItem(rawItem.getId(), rawItem.getProduct(), rawItem.getQuantity());
         }).collect(Collectors.toList());
     }
 

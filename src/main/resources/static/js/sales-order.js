@@ -30,9 +30,9 @@ $(document).ready(function() {
         columns : [
             {"data" : '', "bSortable" : false},
             {"data" : 'quantity', "bSortable" : true},
-            {"data" : 'floorColorSize', "bSortable" : false},
-            {"data" : 'floorColorSize', "bSortable" : true},
-            {"data" : 'floorColorSize', "bSortable" : false},
+            {"data" : 'floor', "bSortable" : false},
+            {"data" : 'floor', "bSortable" : true},
+            {"data" : 'floor', "bSortable" : false},
             {"data" : 'quantity_picked_up', "bSortable" : false}
         ],
         'columnDefs': [{
@@ -56,8 +56,12 @@ $(document).ready(function() {
             'searchable': false,
             'className': 'dt-body-center',
             'render': function(data) {
-                return data.width +'\" ' + data.woodSpeciesName.split(" ")[data.woodSpeciesName.split(" ").length - 1]
-                    + " " + data.colorName + " " + data.gradeAlias + " " + data.sqftPerCarton + " " + data.batchName;
+                return data.size.split('inch')[0].trim() + "\"" + " " +
+                    data.species.split(' ')[data.species.split(' ').length-1] + " " +
+                    data.color + " " +
+                    data.grade + " " +
+                    data.size.split(' ')[data.size.split(' ').length-1] + " " +
+                    data.batchNumber;
             }
         }, {
             'targets': 4,

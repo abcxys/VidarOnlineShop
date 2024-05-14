@@ -5,18 +5,65 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import vidar.websystem.domain.FloorColorSize;
-import vidar.websystem.domain.HardwoodFloor;
+import org.springframework.data.repository.query.Param;
+import vidar.websystem.domain.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, Long> {
 
+	List<HardwoodFloor> findByActive(Boolean active);
+
     List<HardwoodFloor> findByIdIn(List<Long> perfumesIds);
 
-	List<HardwoodFloor> findByColorIdAndSizeIdAndTypeIdAndGradeIdAndSpeciesIdAndBatchNumber(Long colorId, Long sizeId, Long typeId, Long gradeId, Long speciesId, String batchNumber);
+	List<HardwoodFloor> findByColorAndSizeAndTypeAndGradeAndSpeciesAndBatchNumber(PlankColor color, PlankSize size, PlankType type, Grade grade, WoodSpecies species, String batchNumber);
 
     Page<HardwoodFloor> findAllByOrderByPriceAsc(Pageable pageable);
+
+	Page<HardwoodFloor> findByColorNameInAndSizeWidthInInchInAndPriceBetween(
+			List<String> colorNames,
+			List<String> widthInInch,
+			BigDecimal priceLow,
+			BigDecimal priceHigh,
+			Pageable pageable
+	);
+
+	Page<HardwoodFloor> findBySizeWidthInInchInAndPriceBetween(
+			List<String> widthInInch,
+			BigDecimal priceLow,
+			BigDecimal priceHigh,
+			Pageable pageable
+	);
+
+	Page<HardwoodFloor> findByColorNameInAndPriceBetween(
+			List<String> colorNames,
+			BigDecimal priceLow,
+			BigDecimal priceHigh,
+			Pageable pageable
+	);
+
+	default Page<HardwoodFloor> findByFilter(
+			List<String> colorNames,
+			List<String> widthInInch,
+			BigDecimal priceLow,
+			BigDecimal priceHigh,
+			Pageable pageable
+	) {
+		if ((colorNames == null || colorNames.isEmpty()) && (widthInInch == null || widthInInch.isEmpty())) {
+			// If both colorNames and widthInInch are empty, return all records without filtering
+			return findAll(pageable);
+		} else if (colorNames == null || colorNames.isEmpty()) {
+			// If only colorNames is empty, exclude it from the query
+			return findBySizeWidthInInchInAndPriceBetween(widthInInch, priceLow, priceHigh, pageable);
+		} else if (widthInInch == null || widthInInch.isEmpty()) {
+			// If only widthInInch is empty, exclude it from the query
+			return findByColorNameInAndPriceBetween(colorNames, priceLow, priceHigh, pageable);
+		} else {
+			// If both colorNames and widthInInch are provided, use the original query
+			return findByColorNameInAndSizeWidthInInchInAndPriceBetween(colorNames, widthInInch, priceLow, priceHigh, pageable);
+		}
+	}
 
     /*
     @Query("SELECT floor FROM HardwoodFloor floor WHERE " +
@@ -27,22 +74,32 @@ public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, L
             "END) " +
             "LIKE UPPER(CONCAT('%',:text,'%')) " +
             "ORDER BY floor.price ASC")
-    */
-    @Query(nativeQuery = true, value = "SELECT * FROM (" +
-    		"SELECT floor.id as id, floor.filename as filename, floor.price as price, color.name as colorName, size.width_in_inch as width, size.length as length, " + 
-    		"size.thickness_in_inch as thickness, size.squarefoot_per_carton as sqftPerCarton, species.name as woodSpeciesName FROM hardwoodfloors floor " +
-    		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
-    		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
-    		"LEFT JOIN wood_species species ON floor.wood_species_id = species.id " +
-    		") t WHERE " + 
-    		"(CASE " +
-            "   WHEN :searchType = 'colour' THEN UPPER(colorName) " +
-            "   WHEN :searchType = 'width' THEN UPPER(width) " +
-            "   ELSE UPPER(woodSpeciesName) " +
-            "END) " +
-            "LIKE UPPER(CONCAT('%',:text,'%')) " +
-            "ORDER BY colorName ASC")
-    Page<FloorColorSize> searchPerfumes(String searchType, String text, Pageable pageable);
+     */
+
+	default Page<HardwoodFloor> searchByFilter(String searchType, String text, Pageable pageable) {
+		if (text == null || text.isEmpty())
+			return findAll(pageable);
+		else {
+			if (searchType.equals("colour")){
+				return findByColorNameContainingIgnoreCase(text, pageable);
+			} else if (searchType.equals("width")) {
+				return findBySizeWidthInInchLike(text, pageable);
+			} else {
+				return findBySpeciesNameContainingIgnoreCase(text, pageable);
+			}
+		}
+	}
+
+	@Query(value = "SELECT h FROM HardwoodFloor h WHERE UPPER(h.color.name) LIKE CONCAT('%', UPPER(:text), '%')")
+	Page<HardwoodFloor> findByColorNameContainingIgnoreCase(@Param("text") String text, Pageable pageable);
+
+	Page<HardwoodFloor> findBySizeWidthInInchLike(
+			String widthInInch,
+			Pageable pageable
+	);
+
+	@Query(value = "SELECT h FROM HardwoodFloor h WHERE UPPER(h.species.name) LIKE CONCAT('%', UPPER(:text), '%')")
+	Page<HardwoodFloor> findBySpeciesNameContainingIgnoreCase(@Param("text") String text, Pageable pageable);
     
     /*
     @Query("SELECT perfume FROM HardwoodFloor perfume " +
@@ -51,64 +108,4 @@ public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, L
             "AND (coalesce(:priceStart, null) IS NULL OR perfume.price BETWEEN :priceStart AND :priceEnd) " +
             "ORDER BY perfume.price ASC")
     */
-    @Query(nativeQuery = true, value = "SELECT * FROM (" +
-    		"SELECT floor.id as id, floor.filename as filename, color.name as colorName, size.width_in_inch as width, size.length as length, " + 
-    		"size.thickness_in_inch as thickness, size.squarefoot_per_carton as sqftPerCarton, species.name as woodSpeciesName FROM hardwoodfloors floor " +
-    		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
-    		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
-    		"LEFT JOIN wood_species species ON floor.wood_species_id = species.id " +
-    		") t")
-    Page<FloorColorSize> getPerfumesByFilterParams(
-            List<String> perfumers,
-            List<String> genders,
-            Integer priceStart,
-            Integer priceEnd,
-            Pageable pageable);
-    
-    @Query("SELECT sizeId FROM HardwoodFloor floor " +
-            "WHERE (coalesce(:ids, null) IS NULL OR floor.id IN :ids) ")
-    List<Long> getPlankSizeIdsByIds(
-    		List<Long> ids,
-    		Pageable pageable);
-    
-    @Query("SELECT colorId FROM HardwoodFloor floor " +
-            "WHERE (coalesce(:ids, null) IS NULL OR floor.id IN :ids) ")
-    List<Long> getPlankColorIdsByIds(
-    		List<Long> ids,
-    		Pageable pageable);
-    
-    @Query(nativeQuery = true, value = "SELECT floor.id as id, floor.filename as filename, floor.batch_id as batchName, floor.price as price, color.name as colorName, size.width_in_inch as width, size.length as length, " + 
-    		"size.thickness_in_inch as thickness, size.squarefoot_per_carton as sqftPerCarton, species.name as woodSpeciesName, grades.name as gradeName, grades.alias as gradeAlias FROM hardwoodfloors floor " +
-    		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
-    		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
-    		"LEFT JOIN wood_species species ON floor.wood_species_id = species.id " +
-    		"LEFT JOIN grades grades ON floor.grade_id = grades.id ")
-    Page<FloorColorSize> findAllFloorColor(Pageable pageable);
-
-	@Query(nativeQuery = true, value = "SELECT floor.id as id, floor.filename as filename, floor.batch_id as batchName, floor.price as price, color.name as colorName, size.width_in_inch as width, size.length as length, " +
-			"size.thickness_in_inch as thickness, size.squarefoot_per_carton as sqftPerCarton, species.name as woodSpeciesName, grades.name as gradeName, grades.alias as gradeAlias FROM hardwoodfloors floor " +
-			"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
-			"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
-			"LEFT JOIN wood_species species ON floor.wood_species_id = species.id " +
-			"LEFT JOIN grades grades ON floor.grade_id = grades.id " +
-			"WHERE floor.active = TRUE")
-	Page<FloorColorSize> findActiveFloorColor(Pageable pageable);
-    
-    @Query(nativeQuery = true, value = "SELECT floor.id as id, floor.filename as filename, floor.batch_id as batchName, floor.price as price, color.name as colorName, size.width_in_inch as width, size.length as length, " + 
-    		"size.thickness_in_inch as thickness, size.squarefoot_per_carton as sqftPerCarton, species.name as woodSpeciesName, grades.name as gradeName, grades.alias as gradeAlias FROM hardwoodfloors floor " +
-    		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
-    		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
-    		"LEFT JOIN wood_species species ON floor.wood_species_id = species.id " +
-    		"LEFT JOIN grades grades ON floor.grade_id = grades.id " +
-    		"WHERE floor.id = :id")
-    FloorColorSize findFloorColorById(Long id);
-    
-    @Query(nativeQuery = true, value = "SELECT floor.id as id, floor.filename as filename, floor.batch_id as batchName, color.name as colorName, size.width_in_inch as width, size.length as length, " + 
-    		"size.thickness_in_inch as thickness, size.squarefoot_per_carton as sqftPerCarton, species.name as woodSpeciesName, grades.name as gradeName, grades.alias as gradeAlias FROM hardwoodfloors floor " +
-    		"LEFT JOIN plank_colors color ON floor.plank_color_id = color.id " +
-    		"LEFT JOIN plank_sizes size ON floor.plank_size_id = size.id " +
-    		"LEFT JOIN wood_species species ON floor.wood_species_id = species.id " +
-    		"LEFT JOIN grades grades ON floor.grade_id = grades.id " +
-    		"WHERE floor.id IN :ids")
-    List<FloorColorSize> findFloorColorByIdIn(List<Long> ids);
 }

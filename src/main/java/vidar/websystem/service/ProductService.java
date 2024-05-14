@@ -1,6 +1,5 @@
 package vidar.websystem.service;
 
-import vidar.websystem.domain.FloorColorSize;
 import vidar.websystem.domain.Grade;
 import vidar.websystem.domain.HardwoodFloor;
 import vidar.websystem.domain.PlankColor;
@@ -20,23 +19,23 @@ import java.util.List;
 
 public interface ProductService {
 
-	FloorColorSize getProductInfoById(Long productId);
+	HardwoodFloor getProductInfoById(Long productId);
 	
 	HardwoodFloor getProductById(Long productId);
     
     PlankColor getHardwoodColorById(Long productId);
 
-    List<FloorColorSize> getPopularProducts();
+    List<HardwoodFloor> getPopularProducts();
     
     List<PlankColor> getPopularHardwoodFloorColors();
 
-    Page<FloorColorSize> getProductsByFilterParams(SearchRequest searchRequest, Pageable pageable);
+    Page<HardwoodFloor> getProductsByFilterParams(SearchRequest searchRequest, Pageable pageable);
     
-    Page<FloorColorSize> getProducts(Pageable pageable);
+    Page<HardwoodFloor> getProducts(Pageable pageable);
 
-    Page<FloorColorSize> getActiveProducts(Pageable pageable);
+    List<HardwoodFloor> getActiveProducts(Pageable pageable);
 
-    Page<FloorColorSize> searchProducts(SearchRequest searchRequest, Pageable pageable);
+    Page<HardwoodFloor> searchProducts(SearchRequest searchRequest, Pageable pageable);
     
     List<PlankColor> getColorDict();
 	

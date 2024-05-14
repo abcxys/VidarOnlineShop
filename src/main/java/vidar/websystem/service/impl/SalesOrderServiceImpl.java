@@ -92,8 +92,8 @@ public class SalesOrderServiceImpl implements SalesOrderService {
         DatatablesView<SalesOrderItem> dataView = new DatatablesView<>();
         List<SalesOrderProduct> salesOrderProducts = salesOrderProductRepository.findBySalesOrderId(salesOrderId);
         List<SalesOrderItem> salesOrderItems = salesOrderProducts.stream().filter(SalesOrderProduct::isActive).map(item -> {
-            FloorColorSize floorColorSize = hardwoodFloorsRepository.findFloorColorById(item.getHardwoodfloorId());
-            return new SalesOrderItem(floorColorSize, item.getQuantityOrdered());
+            HardwoodFloor floor = hardwoodFloorsRepository.findById(item.getHardwoodfloorId()).orElse(null);
+            return new SalesOrderItem(floor, item.getQuantityOrdered());
         }).collect(Collectors.toList());
         dataView.setData(salesOrderItems);
         dataView.setRecordsTotal(salesOrderItems.size());
@@ -111,8 +111,8 @@ public class SalesOrderServiceImpl implements SalesOrderService {
         List<SalesOrderItem> salesOrderItems = salesOrderProducts.stream().filter(SalesOrderProduct::isActive).map(item -> {
             SalesOrderItem salesOrderItem = new SalesOrderItem();
             salesOrderItem.setId(item.getId());
-            FloorColorSize floorColorSize = hardwoodFloorsRepository.findFloorColorById(item.getHardwoodfloorId());
-            salesOrderItem.setFloorColorSize(floorColorSize);
+            HardwoodFloor floor = hardwoodFloorsRepository.findById(item.getHardwoodfloorId()).orElse(null);
+            salesOrderItem.setFloor(floor);
             salesOrderItem.setQuantity(item.getQuantityOrdered());
             salesOrderItem.setQuantity_picked_up(item.getQuantityPickedUp());
             SalesOrder salesOrder = salesOrderRepository.findById(item.getSalesOrderId()).orElse(null);

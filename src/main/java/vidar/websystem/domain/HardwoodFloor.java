@@ -1,7 +1,9 @@
 package vidar.websystem.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
+import vidar.websystem.json.*;
 
 import javax.persistence.*;
 
@@ -39,21 +41,31 @@ public class HardwoodFloor {
 
     @Column(name = "price", precision = 10, scale = 2, nullable = false)
     private BigDecimal price;
-    
-    @Column(name = "plank_size_id", nullable = false)
-    private Long sizeId;
-    
-    @Column(name = "plank_color_id", nullable = false)
-    private Long colorId;
-    
-    @Column(name = "wood_species_id", nullable = false)
-    private Long speciesId;
-    
-    @Column(name = "plank_type_id", nullable = false)
-    private Long typeId;
-    
-    @Column(name = "grade_id", nullable = false)
-    private Long gradeId;
+
+    @JsonSerialize(using = PlankSizeSerializer.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "plank_size_id", nullable = false)
+    private PlankSize size;
+
+    @JsonSerialize(using = PlankColorSerializer.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "plank_color_id", nullable = false)
+    private PlankColor color;
+
+    @JsonSerialize(using = WoodSpeciesSerializer.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "wood_species_id", nullable = false)
+    private WoodSpecies species;
+
+    @JsonSerialize(using = PlankTypeSerializer.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "plank_type_id", nullable = false)
+    private PlankType type;
+
+    @JsonSerialize(using = GradeSerializer.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "grade_id", nullable = false)
+    private Grade grade;
     
     @Column(name = "batch_id", nullable = false)
     private String batchNumber;
