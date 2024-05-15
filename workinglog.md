@@ -731,9 +731,9 @@ Java/Spring side changes:
 Windows development environment, Replace environment variable JAVA_HOME = 'C:\Program Files\Android\Android Studio\jbr' with 'C:\Program Files\Java\jdk1.8.0_131'
 
 EC2 deployment gist:
-1. Create ec2 instance at and use ssh to connect 54.167.57.179
+1. Create ec2 instance at and use ssh to connect 54.196.134.96
 ```shell
-ssh -i ".\vidar-key.pem" ec2-user@54.167.57.179
+ssh -i ".\vidar-key.pem" ec2-user@54.196.134.96
 ```
 2. Install docker on EC2 instance reference to https://www.jianshu.com/p/b5c800177baf
 3. Add security group setup for POSTGRESQL connection to EC2 instance.
@@ -769,3 +769,17 @@ Java/Spring side changes:
 7. Update application-prod.properties for the upload path on EC2 instance.
 
 EC2 springboot on pid 13853
+
+### May 14th changes:
+Sales order design gist:
+'DateWanted' attribute of SalesOrder should be automatically filled with the nearest container arrival date.
+
+1. Update field/attribute names of SearchRequest class.
+2. Update client-side design for sales ordering page. Add 'Add product' button to add products on same page instead of add to sales order from product page.
+3. Update 'update-inventory' page to remove excess empty space around the table.
+4. Remove the last column of the inventory table. Also update the top filtering form.
+5. Remove sidebar on 'products' page for now. Because the checkbox filtering portion of SearchRequest is not working properly.
+6. Update tableData formation of sales ordering. Also update 'step' of number 'input' in sales-order.js and sales-ordering.js
+7. Add json serializers for PlankColor, PlankSize, PlankType, WoodSpecies, Grade, for Jsonifying HardwoodFloor class objects.
+8. Update HardwoodFloor class, remove FloorColorSize class and update all related repository/service/impl/controller methods and thymeleaf templates and client side javascript.
+9. Replace 'perfume' related text on server side with 'product'
