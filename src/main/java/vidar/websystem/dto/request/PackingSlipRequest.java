@@ -21,6 +21,8 @@ public class PackingSlipRequest {
     // packing slip status id.
     private Long statusId = 1L;
 
+    private Long shippingMethodId = 1L;
+
     private String dealerCompanyName;
 
     private List<PackingSlipItem> packingSlipItems;

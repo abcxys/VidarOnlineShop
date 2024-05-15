@@ -5,6 +5,7 @@ import lombok.*;
 import vidar.websystem.json.DealerSerializer;
 import vidar.websystem.json.DriverSerializer;
 import vidar.websystem.json.PackingStatusSerializer;
+import vidar.websystem.json.ShippingMethodSerializer;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -42,6 +43,11 @@ public class PackingSlip {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "driver_id")
     private Driver driver;
+
+    @JsonSerialize(using = ShippingMethodSerializer.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shipping_method_id")
+    private ShippingMethod shippingMethod;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", updatable = false)
