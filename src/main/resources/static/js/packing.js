@@ -136,8 +136,8 @@ $(document).ready(function() {
             {"data" : '', "bSortable" : false},
             {"data" : 'quantity', "bSortable" : true},
             {"data" : 'id', "bSortable" : false},
-            {"data" : 'floorColorSize', "bSortable" : true},
-            {"data" : 'floorColorSize', "bSortable" : false}
+            {"data" : 'floor', "bSortable" : true},
+            {"data" : 'floor', "bSortable" : false}
         ],
         'columnDefs': [{
             'targets': 0,
@@ -170,9 +170,13 @@ $(document).ready(function() {
             'targets': 4,
             'searchable': false,
             'className': 'dt-body-center',
-            'render': function(data) {
-                return data.width +'\" ' + data.woodSpeciesName.split(" ")[data.woodSpeciesName.split(" ").length - 1]
-                    + " " + data.colorName + " " + data.gradeAlias + " " + data.sqftPerCarton + " " + data.batchName;
+            'render': function(data){
+                return data.size.split('inch')[0].trim() + "\"" + " " +
+                    data.species.split(' ')[data.species.split(' ').length-1] + " " +
+                    data.color + " " +
+                    data.grade + " " +
+                    data.size.split(' ')[data.size.split(' ').length-1] + " " +
+                    data.batchNumber;
             }
         }],
         order: []
@@ -316,7 +320,7 @@ $(document).ready(function() {
             },
             columns : [
                 {"data" : '', "bSortable" : false},
-                {"data" : 'floorColorSize', "bSortable" : false},
+                {"data" : 'floor', "bSortable" : false},
                 {"data" : 'quantity', "bSortable" : true},
                 {"data" : '', "bSortable" : false}
             ],
@@ -333,8 +337,12 @@ $(document).ready(function() {
                 'searchable': false,
                 'className': 'dt-body-center',
                 'render': function(data) {
-                    return data.width +'\" ' + data.woodSpeciesName.split(" ")[data.woodSpeciesName.split(" ").length - 1]
-                        + " " + data.colorName + " " + data.gradeAlias + " " + data.sqftPerCarton + " " + data.batchName;
+                    return data.size.split('inch')[0].trim() + "\"" + " " +
+                        data.species.split(' ')[data.species.split(' ').length-1] + " " +
+                        data.color + " " +
+                        data.grade + " " +
+                        data.size.split(' ')[data.size.split(' ').length-1] + " " +
+                        data.batchNumber;
                 }
             }, {
                 targets: -1,
@@ -354,7 +362,7 @@ $(document).ready(function() {
         $('#createReturnSlipTable tbody tr').each(function(){
             if (packingSlipsTable.row(this).data()!=null && Number($(this).find('td:eq(3)').html()) > 0){
                 let rowData = {
-                    productId: packingSlipsTable.row(this).data().floorColorSize.id,
+                    productId: packingSlipsTable.row(this).data().floor.id,
                     quantity: Number($(this).find('td:eq(3)').html())
                 };
                 tableData.push(rowData);
