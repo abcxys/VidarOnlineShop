@@ -267,14 +267,14 @@ public class ProductServiceImpl implements ProductService {
 	
 	private MessageResponse saveProduct(User user, ProductRequest productRequest, MultipartFile file, String message) throws IOException {
 		HardwoodFloor floor = modelMapper.map(productRequest, HardwoodFloor.class);
+		PlankColor color = plankColorRepository.findById(productRequest.getColorId()).orElse(null);
+		PlankSize size = plankSizeRepository.findById(productRequest.getSizeId()).orElse(null);
+		PlankType type = plankTypeRepository.findById(productRequest.getTypeId()).orElse(null);
+		Grade grade = gradeRepository.findById(productRequest.getGradeId()).orElse(null);
+		WoodSpecies species = woodSpeciesRepository.findById(productRequest.getSpeciesId()).orElse(null);
 		if (floor.getId() == null){
 			// adding new product
 			// if the floor exists, we will update it and keep the existing file
-			PlankColor color = plankColorRepository.findById(productRequest.getColorId()).orElse(null);
-			PlankSize size = plankSizeRepository.findById(productRequest.getSizeId()).orElse(null);
-			PlankType type = plankTypeRepository.findById(productRequest.getTypeId()).orElse(null);
-			Grade grade = gradeRepository.findById(productRequest.getGradeId()).orElse(null);
-			WoodSpecies species = woodSpeciesRepository.findById(productRequest.getSpeciesId()).orElse(null);
 			List<HardwoodFloor> queriedList = hardwoodRepository.findByColorAndSizeAndTypeAndGradeAndSpeciesAndBatchNumber(color,
 					size,
 					type,
@@ -285,10 +285,20 @@ public class ProductServiceImpl implements ProductService {
 				log.info("The queried entry already exists");
 				return new MessageResponse("alert-danger", "The product already exists!");
 			}
+			floor.setColor(color);
+			floor.setSize(size);
+			floor.setType(type);
+			floor.setGrade(grade);
+			floor.setSpecies(species);
 			floor.setCreateTime(new Date());
 			floor.setCreateUserId(user.getId());
 		} else {
 			HardwoodFloor queryById = hardwoodRepository.findById(floor.getId()).orElse(null);
+			floor.setColor(color);
+			floor.setSize(size);
+			floor.setType(type);
+			floor.setGrade(grade);
+			floor.setSpecies(species);
             floor.setFilename(queryById == null ? null : queryById.getFilename());
 			floor.setUpdateTime(new Date());
 			floor.setUpdateUserId(user.getId());
