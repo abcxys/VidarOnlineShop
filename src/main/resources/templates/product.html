@@ -4,6 +4,7 @@
 <body>
 <div th:insert="~{fragments/common-fragments :: scripts}"></div>
 <div th:replace="fragments/common-fragments :: navbar"></div>
+<script src="/static/js/product.js"></script>
 <div id="container" class="bg-light">
     <div class="container pt-5 pb-5 bg-white shadow-sm">
         <div class="row">
@@ -16,6 +17,7 @@
                 <h3 th:text="${product.getSize().getWidthInInch()} + ' inch, ' + ${product.getSize().getSquarefootPerCarton()} + ' SF/CTN'"></h3>
                 <input type="hidden" id="productIdVal" th:value="${product.getId()}"/>
                 <input type="hidden" id="sqftPerCartonVal" th:value="${product.getSize().getSquarefootPerCarton()}"/>
+                <input type="hidden" id="productPhysicalInventoryQuantity" th:value="${quantity}"/>
                 <p style="font-size: 24px;font-weight: bold;">$ <span th:text="${product.getPrice()}"></span></p>
                 <p class="product-stock" style="color: #54C0A1">In Stock<span th:text="': ' + ${quantity}"></span></p>
                 <div class="ml-1">
@@ -89,7 +91,7 @@
                                         <table>
                                             <tr>
                                                 <td style="padding: 5px 5px 5px 0;">
-                                                    <button id="check_product_stock" type="button" class="btn btn-primary">
+                                                    <button id="check_product_stock_insider" type="button" class="btn btn-primary">
                                                         <i class="fas fa-warehouse mr-2 fa-lg"></i>
                                                         CHECK STOCK
                                                     </button>
@@ -105,6 +107,21 @@
                                     </form>
                                 </div>
                         </form>
+                    </th:block>
+                    <th:block sec:authorize="hasAuthority('ADMIN')">
+                        <div style="margin: 15px 0 15px 0;">
+                            <span id="inventoryQuantity"></span>
+                            <!--input type="hidden" id="txtEstimatedCarton" name="txtEstimatedCarton"-->
+                        </div>
+                        <div style="margin: 15px 0 15px 0;">
+                            <span id="orderedQuantity"></span>
+                        </div>
+                        <div style="margin: 15px 0 15px 0;">
+                            <span id="estimatedArrivalDates"></span>
+                        </div>
+                        <div style="margin: 15px 0 15px 0;">
+                            <span id="factoryInventoryQuantity"></span>
+                        </div>
                     </th:block>
 		        </div>
              </div>
@@ -127,6 +144,22 @@
                         <td>Grade:</td>
                         <td th:text="${product.getGrade().getName()}"></td>
                     </tr>
+                    <tr>
+                        <td>Type:</td>
+                        <td th:text="${product.getType().getName()}"></td>
+                    </tr>
+                    <tr>
+                        <td>Wear layer thickness:</td>
+                        <td th:text="${product.getWearThickness()} + 'mm'"></td>
+                    </tr>
+                    <tr>
+                        <td>Cartons per skid:</td>
+                        <td th:text="${product.getCartonsPerSkid()}"></td>
+                    </tr>
+                    <tr>
+                        <td>Weight per carton:</td>
+                        <td th:text="${product.getCartonWeight()} +' lbs'"></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -135,89 +168,6 @@
 </div>
 <footer th:insert="~{fragments/common-fragments :: footer}"></footer>
 </body>
-
-<script type="text/javascript">
-$(document).ready(function () {
-	AdjustBaseQuantity();
-});
-
-$('#sqft_quantity').on("propertychange change keyup paste input",function(){
-	AdjustBaseQuantity();
-});
-$('#carton_quantity').on("propertychange change keyup paste input", function(){
-	AdjustBaseQuantity();
-})
-</script>
-
-<script type="text/javascript">
-function AdjustBaseQuantity() {
-	var sqftPerCarton = $('#sqftPerCartonVal').val();
-    var qtyLevel1 = eval($("#sqft_quantity").val() * 1.0000);
-
-            qtyLevel1 = Math.ceil(qtyLevel1 / sqftPerCarton) * sqftPerCarton;
-        
-    var qtyLevel2 = eval($("#carton_quantity").val() * sqftPerCarton);
-    var qtyLevel3 = eval($("#alt3itemquantity382").val() * 1.0000);
-    if (qtyLevel1 === undefined || isNaN(qtyLevel1)) {
-        qtyLevel1 = 0;
-    }
-    if (qtyLevel2 === undefined || isNaN(qtyLevel2)) {
-        qtyLevel2 = 0;
-    }
-    if (qtyLevel3 === undefined || isNaN(qtyLevel3)) {
-        qtyLevel3 = 0;
-    }
-  
-    var tot = eval(qtyLevel1) + eval(qtyLevel2) + eval(qtyLevel3);
-    $('#estimatedBase').html('Estimated actual ' + getNum(tot).toFixed(3) + ' SQFT');
-    $('#txtEstimatedCarton').val(Math.ceil(getNum(tot)/sqftPerCarton));
-}
-function getNum(val) {
-    if (isNaN(val)) {
-        return 0;
-    }
-    return val;
-}
-
-$("#check_product_stock").on("click",function(){
-	var currentClassName = $("#check-result").attr('class');
-	
-     $.ajax({
-     url:"/product/checkProductStock",
-     type:"POST",
-     data: {
-       productId: $('#productIdVal').val(),
-       quantity: $('#txtEstimatedCarton').val(),
-     },
-     success:function(response){
-    	 console.log(response.Status);
-         var className='success';
-         if(response.Status==0){//unkown
-              className = 'unknown';
-         }
-         else if(response.Status==2){
-             className = 'failure';
-         }
-         else if(response.Status==1){
-             className='success';
-         }
-         $("#check_product_stock").removeAttr('disabled');
-         $("#check-result").text(response);
-         
-         $("#check-result").removeClass(currentClassName);
-         $("#check-result").addClass('send-request ' + className);
-         console.log('success');
-    },
-    error: function (xhr) {
-       var errorMessage = xhr.responseText ? xhr.responseText : 'Unknown error';
-       $("#check_product_stock").removeAttr('disabled');
-       $("#check-result").text(errorMessage);
-       $("#check-result").removeClass(currentClassName);
-       $("#check-result").addClass("send-request failure");
-    }
-   });
-})
-</script>
 
 <style>
 .send-request {
