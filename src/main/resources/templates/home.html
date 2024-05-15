@@ -97,10 +97,12 @@
                             <div class="carousel-item active">
                                 <div class="container">
                                     <div class="row" th:fragment="list">
-                                        <th:block th:replace="fragments/product-fragments :: perfume-item(${perfumes[0]})"/>
-                                        <th:block th:replace="fragments/product-fragments :: perfume-item(${perfumes[1]})"/>
-                                        <th:block th:replace="fragments/product-fragments :: perfume-item(${perfumes[2]})"/>
-                                        <th:block th:replace="fragments/product-fragments :: perfume-item(${perfumes[3]})"/>
+                                        <th:block th:if="${perfumes.size() > 4}">
+                                            <th:block th:replace="fragments/product-fragments :: product-item(${perfumes[0]})"/>
+                                            <th:block th:replace="fragments/product-fragments :: product-item(${perfumes[1]})"/>
+                                            <th:block th:replace="fragments/product-fragments :: product-item(${perfumes[2]})"/>
+                                            <th:block th:replace="fragments/product-fragments :: product-item(${perfumes[3]})"/>
+                                        </th:block>
                                     </div>
                                 </div>
                             </div>
@@ -108,20 +110,20 @@
                             <div class="carousel-item">
                                 <div class="container">
                                     <div class="row" th:fragment="list">
-                                        <th:block th:replace="fragments/product-fragments :: perfume-item(${perfumes[4]})"/>
-                                        <th:block th:replace="fragments/product-fragments :: perfume-item(${perfumes[5]})"/>
-                                        <th:block th:replace="fragments/product-fragments :: perfume-item(${perfumes[6]})"/>
-                                        <th:block th:replace="fragments/product-fragments :: perfume-item(${perfumes[7]})"/>
+                                        <th:block th:replace="fragments/product-fragments :: product-item(${perfumes[4]})"/>
+                                        <th:block th:replace="fragments/product-fragments :: product-item(${perfumes[5]})"/>
+                                        <th:block th:replace="fragments/product-fragments :: product-item(${perfumes[6]})"/>
+                                        <th:block th:replace="fragments/product-fragments :: product-item(${perfumes[7]})"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="container">
                                     <div class="row" th:fragment="list">
-                                        <th:block th:replace="fragments/product-fragments :: perfume-item(${perfumes[8]})"/>
-                                        <th:block th:replace="fragments/product-fragments :: perfume-item(${perfumes[9]})"/>
-                                        <th:block th:replace="fragments/product-fragments :: perfume-item(${perfumes[10]})"/>
-                                        <th:block th:replace="fragments/product-fragments :: perfume-item(${perfumes[11]})"/>
+                                        <th:block th:replace="fragments/product-fragments :: product-item(${perfumes[8]})"/>
+                                        <th:block th:replace="fragments/product-fragments :: product-item(${perfumes[9]})"/>
+                                        <th:block th:replace="fragments/product-fragments :: product-item(${perfumes[10]})"/>
+                                        <th:block th:replace="fragments/product-fragments :: product-item(${perfumes[11]})"/>
                                     </div>
                                 </div>
                             </div>
