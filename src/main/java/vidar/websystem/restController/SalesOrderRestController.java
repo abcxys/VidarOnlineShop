@@ -70,7 +70,13 @@ public class SalesOrderRestController {
     @ResponseBody
     public String getSalesOrderProductsList(@RequestParam List<Long> ids){
         DatatablesView<SalesOrderItem> salesOrderProducts = salesOrderService.getSalesOrderProductsBySOIdsIn(ids);
-        return JSONObject.fromObject(salesOrderProducts).toString();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(salesOrderProducts);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @GetMapping(value = "/getFilteredSalesOrders")

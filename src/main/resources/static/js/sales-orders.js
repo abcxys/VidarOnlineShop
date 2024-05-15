@@ -213,7 +213,7 @@ $(document).ready(function() {
             },
             columns : [
                 {"data" : 'id', "bSortable" : false},
-                {"data" : 'floorColorSize', "bSortable" : false},
+                {"data" : 'floor', "bSortable" : false},
                 {"data" : 'soDate', "bSortable" : false},
                 {"data" : 'soNumber', "bSortable" : false},
                 {"data" : 'quantity_on_hand', "bSortable" : false},
@@ -229,14 +229,18 @@ $(document).ready(function() {
                 'searchable': false,
                 'className': 'dt-body-center',
                 'render': function(data) {
-                    return data.width +'\" ' + data.woodSpeciesName.split(" ")[data.woodSpeciesName.split(" ").length - 1]
-                        + " " + data.colorName + " " + data.gradeAlias + " " + data.sqftPerCarton + " " + data.batchName;
+                    return data.size.split('inch')[0].trim() + "\"" + " " +
+                        data.species.split(' ')[data.species.split(' ').length-1] + " " +
+                        data.color + " " +
+                        data.grade + " " +
+                        data.size.split(' ')[data.size.split(' ').length-1] + " " +
+                        data.batchNumber;
                 }
             }, {
                 'targets': 2,
                 'render' : function(data, type, full, meta){
                     // Convert the milliseconds to a Date object
-                    let date = new Date(data.time);
+                    let date = new Date(data);
                     tempDate = data;
 
                     // Extract day, month, and year from the Date object
