@@ -3,7 +3,7 @@
         <img th:src="@{/img/{path} (path = ${perfume.getFilename()})}" class="rounded mx-auto w-100 h-50">
         <div class="card-body text-center">
             <h6 th:text="${perfume.getSpecies().toString()}"></h6>
-            <h5 th:text="${perfume.getColor().toString()}"></h5>
+            <h5><span th:text="${perfume.getColor().toString()}"></span> - <span th:text="${perfume.getGrade().getAlias()}"></span></h5>
             <h6><span th:text="${perfume.getSize().getWidthInInch()}"></span> inch - <span th:text="${perfume.getSize().getSquarefootPerCarton()}"></span> sqft/box</h6>
         </div>
         <div class="text-center align-items-end mb-3">
