@@ -15,7 +15,7 @@ import java.util.List;
 public interface ReturnService {
     List<ReturnStatus> getReturnStatusDict();
 
-    List<SalesOrderItem> getSalesOrderReturnItemsByReturnSlipId(Long returnSlipId);
+    List<ReturnItem> getSalesOrderReturnItemsByReturnSlipId(Long returnSlipId);
 
     ResponseEntity<?> addReturnSlip(User user, ReturnSlipRequest returnSlipRequest);
 

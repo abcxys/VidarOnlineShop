@@ -53,4 +53,9 @@ public class ReturnSlip {
 
     @Column(name = "description")
     private String description;
+
+    @Override
+    public String toString(){
+        return String.valueOf(id);
+    }
 }

@@ -49,11 +49,8 @@ public class ReturnServiceImpl implements ReturnService {
      * @return DatatablesView of returnItems
      */
     @Override
-    public List<SalesOrderItem> getSalesOrderReturnItemsByReturnSlipId(Long returnSlipId) {
-        List<ReturnItem> returnRawItems = returnItemRepository.findByReturnSlipId(returnSlipId);
-        return returnRawItems.stream().map(rawItem -> {
-            return new SalesOrderItem(rawItem.getId(), rawItem.getProduct(), rawItem.getQuantity());
-        }).collect(Collectors.toList());
+    public List<ReturnItem> getSalesOrderReturnItemsByReturnSlipId(Long returnSlipId) {
+        return returnItemRepository.findByReturnSlipId(returnSlipId);
     }
 
     /**

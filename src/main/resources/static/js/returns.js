@@ -10,8 +10,7 @@ function format(packingSlipItems) {
     packingSlipItems.forEach(function(packingItem) {
         table += '<tr>';
         table += '<td>Item ' + id++ + ':</td>';
-        table += '<td>' + packingItem.floorColorSize.width +'\" ' + packingItem.floorColorSize.woodSpeciesName.split(" ")[packingItem.floorColorSize.woodSpeciesName.split(" ").length - 1]
-            + " " + packingItem.floorColorSize.colorName + " " + packingItem.floorColorSize.gradeAlias + " " + packingItem.floorColorSize.sqftPerCarton + " " + packingItem.floorColorSize.batchName + '</td>';
+        table += '<td>' + packingItem.product + '</td>';
         table += '</tr>';
         table += '<tr>';
         table += '<td>Quantity:</td>';
@@ -156,7 +155,7 @@ $(document).ready(function() {
     });
 
     $('#returnSlipTable tbody').on('dblclick', 'tr', function(){
-        let rowData = packingSlipTable.row(this).data();
+        let rowData = returnSlipTable.row(this).data();
         console.log("The double clicked packing slip id = " + rowData.id);
         let baseurl = window.location;
         window.open(baseurl + "/" + rowData.id);
@@ -164,11 +163,11 @@ $(document).ready(function() {
     });
 
     returnSlipTable.on('click', '.editPacking', function(){
-        let rowData = packingSlipTable.row($(this).closest('tr')).data();
-        let statusId = $(this).closest('tr').find('.packingStatusSelector.selectpicker').val();
+        let rowData = returnSlipTable.row($(this).closest('tr')).data();
+        let statusId = $(this).closest('tr').find('.returnStatusSelector.selectpicker').val();
         console.log('update the packing slip', rowData.id);
         $.ajax({
-            url: '/packing/updatePackingStatus',
+            url: '/return/updateReturnStatus',
             method: 'PUT',
             dataSrc: 'data',
             data: {
@@ -248,7 +247,7 @@ $(document).ready(function() {
     });
 
     $('#createPacking').on('click', function(){
-        let rows = $(packingSlipTable.$('input[type="checkbox"]').map(function(){
+        let rows = $(returnSlipTable.$('input[type="checkbox"]').map(function(){
             return $(this).prop("checked") ? $(this).closest('tr') : null;
         }))
 
@@ -258,7 +257,7 @@ $(document).ready(function() {
         // Extract IDs from selected rows and store them in a list
         let ids = [];
         rows.each(function (index, row) {
-            ids.push(packingSlipTable.row(row).data().id);
+            ids.push(returnSlipTable.row(row).data().id);
         });
 
         // Convert array to comma-separated string

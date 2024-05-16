@@ -1,6 +1,9 @@
 package vidar.websystem.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
+import vidar.websystem.json.HardwoodFloorSerializer;
+import vidar.websystem.json.ReturnSlipSerializer;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -25,10 +28,12 @@ public class ReturnItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonSerialize(using = ReturnSlipSerializer.class)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "return_slip_id")
     private ReturnSlip returnSlip;
 
+    @JsonSerialize(using = HardwoodFloorSerializer.class)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private HardwoodFloor product;
