@@ -384,7 +384,7 @@ $(document).ready(function() {
             data: JSON.stringify(jsonData),
             contentType: "application/json",
             success: function(response) {
-                bootboxAlertPromp(response);
+                bootboxAlertPrompt(response);
                 let baseUrl = window.location.origin;
                 setTimeout(function() {
                     window.open(baseUrl + "/return", "_blank");
