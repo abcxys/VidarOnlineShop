@@ -37,6 +37,7 @@ public class PackingServiceImpl implements PackingService{
 	private final DriverRepository driverRepository;
 	private final PackingSlipItemRepository packingSlipItemRepository;
 	private final DealerRepository dealerRepository;
+	private final ShippingMethodRepository shippingMethodRepository;
 
 	/**
 	 * @param id of PackingSlip
@@ -121,6 +122,14 @@ public class PackingServiceImpl implements PackingService{
 	}
 
 	/**
+	 * @return All shipping methods in database
+	 */
+	@Override
+	public List<ShippingMethod> getShippingMethods() {
+		return shippingMethodRepository.findAll();
+	}
+
+	/**
 	 * @param user Authenticated user.
 	 * @param packingSlipRequest packingSlipRequest contains driver info and packingSlipItems.
 	 * @return ResponseEntity
@@ -133,6 +142,7 @@ public class PackingServiceImpl implements PackingService{
 		packingSlip.setPackingStatus(packingStatusRepository.findById(packingSlipRequest.getStatusId()).orElse(null));
 		packingSlip.setDealer(dealerRepository.findByCompanyName(packingSlipRequest.getDealerCompanyName()));
 		packingSlip.setDriver(driverRepository.findById(packingSlipRequest.getDriverId()).orElse(null));
+		packingSlip.setShippingMethod(shippingMethodRepository.findById(packingSlipRequest.getShippingMethodId()).orElse(null));
 		packingSlip.setDescription(packingSlipRequest.getDescription());
 		packingSlip.setCreateUserId(user.getId());
 		packingSlip.setCreateTime(new Date());
@@ -156,6 +166,8 @@ public class PackingServiceImpl implements PackingService{
 			return ResponseEntity.notFound().build();
 		}
 		packingSlip.setPackingStatus(packingStatusRepository.findById(packingSlipRequest.getStatusId()).orElse(null));
+		packingSlip.setDriver(driverRepository.findById(packingSlipRequest.getDriverId()).orElse(null));
+		packingSlip.setShippingMethod(shippingMethodRepository.findById(packingSlipRequest.getShippingMethodId()).orElse(null));
 		//packingSlip.setDealer(dealerRepository.findByCompanyName(packingSlipRequest.getDealerCompanyName()));
 		packingSlip.setUpdateUserId(user.getId());
 		packingSlip.setUpdateTime(new Date());

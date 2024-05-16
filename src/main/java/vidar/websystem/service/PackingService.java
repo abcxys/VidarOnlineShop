@@ -20,6 +20,8 @@ public interface PackingService {
 
 	List<Driver> getDrivers();
 
+	List<ShippingMethod> getShippingMethods();
+
 	ResponseEntity<?> addPackingSlip(User user, PackingSlipRequest packingSlipRequest);
 
 	ResponseEntity<?> updatePackingSlip(User user, PackingSlipRequest packingSlipRequest);

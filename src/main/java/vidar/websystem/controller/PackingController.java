@@ -38,6 +38,7 @@ public class PackingController {
 	public String getPackingSlip(@PathVariable("packingSlipId") Long packingSlipId, Model model) {
 		model.addAttribute("dealer_dict", cartService.getDealers());
 		model.addAttribute("driver_dict", packingService.getDrivers());
+		model.addAttribute("via_dict", packingService.getShippingMethods());
 		model.addAttribute("packingSlipStatus_dict", packingService.getPackingSlipStatusDict());
 		model.addAttribute("packingSlip", packingService.getPackingSlipById(packingSlipId));
 		return Pages.PACKING;
