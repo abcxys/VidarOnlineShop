@@ -25,6 +25,12 @@
                             value=${packingSlip.getDriver().getId()},
                             options=${driver_dict}
                         )"/>
+                        <th:block th:replace="fragments/product-fragments :: add-dealer-select(
+                            title='VIA',
+                            name='via',
+                            value=${packingSlip.getShippingMethod().getId()},
+                            options=${via_dict}
+                        )"/>
                     </div>
                 </div>
                 <div class="container-fluid mt-3">

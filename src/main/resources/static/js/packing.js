@@ -243,8 +243,10 @@ $(document).ready(function() {
 
         let jsonData = {
             "id": $('#packingSlipId').val(),
+            "driverId": $('#driver').val(),
             "statusId": $('#packingSlipStatus').val(),
-            "dealerCompanyName": $('dealer_address').val(),
+            "shippingMethodId": $('#via').val(),
+            "dealerCompanyName": $('#dealer_address').val(),
             "packingSlipItems": tableData
         };
 
