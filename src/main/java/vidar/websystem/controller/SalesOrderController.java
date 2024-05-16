@@ -68,6 +68,7 @@ public class SalesOrderController {
     public String getSalesOrders(Model model){
         model.addAttribute("dealer_dict", cartService.getDealers());
         model.addAttribute("driver_dict", packingService.getDrivers());
+        model.addAttribute("via_dict", packingService.getShippingMethods());
         model.addAttribute("salesOrderStatus_dict", salesOrderService.getSalesOrderStatusDict());
         return Pages.SALES_ORDERS;
     }
