@@ -742,7 +742,7 @@ ssh -i ".\vidar-key.pem" ec2-user@54.196.134.96
 6. You can use Amazon Route 53 service to register for customized domain
 7. To stop springboot application
 ```shell
-ps aux | grep your-application.jar
+ps aux | grep OnlineShop-1.0-SNAPSHOT.jar
 kill -9 pid
 ```
 8. To start springboot application
@@ -757,6 +757,10 @@ docker start postgresVidar
 ```
 10. In MvcConfiguration.java replace '.addResourceLocations("classpath:/uploads/");' with '.addResourceLocations("file:/home/ec2-user/uploads/");'
 11. Update application-prod.properties for upload.path=/home/ec2-user/uploads/
+12. To find the pid of currently running application
+```Shell
+ps aux | grep OnlineShop-1.0-SNAPSHOT.jar
+```
 
 
 Java/Spring side changes:
@@ -783,3 +787,24 @@ Sales order design gist:
 7. Add json serializers for PlankColor, PlankSize, PlankType, WoodSpecies, Grade, for Jsonifying HardwoodFloor class objects.
 8. Update HardwoodFloor class, remove FloorColorSize class and update all related repository/service/impl/controller methods and thymeleaf templates and client side javascript.
 9. Replace 'perfume' related text on server side with 'product'
+
+### May 15th changes:
+1. Add grade alias display to product item card.
+2. Adjust serviceImpl method to accommodate for the HardwoodFloor class refraction.
+3. Add resourceLocations on AWS EC2 instance for handler of ("/img"/**).
+4. Update product-item name and content, remove unnecessary \<span\> tags.
+5. Add condition on popular items section on home page.
+6. Update product html code with more product details and a section for product inventory/orders/containers. Also move javascript code to separate .js file.
+7. Add an attribute 'VIA' to PackingSlip table/object.
+8. Update REST controller and javascript code for sales orders, accommodating the update of HardwoodFloor class and SalesOrderItem class.
+9. Update javascript code for packing/{id} page, accommodate for the update of HardwoodFloor and SalesOrderItem class.
+10. Add entity/serializer/repository classes/interface for table 'shipping_methods'.
+11. Add shipping method attributes to PackingSlip and PackingSlipRequest classes.
+
+pid= 12695
+
+### May 16th changes:
+Bug fixes:
+1. time search of orders failed.
+2. default release_ok value of orders upon creation.
+3. update orders failed.
