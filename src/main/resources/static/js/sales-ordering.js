@@ -126,7 +126,7 @@ $(function() {
         $('#itemOrderingTable tbody tr').each(function(){
             if (salesOrdersTable.row(this).data()!=null) {
                 let rowData = {
-                    productId: salesOrdersTable.row(this).data().floorColorSize.id,
+                    productId: salesOrdersTable.row(this).data().floor.id,
                     quantity: salesOrdersTable.row(this).data().quantity
                 };
                 tableData.push(rowData);

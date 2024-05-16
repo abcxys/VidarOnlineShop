@@ -10,8 +10,8 @@ function format(packingSlipItems) {
     packingSlipItems.forEach(function(packingItem) {
         table += '<tr>';
         table += '<td>Item ' + id++ + ':</td>';
-        table += '<td>' + packingItem.floorColorSize.width +'\" ' + packingItem.floorColorSize.woodSpeciesName.split(" ")[packingItem.floorColorSize.woodSpeciesName.split(" ").length - 1]
-            + " " + packingItem.floorColorSize.colorName + " " + packingItem.floorColorSize.gradeAlias + " " + packingItem.floorColorSize.sqftPerCarton + " " + packingItem.floorColorSize.batchName + '</td>';
+        table += '<td>' + packingItem.floor.size.split(" ")[0] +'\" ' + packingItem.floor.species.split(" ")[packingItem.floor.species.split(" ").length - 1]
+            + " " + packingItem.floor.color + " " + packingItem.floor.grade + " " + packingItem.floor.size.split(" ")[packingItem.floor.size.split(" ").length - 1] + " " + packingItem.floor.batchNumber + '</td>';
         table += '</tr>';
         table += '<tr>';
         table += '<td>Quantity:</td>';
