@@ -46,7 +46,13 @@ public class SalesOrderRestController {
     @GetMapping(value = "/getSalesOrderItems")
     public String getSalesOrderItems(Model model, Pageable pageable){
         DatatablesView<SalesOrderItem> salesOrderItem = cartService.getSalesOrderItemsTable();
-        return JSONObject.fromObject(salesOrderItem).toString();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(salesOrderItem);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @GetMapping(value = "/getDealerInfoById")
