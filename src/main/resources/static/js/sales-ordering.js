@@ -82,6 +82,26 @@ $(document).ready(function() {
 
     salesOrdersTable.on('click', 'td.editor-delete button', function(e){
         $(this).closest('tr').remove();
+
+        // Update items in user's cart accordingly
+        if (salesOrdersTable.row($(this).closest('tr')).data() != null){
+            // Only if the row is not null, remove the corresponding items in cart.
+            let productId = salesOrdersTable.row($(this).closest('tr')).data().floor.id;
+            let quantity = salesOrdersTable.row($(this).closest('tr')).data().quantity;
+            $.ajax({
+                url: '/cart/remove-with-quantity',
+                method: 'POST',
+                data: {
+                    productId: productId,
+                    quantity: quantity
+                },
+                success : function(response){
+                },
+                error: function(xhr){
+                    bootboxAlertError(xhr.responseText);
+                }
+            });
+        }
     });
 
     $('#dealer').on('change', function(){

@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -61,6 +60,21 @@ public class CartServiceImpl implements CartService {
         	user.getPerfumeList().add(floor);
         }
 	}
+
+    /**
+     * @param productId product ID
+     * @param quantity quantity
+     */
+    @Override
+    @Transactional
+    public void removeProductWithQuantityFromCart(Long productId, Long quantity) {
+        User user = userService.getAuthenticatedUser();
+        HardwoodFloor floor = hardwoodFloorsRepository.getOne(productId);
+        // IntStream.range(0, ).forEach(i -> user.getPerfumeList().remove(floor));
+        for (int i = 0; i < quantity; i++){
+            user.getPerfumeList().remove(floor);
+        }
+    }
 
     @Override
     public DatatablesView<CartItem> getCartItemsTable(){
