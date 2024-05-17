@@ -4,14 +4,53 @@ $(document).ready(function () {
     retrieveOrderedQuantity();
     retrieveEstimatedArrivalDates();
     retrieveFactoryInventory();
-});
 
-$('#sqft_quantity').on("propertychange change keyup paste input",function(){
-    adjustBaseQuantity();
+    $('#sqft_quantity').on("propertychange change keyup paste input",function(){
+        adjustBaseQuantity();
+    });
+    $('#carton_quantity').on("propertychange change keyup paste input", function(){
+        adjustBaseQuantity();
+    })
+
+    $("#check_product_stock").on("click",function(){
+        var currentClassName = $("#check-result").attr('class');
+
+        $.ajax({
+            url:"/product/checkProductStock",
+            type:"POST",
+            data: {
+                productId: $('#productIdVal').val(),
+                quantity: $('#txtEstimatedCarton').val(),
+            },
+            success:function(response){
+                console.log(response.Status);
+                var className='success';
+                if(response.Status==0){//unkown
+                    className = 'unknown';
+                }
+                else if(response.Status==2){
+                    className = 'failure';
+                }
+                else if(response.Status==1){
+                    className='success';
+                }
+                $("#check_product_stock").removeAttr('disabled');
+                $("#check-result").text(response);
+
+                $("#check-result").removeClass(currentClassName);
+                $("#check-result").addClass('send-request ' + className);
+                console.log('success');
+            },
+            error: function (xhr) {
+                var errorMessage = xhr.responseText ? xhr.responseText : 'Unknown error';
+                $("#check_product_stock").removeAttr('disabled');
+                $("#check-result").text(errorMessage);
+                $("#check-result").removeClass(currentClassName);
+                $("#check-result").addClass("send-request failure");
+            }
+        });
+    })
 });
-$('#carton_quantity').on("propertychange change keyup paste input", function(){
-    adjustBaseQuantity();
-})
 
 function adjustBaseQuantity() {
     let sqftPerCarton = $('#sqftPerCartonVal').val();
@@ -61,42 +100,3 @@ function retrieveFactoryInventory() {
     $('#factoryInventoryQuantity').html('Factory inventory: ' + factoryInventoryBoxes +
         ' boxes, ' + factoryInventorySqft + ' sqft');
 }
-
-$("#check_product_stock").on("click",function(){
-    var currentClassName = $("#check-result").attr('class');
-
-    $.ajax({
-        url:"/product/checkProductStock",
-        type:"POST",
-        data: {
-            productId: $('#productIdVal').val(),
-            quantity: $('#txtEstimatedCarton').val(),
-        },
-        success:function(response){
-            console.log(response.Status);
-            var className='success';
-            if(response.Status==0){//unkown
-                className = 'unknown';
-            }
-            else if(response.Status==2){
-                className = 'failure';
-            }
-            else if(response.Status==1){
-                className='success';
-            }
-            $("#check_product_stock").removeAttr('disabled');
-            $("#check-result").text(response);
-
-            $("#check-result").removeClass(currentClassName);
-            $("#check-result").addClass('send-request ' + className);
-            console.log('success');
-        },
-        error: function (xhr) {
-            var errorMessage = xhr.responseText ? xhr.responseText : 'Unknown error';
-            $("#check_product_stock").removeAttr('disabled');
-            $("#check-result").text(errorMessage);
-            $("#check-result").removeClass(currentClassName);
-            $("#check-result").addClass("send-request failure");
-        }
-    });
-})
