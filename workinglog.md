@@ -789,6 +789,7 @@ Sales order design gist:
 9. Replace 'perfume' related text on server side with 'product'
 
 ### May 15th changes:
+Java/Spring side changes:
 1. Add grade alias display to product item card.
 2. Adjust serviceImpl method to accommodate for the HardwoodFloor class refraction.
 3. Add resourceLocations on AWS EC2 instance for handler of ("/img"/**).
@@ -806,5 +807,18 @@ pid= 12695
 ### May 16th changes:
 Bug fixes:
 1. time search of orders failed.
+Cause: the default timezone of EC2 machine instance is UTC, and springboot does not make changes to timezone
+Solution: a. Change the timezone of EC2 machine with command ```sudo timedatectl set-timezone Canada/Eastern``` b. Add TimeZoneConfig class to set default timezone of Java.util.Date to be 'America/Toronto'
 2. default release_ok value of orders upon creation.
 3. update orders failed.
+
+Java/Spring side changes:
+1. Update html/javascript code for 'packing' page, for the selection of shipping method 'via'.
+2. Add shipping method dictionary controller support and selection on sales-orders page.
+3. Fix a typo of bootboxAlertPrompt
+4. Fix the remaining impacts by replacing FloorColorSize class with modified HardwoodFloor class.
+5. Fix the no serializer error from 'clicking on returnSlipTable row'.
+Cause: not sure, because ReturnServiceImpl method 'getSalesOrderReturnItemsByReturnSlipId' is essentially the same as PackingServiceImpl method 'getSalesOrderPackingItemsByPackingSlipId'.
+Solution: Add serializers to ReturnItem class attributes, and replace return type of getSalesOrderReturnItemsByReturnSlipId from 'SalesOrderItem' to 'ReturnItem'.
+
+### May 17th changes:
