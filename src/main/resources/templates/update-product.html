@@ -21,35 +21,35 @@
                                     title='Colour',
                                     name='colorId',
                                     options=(${colourDict}),
-                                    value=(${product.getColorId()}),
+                                    value=(${product.getColor().getId()}),
                                     error=(${colorIdError})
                                 )"/>
                                 <th:block th:replace="fragments/product-fragments :: update-product-attribute-select(
                                     title='Size',
                                     name='sizeId',
                                     options=(${sizeDict}),
-                                    value=(${product.getSizeId()}),
+                                    value=(${product.getSize().getId()}),
                                     error=(${sizeIdError})
                                 )"/>
                                 <th:block th:replace="fragments/product-fragments :: update-product-attribute-select(
                                     title='Wood species',
                                     name='speciesId',
                                     options=(${speciesDict}),
-                                    value=(${product.getSpeciesId()}),
+                                    value=(${product.getSpecies().getId()}),
                                     error=(${speciesIdError})
                                 )"/>
                                 <th:block th:replace="fragments/product-fragments :: update-product-attribute-select(
                                     title='Plank type',
                                     name='typeId',
                                     options=(${plankTypeDict}),
-                                    value=(${product.getTypeId()}),
+                                    value=(${product.getType().getId()}),
                                     error=(${typeIdError})
                                 )"/>
                                 <th:block th:replace="fragments/product-fragments :: update-product-attribute-select(
                                     title='Grade',
                                     name='gradeId',
                                     options=(${gradeDict}),
-                                    value=(${product.getGradeId()}),
+                                    value=(${product.getGrade().getId()}),
                                     error=(${typeIdError})
                                 )"/>
                                 <th:block th:replace="fragments/product-fragments :: update-string-required-attribute-input(
