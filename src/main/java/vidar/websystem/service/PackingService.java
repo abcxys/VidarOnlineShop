@@ -12,7 +12,7 @@ import java.util.List;
  * @create Feb 15, 2024 - 10:47:30 PM
  */
 public interface PackingService {
-	PackingSlip getPackingSlipById(Long id);
+	PackingSlip getPackingSlipById(Long packingSlipId);
 
 	DatatablesView<SalesOrder> getAllOrders();
 

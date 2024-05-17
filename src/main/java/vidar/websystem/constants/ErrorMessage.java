@@ -9,6 +9,7 @@ public class ErrorMessage {
     public static final String ACTIVATION_CODE_NOT_FOUND = "Activation code not found.";
     public static final String ORDER_NOT_FOUND = "SalesOrder not found.";
     public static final String PRODUCT_NOT_FOUND = "Product not found.";
+    public static final String PACKING_SLIP_NOT_FOUND = "PackingSlip not found.";
     public static final String USER_NOT_FOUND = "User not found.";
     public static final String EMPTY_FIRST_NAME = "First name cannot be empty";
     public static final String EMPTY_LAST_NAME = "Last name cannot be empty";

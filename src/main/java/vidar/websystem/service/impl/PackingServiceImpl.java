@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.constants.SuccessMessage;
 import vidar.websystem.domain.*;
@@ -40,12 +42,13 @@ public class PackingServiceImpl implements PackingService{
 	private final ShippingMethodRepository shippingMethodRepository;
 
 	/**
-	 * @param id of PackingSlip
+	 * @param packingSlipId of PackingSlip
 	 * @return PackingSlip object
 	 */
 	@Override
-	public PackingSlip getPackingSlipById(Long id) {
-		return packingSlipRepository.findById(id).orElse(null);
+	public PackingSlip getPackingSlipById(Long packingSlipId) {
+		return packingSlipRepository.findById(packingSlipId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.PACKING_SLIP_NOT_FOUND));
 	}
 
 	@Override
