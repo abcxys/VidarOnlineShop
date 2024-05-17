@@ -1,5 +1,5 @@
 let salesOrdersTable;
-$(function() {
+$(document).ready(function() {
     salesOrdersTable = $('#itemOrderingTable').DataTable({
         "serverSide" : false,//分页，取数据等等的都放到服务端去
         "lengthChange": false,
@@ -37,14 +37,22 @@ $(function() {
             'targets': 0,
             'searchable': false,
             'className': 'dt-body-center editor-delete',
+            width: '5%',
             'render': function (data, type, full, meta){
                 return '<button type="button"><i class="fa fa-trash"/></button>';
             }
         }, {
+            'targets': 1,
+            width: '8%',
+            'render': function(data) {
+                return data;
+            }
+        },{
             'targets': 2,
             'visible': false,
             'searchable': false,
             'className': 'dt-body-center',
+            width: '0%',
             'render': function(data) {
                 return data.id;
             }
@@ -52,29 +60,28 @@ $(function() {
             'targets': 3,
             'searchable': false,
             'className': 'dt-body-center',
+            width: '25%',
             'render': function(data) {
-                return data.width +'\" ' + data.woodSpeciesName.split(" ")[data.woodSpeciesName.split(" ").length - 1]
-                    + " " + data.colorName + " " + data.gradeAlias + " " + data.sqftPerCarton + " " + data.batchName;
+                return data.size.split('inch')[0].trim() + "\"" + " " +
+                    data.species.split(' ')[data.species.split(' ').length-1] + " " +
+                    data.color + " " +
+                    data.grade + " " +
+                    data.size.split(' ')[data.size.split(' ').length-1] + " " +
+                    data.batchNumber;
             }
         }, {
             'targets': 4,
             'searchable': false,
             'className': 'dt-body-center',
+            width: '15%',
             'render': function(data) {
                 return data.price;
             }
-        }],
-        aoColumns : [
-            { sWidth: '5%' },
-            { sWidth: '8%' },
-            { sWidth: '0%' },
-            { sWidth: '25%' },
-            { sWidth: '15%' }
-        ]
+        }]
     });
 
     salesOrdersTable.on('click', 'td.editor-delete button', function(e){
-        let row = $(this).parent('tr');
+        $(this).closest('tr').remove();
     });
 
     $('#dealer').on('change', function(){
