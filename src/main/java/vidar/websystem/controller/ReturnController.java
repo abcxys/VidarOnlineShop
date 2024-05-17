@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
@@ -28,5 +29,13 @@ public class ReturnController {
         model.addAttribute("dealer_dict", cartService.getDealers());
         model.addAttribute("returnSlipStatus_dict", returnService.getReturnStatusDict());
         return Pages.RETURNS;
+    }
+
+    @GetMapping("/{returnSlipId}")
+    public String getReturnSlip(@PathVariable("returnSlipId") Long returnSlipId, Model model){
+        model.addAttribute("dealer_dict", cartService.getDealers());
+        model.addAttribute("returnSlip", returnService.getReturnSlipById(returnSlipId));
+        model.addAttribute("returnSlipStatus_dict", returnService.getReturnStatusDict());
+        return Pages.RETURN;
     }
 }

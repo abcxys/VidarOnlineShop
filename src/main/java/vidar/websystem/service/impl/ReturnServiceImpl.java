@@ -45,6 +45,15 @@ public class ReturnServiceImpl implements ReturnService {
     }
 
     /**
+     * @param returnSlipId id of return slip
+     * @return queried return slip by id
+     */
+    @Override
+    public ReturnSlip getReturnSlipById(Long returnSlipId) {
+        return returnSlipRepository.findById(returnSlipId).orElse(null);
+    }
+
+    /**
      * @param returnSlipId queried returnSlipId
      * @return DatatablesView of returnItems
      */
