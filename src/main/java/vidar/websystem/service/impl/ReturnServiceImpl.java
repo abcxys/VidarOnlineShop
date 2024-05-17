@@ -6,9 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 import vidar.websystem.constants.ErrorMessage;
 import vidar.websystem.constants.SuccessMessage;
 import vidar.websystem.domain.*;
@@ -50,7 +52,8 @@ public class ReturnServiceImpl implements ReturnService {
      */
     @Override
     public ReturnSlip getReturnSlipById(Long returnSlipId) {
-        return returnSlipRepository.findById(returnSlipId).orElse(null);
+        return returnSlipRepository.findById(returnSlipId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, ErrorMessage.RETURN_SLIP_NOT_FOUND));
     }
 
     /**
