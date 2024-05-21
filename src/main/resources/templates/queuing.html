@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .column {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .column h3 {
+            text-align: center;
+            margin: 0 0 10px;
+        }
+        .column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+            overflow-y: auto;
+        }
+        .column ul li {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            padding: 10px;
+            text-align: center;
+            cursor: move;
+        }
+        .column ul li.dragging {
+            opacity: 0.5;
+        }
+        .hide-button {
+            display: block;
+            margin: 10px auto;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .hide-button:focus {
+            outline: none;
+        }
+        .show-button {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="column" id="waiting">
+        <h3>Waiting</h3>
+        <input type="text" id="new-customer" placeholder="Enter customer number" />
+        <button onclick="addCustomer()">Add</button>
+        <ul id="waiting-list"></ul>
+    </div>
+    <div class="column" id="being-served">
+        <h3>Being Served</h3>
+        <ul id="being-served-list"></ul>
+    </div>
+    <div class="column" id="served">
+        <h3>Served</h3>
+        <ul id="served-list"></ul>
+        <button class="hide-button" onclick="toggleServedColumn()">Hide Served</button>
+    </div>
+</div>
+<button class="show-button" onclick="toggleServedColumn()">Show Served</button>
+
+<script>
+    function addCustomer() {
+        const newCustomer = document.getElementById('new-customer').value;
+        if (newCustomer) {
+            const li = document.createElement('li');
+            li.textContent = newCustomer;
+            li.draggable = true;
+            document.getElementById('waiting-list').appendChild(li);
+            document.getElementById('new-customer').value = '';
+            addDragEvents(li);
+        }
+    }
+
+    function addDragEvents(item) {
+        item.addEventListener('dragstart', () => {
+            item.classList.add('dragging');
+        });
+
+        item.addEventListener('dragend', () => {
+            item.classList.remove('dragging');
+        });
+    }
+
+    const columns = document.querySelectorAll('.column ul');
+
+    columns.forEach(column => {
+        column.addEventListener('dragover', e => {
+            e.preventDefault();
+            const afterElement = getDragAfterElement(column, e.clientY);
+            const draggingItem = document.querySelector('.dragging');
+            if (afterElement == null) {
+                column.appendChild(draggingItem);
+            } else {
+                column.insertBefore(draggingItem, afterElement);
+            }
+        });
+    });
+
+    function getDragAfterElement(container, y) {
+        const draggableElements = [...container.querySelectorAll('li:not(.dragging)')];
+
+        return draggableElements.reduce((closest, child) => {
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) {
+                return { offset: offset, element: child };
+            } else {
+                return closest;
+            }
+        }, { offset: Number.NEGATIVE_INFINITY }).element;
+    }
+
+    function toggleServedColumn() {
+        const servedColumn = document.getElementById('served');
+        const showButton = document.querySelector('.show-button');
+        if (servedColumn.style.display === 'none') {
+            servedColumn.style.display = 'flex';
+            showButton.style.display = 'none';
+        } else {
+            servedColumn.style.display = 'none';
+            showButton.style.display = 'block';
+        }
+    }
+
+    document.querySelectorAll('.column ul li').forEach(addDragEvents);
+</script>
+
+</body>
+</html>
