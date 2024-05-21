@@ -822,3 +822,12 @@ Cause: not sure, because ReturnServiceImpl method 'getSalesOrderReturnItemsByRet
 Solution: Add serializers to ReturnItem class attributes, and replace return type of getSalesOrderReturnItemsByReturnSlipId from 'SalesOrderItem' to 'ReturnItem'.
 
 ### May 17th changes:
+1. Move the event handlers in product.js into document ready function to make it functions normally.
+2. Update javascript code for sales-ordering page to accommodate for removal of FloorColorSize class. Also update code for delete button to make it work properly.
+Note: 'aoColumns' attribute would not work with DataTable loading, all data would return 'undefined'.
+3. Update SalesOrder REST controller method getSalesOrderItems to fix Json infinite recursion error.
+4. Add Pages constant, service/impl/controller method for single ReturnSlip page.
+5. Update 'update-product' page thymeleaf fragment value to accommodate for the replacement of 'FloorColorSize' class with 'HardwoodFloor'.
+6. Add error message for "PackingSlip not found" and corresponding responses from service implement method.
+7. Add error message for "ReturnSlip not found" and corresponding responses from service implement method.
+8. Add a table 'cart' to database visio design file.
