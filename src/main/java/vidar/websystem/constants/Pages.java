@@ -39,6 +39,7 @@ public class Pages {
     public static final String UPDATE_ALL_PRODUCTS = "update-all-products";
     public static final String UPDATE_PRODUCT = "update-product";
     public static final String ADD_NEW_PRODUCT = "add-new-product";
+    public static final String QUEUING = "queuing";
     public static final String REGISTRATION = "registration";
     public static final String ERROR_404 = "error-404";
     public static final String ERROR_500 = "error-500";
