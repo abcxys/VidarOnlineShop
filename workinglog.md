@@ -831,3 +831,11 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 6. Add error message for "PackingSlip not found" and corresponding responses from service implement method.
 7. Add error message for "ReturnSlip not found" and corresponding responses from service implement method.
 8. Add a table 'cart' to database visio design file.
+
+### May 20th changes:
+1. Add client side html/javascript code for return web page.
+2. Add a queuing page to show the status of queuing line.
+
+### May 21st changes:
+1. Add table 'test_packing_slips' for simple queuing status page setup.
+2. Update Pages/Path constants for queuing, and add basic get controller method for queuing page.
