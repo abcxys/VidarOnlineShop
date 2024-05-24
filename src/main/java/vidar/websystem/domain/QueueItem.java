@@ -24,7 +24,7 @@ public class QueueItem {
     private Long id;
 
     @Column(name = "packing_slip_no")
-    private Long packingSlipNo;
+    private String packingSlipNo;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", updatable = false, columnDefinition = "timestamp default current_timestamp")
