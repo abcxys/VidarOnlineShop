@@ -839,3 +839,9 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 ### May 21st changes:
 1. Add table 'test_packing_slips' for simple queuing status page setup.
 2. Update Pages/Path constants for queuing, and add basic get controller method for queuing page.
+
+### May 22nd changes:
+1. Add javascript code for queuing page: Separate html code and javascript code.
+2. Rename table 'test_packing_slips' to 'test_queuing'.
+3. Add entity and repository class/interface for QueueItem.
+4. Correct data type of packingSlipNo in QueueItem.
