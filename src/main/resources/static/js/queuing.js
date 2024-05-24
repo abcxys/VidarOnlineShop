@@ -8,6 +8,19 @@ function addCustomer() {
         document.getElementById('new-customer').value = '';
         addDragEvents(li);
     }
+    $.ajax({
+        url: "/queue/addQueueItem",
+        method: 'POST',
+        data: {
+            packingSlipNo: newCustomer
+        },
+        success: function(response){
+
+        },
+        error: function(xhr, status, error){
+            console.error(error);
+        }
+    });
 }
 
 function addDragEvents(item) {
