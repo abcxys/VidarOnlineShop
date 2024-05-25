@@ -845,3 +845,8 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 2. Rename table 'test_packing_slips' to 'test_queuing'.
 3. Add entity and repository class/interface for QueueItem.
 4. Correct data type of packingSlipNo in QueueItem.
+
+### May 23rd changes:
+1. Update javascript for queuing page, add support for dragging on mobile devices.
+2. Update table and entity field 'packingSlipNo' type from "Long" to "String".
+3. Add REST controller/service/impl methods and javascript code for adding new queue item.
