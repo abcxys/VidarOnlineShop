@@ -7,20 +7,20 @@ function addCustomer() {
         document.getElementById('waiting-list').appendChild(li);
         document.getElementById('new-customer').value = '';
         addDragEvents(li);
-    }
-    $.ajax({
-        url: "/queue/addQueueItem",
-        method: 'POST',
-        data: {
-            packingSlipNo: newCustomer
-        },
-        success: function(response){
+        $.ajax({
+            url: "/queue/addQueueItem",
+            method: 'POST',
+            data: {
+                packingSlipNo: newCustomer
+            },
+            success: function(response){
 
-        },
-        error: function(xhr, status, error){
-            console.error(error);
-        }
-    });
+            },
+            error: function(xhr, status, error){
+                console.error(error);
+            }
+        });
+    }
 }
 
 function addDragEvents(item) {
