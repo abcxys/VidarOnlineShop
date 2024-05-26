@@ -850,3 +850,9 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 1. Update javascript for queuing page, add support for dragging on mobile devices.
 2. Update table and entity field 'packingSlipNo' type from "Long" to "String".
 3. Add REST controller/service/impl methods and javascript code for adding new queue item.
+
+### May 24th changes:
+1. Update namings of two column headers on queuing page.
+
+### May 25th changes:
+1. Update location of ajax calling of 'addQueueItem', only call when entered String/number is non-empty.
