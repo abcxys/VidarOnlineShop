@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
+import vidar.websystem.domain.QueueItem;
+import vidar.websystem.service.QueueService;
+
+import java.util.List;
 
 /**
  * @author yishi.xing
@@ -17,8 +21,12 @@ import vidar.websystem.constants.PathConstants;
 @RequestMapping(PathConstants.QUEUE)
 public class QueuingController {
 
+     private final QueueService queueService;
+
      @GetMapping
      public String getQueuing(Model model){
+         List<QueueItem> queueItems = queueService.getQueueItemsCreatedToday();
+         model.addAttribute("queueItems", queueItems);
          return Pages.QUEUING;
      }
 }

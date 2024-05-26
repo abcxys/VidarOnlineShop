@@ -89,7 +89,9 @@
         <h3>Waiting</h3>
         <input type="text" id="new-customer" placeholder="Enter customer number" />
         <button onclick="addCustomer()">Add</button>
-        <ul id="waiting-list"></ul>
+        <ul id="waiting-list">
+            <li th:each="queueItem : ${queueItems}" th:text="${queueItem.getPackingSlipNo()}" th:attr="draggable=true"></li>
+        </ul>
     </div>
     <div class="column" id="being-served">
         <h3>Preparing</h3>
