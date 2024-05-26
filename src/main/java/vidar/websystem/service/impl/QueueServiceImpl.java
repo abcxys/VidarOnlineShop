@@ -9,7 +9,9 @@ import vidar.websystem.domain.User;
 import vidar.websystem.repository.QueueItemRepository;
 import vidar.websystem.service.QueueService;
 
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author yishi.xing
@@ -35,5 +37,13 @@ public class QueueServiceImpl implements QueueService {
         queueItem.setCreateTime(new Date());
         queueItemRepository.save(queueItem);
         return null;
+    }
+
+    /**
+     * @return List of QueueItem that is created today
+     */
+    @Override
+    public List<QueueItem> getQueueItemsCreatedToday() {
+        return queueItemRepository.findAllByCreateTimeToday();
     }
 }
