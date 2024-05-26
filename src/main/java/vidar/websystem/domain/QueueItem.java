@@ -26,6 +26,9 @@ public class QueueItem {
     @Column(name = "packing_slip_no")
     private String packingSlipNo;
 
+    @Column(name = "status")
+    private Integer status;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", updatable = false, columnDefinition = "timestamp default current_timestamp")
     private Date createTime;
