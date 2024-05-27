@@ -34,6 +34,8 @@ public class QueueServiceImpl implements QueueService {
         QueueItem queueItem = new QueueItem();
         queueItem.setCreateUserId(user.getId());
         queueItem.setPackingSlipNo(packingSlipNo);
+        // Set the default status of queueItem to be 1(waiting).
+        queueItem.setStatus(1);
         queueItem.setCreateTime(new Date());
         queueItemRepository.save(queueItem);
         return null;
@@ -45,5 +47,48 @@ public class QueueServiceImpl implements QueueService {
     @Override
     public List<QueueItem> getQueueItemsCreatedToday() {
         return queueItemRepository.findAllByCreateTimeToday();
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public List<QueueItem> getWaitingQueueItemsCreatedToday() {
+        return queueItemRepository.findAllByStatusAndCreateTimeToday(1);
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public List<QueueItem> getPreparingQueueItemsCreatedToday() {
+        return queueItemRepository.findAllByStatusAndCreateTimeToday(2);
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public List<QueueItem> getCompletedQueueItemsCreatedToday() {
+        return queueItemRepository.findAllByStatusAndCreateTimeToday(3);
+    }
+
+    /**
+     * @param user
+     * @param packingSlipNo
+     * @param status
+     * @return
+     */
+    @Override
+    public ResponseEntity<?> updateQueueItemStatus(User user, String packingSlipNo, Integer status) {
+        QueueItem queueItem = queueItemRepository.findByPackingSlipNo(packingSlipNo);
+        if(queueItem == null) {
+            return ResponseEntity.notFound().build();
+        }
+        queueItem.setStatus(status);
+        queueItem.setUpdateUserId(user.getId());
+        queueItem.setUpdateTime(new Date());
+        queueItemRepository.save(queueItem);
+        return null;
     }
 }

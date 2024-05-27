@@ -16,4 +16,12 @@ public interface QueueService {
     ResponseEntity<?> addQueueItem(User user, String packingSlipNo);
 
     List<QueueItem> getQueueItemsCreatedToday();
+
+    List<QueueItem> getWaitingQueueItemsCreatedToday();
+
+    List<QueueItem> getPreparingQueueItemsCreatedToday();
+
+    List<QueueItem> getCompletedQueueItemsCreatedToday();
+
+    ResponseEntity<?> updateQueueItemStatus(User user, String packingSlipNo, Integer status);
 }
