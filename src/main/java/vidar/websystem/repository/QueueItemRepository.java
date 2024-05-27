@@ -15,4 +15,9 @@ public interface QueueItemRepository extends JpaRepository<QueueItem, Long> {
 
     @Query("SELECT i FROM QueueItem i WHERE FUNCTION('DATE', i.createTime) = FUNCTION('DATE', CURRENT_DATE)")
     List<QueueItem> findAllByCreateTimeToday();
+
+    QueueItem findByPackingSlipNo(String packingSlipNo);
+
+    @Query("SELECT i FROM QueueItem i WHERE i.status = :status AND FUNCTION('DATE', i.createTime) = FUNCTION('DATE', CURRENT_DATE)")
+    List<QueueItem> findAllByStatusAndCreateTimeToday(Integer status);
 }
