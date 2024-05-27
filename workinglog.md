@@ -856,3 +856,6 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 
 ### May 25th changes:
 1. Update location of ajax calling of 'addQueueItem', only call when entered String/number is non-empty.
+2. Add repository/service/impl methods for querying queueItems that is created on current date.
+3. Update QueuingController and Thymeleaf fragment for displaying queried items created on current date on client side.
+4. Add 'status' field to database visio design/init sql and entity class for QueueItem. To distinguish between 'waiting', 'preparing', 'completed' status.
