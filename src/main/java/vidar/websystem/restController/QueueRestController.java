@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +32,14 @@ public class QueueRestController {
         log.info("addQueueItem with packingSlipNo: " + packingSlipNo);
         User user = userService.getAuthenticatedUser();
         queueService.addQueueItem(user, packingSlipNo);
+        return ResponseEntity.ok("success");
+    }
+
+    @PutMapping(value = "/updateQueueItemStatus")
+    public ResponseEntity<?> updateQueueItemStatus(@RequestParam("packingSlipNo") String packingSlipNo, @RequestParam("status") Integer status){
+        log.info("updateQueueItemStatus with packingSlipNo: " + packingSlipNo);
+        User user = userService.getAuthenticatedUser();
+        queueService.updateQueueItemStatus(user, packingSlipNo, status);
         return ResponseEntity.ok("success");
     }
 }
