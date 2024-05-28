@@ -762,6 +762,10 @@ docker start postgresVidar
 ps aux | grep OnlineShop-1.0-SNAPSHOT.jar
 ```
 
+13. Set inbound rule for EC2 instance for remote login of postgres. ip 
+Inbound rule 4 Source
+97.111.246.106/32
+
 
 Java/Spring side changes:
 1. Update product not found text from "Perfumes not found" to "Products not found".
@@ -859,3 +863,8 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 2. Add repository/service/impl methods for querying queueItems that is created on current date.
 3. Update QueuingController and Thymeleaf fragment for displaying queried items created on current date on client side.
 4. Add 'status' field to database visio design/init sql and entity class for QueueItem. To distinguish between 'waiting', 'preparing', 'completed' status.
+
+### May 26th changes:
+1. Update one of the user info to order@vidarflooring.com
+2. Add two repository methods for querying queueItem with packingSlipNo and status.
+3. Add service/impl methods for updating queueItem status and getting list of queueItems with different status created on current date.
