@@ -24,29 +24,62 @@ function addCustomer() {
 }
 
 function addDragEvents(item) {
+    let originalColumnId;
+
     item.addEventListener('dragstart', () => {
         item.classList.add('dragging');
+        originalColumnId = item.parentElement.id;
     });
 
-    item.addEventListener('dragend', () => {
+    item.addEventListener('dragend', (event) => {
         item.classList.remove('dragging');
+        const newColumnId = item.parentElement.id;
+        if (newColumnId !== originalColumnId) {
+            let newStatus = 1;
+            switch (event.target.parentElement.id){
+                case 'waiting-list':
+                    newStatus = 1;
+                    break;
+                case 'preparing-list':
+                    newStatus = 2;
+                    break;
+                case 'completed-list':
+                    newStatus = 3;
+                    break;
+            }
+            $.ajax({
+                url: "/queue/updateQueueItemStatus",
+                method: 'PUT',
+                data: {
+                    packingSlipNo: event.target.textContent,
+                    status: newStatus
+                },
+                success: function(response){
+
+                },
+                error: function(xhr, status, error){
+                    console.error(error);
+                }
+            });
+        }
+
     });
 
     // Touch events for mobile support
-    item.addEventListener('touchstart', handleTouchStart);
+    item.addEventListener('touchstart', (e) => handleTouchStart(e, item));
 
-    item.addEventListener('touchend', handleTouchEnd);
+    item.addEventListener('touchend', (e) => handleTouchEnd(e, item));
 
     item.addEventListener('touchmove', handleTouchMove);
 }
 
-function handleTouchStart(e) {
-    const item = e.target;
+function handleTouchStart(e, item) {
     item.classList.add('dragging');
     item.initialTouchY = e.touches[0].clientY;
     item.initialTouchX = e.touches[0].clientX;
     item.initialElementY = item.offsetTop;
     item.initialElementX = item.offsetLeft;
+    item.originalColumnId = item.parentElement.id;
 }
 
 function handleTouchMove(e) {
@@ -60,8 +93,7 @@ function handleTouchMove(e) {
     item.style.left = `${newX}px`;
 }
 
-function handleTouchEnd(e) {
-    const item = e.target;
+function handleTouchEnd(e, item) {
     item.classList.remove('dragging');
     item.style.position = 'static';
     const touch = e.changedTouches[0];
@@ -70,6 +102,35 @@ function handleTouchEnd(e) {
         targetElement.appendChild(item);
     } else if (targetElement && targetElement.closest('ul')) {
         targetElement.closest('ul').appendChild(item);
+    }
+    const newColumnId = item.parentElement.id;
+    if (newColumnId !== item.originalColumnId) {
+        let newStatus = 1;
+        switch (item.parentElement.id){
+            case 'waiting-list':
+                newStatus = 1;
+                break;
+            case 'preparing-list':
+                newStatus = 2;
+                break;
+            case 'completed-list':
+                newStatus = 3;
+                break;
+        }
+        $.ajax({
+            url: "/queue/updateQueueItemStatus",
+            method: 'PUT',
+            data: {
+                packingSlipNo: item.textContent,
+                status: newStatus
+            },
+            success: function(response){
+
+            },
+            error: function(xhr, status, error){
+                console.error(error);
+            }
+        });
     }
 }
 
