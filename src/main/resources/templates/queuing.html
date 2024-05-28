@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="90">
     <title>Queue Status</title>
     <style>
         body {
@@ -90,16 +91,20 @@
         <input type="text" id="new-customer" placeholder="Enter customer number" />
         <button onclick="addCustomer()">Add</button>
         <ul id="waiting-list">
-            <li th:each="queueItem : ${queueItems}" th:text="${queueItem.getPackingSlipNo()}" th:attr="draggable=true"></li>
+            <li th:each="queueItem : ${queueItems1}" th:text="${queueItem.getPackingSlipNo()}" th:attr="draggable=true"></li>
         </ul>
     </div>
     <div class="column" id="being-served">
         <h3>Preparing</h3>
-        <ul id="being-served-list"></ul>
+        <ul id="preparing-list">
+            <li th:each="queueItem : ${queueItems2}" th:text="${queueItem.getPackingSlipNo()}" th:attr="draggable=true"></li>
+        </ul>
     </div>
     <div class="column" id="served">
         <h3>Completed</h3>
-        <ul id="served-list"></ul>
+        <ul id="completed-list">
+            <li th:each="queueItem : ${queueItems3}" th:text="${queueItem.getPackingSlipNo()}" th:attr="draggable=true"></li>
+        </ul>
         <button class="hide-button" onclick="toggleServedColumn()">Hide Served</button>
     </div>
 </div>
