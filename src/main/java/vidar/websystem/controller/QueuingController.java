@@ -25,8 +25,10 @@ public class QueuingController {
 
      @GetMapping
      public String getQueuing(Model model){
-         List<QueueItem> queueItems = queueService.getQueueItemsCreatedToday();
-         model.addAttribute("queueItems", queueItems);
+         List<QueueItem> queueItems = queueService.getWaitingQueueItemsCreatedToday();
+         model.addAttribute("queueItems1", queueItems);
+         model.addAttribute("queueItems2", queueService.getPreparingQueueItemsCreatedToday());
+         model.addAttribute("queueItems3", queueService.getCompletedQueueItemsCreatedToday());
          return Pages.QUEUING;
      }
 }
