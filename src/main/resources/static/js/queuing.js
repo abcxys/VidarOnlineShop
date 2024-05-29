@@ -1,12 +1,6 @@
 function addCustomer() {
     const newCustomer = document.getElementById('new-customer').value;
     if (newCustomer) {
-        const li = document.createElement('li');
-        li.textContent = newCustomer;
-        li.draggable = true;
-        document.getElementById('waiting-list').appendChild(li);
-        document.getElementById('new-customer').value = '';
-        addDragEvents(li);
         $.ajax({
             url: "/queue/addQueueItem",
             method: 'POST',
@@ -14,10 +8,17 @@ function addCustomer() {
                 packingSlipNo: newCustomer
             },
             success: function(response){
-
+                const li = document.createElement('li');
+                li.textContent = newCustomer;
+                li.draggable = true;
+                document.getElementById('waiting-list').appendChild(li);
+                document.getElementById('new-customer').value = '';
+                addDragEvents(li);
             },
             error: function(xhr, status, error){
-                console.error(error);
+                //console.error(error);
+                bootboxAlertError(xhr.responseText);
+                setTimeout(function(){location.reload();},2000);
             }
         });
     }
