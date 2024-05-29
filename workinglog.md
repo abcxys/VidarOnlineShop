@@ -868,3 +868,12 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 1. Update one of the user info to order@vidarflooring.com
 2. Add two repository methods for querying queueItem with packingSlipNo and status.
 3. Add service/impl methods for updating queueItem status and getting list of queueItems with different status created on current date.
+
+### May 27th changes:
+1. Add put mapping method for updating queue item status.
+2. Add three lists of queue items with different status.
+3. Update \<ul\> id's of preparing-list and completed-list.
+4. Add thymeleaf rendering of three lists of queue items.
+5. Force automated refresh of queuing page every 90 seconds.
+6. Add ajax callings upon dragging/moving of queue items.
+7. Update touch end event handlers.
