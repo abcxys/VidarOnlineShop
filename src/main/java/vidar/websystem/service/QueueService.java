@@ -13,6 +13,8 @@ import java.util.List;
  */
 public interface QueueService {
 
+    boolean existsByPackingSlipNo(String packingSlipNo);
+
     ResponseEntity<?> addQueueItem(User user, String packingSlipNo);
 
     List<QueueItem> getQueueItemsCreatedToday();

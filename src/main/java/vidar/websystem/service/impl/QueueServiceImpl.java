@@ -24,6 +24,16 @@ import java.util.List;
 public class QueueServiceImpl implements QueueService {
 
     private final QueueItemRepository queueItemRepository;
+
+    /**
+     * @param packingSlipNo
+     * @return
+     */
+    @Override
+    public boolean existsByPackingSlipNo(String packingSlipNo) {
+        return queueItemRepository.existsByPackingSlipNo(packingSlipNo);
+    }
+
     /**
      * @param user Authenticated user
      * @param packingSlipNo String to form queueItem
