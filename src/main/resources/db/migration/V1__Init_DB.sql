@@ -636,6 +636,7 @@ create table test_queuing
     update_user_id  int8,
     prepare_start   timestamp,
     PRIMARY KEY (id),
+    UNIQUE(packing_slip_no),
     CONSTRAINT fk_create_user_id
         FOREIGN KEY(create_user_id)
             REFERENCES users(id),
