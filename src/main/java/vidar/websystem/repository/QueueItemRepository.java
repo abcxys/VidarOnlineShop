@@ -18,6 +18,8 @@ public interface QueueItemRepository extends JpaRepository<QueueItem, Long> {
 
     QueueItem findByPackingSlipNo(String packingSlipNo);
 
+    boolean existsByPackingSlipNo(String packingSlipNo);
+
     @Query("SELECT i FROM QueueItem i WHERE i.status = :status AND FUNCTION('DATE', i.createTime) = FUNCTION('DATE', CURRENT_DATE)")
     List<QueueItem> findAllByStatusAndCreateTimeToday(Integer status);
 }
