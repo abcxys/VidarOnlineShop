@@ -877,3 +877,9 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 5. Force automated refresh of queuing page every 90 seconds.
 6. Add ajax callings upon dragging/moving of queue items.
 7. Update touch end event handlers.
+
+### May 28th changes:
+1. Update database initialization query, make sure 'packing_slip_no' in table 'test_queuing' is unique.
+2. Add boolean method for QueueItemRepository to find out if packingSlipNo exists in database.
+3. Add service/impl methods for queue items to judge if the item with packingSlipNo exists.
+4. Update javascript code for queuing page, only add queueItem when it does not exist in database.
