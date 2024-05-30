@@ -31,6 +31,8 @@ public class QueueRestController {
     public ResponseEntity<?> addQueueItem(@RequestParam("packingSlipNo") String packingSlipNo){
         log.info("addQueueItem with packingSlipNo: " + packingSlipNo);
         User user = userService.getAuthenticatedUser();
+        if (queueService.existsByPackingSlipNo(packingSlipNo))
+            return ResponseEntity.badRequest().body("queue item already exists");
         queueService.addQueueItem(user, packingSlipNo);
         return ResponseEntity.ok("success");
     }
