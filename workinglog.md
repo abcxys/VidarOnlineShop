@@ -883,3 +883,8 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 2. Add boolean method for QueueItemRepository to find out if packingSlipNo exists in database.
 3. Add service/impl methods for queue items to judge if the item with packingSlipNo exists.
 4. Update javascript code for queuing page, only add queueItem when it does not exist in database.
+
+### May 29th changes:
+1. Update findAllByStatusAndCreateTimeToday query by ordering by createTime descent.
+2. Update addQueueItem controller method, skip adding item to database if packingSlipNo duplicated
+3. Update html code for queue page, mostly for header to align with other pages.
