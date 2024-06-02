@@ -331,6 +331,7 @@ create table sales_orders
     update_user_id  int8,
     status_id   int8 not null,
     release_ok  boolean not null default true,
+    is_back_order boolean not null default false,
     PRIMARY KEY (id),
     CONSTRAINT fk_create_user_id
         FOREIGN KEY(create_user_id)
