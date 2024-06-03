@@ -83,6 +83,9 @@ public class SalesOrder {
     @Column(name = "release_ok")
     private boolean releaseOk;
 
+    @Column(name = "is_back_order")
+    private boolean isBackOrder = false;
+
     @JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY,
 			cascade = { 
