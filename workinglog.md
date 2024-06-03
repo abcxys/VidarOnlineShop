@@ -888,3 +888,7 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 1. Update findAllByStatusAndCreateTimeToday query by ordering by createTime descent.
 2. Update addQueueItem controller method, skip adding item to database if packingSlipNo duplicated
 3. Update html code for queue page, mostly for header to align with other pages.
+
+### June 1st changes:
+1. Add max-height property of .column.ul to enable the vertical direction scrolling.
+2. Add is_back_order boolean field/attribute to table 'sales_orders'.
