@@ -892,3 +892,6 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 ### June 1st changes:
 1. Add max-height property of .column.ul to enable the vertical direction scrolling.
 2. Add is_back_order boolean field/attribute to table 'sales_orders'.
+
+### June 2nd changes:
+1. Add 'isBackOrder' field/property to entity class 'SalesOrder' with default value 'false'.
