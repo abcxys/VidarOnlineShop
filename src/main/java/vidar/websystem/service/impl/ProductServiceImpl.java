@@ -314,6 +314,8 @@ public class ProductServiceImpl implements ProductService {
 			String resultFilename = uuidFile + "." + file.getOriginalFilename();
 			file.transferTo(new File(uploadPath + "/" + resultFilename));
 			floor.setFilename(resultFilename);
+		} else {
+			floor.setFilename("image-coming-soon.jpg");
 		}
 		hardwoodRepository.save(floor);
 		return new MessageResponse("alert-success", message);
