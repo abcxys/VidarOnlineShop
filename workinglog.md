@@ -895,3 +895,6 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 
 ### June 2nd changes:
 1. Add 'isBackOrder' field/property to entity class 'SalesOrder' with default value 'false'.
+
+### June 3rd changes:
+1. Add condition branch for adding new item without multipart image file.
