@@ -898,3 +898,6 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 
 ### June 3rd changes:
 1. Add condition branch for adding new item without multipart image file.
+
+### June 6th changes:
+1. Update property file for testing. 
