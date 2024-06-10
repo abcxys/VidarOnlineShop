@@ -21,8 +21,10 @@ import static vidar.websystem.util.TestConstants.*;
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource("/application-test.properties")
+@Sql(value = {"/sql/create-attributes-before.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = {"/sql/create-products-before.sql"}, executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 @Sql(value = {"/sql/create-products-after.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+@Sql(value = {"/sql/create-attributes-after.sql"}, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class ProductControllerTest {
 
     @Autowired
@@ -57,14 +59,14 @@ public class ProductControllerTest {
                 .andExpect(status().reason(ErrorMessage.PRODUCT_NOT_FOUND));
     }
 
-//    @Test
-//    @DisplayName("[200] GET /perfume - Get Perfumes By Filter Params")
-//    public void getPerfumesByFilterParams() throws Exception {
-//        mockMvc.perform(get(PathConstants.PRODUCT))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name(Pages.PRODUCTS))
-//                .andExpect(model().attribute("page", hasProperty("content", hasSize(12))));
-//    }
+    @Test
+    @DisplayName("[200] GET /product - Get Products By Filter Params")
+    public void getPerfumesByFilterParams() throws Exception {
+        mockMvc.perform(get(PathConstants.PRODUCT))
+                .andExpect(status().isOk())
+                .andExpect(view().name(Pages.PRODUCTS))
+                .andExpect(model().attribute("page", hasProperty("content", hasSize(9))));
+    }
 
 //    @Test
 //    @DisplayName("[200] GET /perfume - Get Perfumes By Filter Params: perfumers")
