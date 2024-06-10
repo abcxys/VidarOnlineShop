@@ -901,3 +901,14 @@ Note: 'aoColumns' attribute would not work with DataTable loading, all data woul
 
 ### June 6th changes:
 1. Update property file for testing. 
+
+### June 7th changes:
+1. Add sql files for ProductControllerTest.
+
+### June 8th changes:
+Note: table 'joint_types' is not used at all!
+1. Update unit testing for product controller.
+
+### June 9th changes:
+1. Update application property file for unit testing, to avoid the conflict of schema between hibernate and flyway.
+Note: in order to do product related testing, make sure V3__Add_products.sql add nothing to product table.
