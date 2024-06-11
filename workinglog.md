@@ -912,3 +912,4 @@ Note: table 'joint_types' is not used at all!
 ### June 9th changes:
 1. Update application property file for unit testing, to avoid the conflict of schema between hibernate and flyway.
 Note: in order to do product related testing, make sure V3__Add_products.sql add nothing to product table.
+2. Update unit testing for products for the testing of number of products on page.
