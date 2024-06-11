@@ -20,21 +20,21 @@
     </a>
 </div>
 
-<div th:fragment="perfumes-brand-checkbox(brand)" class="checkbox">
+<div th:fragment="product-color-checkbox(color)" class="checkbox">
     <label>
-        <input th:value="${brand}" type="checkbox" name="colours" onChange="this.form.submit()"
-               th:checked="${searchRequest.getColours() != null ? #arrays.contains(searchRequest.getColours(), brand) : false}"/>
+        <input th:value="${color}" type="checkbox" name="colours" onChange="this.form.submit()"
+               th:checked="${searchRequest.getColours() != null ? #arrays.contains(searchRequest.getColours(), color) : false}"/>
         <span class="cr"><i class="cr-icon fas fa-check"></i></span>
-        <th:block th:text="${brand}"></th:block>
+        <th:block th:text="${color}"></th:block>
     </label>
 </div>
 
-<div th:fragment="perfumes-gender-checkbox(gender)" class="checkbox">
+<div th:fragment="product-width-checkbox(width)" class="checkbox">
     <label>
-        <input th:value="${gender}" type="checkbox" name="genders" onChange="this.form.submit()"
-               th:checked="${searchRequest.getWidths() != null ? #arrays.contains(searchRequest.getWidths(), gender) : false}"/>
+        <input th:value="${width}" type="checkbox" name="widths" onChange="this.form.submit()"
+               th:checked="${searchRequest.getWidths() != null ? #arrays.contains(searchRequest.getWidths(), width) : false}"/>
         <span class="cr"><i class="cr-icon fas fa-check"></i></span>
-        <th:block th:text="${#strings.capitalize(gender)}"></th:block>
+        <th:block th:text="${#strings.capitalize(width)}"></th:block>
     </label>
 </div>
 

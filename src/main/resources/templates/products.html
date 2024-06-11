@@ -6,7 +6,7 @@
 <div th:replace="fragments/common-fragments :: navbar"></div>
 <div id="container" class="bg-light">
     <div class="container-fluid d-flex bg-white shadow-sm">
-        <!--nav id="sidebar">
+        <nav id="sidebar">
             <div class="sidebar-header">
                 <h4>Hardwood Floors</h4>
             </div>
@@ -15,28 +15,28 @@
                     <h5>Colour</h5>
                     <li class="active mb-2" id="homeSubmenu">
                         <ul class="list-unstyled">
-                            <li th:insert="fragments/product-fragments :: perfumes-brand-checkbox('Natural')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-brand-checkbox('Naked Oak')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-brand-checkbox('Smoke Grey')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-brand-checkbox('Fortino')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-brand-checkbox('Day Break')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-brand-checkbox('Camel')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-brand-checkbox('Napoli')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-brand-checkbox('Coffee')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-brand-checkbox('Drift Wood')"></li>
+                            <li th:insert="fragments/product-fragments :: product-color-checkbox('Natural')"></li>
+                            <li th:insert="fragments/product-fragments :: product-color-checkbox('Naked Oak')"></li>
+                            <li th:insert="fragments/product-fragments :: product-color-checkbox('Smoke Grey')"></li>
+                            <li th:insert="fragments/product-fragments :: product-color-checkbox('Fortino')"></li>
+                            <li th:insert="fragments/product-fragments :: product-color-checkbox('Day Break')"></li>
+                            <li th:insert="fragments/product-fragments :: product-color-checkbox('Camel')"></li>
+                            <li th:insert="fragments/product-fragments :: product-color-checkbox('Napoli')"></li>
+                            <li th:insert="fragments/product-fragments :: product-color-checkbox('Coffee')"></li>
+                            <li th:insert="fragments/product-fragments :: product-color-checkbox('Drift Wood')"></li>
                         </ul>
                     </li>
                     <h5>Width</h5>
                     <li class="active mb-2">
                         <ul class="list-unstyled">
-                        <li th:insert="fragments/product-fragments :: perfumes-gender-checkbox('5&quot;')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-gender-checkbox('6&quot;')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-gender-checkbox('7&quot;')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-gender-checkbox('7-1/2&quot;')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-gender-checkbox('8&quot;')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-gender-checkbox('9&quot;')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-gender-checkbox('10&quot;')"></li>
-                            <li th:insert="fragments/product-fragments :: perfumes-gender-checkbox('11&quot;')"></li>
+                        <li th:insert="fragments/product-fragments :: product-width-checkbox('5&quot;')"></li>
+                            <li th:insert="fragments/product-fragments :: product-width-checkbox('6&quot;')"></li>
+                            <li th:insert="fragments/product-fragments :: product-width-checkbox('7&quot;')"></li>
+                            <li th:insert="fragments/product-fragments :: product-width-checkbox('7-1/2&quot;')"></li>
+                            <li th:insert="fragments/product-fragments :: product-width-checkbox('8&quot;')"></li>
+                            <li th:insert="fragments/product-fragments :: product-width-checkbox('9&quot;')"></li>
+                            <li th:insert="fragments/product-fragments :: product-width-checkbox('10&quot;')"></li>
+                            <li th:insert="fragments/product-fragments :: product-width-checkbox('11&quot;')"></li>
                         </ul>
                     </li>
                     <h5>Price</h5>
@@ -51,7 +51,7 @@
                     </li>
                 </ul>
             </form>
-        </nav-->
+        </nav>
         <div class="container mb-5">
             <div class="container-fluid mt-5 ml-1">
                 <form action="/product/search" method="get" style="justify-content: center">
