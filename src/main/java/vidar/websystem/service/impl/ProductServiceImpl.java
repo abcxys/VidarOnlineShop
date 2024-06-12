@@ -84,9 +84,12 @@ public class ProductServiceImpl implements ProductService {
     public Page<HardwoodFloor> getProductsByFilterParams(SearchRequest request, Pageable pageable) {
         Integer startingPrice = request.getPrice();
         Integer endingPrice = startingPrice + (startingPrice == 0 ? 500 : 50);
+		List<String> widthDigits = new ArrayList<>();
+		if (request.getWidths() != null)
+			widthDigits = request.getWidths().stream().map(width -> width.replaceAll("\"", "")).collect(Collectors.toList());
         return hardwoodRepository.findByFilter(
 				request.getColours() == null ? new ArrayList<>() : request.getColours(),
-				request.getWidths() == null ? new ArrayList<>() : request.getWidths(),
+				request.getWidths() == null ? new ArrayList<>() : widthDigits,
 				BigDecimal.valueOf(startingPrice),
 				BigDecimal.valueOf(endingPrice),
 				pageable
