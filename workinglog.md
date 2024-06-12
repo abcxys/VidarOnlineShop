@@ -913,3 +913,7 @@ Note: table 'joint_types' is not used at all!
 1. Update application property file for unit testing, to avoid the conflict of schema between hibernate and flyway.
 Note: in order to do product related testing, make sure V3__Add_products.sql add nothing to product table.
 2. Update unit testing for products for the testing of number of products on page.
+
+### June 10th changes:
+1. Update the names of attribute searching checkbox fragments.
+2. Reactivate the attribute searching navbar on products page.
