@@ -68,15 +68,15 @@ public class ProductControllerTest {
                 .andExpect(model().attribute("page", hasProperty("content", hasSize(9))));
     }
 
-//    @Test
-//    @DisplayName("[200] GET /perfume - Get Perfumes By Filter Params: perfumers")
-//    public void getPerfumesByFilterParams_Perfumers() throws Exception {
-//        mockMvc.perform(get(PathConstants.PRODUCT)
-//                        .param("perfumers", "Creed"))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name(Pages.PRODUCTS))
-//                .andExpect(model().attribute("page", hasProperty("content", hasSize(7))));
-//    }
+    @Test
+    @DisplayName("[200] GET /product - Get Products By Filter Params: colours")
+    public void getPerfumesByFilterParams_Perfumers() throws Exception {
+        mockMvc.perform(get(PathConstants.PRODUCT)
+                        .param("colours", "Natural"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(Pages.PRODUCTS))
+                .andExpect(model().attribute("page", hasProperty("content", hasSize(2))));
+    }
 
 //    @Test
 //    @DisplayName("[200] GET /perfume - Get Perfumes By Filter Params: perfumers, genders")
