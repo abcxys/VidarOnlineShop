@@ -917,3 +917,6 @@ Note: in order to do product related testing, make sure V3__Add_products.sql add
 ### June 10th changes:
 1. Update the names of attribute searching checkbox fragments.
 2. Reactivate the attribute searching navbar on products page.
+
+### June 11th changes:
+1. Update getProductsByFilterParams method to make width filtering work by remove quote from width input strings.
