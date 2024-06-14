@@ -920,3 +920,6 @@ Note: in order to do product related testing, make sure V3__Add_products.sql add
 
 ### June 11th changes:
 1. Update getProductsByFilterParams method to make width filtering work by remove quote from width input strings.
+
+### June 12th changes:
+1. Add test for product filtering by colours.
