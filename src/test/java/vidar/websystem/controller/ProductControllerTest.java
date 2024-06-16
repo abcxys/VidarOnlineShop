@@ -71,6 +71,7 @@ public class ProductControllerTest {
     @Test
     @DisplayName("[200] GET /product - Get Products By Filter Params: colours")
     public void getPerfumesByFilterParams_Perfumers() throws Exception {
+        // plank_id = 1 means colour 'Natural'
         mockMvc.perform(get(PathConstants.PRODUCT)
                         .param("colours", "Natural"))
                 .andExpect(status().isOk())
@@ -78,16 +79,16 @@ public class ProductControllerTest {
                 .andExpect(model().attribute("page", hasProperty("content", hasSize(2))));
     }
 
-//    @Test
-//    @DisplayName("[200] GET /perfume - Get Perfumes By Filter Params: perfumers, genders")
-//    public void getPerfumesByFilterParams_PerfumersAndGenders() throws Exception {
-//        mockMvc.perform(get(PathConstants.PRODUCT)
-//                        .param("perfumers", "Creed")
-//                        .param("genders", "male"))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name(Pages.PRODUCTS))
-//                .andExpect(model().attribute("page", hasProperty("content", hasSize(3))));
-//    }
+    @Test
+    @DisplayName("[200] GET /product - Get Products By Filter Params: colours, widths")
+    public void getPerfumesByFilterParams_PerfumersAndGenders() throws Exception {
+        mockMvc.perform(get(PathConstants.PRODUCT)
+                        .param("colours", "Natural")
+                        .param("widths", "6"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(Pages.PRODUCTS))
+                .andExpect(model().attribute("page", hasProperty("content", hasSize(2))));
+    }
 //
 //    @Test
 //    @DisplayName("[200] GET /perfume - Get Perfumes By Filter Params: perfumers, genders, price")
