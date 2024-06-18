@@ -43,6 +43,28 @@ public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, L
 			Pageable pageable
 	);
 
+	Page<HardwoodFloor> findByColorNameInAndSizeWidthInInchIn(
+			List<String> colorNames,
+			List<String> widthInInch,
+			Pageable pageable
+	);
+
+	Page<HardwoodFloor> findByColorNameIn(
+			List<String> colorNames,
+			Pageable pageable
+	);
+
+	Page<HardwoodFloor> findBySizeWidthInInchIn(
+			List<String> widthInInch,
+			Pageable pageable
+	);
+
+	Page<HardwoodFloor> findByPriceBetween(
+			BigDecimal priceLow,
+			BigDecimal priceHigh,
+			Pageable pageable
+	);
+
 	default Page<HardwoodFloor> findByFilter(
 			List<String> colorNames,
 			List<String> widthInInch,
@@ -50,19 +72,47 @@ public interface HardwoodFloorsRepository extends JpaRepository<HardwoodFloor, L
 			BigDecimal priceHigh,
 			Pageable pageable
 	) {
-		if ((colorNames == null || colorNames.isEmpty()) && (widthInInch == null || widthInInch.isEmpty())) {
-			// If both colorNames and widthInInch are empty, return all records without filtering
-			return findAll(pageable);
-		} else if (colorNames == null || colorNames.isEmpty()) {
-			// If only colorNames is empty, exclude it from the query
-			return findBySizeWidthInInchInAndPriceBetween(widthInInch, priceLow, priceHigh, pageable);
-		} else if (widthInInch == null || widthInInch.isEmpty()) {
-			// If only widthInInch is empty, exclude it from the query
-			return findByColorNameInAndPriceBetween(colorNames, priceLow, priceHigh, pageable);
-		} else {
-			// If both colorNames and widthInInch are provided, use the original query
+		boolean isColorFilterActive = colorNames != null && !colorNames.isEmpty();
+		boolean isWidthFilterActive = widthInInch != null && !widthInInch.isEmpty();
+		boolean isPriceFilterActive = priceLow != null && !priceLow.equals(BigDecimal.ZERO);
+
+		if (isColorFilterActive && isWidthFilterActive && isPriceFilterActive) {
+			// All filters are active
 			return findByColorNameInAndSizeWidthInInchInAndPriceBetween(colorNames, widthInInch, priceLow, priceHigh, pageable);
 		}
+
+		if (isColorFilterActive && isWidthFilterActive) {
+			// Color and Width filters are active
+			return findByColorNameInAndSizeWidthInInchIn(colorNames, widthInInch, pageable);
+		}
+
+		if (isColorFilterActive && isPriceFilterActive) {
+			// Color and Price filters are active
+			return findByColorNameInAndPriceBetween(colorNames, priceLow, priceHigh, pageable);
+		}
+
+		if (isWidthFilterActive && isPriceFilterActive) {
+			// Width and Price filters are active
+			return findBySizeWidthInInchInAndPriceBetween(widthInInch, priceLow, priceHigh, pageable);
+		}
+
+		if (isColorFilterActive) {
+			// Only Color filter is active
+			return findByColorNameIn(colorNames, pageable);
+		}
+
+		if (isWidthFilterActive) {
+			// Only Width filter is active
+			return findBySizeWidthInInchIn(widthInInch, pageable);
+		}
+
+		if (isPriceFilterActive) {
+			// Only Price filter is active
+			return findByPriceBetween(priceLow, priceHigh, pageable);
+		}
+
+		// Default case, although it should never reach here due to prior checks
+		return findAll(pageable);
 	}
 
     /*

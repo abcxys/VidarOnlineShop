@@ -83,7 +83,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<HardwoodFloor> getProductsByFilterParams(SearchRequest request, Pageable pageable) {
         Integer startingPrice = request.getPrice();
-        Integer endingPrice = startingPrice + (startingPrice == 0 ? 500 : 50);
+        double endingPrice = startingPrice + (startingPrice == 0 ? 15 : 0.99);
 		List<String> widthDigits = new ArrayList<>();
 		if (request.getWidths() != null)
 			widthDigits = request.getWidths().stream().map(width -> width.replaceAll("\"", "")).collect(Collectors.toList());
