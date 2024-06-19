@@ -926,3 +926,6 @@ Note: in order to do product related testing, make sure V3__Add_products.sql add
 
 ### June 15th changes:
 1. Add test for product filtering by colours and widths.
+
+### June 17th changes:
+1. Update repository and service implementation methods for products, to accommodate for three filtering conditions.
