@@ -929,3 +929,11 @@ Note: in order to do product related testing, make sure V3__Add_products.sql add
 
 ### June 17th changes:
 1. Update repository and service implementation methods for products, to accommodate for three filtering conditions.
+
+### June 18th changes:
+Note for android studio setup.
+Update environment variable 'android_home' to correct path, otherwise emulator cannot find the corresponding sdk.
+
+### June 19th changes:
+1. Add VidarApp android app to github version control.
+2. Add retrofit calling to springboot getmapping api, not tested yet.
