@@ -937,3 +937,6 @@ Update environment variable 'android_home' to correct path, otherwise emulator c
 ### June 19th changes:
 1. Add VidarApp android app to github version control.
 2. Add retrofit calling to springboot getmapping api, not tested yet.
+
+### June 20th changes:
+1. Add table 'Samples' to database.
