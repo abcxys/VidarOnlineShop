@@ -645,6 +645,14 @@ create table test_queuing
         FOREIGN KEY(update_user_id)
             REFERENCES users(id)
 );
+create table samples
+(
+    id SERIAL PRIMARY KEY,
+    product_id  INT NOT NULL,
+    description TEXT,
+    price DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (product_id) REFERENCES hardwoodfloors(id)
+);
 alter table if exists sales_orders
     add constraint FK32ql8ubntj5uh44ph9659tiih foreign key (user_id) references users;
 alter table if exists user_role
