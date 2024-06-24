@@ -940,3 +940,6 @@ Update environment variable 'android_home' to correct path, otherwise emulator c
 
 ### June 20th changes:
 1. Add table 'Samples' to database.
+
+### June 21st changes:
+1. Add table 'samples' to database initialization.
