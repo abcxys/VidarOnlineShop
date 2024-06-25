@@ -64,6 +64,7 @@
                                         </table>
                                     </form>
                                 </div>
+                            </div>
                         </form>
                     </th:block>
                     <th:block sec:authorize="hasAuthority('ADMIN')">
@@ -106,6 +107,7 @@
                                         </table>
                                     </form>
                                 </div>
+                            </div>
                         </form>
                     </th:block>
                     <th:block sec:authorize="hasAuthority('ADMIN')">
@@ -123,6 +125,20 @@
                             <span id="factoryInventoryQuantity"></span>
                         </div>
                     </th:block>
+                    <form action="/" method="post">
+                        <div>
+                            <div>
+                                <input id="sample_quantity" name="sample_quantity" type="number" value="0" style="width: 75px;"/> <label><span> SAMPLES</span></label>
+                            </div>
+                            <div>
+                                <button type="submit" name="productId" class="btn btn-success"
+                                        th:value="${product.getId()}">
+                                    <i class="fas fa-cart-plus mr-2 fa-lg"></i>
+                                    ORDER SAMPLES
+                                </button>
+                            </div>
+                        </div>
+                    </form>
 		        </div>
              </div>
                 <br>
