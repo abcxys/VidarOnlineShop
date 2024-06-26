@@ -947,3 +947,6 @@ Update environment variable 'android_home' to correct path, otherwise emulator c
 ### June 22nd changes:
 1. Add entity class 'Sample' for table 'samples'.
 2. Update schema initialization for table 'samples', keep using type 'int8' for id's.
+
+### June 24th changes:
+1. Add html fragments for users to orders samples.
