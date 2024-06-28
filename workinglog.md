@@ -950,3 +950,6 @@ Update environment variable 'android_home' to correct path, otherwise emulator c
 
 ### June 24th changes:
 1. Add html fragments for users to orders samples.
+
+### June 26th changes:
+1. Add repository interface for 'Sample' class.
