@@ -42,7 +42,7 @@ public class CartControllerTest {
     @Test
     @WithUserDetails(USER_EMAIL)
     @DisplayName("[300] POST /cart/add - Add Perfume To Cart")
-    public void addPerfumeToCart() throws Exception {
+    public void addProductToCart() throws Exception {
         mockMvc.perform(post(PathConstants.CART + "/add")
                         .param("perfumeId", "1"))
                 .andExpect(status().is3xxRedirection())
