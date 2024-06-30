@@ -953,3 +953,6 @@ Update environment variable 'android_home' to correct path, otherwise emulator c
 
 ### June 26th changes:
 1. Add repository interface for 'Sample' class.
+
+### June 28th changes:
+1. Rename the controller method of adding product to cart.
