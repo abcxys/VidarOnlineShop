@@ -956,3 +956,6 @@ Update environment variable 'android_home' to correct path, otherwise emulator c
 
 ### June 28th changes:
 1. Rename the controller method of adding product to cart.
+
+### June 30th changes:
+1. Add the controller method of adding sample to cart.
