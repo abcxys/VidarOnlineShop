@@ -33,6 +33,11 @@ public class CartController {
         return "redirect:" + PathConstants.CART;
     }
 
+    @PostMapping("/addSample")
+    public String addSampleToCart(@RequestParam("productId") Long productId, @RequestParam("quantity") Long quantity) {
+        return "test";
+    }
+
     @PostMapping("/remove")
     public String removePerfumeFromCart(@RequestParam("perfumeId") Long perfumeId) {
         cartService.removePerfumeFromCart(perfumeId);
