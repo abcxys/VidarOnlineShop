@@ -28,6 +28,7 @@ public class Pages {
     public static final String RETURN = "return";
     public static final String INVENTORY = "inventory";
     public static final String CREATE_ORDER = "create-order";
+    public static final String CHECKOUT_INFORMATION = "checkout-information";
     public static final String SALES_ORDERING = "sales-ordering";
     public static final String SALES_ORDERS = "sales-orders";
     public static final String SALES_ORDER = "sales-order";
