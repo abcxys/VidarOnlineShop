@@ -959,3 +959,6 @@ Update environment variable 'android_home' to correct path, otherwise emulator c
 
 ### June 30th changes:
 1. Add the controller method of adding sample to cart.
+
+### July 1st changes:
+1. Add sample service and implementation methods for sample related CRUD.
