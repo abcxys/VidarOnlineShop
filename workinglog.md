@@ -962,3 +962,6 @@ Update environment variable 'android_home' to correct path, otherwise emulator c
 
 ### July 1st changes:
 1. Add sample service and implementation methods for sample related CRUD.
+
+### July 2nd changes:
+1. Add Pages/PathConstants constants for checkout page.
