@@ -965,3 +965,8 @@ Update environment variable 'android_home' to correct path, otherwise emulator c
 
 ### July 2nd changes:
 1. Add Pages/PathConstants constants for checkout page.
+
+### July 3rd changes:
+1. Add checkout-information web page template for shipping info filling.
+
+Note: the page requires further formatting and polishing.
