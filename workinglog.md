@@ -970,3 +970,6 @@ Update environment variable 'android_home' to correct path, otherwise emulator c
 1. Add checkout-information web page template for shipping info filling.
 
 Note: the page requires further formatting and polishing.
+
+### July 4th changes:
+1. Add controller method for checkout information page.
