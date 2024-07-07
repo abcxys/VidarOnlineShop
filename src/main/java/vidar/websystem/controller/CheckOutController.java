@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vidar.websystem.constants.Pages;
 import vidar.websystem.constants.PathConstants;
+import vidar.websystem.service.CartService;
 
 /**
  * @author yishi.xing
@@ -18,8 +19,12 @@ import vidar.websystem.constants.PathConstants;
 @RequestMapping(PathConstants.CHECKOUT)
 public class CheckOutController {
 
+    private final CartService cartService;
+
     @GetMapping
     public String checkout(Model model) {
+        model.addAttribute("products", cartService.getPerfumesInCart());
+        model.addAttribute("floor_quantities", cartService.getFloorQuantitesInCart());
         return Pages.CHECKOUT_INFORMATION;
     }
 }
