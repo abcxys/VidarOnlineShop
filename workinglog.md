@@ -973,3 +973,6 @@ Note: the page requires further formatting and polishing.
 
 ### July 4th changes:
 1. Add controller method for checkout information page.
+
+### July 6th changes:
+1. Add "product" and "floor_quantities" attributes to checkout page model.
