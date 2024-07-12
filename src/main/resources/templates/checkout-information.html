@@ -3,28 +3,6 @@
 <head th:replace="fragments/common-fragments :: head"></head>
 <title>Checkout Information</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f5f5f5;
-        margin: 0;
-        padding: 0;
-    }
-    .container {
-        display: flex;
-        justify-content: center;
-        padding: 20px;
-    }
-    #container {
-        display: flex;
-        gap: 20px;
-        width: 100%;
-        max-width: 1200px;
-        background-color: #fff;
-        padding: 20px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        border-radius: 5px;
-        margin-top: 20px;
-    }
     .left, .right {
         flex: 1;
     }
@@ -103,135 +81,140 @@
         font-weight: bold;
     }
 </style>
+</head>
 <body>
 <div th:insert="~{fragments/common-fragments :: scripts}"></div>
 <div th:replace="fragments/common-fragments :: navbar"></div>
-<div class="container">
-    <div id="container">
-        <div class="left">
-            <div class="section">
-                <h3>Contact</h3>
-                <label for="email">Email address</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="section">
-                <h3>Delivery method</h3>
-                <label>
-                    <input type="radio" name="delivery-method" value="ship" checked onclick="toggleDeliveryMethod('ship')"> Ship
-                </label>
-                <label>
-                    <input type="radio" name="delivery-method" value="pickup" onclick="toggleDeliveryMethod('pickup')"> Pickup in store
-                </label>
-            </div>
-            <div class="section" id="store-locations" style="display: none;">
-                <h3>Store locations</h3>
-                <div class="checkbox-list">
+<div id="container" class="bg-light">
+    <div class="container-fluid d-flex bg-white shadow-sm">
+            <div class="left">
+                <div class="section">
+                    <h3>Contact</h3>
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="section">
+                    <h3>Delivery method</h3>
                     <label>
-                        <input type="checkbox" name="store-location" value="Showroom 1"> Showroom 1
+                        <input type="radio" name="delivery-method" value="ship" checked onclick="toggleDeliveryMethod('ship')"> Ship
                     </label>
                     <label>
-                        <input type="checkbox" name="store-location" value="Showroom 2"> Showroom 2
-                    </label>
-                    <label>
-                        <input type="checkbox" name="store-location" value="Showroom 3"> Showroom 3
+                        <input type="radio" name="delivery-method" value="pickup" onclick="toggleDeliveryMethod('pickup')"> Pickup in store
                     </label>
                 </div>
-            </div>
-            <div class="section" id="shipping-address">
-                <h3>Shipping address</h3>
-                <label for="country">Country/region</label>
-                <select id="country" name="country" required>
-                    <option value="">Select a country</option>
-                    <!-- Add country options here -->
-                </select>
-                <label for="first-name">First name</label>
-                <input type="text" id="first-name" name="first-name" required>
-                <label for="last-name">Last name</label>
-                <input type="text" id="last-name" name="last-name" required>
-                <label for="address">Address</label>
-                <input type="text" id="address" name="address" required>
-                <label for="city">City</label>
-                <input type="text" id="city" name="city" required>
-                <label for="province">Province</label>
-                <input type="text" id="province" name="province" required>
-                <label for="postal-code">Postal Code</label>
-                <input type="text" id="postal-code" name="postal-code" required>
-                <label for="phone">Phone</label>
-                <input type="tel" id="phone" name="phone" required>
-                <button class="continue-button">Continue to payment</button>
-            </div>
-        </div>
-        <div class="right">
-            <div class="py-5">
-                <div class="container py-5 bg-white shadow-sm card-height">
-                    <div class="text-center" th:if="${products.size() == 0}">
-                        <p>Cart is empty</p>
+                <div class="section" id="store-locations" style="display: none;">
+                    <h3>Store locations</h3>
+                    <div class="checkbox-list">
+                        <label>
+                            <input type="checkbox" name="store-location" value="Showroom 1"> Showroom 1
+                        </label>
+                        <label>
+                            <input type="checkbox" name="store-location" value="Showroom 2"> Showroom 2
+                        </label>
+                        <label>
+                            <input type="checkbox" name="store-location" value="Showroom 3"> Showroom 3
+                        </label>
                     </div>
-                    <div th:if="${products.size() > 0}">
-                        <div class="cart-item mb-3 mx-auto" th:each="cartItem : ${floor_quantities}">
-                            <img th:src="@{/img/{path} (path = ${cartItem.getFloor().getFilename()})}" class="img-fluid" alt="">
-                            <div class="cart-item-details">
-                                <h5 class="cart-item-title" th:text="${cartItem.getFloor().getYear() + ' ' + cartItem.getFloor().getYear()}"></h5>
-                                <p class="cart-item-description" th:text="${cartItem.getFloor().getYear()}"></p>
-                                <p class="cart-item-quantity"><span th:text="${cartItem.getFloor().getYear()}"></span> ml.</p>
-                                <form class="d-inline" action="/cart/update" method="post">
-                                    <div class="qtydiv">
-                                        <label for="Quantity" class="quantity-selector">Quantity</label>
-                                        <div class="qtybox">
-                                            <span class="btnqty qtyminus icon icon-minus">-</span>
-                                            <input type="text" id="quantity" name="quantity" th:value="${cartItem.getQuantity()}" min="1" class="quantity-selector quantity-input" readonly="">
-                                            <span class="btnqty qtyplus icon icon-plus">+</span>
+                </div>
+                <div class="section" id="shipping-address">
+                    <h3>Shipping address</h3>
+                    <label for="country">Country/region</label>
+                    <select id="country" name="country" required>
+                        <option value="">Select a country</option>
+                        <!-- Add country options here -->
+                    </select>
+                    <label for="first-name">First name</label>
+                    <input type="text" id="first-name" name="first-name" required>
+                    <label for="last-name">Last name</label>
+                    <input type="text" id="last-name" name="last-name" required>
+                    <label for="address">Address</label>
+                    <input type="text" id="address" name="address" required>
+                    <label for="city">City</label>
+                    <input type="text" id="city" name="city" required>
+                    <label for="province">Province</label>
+                    <input type="text" id="province" name="province" required>
+                    <label for="postal-code">Postal Code</label>
+                    <input type="text" id="postal-code" name="postal-code" required>
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" required>
+                    <button class="continue-button">Continue to payment</button>
+                </div>
+            </div>
+            <div class="right">
+                <div class="py-5">
+                    <div class="container py-5 bg-white shadow-sm card-height">
+                        <p class="h4 mb-4 text-center">
+                            <i class="fas fa-shopping-cart mr-2"></i>
+                            Cart
+                        </p>
+                        <div class="text-center" th:if="${products.size() == 0}">
+                            <p>Cart is empty</p>
+                        </div>
+                        <div th:if="${products.size() > 0}">
+                            <div class="cart-item mb-3 mx-auto" th:each="cartItem : ${floor_quantities}">
+                                <img th:src="@{/img/{path} (path = ${cartItem.getFloor().getFilename()})}" class="img-fluid" alt="">
+                                <div class="cart-item-details">
+                                    <h5 class="cart-item-title" th:text="${cartItem.getFloor().getYear() + ' ' + cartItem.getFloor().getYear()}"></h5>
+                                    <p class="cart-item-description" th:text="${cartItem.getFloor().getYear()}"></p>
+                                    <p class="cart-item-quantity"><span th:text="${cartItem.getFloor().getYear()}"></span> ml.</p>
+                                    <form class="d-inline" action="/cart/update" method="post">
+                                        <div class="qtydiv">
+                                            <label for="Quantity" class="quantity-selector">Quantity</label>
+                                            <div class="qtybox">
+                                                <span class="btnqty qtyminus icon icon-minus">-</span>
+                                                <input type="text" id="quantity" name="quantity" th:value="${cartItem.getQuantity()}" min="1" class="quantity-selector quantity-input" readonly="">
+                                                <span class="btnqty qtyplus icon icon-plus">+</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <button class="btn btn-warning mb-2" name="perfumeId" th:value="${cartItem.getFloor().getId()}">
-                                        <i></i> Update
-                                    </button>
-                                </form>
+                                        <button class="btn btn-warning mb-2" name="perfumeId" th:value="${cartItem.getFloor().getId()}">
+                                            <i></i> Update
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="cart-item-price">
+                                    <h5 class="cart-item-price-title">$<span th:text="${cartItem.getFloor().getPrice()}"></span></h5>
+                                    <form class="d-inline" action="/cart/remove" method="post">
+                                        <button class="btn btn-warning mb-2">
+                                            <i class="far fa-minus-square mr-2"></i>
+                                            Remove
+                                        </button>
+                                        <input type="hidden" name="perfumeId" th:value="${cartItem.getFloor().getId()}">
+                                    </form>
+                                </div>
                             </div>
-                            <div class="cart-item-price">
-                                <h5 class="cart-item-price-title">$<span th:text="${cartItem.getFloor().getPrice()}"></span></h5>
-                                <form class="d-inline" action="/cart/remove" method="post">
-                                    <button class="btn btn-warning mb-2">
-                                        <i class="far fa-minus-square mr-2"></i>
-                                        Remove
-                                    </button>
-                                    <input type="hidden" name="perfumeId" th:value="${cartItem.getFloor().getId()}">
-                                </form>
+                            <hr class="my-3"/>
+                            <div class="summary">
+                                <div class="summary-item">
+                                    <span>Subtotal</span>
+                                    <span>$<span th:text="${#aggregates.sum(products.![price])}"></span></span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Shipping</span>
+                                    <span>$10.00</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span>Estimated Taxes</span>
+                                    <span>$5.00</span>
+                                </div>
+                                <div class="summary-item total">
+                                    <span>Total</span>
+                                    <span>$<span th:text="${#aggregates.sum(products.![price]) + 15}"></span></span>
+                                </div>
                             </div>
+                            <th:block sec:authorize="hasAuthority('USER')">
+                                <div class="checkout-button">
+                                    <form action="/checkout" method="get">
+                                        <button class="btn btn-success">
+                                            <i class="fas fa-shopping-bag mr-2"></i>
+                                            Checkout
+                                        </button>
+                                    </form>
+                                </div>
+                            </th:block>
                         </div>
-                        <hr class="my-3"/>
-                        <div class="summary">
-                            <div class="summary-item">
-                                <span>Subtotal</span>
-                                <span>$<span th:text="${#aggregates.sum(products.![price])}"></span></span>
-                            </div>
-                            <div class="summary-item">
-                                <span>Shipping</span>
-                                <span>$10.00</span>
-                            </div>
-                            <div class="summary-item">
-                                <span>Estimated taxes</span>
-                                <span>$5.00</span>
-                            </div>
-                            <div class="total summary-item">
-                                <span>Total</span>
-                                <span>$<span th:text="${#aggregates.sum(products.![price]) + 15}"></span></span>
-                            </div>
-                        </div>
-                        <th:block sec:authorize="hasAuthority('USER')">
-                            <div class="checkout-button">
-                                <form action="/checkout" method="get">
-                                    <button class="btn btn-success">
-                                        <i class="fas fa-shopping-bag mr-2"></i>
-                                        Checkout
-                                    </button>
-                                </form>
-                            </div>
-                        </th:block>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 <footer th:insert="~{fragments/common-fragments :: footer}"></footer>
