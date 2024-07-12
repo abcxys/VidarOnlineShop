@@ -979,3 +979,6 @@ Note: the page requires further formatting and polishing.
 
 ### July 8th changes:
 1. Add product details(images/prices) to checkout info web page.
+
+### July 10th changes:
+1. Update checkout-information webpage appearance.
