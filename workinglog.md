@@ -982,3 +982,6 @@ Note: the page requires further formatting and polishing.
 
 ### July 10th changes:
 1. Update checkout-information webpage appearance.
+
+### July 11th changes:
+1. Update checkout-information page to accommodate for extended page contents.
