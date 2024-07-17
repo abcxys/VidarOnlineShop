@@ -985,3 +985,6 @@ Note: the page requires further formatting and polishing.
 
 ### July 11th changes:
 1. Update checkout-information page to accommodate for extended page contents.
+
+### July 15th changes:
+1. Add shipping method selection web page.
