@@ -988,3 +988,7 @@ Note: the page requires further formatting and polishing.
 
 ### July 15th changes:
 1. Add shipping method selection web page.
+
+### July 18th changes:
+1. Update node.js version by uninstall and then download version 20.15 msi file.
+2. Create new repository vidarcart-angular.
