@@ -992,3 +992,6 @@ Note: the page requires further formatting and polishing.
 ### July 18th changes:
 1. Update node.js version by uninstall and then download version 20.15 msi file.
 2. Create new repository vidarcart-angular.
+
+### July 20th changes:
+1. Update main html page to show the title 'Vidar Design Flooring'.
