@@ -995,3 +995,6 @@ Note: the page requires further formatting and polishing.
 
 ### July 20th changes:
 1. Update main html page to show the title 'Vidar Design Flooring'.
+
+### July 22nd changes:
+1. Add REST controller for PlankColor.
