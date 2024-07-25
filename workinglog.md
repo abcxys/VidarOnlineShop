@@ -998,3 +998,6 @@ Note: the page requires further formatting and polishing.
 
 ### July 22nd changes:
 1. Add REST controller for PlankColor.
+
+### July 23rd changes:
+1. Add TypeScript interface for 'PlankSize' class. (Angular)
