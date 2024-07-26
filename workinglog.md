@@ -1001,3 +1001,6 @@ Note: the page requires further formatting and polishing.
 
 ### July 23rd changes:
 1. Add TypeScript interface for 'PlankSize' class. (Angular)
+
+### July 24th changes:
+1. Add service and list component classes for PlankSize. (Angular)
