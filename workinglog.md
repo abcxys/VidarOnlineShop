@@ -1004,3 +1004,6 @@ Note: the page requires further formatting and polishing.
 
 ### July 24th changes:
 1. Add service and list component classes for PlankSize. (Angular)
+
+### July 28th changes:
+1. Add REST controller/service/impl for PlankSize.
