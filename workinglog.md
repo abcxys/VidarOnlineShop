@@ -1007,3 +1007,6 @@ Note: the page requires further formatting and polishing.
 
 ### July 28th changes:
 1. Add REST controller/service/impl for PlankSize.
+
+### July 29th changes:
+ 1. Add plankSize list fetching on initialization, and add table of content rendering in html.(Angular)
