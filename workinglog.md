@@ -1010,3 +1010,6 @@ Note: the page requires further formatting and polishing.
 
 ### July 29th changes:
  1. Add plankSize list fetching on initialization, and add table of content rendering in html.(Angular)
+
+### July 30th changes:
+1. Add routes for PlankSizeListComponent.
