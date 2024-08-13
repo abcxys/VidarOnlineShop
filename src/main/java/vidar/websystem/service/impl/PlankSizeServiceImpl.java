@@ -26,6 +26,6 @@ public class PlankSizeServiceImpl implements PlankSizeService {
      */
     @Override
     public List<PlankSize> getAllPlankSizes() {
-        return Collections.emptyList();
+        return plankSizeRepository.findAll();
     }
 }
