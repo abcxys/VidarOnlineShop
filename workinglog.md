@@ -1013,3 +1013,6 @@ Note: the page requires further formatting and polishing.
 
 ### July 30th changes:
 1. Add routes for PlankSizeListComponent.
+
+### Aug 12th changes:
+1. Update return value of getAllPlankSizes service function.
