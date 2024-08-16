@@ -1016,3 +1016,6 @@ Note: the page requires further formatting and polishing.
 
 ### Aug 12th changes:
 1. Update return value of getAllPlankSizes service function.
+
+### Aug 14th changes:
+1. Set strictPropertyInitialization to be 'false' in tsconfig to avoid property initialization error on compilation. (Angular)
