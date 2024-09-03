@@ -1019,3 +1019,8 @@ Note: the page requires further formatting and polishing.
 
 ### Aug 14th changes:
 1. Set strictPropertyInitialization to be 'false' in tsconfig to avoid property initialization error on compilation. (Angular)
+
+### Sep 1st changes:
+1. Add provideHttpClient import to support httpClient in 'services'. (Angular)
+
+This is new since angular v18, as previously this was done in app.module.ts.
