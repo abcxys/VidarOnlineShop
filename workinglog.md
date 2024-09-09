@@ -1024,3 +1024,9 @@ Note: the page requires further formatting and polishing.
 1. Add provideHttpClient import to support httpClient in 'services'. (Angular)
 
 This is new since angular v18, as previously this was done in app.module.ts.
+
+### Sep 3rd changes:
+1. Add findAll method for PlankColor.
+
+### Sep 7th changes:
+1. Add navbar component.(Angular)
