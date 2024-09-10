@@ -1030,3 +1030,6 @@ This is new since angular v18, as previously this was done in app.module.ts.
 
 ### Sep 7th changes:
 1. Add navbar component.(Angular)
+
+### Sep 8th changes:
+1 .Add authentication service for spring login page.(Angular)
