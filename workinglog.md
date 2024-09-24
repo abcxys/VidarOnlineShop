@@ -1036,3 +1036,6 @@ This is new since angular v18, as previously this was done in app.module.ts.
 
 ### Sep 9th changes:
 1. Update auth-spring service with login method.(Angular)
+
+### Sep 22nd changes:
+1. Add a util class to generate json token and extract username out of token.
