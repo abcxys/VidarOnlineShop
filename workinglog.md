@@ -1039,3 +1039,6 @@ This is new since angular v18, as previously this was done in app.module.ts.
 
 ### Sep 22nd changes:
 1. Add a util class to generate json token and extract username out of token.
+
+### Sep 25th changes:
+1. Update WebSecurityConfiguration class to permit JWT-based authentication for specific API routes.
